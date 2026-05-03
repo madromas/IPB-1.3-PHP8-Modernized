@@ -330,11 +330,22 @@ else
         	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_view_topic') );
         }      
         
-        //-------------------------------------
-        // Update the topic views counter
-        //-------------------------------------
-        
-        $DB->query("UPDATE ibf_topics SET views=views+1 WHERE tid='".$this->topic['tid']."'");
+        //-------------------------------------------------
+// Modernized View Counter: Prevents refresh-spam
+//-------------------------------------------------
+
+$topic_id = intval($this->topic['tid']);
+$view_cookie_name = "viewed_topic_" . $topic_id;
+
+if ( !isset($_COOKIE[$view_cookie_name]) )
+{
+    // Update the database only if the cookie isn't set
+    $DB->query("UPDATE ibf_topics SET views=views+1 WHERE tid='".$topic_id."'");
+    
+    // Set a cookie for 1 hour (3600 seconds) to prevent immediate recount
+    // We use the board's cookie path/domain settings if available
+    setcookie($view_cookie_name, "1", time() + 3600, $ibforums->vars['cookie_path'], $ibforums->vars['cookie_domain']);
+}
         
         //-------------------------------------
         // Update the topic read cookie
