@@ -1951,9 +1951,11 @@ class Moderate {
 			$passed = 0;
 		}
 		
-		if ($this->moderator['pin_first_post_topic'] == 1) {
-			$passed = 1;
-		}
+		if (is_array($this->moderator) && isset($this->moderator['pin_first_post_topic'])) {
+    if ($this->moderator['pin_first_post_topic'] == 1) {
+        $passed = 1;
+    }
+}
 		
 		
 		if ($passed != 1) $this->moderate_error();
@@ -1992,9 +1994,10 @@ class Moderate {
 			$passed = 0;
 		}
 		
-		if ($this->moderator['pin_first_post_topic'] == 1) {
-			$passed = 1;
-		}
+		if ( (isset($this->moderator['pin_first_post_topic']) && $this->moderator['pin_first_post_topic'] == 1) OR $ibforums->member['g_is_supmod'] == 1 )
+{
+    $passed = 1;
+}
 		
 		
 		if ($passed != 1) $this->moderate_error();

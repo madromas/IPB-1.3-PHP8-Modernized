@@ -75,7 +75,7 @@ class Topics {
         
         require ROOT_PATH."sources/lib/post_parser.php";
         
-        $this->parser = new post_parser();
+        $this->parser = new post_parser(1);
         
         //-------------------------------------
         // Check the input
@@ -330,22 +330,11 @@ else
         	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_view_topic') );
         }      
         
-        //-------------------------------------------------
-// Modernized View Counter: Prevents refresh-spam
-//-------------------------------------------------
-
-$topic_id = intval($this->topic['tid']);
-$view_cookie_name = "viewed_topic_" . $topic_id;
-
-if ( !isset($_COOKIE[$view_cookie_name]) )
-{
-    // Update the database only if the cookie isn't set
-    $DB->query("UPDATE ibf_topics SET views=views+1 WHERE tid='".$topic_id."'");
-    
-    // Set a cookie for 1 hour (3600 seconds) to prevent immediate recount
-    // We use the board's cookie path/domain settings if available
-    setcookie($view_cookie_name, "1", time() + 3600, $ibforums->vars['cookie_path'], $ibforums->vars['cookie_domain']);
-}
+        //-------------------------------------
+        // Update the topic views counter
+        //-------------------------------------
+        
+        $DB->query("UPDATE ibf_topics SET views=views+1 WHERE tid='".$this->topic['tid']."'");
         
         //-------------------------------------
         // Update the topic read cookie
@@ -459,31 +448,7 @@ if ( !isset($_COOKIE[$view_cookie_name]) )
 		
 		$this->topic['TOPIC_START_DATE'] = $std->get_date( $this->topic['start_date'], 'LONG' );
 
-if ($ibforums->vars['status_set'] ==  1)
-{
 
-$off_text = ($ibforums->vars['off_status_color']);
-$on_text = ($ibforums->vars['on_status_color']);
-$off_image = ($ibforums->vars['off_status_image']);
-$on_image = ($ibforums->vars['on_status_image']);
-$img_dir = ($ibforums->vars['img_url']);
-$s_pre = ($ibforums->vars['status_prefix']);
-$user_name = 'Member'; // Will be a username variable in v3.5
-
-
-$ibforums->lang['M_On_T'] = preg_replace( "/<#ON_COLOR#>/", $on_text, $ibforums->lang['M_On_T']);
-$ibforums->lang['M_On_T'] = preg_replace( "/<#S_PRE#>/", $s_pre, $ibforums->lang['M_On_T']);
-$ibforums->lang['M_Off_T'] = preg_replace( "/<#OFF_COLOR#>/", $off_text, $ibforums->lang['M_Off_T']);
-$ibforums->lang['M_Off_T'] = preg_replace( "/<#S_PRE#>/", $s_pre, $ibforums->lang['M_Off_T']);
-
-$ibforums->lang['M_On_I'] = preg_replace( "/<#ON_IMAGE#>/", $img_dir.'/'.$on_image, $ibforums->lang['M_On_I']);
-$ibforums->lang['M_On_I'] = preg_replace( "/<#U_NAME#>/", $user_name, $ibforums->lang['M_On_I']);
-$ibforums->lang['M_On_I'] = preg_replace( "/<#S_PRE#>/", $s_pre, $ibforums->lang['M_On_I']);
-$ibforums->lang['M_Off_I'] = preg_replace( "/<#U_NAME#>/", $user_name, $ibforums->lang['M_Off_I']);
-$ibforums->lang['M_Off_I'] = preg_replace( "/<#OFF_IMAGE#>/", $img_dir.'/'.$off_image, $ibforums->lang['M_Off_I']);
-$ibforums->lang['M_Off_I'] = preg_replace( "/<#S_PRE#>/", $s_pre, $ibforums->lang['M_Off_I']);
-
-}
 		
 		$ibforums->lang['topic_stats'] = preg_replace( "/<#START#>/", $this->topic['TOPIC_START_DATE'], $ibforums->lang['topic_stats']);
 		$ibforums->lang['topic_stats'] = preg_replace( "/<#POSTS#>/", $this->topic['posts']           , $ibforums->lang['topic_stats']);
@@ -562,21 +527,17 @@ $ibforums->lang['M_Off_I'] = preg_replace( "/<#S_PRE#>/", $s_pre, $ibforums->lan
 		// Grab the posts we'll need
 		//--------------------------------------------
 
-if ($ibforums->vars['status_set'] ==  1)
-{
+// --- ONLINE STATUS: COLLECT SESSIONS ---
+$online_ornot = array();
+$time_limit = time() - 900; // 15 minutes
 
-$time=time()-900;
+$DB->query("SELECT member_id FROM ibf_sessions WHERE running_time > $time_limit AND member_id > 0");
 
-$online_ornot = Array();
-
-$DB->query( "SELECT s.member_id FROM ibf_sessions s, ibf_posts p WHERE p.topic_id='".$this->topic['tid']."' and p.queued !='1' AND s.member_id<>'0' AND s.running_time > $time AND s.member_id=p.author_id AND  s.login_type !='1'");
-
-while ($stuff = $DB->fetch_row())
-{
-$online_ornot[$stuff['member_id']] = 1;
+while ($s_row = $DB->fetch_row()) {
+    // Force to Integer for PHP 8 compatibility
+    $online_ornot[ (int)$s_row['member_id'] ] = 1;
 }
-
-}
+// --- END COLLECTOR ---
 
 		$first = intval($ibforums->input['st']);
 		
@@ -779,6 +740,8 @@ $online_ornot[$stuff['member_id']] = 1;
 				$poster0['name'] = "<a href='{$this->base_url}&act=Profile&CODE=03&MID={$poster0['id']}'>{$poster0['name']}</a>";
 			}
 			
+
+	
 			$this->output .= $this->html->RenderRow( $row0, $poster0 );
 			
 			
@@ -866,44 +829,21 @@ $online_ornot[$stuff['member_id']] = 1;
 			
 			//--------------------------------------------------------------
 
-if ($ibforums->vars['status_set'] ==  1)
-{
 
-if ($ibforums->vars['status_type'] == "text")
-{
-	$Shadow_ON = $ibforums->lang['M_On_T'];
-	$Shadow_OFF = $ibforums->lang['M_Off_T'];
-}
-else if ($ibforums->vars['status_type'] == "image")
-{
-	$Shadow_ON = $ibforums->lang['M_On_I'];
-	$Shadow_OFF = $ibforums->lang['M_Off_I'];
-}
-else if ($ibforums->vars['status_type'] == "")
-{
-	$Shadow_ON = "";
-	$Shadow_OFF = "";
-}
-else
-{
-	$Shadow_ON = "";
-	$Shadow_OFF = "";
-}
+// --- ONLINE STATUS: ASSIGN TO POSTER ---
+$poster['member_status'] = ""; // Initialize for safety
 
-if ($online_ornot[$row['author_id']])
-  {
-  $poster['member_status']= "$Shadow_ON";
-  }
-  else if ($row['author_id'])
-  {
-  $poster['member_status']= "$Shadow_OFF";
-  }
-  else
-  {
-  $poster['member_status']="";
-  }
-
+if ( isset($row['author_id']) && $row['author_id'] > 0 ) {
+    $check_id = (int)$row['author_id'];
+    
+    // Check if the user is in the online array
+    if ( isset($online_ornot[ $check_id ]) ) {
+        $poster['member_status'] = $ibforums->lang['M_On_T'];
+    } else {
+        $poster['member_status'] = $ibforums->lang['M_Off_T'];
+    }
 }
+// --- END ASSIGNMENT ---
 
 			$row['post_css'] = $post_count % 2 ? 'post1' : 'post2';
 			
@@ -1105,31 +1045,20 @@ if ($online_ornot[$row['author_id']])
            $poster['name']="<a href=\"javascript:ins('{$poster['name']}')\">{$poster['name']}</a>";
   }
 			//--------------------------------------------------------------
-			// Parse HTML tag on the fly
-			//--------------------------------------------------------------
-			
-			if ( $this->forum['use_html'] == 1 )
-			{
-				// So far, so good..
-				
-				if ( stristr( $row['post'], '[dohtml]' ) )
-				{
-					// [doHTML] tag found..
-					
-					$parse = ($this->forum['use_html'] AND $row['g_dohtml']) ? 1 : 0;
-					
-					$row['post'] = $this->parser->post_db_parse($row['post'], $parse );
-				}
-			}
-			
-			//--------------------------------------------------------------
-			// Do word wrap?
-			//--------------------------------------------------------------
-			
-			if ( $ibforums->vars['post_wordwrap'] > 0 )
-			{
-				$row['post'] = $this->parser->my_wordwrap( $row['post'], $ibforums->vars['post_wordwrap']) ;
-			}
+// Parse the post (Bad words and formatting)
+//--------------------------------------------------------------
+
+// Force the parser to run on every single row
+$row['post'] = $this->parser->post_db_parse($row['post'], ($this->forum['use_html'] AND $row['g_dohtml']) ? 1 : 0);
+
+//--------------------------------------------------------------
+// Do word wrap?
+//--------------------------------------------------------------
+
+if ( $ibforums->vars['post_wordwrap'] > 0 )
+{
+    $row['post'] = $this->parser->my_wordwrap( $row['post'], $ibforums->vars['post_wordwrap']) ;
+}
 			
 			//--------------------------------------------------------------
 			// A bit hackish - but there are lots of <br> => <br /> changes to make
@@ -1137,7 +1066,7 @@ if ($online_ornot[$row['author_id']])
 			
 			$row['post']      = str_replace( "<br>", "<br />", $row['post'] );
 			$row['signature'] = str_replace( "<br>", "<br />", $row['signature'] );
-			
+
 			$this->output .= $this->html->RenderRow( $row, $poster );
 			
 			$post_count++;
