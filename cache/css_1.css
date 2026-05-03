@@ -41,6 +41,15 @@ INPUT {vertical-align:middle;font-family: 'Nunito', sans-serif;}
 iframe {
     border-radius: 5px;
     border:none;
+    display: inline-block;
+}
+
+video {
+    width: 560px;
+    border-radius: 5px;
+    border: none;
+    height: 100%;
+    display: inline-block;
 }
 
 a:link, a:visited, a:active { text-decoration: underline; color: #000 }
