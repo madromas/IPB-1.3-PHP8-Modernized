@@ -1,0 +1,32 @@
+<?php
+$INFO['d_allowable_ext']         = array('.txt', '.zip', '.rar');
+$INFO['d_screenshot_ext']        	= array('.gif', '.jpg', '.jpeg', '.png');
+$INFO['d_files_perpage']        	= array('10', '20', '30', '40', '50');
+$INFO['d_max_dwnld_size']        	= 2000;
+$INFO['d_screen_max_dwnld_size'] 	= 500;
+$INFO['d_download_dir']          	= '/home/localhost/www/forums/downloads/';
+$INFO['d_download_url']          	= 'http://localhost/forums/downloads/';
+$INFO['d_screen_dir']            	= '/home/localhost/www/forums/screenshots/';
+$INFO['d_screen_url']            	= 'http://localhost/forums/screenshots/';
+$INFO['d_screenshot_allowed']     = '1';
+$INFO['d_screenshot_required']    = '0';
+$INFO['d_authorize']		      = 2;
+$INFO['d_speed']               	= '';
+$INFO['d_force']               	= 0;
+$INFO['d_linking']               	= 0;
+$INFO['d_link_check']               	= '0';
+$INFO['d_upload']               	= 1;
+$INFO['d_perpage']		      = '10';
+$INFO['d_create_topic']		= '1';
+$INFO['d_topic']                 	= 0;
+$INFO['d_downloads']			= 0;
+$INFO['d_dis_screen_cat']		= 0;
+$INFO['d_dis_screen']			= 0;
+$INFO['d_cat_add']			= 0;
+$INFO['d_admin_auto']			= 1;
+$INFO['d_show_thumb']              = '0';
+$INFO['d_thumb_w']               	= '320';
+$INFO['d_thumb_h']               	= '205';
+$INFO['d_show_global_notes']      = '1';
+$INFO['d_global_notes']           = 'Введите примечание Администратора';
+?>
