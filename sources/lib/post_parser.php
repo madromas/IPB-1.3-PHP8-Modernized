@@ -2,7 +2,7 @@
 
 /*
 +--------------------------------------------------------------------------
-|   MadWay Modernized Parser (Legacy IPB 1.3 Bridge)
+|   Modernized Parser (Legacy IPB 1.3 Bridge)
 |   ========================================
 |   Modernized for PHP 8 compatibility.
 |   Removed: BBCode, Default Smilies, Legacy URL parsing.
@@ -16,22 +16,25 @@ class post_parser {
     var $badwords       = "";
     var $in_sig         = "";
 
-    function __construct($load=0) {
+   function __construct($load=0) {
         global $DB;
         
         if ($load != 0) {
-            // Pre-load the bad words filter
-            $DB->query("SELECT * from ibf_badwords");
-            if ( $DB->get_num_rows() ) {
-                while ( $r = $DB->fetch_row() ) {
-                    $this->badwords[] = array( 
-                        'type'    => stripslashes($r['type']),
-                        'swop'    => stripslashes($r['swop']),
-                        'm_exact' => $r['m_exact'],
-                    );
-                }
-            }
+    // Pre-load the bad words filter
+    $DB->query("SELECT * from ibf_badwords");
+    
+    $this->badwords = is_array($this->badwords) ? $this->badwords : array();
+
+    if ( $DB->get_num_rows() ) {
+        while ( $r = $DB->fetch_row() ) {
+            $this->badwords[] = array( 
+                'type'    => stripslashes($r['type']),
+                'swop'    => stripslashes($r['swop']),
+                'm_exact' => $r['m_exact'],
+            );
         }
+    }
+}
     }
 
     /**
