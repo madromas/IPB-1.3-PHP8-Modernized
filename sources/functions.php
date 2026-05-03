@@ -678,10 +678,10 @@ class FUNC {
 		
 		$url = str_replace( "&amp;", "&", $url );
 		
-		if ($ibforums->vars['header_redirect'] == 'refresh')
-		{
-			@header("Refresh: 0;url=".$url);
-		}
+		if ( is_array($ibforums->vars) && isset($ibforums->vars['header_redirect']) && $ibforums->vars['header_redirect'] == 'refresh' )
+{
+    @header("Refresh: 0;url=".$url);
+}
 		else if ($ibforums->vars['header_redirect'] == 'html')
 		{
 			@flush();
