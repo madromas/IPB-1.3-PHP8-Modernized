@@ -9,8 +9,15 @@ A modernized distribution of **Invision Power Board 1.3**, fully patched for **P
 *   **PHP 8.x Ready**: Comprehensive patches for legacy code to eliminate deprecated function errors and syntax issues.
 *   **MySQLi Implementation**: Replaced the legacy `mysql` driver with `mysqli` for modern database connectivity.
 *   **MariaDB Support**: Optimized for MariaDB and MySQL 8+ environments using `utf8mb4` encoding by default.
-*   **Slim Installer**: A streamlined `sm_install.php` that handles environment checks, `mysqli` configuration, and admin setup without the bloat.
+*   **Slim Installer**: A streamlined `sm_install.php` that handles environment checks, `mysqli` configuration, and admin setup.
 *   **Performance Focused**: Maintained the original lightweight footprint with native CSS and minimal JavaScript dependencies.
+
+## ✨ Modern Enhancements
+
+*   **IBF Portal 4.0**: Fully integrated portal system to transform your forum into a community hub.
+*   **TinyMCE Integration**: Replaced the legacy posting interface with a modernized TinyMCE editor for a better rich-text experience.
+*   **HTML Purifier**: Integrated a modernized standalone security engine to protect against XSS and fix broken HTML tags.
+*   **Security Patches**: Fixed legacy issues with search result insertions and anti-spam image generation.
 
 ## 📦 Installation
 
