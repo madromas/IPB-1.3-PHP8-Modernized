@@ -671,29 +671,33 @@ class FUNC {
 	/*-------------------------------------------------------------------------*/
 	
 	function boink_it($url)
-	{
-		global $ibforums;
-		
-		// Ensure &amp;s are taken care of
-		
-		$url = str_replace( "&amp;", "&", $url );
-		
-		if ( is_array($ibforums->vars) && isset($ibforums->vars['header_redirect']) && $ibforums->vars['header_redirect'] == 'refresh' )
 {
-    @header("Refresh: 0;url=".$url);
+    global $ibforums;
+    
+    // Ensure &amp;s are taken care of
+    $url = str_replace( "&amp;", "&", $url );
+
+    // PHP 8 Fix: Check if vars is an array and the key exists
+    $redirect_type = (is_array($ibforums->vars) && isset($ibforums->vars['header_redirect'])) 
+                     ? $ibforums->vars['header_redirect'] 
+                     : 'location';
+
+    if ($redirect_type == 'refresh')
+    {
+        @header("Refresh: 0;url=".$url);
+    }
+    else if ($redirect_type == 'html')
+    {
+        @flush();
+        echo("<html><head><meta http-equiv='refresh' content='0; url=$url'></head><body></body></html>");
+        exit();
+    }
+    else
+    {
+        @header("Location: ".$url);
+    }
+    exit();
 }
-		else if ($ibforums->vars['header_redirect'] == 'html')
-		{
-			@flush();
-			echo("<html><head><meta http-equiv='refresh' content='0; url=$url'></head><body></body></html>");
-			exit();
-		}
-		else
-		{
-			@header("Location: ".$url);
-		}
-		exit();
-	}
 	
 	/*-------------------------------------------------------------------------*/
 	//
