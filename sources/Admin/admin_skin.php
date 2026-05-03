@@ -1096,7 +1096,7 @@ class admin_skin {
 					
 					.dropdown { background-color: #FFF; color:#000; font-size:13px; padding:2px; font-family:Nunito; border:1px inset #BCD0ED; border-radius:.5em}
 					
-					.multitext { background-color: #FFF; color:#000; font-size:13px; padding:2px;  border:1px inset #BCD0ED; border-radius:.5em}
+					.multitext { background-color: #FFF; color:#000; font-size:14px; padding:5px; font-family: inherit; border:1px inset #BCD0ED; border-radius:.5em}
 					
 					.jmenu, .jmenubutton { color: #000;
     background-color: #fff !important;
