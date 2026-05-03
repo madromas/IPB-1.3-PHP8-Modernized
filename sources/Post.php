@@ -23,7 +23,7 @@
 +--------------------------------------------------------------------------
 */
 
-require_once( './sources/htmlpurifier/HTMLPurifier.auto.php' );
+require_once( './sources/HTMLPurifier/HTMLPurifier.standalone.php' );
 
 $config = HTMLPurifier_Config::createDefault();
 
