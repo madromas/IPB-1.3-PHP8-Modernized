@@ -623,6 +623,11 @@ return <<<EOF
 {$data['news']}
                     
   </td>
+<table cellpadding='0' cellspacing='0' border='0' width='<{tbl_width}>' align='center'>
+    <tr>
+        <td align='center'>{$ibforums->lang['copyrights']}</td>
+    </tr>
+</table>
 
 EOF;
 }
