@@ -835,22 +835,29 @@ function do_news()
                     WHERE ($forumid) AND p.new_topic=1
                     ORDER BY t.tid DESC LIMIT 0, ".$max);
 
-        $first = 1;
+       $first = 1;
         while ( $row = $DB->fetch_row() )
         {
+            // 1. Map 'posts' to 'replies' so the portal template can see it
+            $row['replies'] = $row['posts'] ?? 0;
+            $row['views']   = $row['views'] ?? 0;
+
             $row['start_date'] = $std->get_date( $row['start_date'], 'LONG' );
-            if ( ! $row['member_name'] ) 
-{
-    $row['member_name'] = $row['starter_name'] ? $row['starter_name'] : "Guest";
-}
+            
+            if ( ! ($row['member_name'] ?? "") ) 
+            {
+                $row['member_name'] = ($row['starter_name'] ?? "") ? $row['starter_name'] : "Guest";
+            }
+            
             if (!$first) $to_echo .= "<br>";
             
             $row['icon'] = $std->folder_icon($row);
-            $row['extra'] = (isset($special) && $special) ? $ibforums->lang['news_from']." ".$row['forum_name'] : "";
+            $row['extra'] = (isset($special) && $special) ? ($ibforums->lang['news_from'] ?? "From") . " " . ($row['forum_name'] ?? "") : "";
             
+            // Handle teaser/full post logic
             if ( ($ibforums->vars['portal_tease_news'] ?? 0) )
             {        
-                $length = $ibforums->vars['portal_tease_length'] ?? 250;
+                $length = $ibforums->vars['portal_newstease'] ?? 250; // Use your actual setting name
                 $row['post_body'] = substr(trim($row['post']), 0, $length);
                 $row['post_body_extra'] = " ... [<a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f=".$row['forum_id']."&t=".$row['tid']."'>{$ibforums->lang['news_more']}</a>]";
             }
@@ -861,7 +868,11 @@ function do_news()
             }
 
             $first = 0;
+            
+            // Modernized formatting for PHP 8
             $row['posted_by_formatted'] = "By <strong>{$row['member_name']}</strong> on {$row['start_date']}";
+            
+            // Pass the updated $row to the skin
             $to_echo .= $this->html->news($row);
         }
         
