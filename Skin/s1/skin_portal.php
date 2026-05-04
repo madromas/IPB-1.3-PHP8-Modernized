@@ -453,7 +453,7 @@ return <<<EOF
                    <td class='prew'>{$data['post_body']} {$data['post_body_extra']}</td>
                </tr>
                <tr>
-                   <td class='row4'>{$ibforums->lang['comments']} {$data['replies']} :: <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}'>{$ibforums->lang['viewcomments']}</a></td>
+                   <td class='row4'>{$ibforums->lang['comments']} {$data['replies']} : <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}'>{$ibforums->lang['viewcomments']}</a> Views: {$data['views']}</td>
                </tr>
           </table>
     
