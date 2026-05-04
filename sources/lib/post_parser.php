@@ -2,7 +2,7 @@
 
 /*
 +--------------------------------------------------------------------------
-|   Modernized Parser (Legacy IPB 1.3 Bridge)
+|   MadWay Modernized Parser (Legacy IPB 1.3 Bridge)
 |   ========================================
 |   Modernized for PHP 8 compatibility.
 |   Removed: BBCode, Default Smilies, Legacy URL parsing.
@@ -16,7 +16,7 @@ class post_parser {
     var $badwords       = "";
     var $in_sig         = "";
 
-   function __construct($load=0) {
+    function __construct($load=0) {
         global $DB;
         
         if ($load != 0) {
