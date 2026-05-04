@@ -112,5 +112,15 @@ $lang = array (
 'd_no_upload'	=> "0",
 'd_no_download'	=> "0",
 'link_profile'          => "Profile",
+
+// Online-Offline Hack.
+
+'M_On_T'    => "<span style='color:green; font-size:14px;'>●</span> <font color='<#ON_COLOR#>'>Online</font>",
+'M_Off_T'   => "<span style='color:red; font-size:14px;'>●</span> <font color='<#OFF_COLOR#>'>Offline</font>",
+'M_On_I'    => "<img src='<#ON_IMAGE#>' alt='Online'>",
+'M_Off_I'   => "<img src='<#OFF_IMAGE#>' alt='Offline'>",
+
+// Online-Offline Hack. End.
+
 );
 ?>
