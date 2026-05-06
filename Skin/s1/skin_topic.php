@@ -263,7 +263,7 @@ return <<<EOF
     </tr>
     <tr>
       <td align='center' valign='top' class='{$post['post_css']}'>
-        <span class='postdetails'>{$author['member_status']}<br /><br /><span class="avatar">{$author['avatar']}</avatar><br /><br />
+        <span class='postdetails'>{$author['member_status']}<br /><span class="avatar">{$author['avatar']}</span><br /><br />
         {$author['title']}<br />
         {$author['member_rank_img']}<br /><br />
         {$author['profile']}<br />
@@ -291,18 +291,18 @@ return <<<EOF
         <!-- PM / EMAIL / WWW / MSGR -->
       
         <div align='left' class='darkrow3' style='float:left;width:auto'>
-        {$author['addresscard']}{$author['message_icon']}{$author['email_icon']}{$author['website_icon']}{$author['integ_icon']}{$author['icq_icon']}{$author['aol_icon']}{$author['yahoo_icon']}{$author['msn_icon']}
+        {$author['addresscard']}{$author['message_icon']}{$author['email_icon']}{$author['website_icon']}{$author['integ_icon']}{$author['yahoo_icon']}
         </div>
         
         <!-- REPORT / UP -->
          
-        <div align='right'>
+        <div align='right' class='btn-post-control'>
         
         <a title="To quickly quote this message, highlight the text and click here." onmouseover="get_selection();" 
    onclick="Insertranged(window.txt, '{$post['name']}', '{$post['post_date']}'); return false;" 
-   href="#">[""]</a>
+   href="#">🗩</a>
         
-        <a href='javascript:scroll(0,0);'><img src='{$ibforums->vars['img_url']}/p_up.gif' alt='Top' border='0' /></a>
+        <a href='javascript:scroll(0,0);'>UP</a>
         </div>
       </td>
     </tr>
