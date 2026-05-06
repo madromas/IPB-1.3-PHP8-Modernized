@@ -9,7 +9,7 @@ return <<<EOF
                </tr>
            <tr>
                    <td class='row2' width='5%' valign='middle'><{F_ACTIVE}></td>
-                   <td class='row4' width="95%" align='left'>{$ibforums->lang['member_of_moment']}:<b>
+                   <td class='row5' width="95%" align='left'>{$ibforums->lang['member_of_moment']}:<b>
                <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}">{$data['member_name']}</a></b><br>
                {$ibforums->lang['most_active_in']} {$data['forum_url']} ({$data['fav_posts']})<br>
                {$ibforums->lang['total_posts']} {$data['total_posts']} {$ibforums->lang['posts_since']} {$data['join_date']}<br> {$data['avatar']}
@@ -29,7 +29,7 @@ return <<<EOF
              <td class='maintitle' ><b>{$ibforums->lang['old_news']}</b></td>
            </tr>
            <tr>
-                 <td class='row4' colspan='2'>
+                 <td class='row5' colspan='2'>
                      {$data}
                      </td>
                </tr>           
@@ -136,9 +136,9 @@ global $ibforums;
 return <<<EOF
     <!-- Begin Topic Entry {$Data['tid']} -->
     <tr> 
-          <td align='center' class='row4'>{$Data['folder_img']}</td>
+          <td align='center' class='row5'>{$Data['folder_img']}</td>
       <td align='center' class='row2'>{$Data['topic_icon']}</td>
-      <td class='row4'>
+      <td class='row5'>
           <table width='100%' border='0' cellspacing='0' cellpadding='0'>
                   <tr> 
                         <td valign='middle'>{$Data['go_new_post']}</td>
@@ -147,7 +147,7 @@ return <<<EOF
         </table>
         <span class='desc'>{$Data['description']}</span></td>
       <td align='center' class='row2'>{$Data['starter']}</td>
-      <td align='center' class='row4'>{$Data['posts']}</td>
+      <td align='center' class='row5'>{$Data['posts']}</td>
       <td class='row2'>{$Data['last_post']}<br>
                       {$ibforums->lang['in']} <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=SF&f={$Data['forum_id']}'>{$Data['name']}</a><br>
                       <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$Data['forum_id']}&t={$Data['tid']}&view=getlastpost'>{$Data['last_text']}</a> <b>{$Data['last_poster']}</b></td>
@@ -179,9 +179,9 @@ function top_forums_row($data) {
 global $ibforums;
 return <<<EOF
                <tr>  
-                 <td class='row4'>{$data['rating']}. <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=SF&f={$data['id']}'>{$data['name']}</a></td>
-                 <td class='row4' width='15%'>{$data['topics']}</td>
-                 <td class='row4' width='15%'>{$data['posts']}</td>
+                 <td class='row5'>{$data['rating']}. <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=SF&f={$data['id']}'>{$data['name']}</a></td>
+                 <td class='row5' width='15%'>{$data['topics']}</td>
+                 <td class='row5' width='15%'>{$data['posts']}</td>
                </tr>
 EOF;
 }
@@ -211,7 +211,7 @@ function new_members_row($data) {
 global $ibforums;
 return <<<EOF
                <tr>  
-                 <td class='row4'><a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['id']}'>{$data['name']}</a> {$ibforums->lang['n_joined']} {$data['joined']}</td>
+                 <td class='row5'><a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['id']}'>{$data['name']}</a> {$ibforums->lang['n_joined']} {$data['joined']}</td>
                </tr>
 EOF;
 }
@@ -243,8 +243,8 @@ function top_posters_row($data) {
 global $ibforums;
 return <<<EOF
                <tr>  
-                 <td class='row4' width='80%'>{$data['rating']}. <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['id']}'>{$data['name']}</a></td>
-                 <td class='row4' width='20%' align='right'>{$data['posts']}</td>
+                 <td class='row5' width='80%'>{$data['rating']}. <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['id']}'>{$data['name']}</a></td>
+                 <td class='row5' width='20%' align='right'>{$data['posts']}</td>
                </tr>
 EOF;
 }
@@ -285,10 +285,10 @@ return <<<EOF
      <input type='hidden' name='CookieDate' value="1">
 
            <tr><td class='row2'><b>{$ibforums->lang['b_username']}</b></td>
-             <td class='row4'><input type='text' name='UserName' style="font-size:10px"></td></tr>
+             <td class='row5'><input type='text' name='UserName' style="font-size:10px"></td></tr>
            <tr><td class='row2'><b>{$ibforums->lang['b_password']}</b></td>
-             <td class='row4'><input type='password' name='PassWord' style="font-size:10px"></td></tr>
-           <tr><td class='row4' colspan='2' align='center'><input type='submit' value='{$ibforums->lang['b_submit']}'></td></tr>
+             <td class='row5'><input type='password' name='PassWord' style="font-size:10px"></td></tr>
+           <tr><td class='row5' colspan='2' align='center'><input type='submit' value='{$ibforums->lang['b_submit']}'></td></tr>
 
 </form>
               </table>
@@ -312,7 +312,7 @@ return <<<EOF
              <td colspan='2' class='maintitle' ><b>{$ibforums->lang['navigation']}</b></td>
            </tr>
            <tr>
-                 <td class='row4' colspan='2'>
+                 <td class='row5' colspan='2'>
                            <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=portal">{$ibforums->lang['nav_home']}</a><br>
                            <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=idx">{$ibforums->lang['nav_forums']}</a><br>
                            <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Search&f=1">{$ibforums->lang['nav_search']}</a><br>
@@ -341,7 +341,7 @@ return <<<EOF
              <td colspan='2' class='maintitle' ><b>{$ibforums->lang['latest_posts']}</b></td>
            </tr>
            <tr>
-                 <td class='row4' colspan='2'>
+                 <td class='row5' colspan='2'>
                      {$data}
                      </td>
                </tr>           
@@ -374,7 +374,7 @@ return <<<EOF
                    </tr>
                    <tr>
                          <td class='row2' width='5%' valign='middle'><{F_STATS}></td>
-                         <td class='row4' width="95%" align='left'>$text<br>{$ibforums->lang['most_online']}</td>
+                         <td class='row5' width="95%" align='left'>$text<br>{$ibforums->lang['most_online']}</td>
                    </tr>
 EOF;
 }
@@ -387,7 +387,7 @@ return <<<EOF
             </tr>
             <tr>
           <td class='row2' width='5%' valign='middle'><{F_ACTIVE}></td>
-          <td class='row4' width='95%'><b>$total</b> $birth_lang<br>$birthusers</td>
+          <td class='row5' width='95%'><b>$total</b> $birth_lang<br>$birthusers</td>
         </tr>
 EOF;
 }
@@ -400,7 +400,7 @@ return <<<EOF
             </tr>
             <tr>
           <td class='row2' width='5%' valign='middle'><{F_ACTIVE}></td>
-          <td class='row4' width='95%'>$events</td>
+          <td class='row5' width='95%'>$events</td>
         </tr>
 EOF;
 }
@@ -413,7 +413,7 @@ return <<<EOF
 </tr>
 <tr>
     <td width="5%" class='row2'><{F_ACTIVE}></td>
-    <td class='row4' width='95%'>
+    <td class='row5' width='95%'>
         <b>{$active['GUESTS']}</b> {$ibforums->lang['guests']}, 
         <b>{$active['MEMBERS']}</b> {$ibforums->lang['public_members']} 
         <b>{$active['ANON']}</b> {$ibforums->lang['anon_members']} 
@@ -447,13 +447,13 @@ return <<<EOF
 <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}&view=getlastpost'>{$data['title']}</a></b></td>
            </tr>
                <tr>
-                 <td class='row4'>{$ibforums->lang['postby']} <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}'>{$data['member_name']}</a> @ {$data['start_date']} {$data['extra']}</td>
+                 <td class='row5'>{$ibforums->lang['postby']} <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}'>{$data['member_name']}</a> @ {$data['start_date']} {$data['extra']}</td>
                </tr>
                <tr>
-                   <td class='prew'>{$data['post_body']} {$data['post_body_extra']}</td>
+                   <td class='prew' style='cursor:pointer' onclick="window.location.href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}&view=getlastpost'">{$data['post_body']} {$data['post_body_extra']}</td>
                </tr>
                <tr>
-                   <td class='row4'>{$ibforums->lang['comments']} {$data['replies']} : <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}'>{$ibforums->lang['viewcomments']}</a> Views: {$data['views']}</td>
+                   <td class='row5'>{$ibforums->lang['comments']} {$data['replies']} : <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}'>{$ibforums->lang['viewcomments']}</a> Views: {$data['views']}</td>
                </tr>
           </table>
     
@@ -512,7 +512,7 @@ EOF;
 function WelcomePanel($data="") {
 global $ibforums, $stats;
 return <<<EOF
-<table width="100%" align="center" border="0" cellspacing="1" cellpadding="0" class='tableborder'>
+<table width="100%" align="center" border="0" cellspacing="1" cellpadding="0" class='tableborder welcome-panel'>
   <tr> 
     <td class='maintitle' > 
       <table width="100%" border="0" cellspacing="0" cellpadding="3">
@@ -527,14 +527,14 @@ return <<<EOF
     <td class='mainbg'>
       <table width="100%" border="0" cellspacing="1" cellpadding="4">
         <tr> 
-<td class="row4 avatar" width="{$data['width']}">{$data['avatar']}</td>
-<td class="row4" width="70%" nowrap>{$ibforums->lang['it_is_now']} {$data['time']}.<br>
+<td class="row5 avatar" width="{$data['width']}">{$data['avatar']}</td>
+<td class="row5" width="70%" nowrap>{$ibforums->lang['it_is_now']} {$data['time']}.<br>
 {$ibforums->lang['last_visited']} {$data['lastv']}.<br>
 {$ibforums->lang['there_has_been']} {$data['posts_since']} {$ibforums->lang['posts_in']} {$data['topics_since']}<br>
 {$ibforums->lang['topics_since_last_visit']}<br>
 <a href="index.php?s={$ibforums->session_id}&act=Search&CODE=getnew">{$ibforums->lang['view_newposts']}</a></td>
 
-<td class="row4" width="30%" nowrap>{$ibforums->lang['forum_stats']}<br>
+<td class="row5" width="30%" nowrap>{$ibforums->lang['forum_stats']}<br>
 {$ibforums->lang['mem_count']} {$data['stats']['MEM_COUNT']}, {$ibforums->lang['total_topics']} {$data['stats']['TOTAL_TOPICS']}<br>
 {$ibforums->lang['total_replies']} {$data['stats']['TOTAL_REPLIES']}, {$ibforums->lang['total_posts']} {$data['stats']['TOTAL_POSTS']}<br>
 {$ibforums->lang['newest_member']} <a href="{$ibforums->vars['board_url']}/index.php?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['stats']['LAST_MEM_ID']}">{$data['stats']['LAST_MEM_NAME']}</a><br>
@@ -545,14 +545,13 @@ return <<<EOF
     </td>
   </tr>
 </table>
-<br>
 EOF;
 }
 
 function GuestPanel($data="") {
 global $ibforums, $stats;
 return <<<EOF
-<table width="100%" align="center" border="0" cellspacing="1" cellpadding="0" class='tableborder'>
+<table width="100%" align="center" border="0" cellspacing="1" cellpadding="0" class='tableborder guest-panel'>
   <tr> 
     <td class='maintitle' > 
       <table width="100%" border="0" cellspacing="1" cellpadding="4">
@@ -567,11 +566,11 @@ return <<<EOF
     <td class='mainbg'>
       <table width="100%" border="0" cellspacing="1" cellpadding="4">
         <tr>
-                  <td class="row4" width="64"><img src='{$ibforums->vars['board_url']}/html/avatars/IPB_Community_Pack/Green-haze.gif'></td>
-                  <td class="row4" width="70%">{$ibforums->lang['it_is_now']} {$data['time']}.<br>
+                  <td class="row5" width="64"><img src='{$ibforums->vars['board_url']}/html/avatars/IPB_Community_Pack/Green-haze.gif'></td>
+                  <td class="row5" width="70%">{$ibforums->lang['it_is_now']} {$data['time']}.<br>
                     {$ibforums->lang['there_has_been']} {$data['posts_since']} {$ibforums->lang['posts_in']} {$data['topics_since']} {$ibforums->lang['topics_today']}<br>
                         <a href="index.php?s{$ibforums->session_id}=&act=Search&CODE=getactive">{$ibforums->lang['view_all_posts_today']}</a></td>
-                  <td class="row4" width="30%" align="right">
+                  <td class="row5" width="30%" align="right">
                     <table border="0" cellspacing="0" cellpadding="1">
                           <tr><form action="index.php" method="post" name='LOGIN'><input type="hidden" name="CookieDate" value="1"><input type='hidden' name='act' value='Login'><input type='hidden' name='CODE' value='01'>
                             <td align="right">{$ibforums->lang['b_username']} </td>
@@ -592,43 +591,48 @@ return <<<EOF
     </td>
   </tr>
 </table>
-<br>
 EOF;
 }
 
 function render_portal($data) {
 global $ibforums;
 return <<<EOF
-<table cellpadding=0 cellspacing='1' border='0' width='<{tbl_width}>' align='center'>
+<!-- Wrap in a div for easier targeting if needed -->
+<div id='portal-main-container'>
+<table cellpadding='0' cellspacing='0' border='0' width='<{tbl_width}>' align='center'>
  <tr>
-  <td width="21%" vAlign=top>
-{$data['loginbox']}
-{$data['navigation']}
-{$data['forums_list']}
-{$data['new_posts']}
-{$data['latest_posts']}
-{$data['poll']}
-{$data['old_news']}
-{$data['top_posters']}
-{$data['top_forums']}
-{$data['new_members']}
-{$data['stats']}
+  <!-- Sidebar Column -->
+  <td width="22%" vAlign="top" class="portal-sidebar">
+    {$data['loginbox']}
+    {$data['navigation']}
+    {$data['forums_list']}
+    {$data['new_posts']}
+    {$data['latest_posts']}
+    {$data['poll']}
+    {$data['old_news']}
+    {$data['top_posters']}
+    {$data['top_forums']}
+    {$data['new_members']}
+    {$data['stats']}
   </td>
-  <td width="1%" >&nbsp;</td>
-  <td width="75%" vAlign=top>
-{$data['welcomepanel']}
-{$data['latest_posts_big']}
-{$data['new_posts_big']}
+  <!-- Spacer Column -->
+  <td width="1%"></td>
+  <!-- Main Content Column -->
+  <td width="77%" vAlign="top" class="portal-content">
+    {$data['welcomepanel']}
+    {$data['latest_posts_big']}
+    {$data['new_posts_big']}
+    {$data['news']}
+  </td>
+ </tr>
+</table>
+</div>
 
-{$data['news']}
-                    
-  </td>
 <table cellpadding='0' cellspacing='0' border='0' width='<{tbl_width}>' align='center'>
     <tr>
-        <td align='center'>{$ibforums->lang['copyrights']}</td>
+        <td align='center' class='copyright'>{$ibforums->lang['copyrights']}</td>
     </tr>
 </table>
-
 EOF;
 }
 
