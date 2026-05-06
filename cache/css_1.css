@@ -28,7 +28,7 @@ div#logostrip a:hover {
 
    the content properly. This is a work around to a known Internet Explorer bug */
 
-BODY { font-family: 'Nunito', sans-serif; font-size: 13px; color: #000; margin:0px;padding:0px;background-color:#FFF; text-align:center }
+BODY { font-family: 'Nunito', sans-serif; font-size: 13px; color: #000; margin:0px;padding:0px;background-color:#eff4fd; text-align:center }
 
 TABLE, TR, TD { font-family: 'Nunito', sans-serif; font-size: 13px; }
 
@@ -247,6 +247,8 @@ option.sub { font-weight:bold;color:#555 }
 
 .row4 { background-color: #E4EAF2 }
 
+.row5 { background-color: #fff }
+
 
 
 .darkrow1 { background-color: #C2CFDF; color:#4C77B6; }
@@ -285,7 +287,7 @@ option.sub { font-weight:bold;color:#555 }
 
 .tableborder { border:1px solid #b8c9de;background-color:#FFF; border-radius:3px; padding:0; margin:0 }
 
-.tablefill   { border:1px solid #3b7ac9;background-color:#F5F9FD;padding:6px;  }
+.tablefill   { border:1px solid #3b7ac9;background-color:#F5F9FD;padding:5px;  border-radius:.5em;}
 
 .tablepad    { background-color:#F5F9FD;padding:6px }
 
@@ -400,3 +402,89 @@ pre[class*="language-"] code {
 .blue   { color:blue;font-weight:bold }
 
 .orange { color:#F90;font-weight:bold }
+
+
+/* SVG Icons */
+
+.icon {
+    display: inline-block;
+    fill: currentColor;
+    vertical-align: middle;
+}
+
+.icon-12 {
+    width: 12px;
+    height: 12px;
+}
+
+.icon-14 {
+    width: 14px;
+    height: 14px;
+}
+
+.icon-16 {
+    width: 16px;
+    height: 16px;
+}
+
+/* SVG Icons */
+
+
+/* --- MOBILE RESPONSIVE OVERRIDES --- */
+@media screen and (max-width: 768px) {
+    /* Force the main IPB wrapper to take full width */
+    #ipbwrapper { 
+        width: 95% !important; 
+    }
+
+    /* Hide the sidebar and the spacer column completely on mobile */
+    .portal-sidebar, 
+    table[width='<{tbl_width}>'] > tbody > tr > td[width="1%"] {
+        display: none !important;
+    }
+
+    .welcome-panel, .guest-panel {
+        display: none !important;
+    }
+
+    /* Force the main content column to be full width */
+    .portal-content {
+        display: block !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    /* Ensure images don't break the layout */
+    .postcolor img, .prew img, .row5 img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* Make large table headers more readable on small screens */
+    .maintitle {
+        font-size: 13px !important;
+        padding: 10px 5px !important;
+    }
+
+    /* Expand the internal content blocks */
+    .tableborder, .tablefill {
+        width: 100% !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* Fix Guest/Welcome panel columns for mobile stacking */
+    .row5[width="70%"], .row5[width="30%"], .row5[width="64"] {
+        display: block !important;
+        text-align: left !important;
+        padding: 10px !important;
+    }
+    iframe{
+        width:100%!important;
+    }
+    video{
+        width:100%!important;
+    }
+    .prew img {
+        width:100%!important;
+    }
+}
