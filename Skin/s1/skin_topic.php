@@ -239,12 +239,20 @@ EOF;
 
 function RenderRow($post, $author) {
 global $ibforums;
+
+$author_tag = "";
+if (isset($post['topic_starter_id']) && $author['id'] > 0) {
+    if ($author['id'] == $post['topic_starter_id']) {
+        $author_tag = '<span class="post-author" title="Original Poster">OP</span>';
+    }
+}
+
 return <<<EOF
 
 	<!--Begin Msg Number {$post['pid']}-->
     <table width='100%' border='0' cellspacing='1' cellpadding='3'>
     <tr>
-      <td align='center' valign='middle' class='row4' width="1%"><a name='entry{$post['pid']}'></a><span class='{$post['name_css']}'>{$author['name']}</span></td>
+      <td align='center' valign='middle' class='row4' width="1%"><a name='entry{$post['pid']}'></a><span class='{$post['name_css']}'>{$author['name']}</span> {$author_tag}</td>
         <td class='row4' valign='top' width="99%">
         
         <!-- POSTED DATE DIV -->
@@ -263,7 +271,8 @@ return <<<EOF
     </tr>
     <tr>
       <td align='center' valign='top' class='{$post['post_css']}'>
-        <span class='postdetails'>{$author['member_status']}<br /><span class="avatar">{$author['avatar']}</span><br /><br />
+        <span class='postdetails'>{$author['member_status']}<br /><span class="avatar">{$author['avatar']}</span><br />
+        <br />
         {$author['title']}<br />
         {$author['member_rank_img']}<br /><br />
         {$author['profile']}<br />
