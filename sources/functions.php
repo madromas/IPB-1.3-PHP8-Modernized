@@ -1857,6 +1857,27 @@ class display {
         //return 'true' on success
         return true;
     }
+
+    //-------------------------------------------
+    // LoFi url part function
+    // Song * http://forum.sysman.ru/index.php?showtopic=13658
+    //-------------------------------------------
+
+    function lofi() {
+    global $ibforums;
+
+        switch( $ibforums->input['act'] )
+        {
+            case 'ST':
+                return "/t".$ibforums->input['t'];
+
+            case 'SF':
+                return "/f".$ibforums->input['f'];
+
+            default:
+                return "";
+        }
+    } 
     
     //-------------------------------------------
     // Parses all the information and prints it.
@@ -2110,6 +2131,8 @@ class display {
         // Get the template
         //---------------------------------------
         
+        $ibforums->skin['template'] = str_replace( "<% LOFI %>", $skin_universal->lofi_link( $this->lofi() ), $ibforums->skin['template']); 
+
         $ibforums->skin['template'] = str_replace( "<% CSS %>"            , $css                     , $ibforums->skin['template']);
 		$ibforums->skin['template'] = str_replace( "<% JAVASCRIPT %>"     , "$js"                       , $ibforums->skin['template']);
         $ibforums->skin['template'] = str_replace( "<% TITLE %>"          , $output_array['TITLE']   , $ibforums->skin['template']);
@@ -2442,7 +2465,7 @@ class session {
         // no new headers if we're simply viewing an attachment..
         //--------------------------------------------
         
-        if ( $ibforums->input['act'] == 'Attach' )
+        if ( isset($ibforums->input['act']) && $ibforums->input['act'] == 'Attach' )
         {
         	return $this->member;
         }
