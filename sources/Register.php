@@ -730,14 +730,6 @@ class Register {
 		$in_password = trim($ibforums->input['PassWord']);
 		$in_email    = strtolower( trim($ibforums->input['EmailAddress']) );
 		
-		$ibforums->input['EmailAddress_two'] = strtolower( trim($ibforums->input['EmailAddress_two']) );
-		
-		if ($ibforums->input['EmailAddress_two'] != $in_email)
-		{
-			$this->show_reg_form('err_email_address_match');
-			return;
-		}
-		
 		// Remove multiple spaces in the username
 		
 		$in_username = preg_replace( "/\s{2,}/", " ", $in_username );
