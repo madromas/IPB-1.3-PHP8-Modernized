@@ -1608,7 +1608,7 @@ class FUNC {
     	
     	if (preg_match ( "/^noavatar/", $member_avatar ))
     	{
-    		return "";
+    		$member_avatar = "html/avatars/default.svg";
     	}
     	
     	if ( (preg_match ( "/\.swf/", $member_avatar)) and ($ibforums->vars['allow_flash'] != 1) )
