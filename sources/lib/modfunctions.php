@@ -339,6 +339,23 @@ class modfunctions
 		//------------------------------------
 		
 		$DB->query("DELETE FROM ibf_topics WHERE tid".$tid);
+  $DB->query("SELECT p.author_id FROM ibf_posts p, ibf_forums f WHERE p.topic_id".$tid.
+                           " and p.forum_id = f.id and f.inc_postcount=1 and author_id > 0");
+
+  if ( $DB->get_num_rows() )
+  {
+     $ids = array();
+
+     while ($row = $DB->fetch_row() )
+     {
+         $ids[ $row['author_id'] ] ++;
+     }
+
+     foreach( $ids as $mid => $count )
+     {
+         $DB->query("UPDATE ibf_members SET posts=posts-$count WHERE id='".$mid."'");
+     }
+  } 
 		
 		//------------------------------------
 		// Remove polls assigned to this topic
