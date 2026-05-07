@@ -444,7 +444,29 @@ pre[class*="language-"] code {
 
 
 
+/* Container for the icon */
+.forum-locked-wrapper {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
 
+/* The Lock Badge */
+.lock-badge {
+    position: absolute;
+    bottom: -2px; 
+    right: -2px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.6); /* Dark circular background */
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    border: 1px solid #fff;
+    box-shadow: 0px 0px 2px #000;
+}
 
 
 
