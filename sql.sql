@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 03, 2026 at 09:41 AM
+-- Generation Time: May 07, 2026 at 04:25 PM
 -- Server version: 10.11.10-MariaDB-cll-lve
 -- PHP Version: 7.4.33
 
@@ -18,6 +18,9 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Database: `russian7_mad`
+--
 
 -- --------------------------------------------------------
 
@@ -25,59 +28,16 @@ SET time_zone = "+00:00";
 -- Table structure for table `ibf_admin_logs`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_admin_logs` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_admin_logs` (
+  `id` bigint(20) NOT NULL,
   `act` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   `member_id` int(10) DEFAULT NULL,
   `ctime` int(10) DEFAULT NULL,
   `note` text DEFAULT NULL,
-  `ip_address` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `ip_address` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ibf_admin_logs`
---
-
-INSERT INTO `ibf_admin_logs` (`id`, `act`, `code`, `member_id`, `ctime`, `note`, `ip_address`) VALUES
-(1, 'op', 'dourl', 1, 1777496995, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(2, 'op', 'dourl', 1, 1777497204, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(3, 'op', 'dourl', 1, 1777498238, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(4, 'op', 'dourl', 1, 1777499035, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(5, 'op', 'dowarn', 1, 1777507271, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(6, 'csite', 'dosettings', 1, 1777517436, 'IPDynamic Lite Configurations updated, Back Up Written', '107.143.11.45'),
-(7, 'csite', 'dosettings', 1, 1777517503, 'IPDynamic Lite Configurations updated, Back Up Written', '107.143.11.45'),
-(8, 'op', 'doportal', 1, 1777552023, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(9, 'csite', 'dosettings', 1, 1777552799, 'IPDynamic Lite Configurations updated, Back Up Written', '107.143.11.45'),
-(10, 'op', 'doportal', 1, 1777553329, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(11, 'group', 'doedit', 1, 1777600358, 'Edited Group \'Admin\'', '107.143.11.45'),
-(12, 'group', 'doedit', 1, 1777600389, 'Edited Group \'Admin\'', '107.143.11.45'),
-(13, 'op', 'dopost', 1, 1777638862, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(14, 'op', 'dopost', 1, 1777638889, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(15, 'op', 'dopost', 1, 1777640434, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(16, 'op', 'dopost', 1, 1777641268, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(17, 'op', 'dopost', 1, 1777641316, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(18, 'op', 'dopost', 1, 1777641331, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(19, 'op', 'dopost', 1, 1777641508, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(20, 'op', 'dopost', 1, 1777641791, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(21, 'op', 'dopost', 1, 1777642634, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(22, 'op', 'dopost', 1, 1777643114, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(23, 'op', 'dopost', 1, 1777643599, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(24, 'group', 'doedit', 1, 1777648307, 'Edited Group \'Admin\'', '107.143.11.45'),
-(25, 'forum', 'doedit', 1, 1777648430, 'Forum \'A Test Forum\' edited', '107.143.11.45'),
-(26, 'forum', 'pdoedit', 1, 1777648451, 'Forum access permission edited in \'A Test Forum\'', '107.143.11.45'),
-(27, 'forum', 'pdoedit', 1, 1777662266, 'Forum access permission edited in \'A Test Forum\'', '107.143.11.45'),
-(28, 'op', 'dopost', 1, 1777674533, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(29, 'op', 'dopost', 1, 1777737769, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(30, 'op', 'dourl', 1, 1777750058, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(31, 'op', 'dosecure', 1, 1777755632, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(32, 'op', 'dosecure', 1, 1777755688, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(33, 'op', 'dosecure', 1, 1777756392, 'Board Settings Updated, Back Up Written', '107.143.11.45'),
-(34, 'forum', 'doedit', 1, 1777773802, 'Forum \'A Test Forum\' edited', '107.143.11.45'),
-(35, 'cat', 'doedit', 1, 1777773820, 'Edited Category \'Glonks.com\'', '107.143.11.45'),
-(36, 'cat', 'doedit', 1, 1777773882, 'Edited Category \'Glonks Hub\'', '107.143.11.45'),
-(37, 'op', 'dopost', 1, 1777776336, 'Board Settings Updated, Back Up Written', '107.143.11.45');
 
 -- --------------------------------------------------------
 
@@ -85,7 +45,7 @@ INSERT INTO `ibf_admin_logs` (`id`, `act`, `code`, `member_id`, `ctime`, `note`,
 -- Table structure for table `ibf_admin_sessions`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_admin_sessions` (
+CREATE TABLE `ibf_admin_sessions` (
   `ID` varchar(32) NOT NULL DEFAULT '',
   `IP_ADDRESS` varchar(32) NOT NULL DEFAULT '',
   `MEMBER_NAME` varchar(32) NOT NULL DEFAULT '',
@@ -93,8 +53,7 @@ CREATE TABLE IF NOT EXISTS `ibf_admin_sessions` (
   `SESSION_KEY` varchar(32) NOT NULL DEFAULT '',
   `LOCATION` varchar(64) DEFAULT 'index',
   `LOG_IN_TIME` int(10) NOT NULL DEFAULT 0,
-  `RUNNING_TIME` int(10) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`ID`)
+  `RUNNING_TIME` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -104,13 +63,21 @@ CREATE TABLE IF NOT EXISTS `ibf_admin_sessions` (
 -- Table structure for table `ibf_badwords`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_badwords` (
-  `wid` int(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_badwords` (
+  `wid` int(3) NOT NULL,
   `type` varchar(250) NOT NULL DEFAULT '',
   `swop` varchar(250) DEFAULT NULL,
-  `m_exact` tinyint(1) DEFAULT 0,
-  PRIMARY KEY (`wid`)
+  `m_exact` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_badwords`
+--
+
+INSERT INTO `ibf_badwords` (`wid`, `type`, `swop`, `m_exact`) VALUES
+(1, 'fuck', 'f**k', 1),
+(2, 'fucking', 'f**king', 1),
+(3, 'F**king', 'F**king', 1);
 
 -- --------------------------------------------------------
 
@@ -118,11 +85,10 @@ CREATE TABLE IF NOT EXISTS `ibf_badwords` (
 -- Table structure for table `ibf_cache_store`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_cache_store` (
+CREATE TABLE `ibf_cache_store` (
   `cs_key` varchar(255) NOT NULL DEFAULT '',
   `cs_value` text NOT NULL,
-  `cs_extra` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`cs_key`)
+  `cs_extra` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -140,8 +106,8 @@ INSERT INTO `ibf_cache_store` (`cs_key`, `cs_value`, `cs_extra`) VALUES
 -- Table structure for table `ibf_calendar_events`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_calendar_events` (
-  `eventid` mediumint(8) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_calendar_events` (
+  `eventid` mediumint(8) NOT NULL,
   `userid` mediumint(8) NOT NULL DEFAULT 0,
   `year` int(4) NOT NULL DEFAULT 2002,
   `month` int(2) NOT NULL DEFAULT 1,
@@ -161,9 +127,7 @@ CREATE TABLE IF NOT EXISTS `ibf_calendar_events` (
   `end_year` int(4) DEFAULT NULL,
   `end_unix_stamp` int(10) DEFAULT NULL,
   `event_bgcolor` varchar(32) NOT NULL DEFAULT '',
-  `event_color` varchar(32) NOT NULL DEFAULT '',
-  PRIMARY KEY (`eventid`),
-  KEY `unix_stamp` (`unix_stamp`)
+  `event_color` varchar(32) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -172,16 +136,14 @@ CREATE TABLE IF NOT EXISTS `ibf_calendar_events` (
 -- Table structure for table `ibf_categories`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_categories` (
+CREATE TABLE `ibf_categories` (
   `id` smallint(5) NOT NULL DEFAULT 0,
   `position` tinyint(3) DEFAULT NULL,
   `state` varchar(10) DEFAULT NULL,
   `name` varchar(128) NOT NULL DEFAULT '',
   `description` text DEFAULT NULL,
   `image` varchar(128) DEFAULT NULL,
-  `url` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id` (`id`)
+  `url` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -198,14 +160,13 @@ INSERT INTO `ibf_categories` (`id`, `position`, `state`, `name`, `description`, 
 -- Table structure for table `ibf_contacts`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_contacts` (
-  `id` mediumint(8) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_contacts` (
+  `id` mediumint(8) NOT NULL,
   `contact_id` mediumint(8) NOT NULL DEFAULT 0,
   `member_id` mediumint(8) NOT NULL DEFAULT 0,
   `contact_name` varchar(32) NOT NULL DEFAULT '',
   `allow_msg` tinyint(1) DEFAULT NULL,
-  `contact_desc` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `contact_desc` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -214,21 +175,20 @@ CREATE TABLE IF NOT EXISTS `ibf_contacts` (
 -- Table structure for table `ibf_css`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_css` (
-  `cssid` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_css` (
+  `cssid` int(10) NOT NULL,
   `css_name` varchar(128) NOT NULL DEFAULT '',
   `css_text` text DEFAULT NULL,
   `css_comments` text DEFAULT NULL,
-  `updated` int(10) DEFAULT 0,
-  PRIMARY KEY (`cssid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `updated` int(10) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_css`
 --
 
 INSERT INTO `ibf_css` (`cssid`, `css_name`, `css_text`, `css_comments`, `updated`) VALUES
-(1, '', '/* FIX IE6 Scrollbars bug - Leave this in! */\r\n\r\n@import url(\'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap\');\r\n\r\nhtml { overflow-x: auto;} \r\n\r\ndiv#logostrip a {\r\n    font-size: 32px;\r\n    font-weight: 700;\r\n    color: #FFFFFF;\r\n    text-decoration: none;\r\n    letter-spacing: -2px;\r\n    line-height: 52px;\r\n    padding-left:.5em;\r\n    display: inline-block;\r\n    /* Subtle shadow to prevent it looking flat against the blue gradient */\r\n    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\ndiv#logostrip a:hover {\r\n    color: #FAFCFE; /* Matches your code block background for a subtle hover glow */\r\n    text-decoration: none;\r\n}\r\n\r\n/* Body entry, change forum page background colour, default font, font size, etc. Leave text-align:center to center board content\r\n\r\n   #ipwrapper will set text-align back to left for the forum. Any other tables / divs you use must use text-align:left to re-align\r\n\r\n   the content properly. This is a work around to a known Internet Explorer bug */\r\n\r\nBODY { font-family: \'Nunito\', sans-serif; font-size: 13px; color: #000; margin:0px;padding:0px;background-color:#FFF; text-align:center }\r\n\r\nTABLE, TR, TD { font-family: \'Nunito\', sans-serif; font-size: 13px; }\r\n\r\nINPUT {vertical-align:middle;font-family: \'Nunito\', sans-serif;}\r\n\r\n/* MAIN WRAPPER: Adjust forum width here. Leave margins alone to auto-center content */\r\n\r\n#ipbwrapper { text-align:left; width:85%; margin-left:auto;margin-right:auto }\r\n\r\niframe {\r\n    border-radius: 5px;\r\n    border:none;\r\n}\r\n\r\na:link, a:visited, a:active { text-decoration: underline; color: #000 }\r\n\r\na:hover { color: #465584; text-decoration:underline }\r\n\r\nfieldset.search { padding:6px; line-height:150% }\r\n\r\nlabel      { cursor:pointer; }\r\n\r\nform       { display:inline; }\r\n\r\nimg        { vertical-align:middle; border:0px;}\r\n\r\nimg.attach { border:2px outset #EEF2F7;padding:2px;}\r\n\r\n.avatar img {border-radius:.5em}\r\n\r\ntd.bottommenu a\r\n {\r\n    font-size: 0.9rem;\r\n    font-weight: 500;\r\n    visibility: visible;\r\n    color: #fff;\r\n    text-decoration: none !important;\r\n    margin-left: 5px;\r\n    display: inline-block;\r\n    border: 1px solid #3b7ac9;\r\n    border-radius: 6px;\r\n    padding: 2px 4px;\r\n    background: #5f86c9;\r\n    font-weight: 700;\r\n    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\ntd.bottommenu a:hover\r\n {\r\n    text-decoration: underline;\r\n    background: #4f75b8;\r\n}\r\n\r\ndiv.btn-post-control a {\r\n    font-size: 0.65rem;\r\n    font-weight: 500;\r\n    visibility: visible;\r\n    color: #fff;\r\n    text-decoration: none !important;\r\n    margin-left: 5px;\r\n    display: inline-block;\r\n    border: 1px solid #3b7ac9;\r\n    border-radius: 6px;\r\n    padding: 2px 4px;\r\n    background: #7899d4;\r\n    font-weight:700;\r\n    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\ndiv.btn-post-control a:hover\r\n {\r\n    text-decoration: underline;\r\n    background: #4f75b8;\r\n}\r\n\r\n\r\n.googleroot  { padding:6px; line-height:130% }\r\n\r\n.googlechild { padding:6px; margin-left:30px; line-height:130% }\r\n\r\n.googlebottom, .googlebottom a:link, .googlebottom a:visited, .googlebottom a:active { font-size:11px; color: #3A4F6C; }\r\n\r\n.googlish, .googlish a:link, .googlish a:visited, .googlish a:active { font-size:14px; font-weight:bold; color:#00D; }\r\n\r\n.googlepagelinks { font-size:1.1em; letter-spacing:1px }\r\n\r\n.googlesmall, .googlesmall a:link, .googlesmall a:active, .googlesmall a:visited { font-size:10px; color:#434951 }\r\n\r\n\r\n\r\nli.helprow { padding:0px; margin:0px 0px 10px 0px }\r\n\r\nul#help    { padding:0px 0px 0px 15px }\r\n\r\n\r\n\r\noption.cat { font-weight:bold; }\r\n\r\noption.sub { font-weight:bold;color:#555 }\r\n\r\n.caldate   { text-align:right;font-weight:bold;font-size:11px;color:#777;background-color:#DFE6EF;padding:4px;margin:0px }\r\n\r\n\r\n\r\n.warngood { color:green }\r\n\r\n.warnbad  { color:red }\r\n\r\n\r\n\r\n#padandcenter { margin-left:auto;margin-right:auto;text-align:center;padding:14px 0px 14px 0px }\r\n\r\n\r\n\r\n#profilename { font-size:28px; font-weight:bold; }\r\n\r\n#calendarname { font-size:22px; font-weight:bold; }\r\n\r\n\r\n\r\n#photowrap { padding:6px; }\r\n\r\n#phototitle { font-size:24px; border-bottom:1px solid black }\r\n\r\n#photoimg   { text-align:center; margin-top:15px } \r\n\r\n\r\n\r\n#ucpmenu    { line-height:150%;width:22%; border:1px solid #3b7ac9;background-color: #F5F9FD }\r\n\r\n#ucpmenu p  { padding:2px 5px 6px 9px;margin:0px; }\r\n\r\n#ucpcontent { background-color: #F5F9FD; border:1px solid #3b7ac9;line-height:150%; width:auto }\r\n\r\n#ucpcontent p  { padding:10px;margin:0px; }\r\n\r\n\r\n\r\n#ipsbanner { position:absolute;top:1px;right:5%; }\r\n\r\n#logostrip { border:1px solid #3b7ac9;background-color: #5f86c9; border-radius:3px; }\r\n\r\n#submenu   { border-radius:3px;  border:1px solid #BCD0ED;background-color: #DFE6EF;font-size:10px;margin:3px 0px 3px 0px;color:#3A4F6C;font-weight:bold;}\r\n\r\n#submenu a:link, #submenu  a:visited, #submenu a:active { font-weight:bold;font-size:13px;text-decoration: none; color: #3A4F6C; }\r\n\r\n#userlinks { border:1px solid #C2CFDF; background-color: #F0F5FA; border-radius:3px; }\r\n\r\n\r\n\r\n#navstrip  { font-weight:bold;padding:6px 0px 6px 0px; }\r\n\r\n\r\n\r\n.activeuserstrip { background-color:#BCD0ED; padding:6px }\r\n\r\n\r\n\r\n/* Form stuff (post / profile / etc) */\r\n\r\n.pformstrip { background-color: #D1DCEB; color:#3A4F6C;font-weight:bold;padding:7px;margin-top:1px }\r\n\r\n.pformleft  { background-color: #F5F9FD; padding:6px; margin-top:1px;width:25%; border-top:1px solid #C2CFDF; border-right:1px solid #C2CFDF; }\r\n\r\n.pformleftw { background-color: #F5F9FD; padding:6px; margin-top:1px;width:40%; border-top:1px solid #C2CFDF; border-right:1px solid #C2CFDF; }\r\n\r\n.pformright { background-color: #F5F9FD; padding:6px; margin-top:1px;border-top:1px solid #C2CFDF; }\r\n\r\n\r\n\r\n/* Topic View elements */\r\n\r\n.signature   { font-size: 12px; color: #339; line-height:150% }\r\n\r\n.postdetails { font-size: 12px }\r\n\r\n.postcolor   { font-size: 16px;}\r\n\r\n.postcolor img  {border-radius:.5em; max-width:700px;}\r\n\r\n.prew img {border-radius:.5em; max-width:700px;}\r\n\r\n.normalname { font-size: 12px; font-weight: bold; color: #003 }\r\n\r\n.normalname a:link, .normalname a:visited, .normalname a:active { font-size: 14px }\r\n\r\n.unreg { font-size: 12px; font-weight: bold; color: #900 }\r\n\r\n\r\n.prew { background-color: #fff; font-size:15px }\r\n\r\n.post1 { background-color: #fff }\r\n\r\n.post2 { background-color: #fff }\r\n\r\n.postlinksbar { background-color:#d4e2f5;padding:7px;margin-top:1px;font-size:12px; }\r\n\r\n\r\n\r\n/* Common elements */\r\n\r\n.row1 { background-color: #F5F9FD }\r\n\r\n.row2 { background-color: #DFE6EF }\r\n\r\n.row3 { background-color: #EEF2F7 }\r\n\r\n.row4 { background-color: #E4EAF2 }\r\n\r\n\r\n\r\n.darkrow1 { background-color: #C2CFDF; color:#4C77B6; }\r\n\r\n.darkrow2 { background-color: #BCD0ED; color:#3A4F6C; }\r\n\r\n.darkrow3 { background-color: #D1DCEB; color:#3A4F6C; }\r\n\r\n\r\n\r\n.hlight { background-color: #DFE6EF }\r\n\r\n.dlight { background-color: #EEF2F7 }\r\n\r\n\r\n\r\n.titlemedium { font-weight:bold; color:#3A4F6C; padding:7px; margin:0px; background:#b9c9e8 }\r\n\r\n.titlemedium  a:link, .titlemedium  a:visited, .titlemedium  a:active  { text-decoration: underline; color: #3A4F6C }\r\n\r\n\r\n\r\n/* Main table top (dark blue gradient by default) */\r\n\r\n.maintitle {font-size:14px;text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); vertical-align:middle;font-weight:bold; color:#FFF; padding:8px 0px 8px 5px; background:#5f86c9 }\r\n\r\n.maintitle a:link, .maintitle  a:visited, .maintitle  a:active { text-decoration: none; color: #FFF }\r\n\r\n.maintitle a:hover { text-decoration: none; }\r\n\r\n\r\n\r\n/* tableborders gives the white column / row lines effect */\r\n\r\n.plainborder { border:1px solid #3b7ac9;background-color:#F5F9FD }\r\n\r\n.tableborder { border:1px solid #b8c9de;background-color:#FFF; border-radius:3px; padding:0; margin:0 }\r\n\r\n.tablefill   { border:1px solid #3b7ac9;background-color:#F5F9FD;padding:6px;  }\r\n\r\n.tablepad    { background-color:#F5F9FD;padding:6px }\r\n\r\n.tablebasic  { width:100%; padding:0px 0px 0px 0px; margin:0px; border:0px }\r\n\r\n\r\n\r\n.wrapmini    { float:left;line-height:1.5em;width:25% }\r\n\r\n.pagelinks   { float:left;line-height:1.2em;width:35% }\r\n\r\n\r\n\r\n.desc { font-size:12px; color:#434951 }\r\n\r\n.edit { font-size: 11px }\r\n\r\n\r\n\r\n\r\n\r\n.searchlite { font-weight:bold; color:#F00; background-color:#FF0 }\r\n\r\n.rules-wrapper {\r\n        white-space: normal;\r\n    font-size: 0.85rem;\r\n    color: #2c3e50;\r\n    background-color: #f8fbff;\r\n    border: 1px solid #d1d9e6;\r\n    border-left: 5px solid #fcbc20;\r\n    padding: 0.5rem .75rem;\r\n    display: block;\r\n    border-radius: 0.5rem;\r\n}\r\n\r\n.quote-wrapper {\r\n    white-space: normal;\r\n    font-size: 0.85rem;\r\n    color: #2c3e50;\r\n    background-color: #f8fbff;\r\n    border: 1px solid #d1d9e6;\r\n    border-left: 5px solid #3498db;\r\n    padding: 0.5rem .75rem;\r\n    display: block;\r\n    border-radius: 0.5rem;\r\n}\r\n\r\n.quote-content {\r\n    /* This ensures text inside the quote doesn\'t hit the border */\r\n    padding: 0 0 0 0.5rem;\r\n}\r\n\r\n#SPOILER { font-family: \'Nunito\', sans-serif; font-size: 8pt; color: #FAFCFE; background-color: #FAFCFE; border: 1px solid Black; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px }\r\n\r\n/* Container for the code block */\r\npre[class*=\"language-\"] {\r\n    display: block;\r\n    background: #f0f4f8; /* Very light blue-grey */\r\n    color: #334155;      /* Deep slate instead of blurry blue */\r\n    font-family: \"JetBrains Mono\", \"Cascadia Code\", \"Fira Code\", \"Courier New\", monospace;\r\n    font-size: 13px;\r\n    line-height: 1.6;\r\n    padding: 15px;\r\n    margin: 15px 0;\r\n    border: 1px solid #e2e8f0;\r\n    border-left: 4px solid #465584; /* Legacy IPB blue as an accent */\r\n    border-radius: 6px;\r\n    overflow-x: auto;\r\n    box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);\r\n    white-space: pre-wrap; /* Better for reading on mobile/regular views */\r\n    word-break: break-all;\r\n}\r\n\r\n/* The actual code tag */\r\npre[class*=\"language-\"] code {\r\n    font-family: inherit;\r\n    font-size: inherit;\r\n    background: none;\r\n    padding: 0;\r\n    color: inherit;\r\n}\r\n\r\n/* Making the syntax tokens pop without extra JS */\r\n.token.keyword { color: #0550ae; font-weight: 600; } /* blue */\r\n.token.string  { color: #248046; } /* green */\r\n.token.comment { color: #6a737d; font-style: italic; }\r\n.token.variable { color: #953800; } /* orange/brown */\r\n.copyright { font-family: \'Nunito\', Sans-Serif; font-size: 13px; line-height: 12px }\r\n\r\n.forminput, .textinput, .radiobutton, .checkbox  { font-family: \'Nunito\', sans-serif; color: #000;\r\n    background-color: #fff !important;\r\n    padding: 0.3rem 0.5rem;\r\n    font-family: inherit;\r\n    font-size: 0.9rem;\r\n    line-height: inherit;\r\n    vertical-align: middle;\r\n    border-radius: .5em;\r\n    border: 1px solid #bbb; }\r\n\r\n\r\n\r\n.thin { padding:6px 0px 6px 0px;line-height:140%;margin:2px 0px 2px 0px;border-top:1px solid #FFF;border-bottom:1px solid #FFF }\r\n\r\n\r\n\r\n.purple { color:purple;font-weight:bold }\r\n\r\n.red    { color:red;font-weight:bold }\r\n\r\n.green  { color:green;font-weight:bold }\r\n\r\n.blue   { color:blue;font-weight:bold }\r\n\r\n.orange { color:#F90;font-weight:bold }', NULL, 1777493250);
+(1, '', '/* FIX IE6 Scrollbars bug - Leave this in! */\r\n\r\n@import url(\'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap\');\r\n\r\nhtml { overflow-x: auto;} \r\n\r\ndiv#logostrip a {\r\n    font-size: 32px;\r\n    font-weight: 700;\r\n    color: #FFFFFF;\r\n    text-decoration: none;\r\n    letter-spacing: -2px;\r\n    line-height: 52px;\r\n    padding-left:.5em;\r\n    display: inline-block;\r\n    /* Subtle shadow to prevent it looking flat against the blue gradient */\r\n    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\ndiv#logostrip a:hover {\r\n    color: #FAFCFE; /* Matches your code block background for a subtle hover glow */\r\n    text-decoration: none;\r\n}\r\n\r\n/* Body entry, change forum page background colour, default font, font size, etc. Leave text-align:center to center board content\r\n\r\n   #ipwrapper will set text-align back to left for the forum. Any other tables / divs you use must use text-align:left to re-align\r\n\r\n   the content properly. This is a work around to a known Internet Explorer bug */\r\n\r\nBODY { font-family: \'Nunito\', sans-serif; font-size: 13px; color: #000; margin:0px;padding:0px;background-color:#eff4fd; text-align:center }\r\n\r\nTABLE, TR, TD { font-family: \'Nunito\', sans-serif; font-size: 13px; }\r\n\r\nINPUT {vertical-align:middle;font-family: \'Nunito\', sans-serif;}\r\n\r\n/* MAIN WRAPPER: Adjust forum width here. Leave margins alone to auto-center content */\r\n\r\n#ipbwrapper { text-align:left; width:85%; margin-left:auto;margin-right:auto }\r\n\r\niframe {\r\n    border-radius: 5px;\r\n    border:none;\r\n    display: inline-block;\r\n}\r\n\r\nvideo {\r\n    width: 560px;\r\n    border-radius: 5px;\r\n    border: none;\r\n    height: 100%;\r\n    display: inline-block;\r\n}\r\n\r\na:link, a:visited, a:active { text-decoration: underline; color: #000 }\r\n\r\na:hover { color: #465584; text-decoration:underline }\r\n\r\nfieldset.search { padding:6px; line-height:150% }\r\n\r\nlabel      { cursor:pointer; }\r\n\r\nform       { display:inline; }\r\n\r\nimg        { vertical-align:middle; border:0px;}\r\n\r\nimg.attach { border:2px outset #EEF2F7;padding:2px;}\r\n\r\n.avatar img {border-radius:.5em;width: 80px;}\r\n\r\n.post-author {\r\n    display: inline-block;\r\n    margin-left: 2px;\r\n    padding: 0 .3rem;\r\n    font-size: 12px;\r\n    font-weight: 600;\r\n    color: #143876 !important;\r\n    background-color: transparent;\r\n    border: 1px solid #5f86c9 !important;\r\n    border-radius: 4px;\r\n    backdrop-filter: blur(8px);\r\n}\r\n\r\ntd.bottommenu a\r\n {\r\n    font-size: 0.9rem;\r\n    font-weight: 500;\r\n    visibility: visible;\r\n    color: #fff;\r\n    text-decoration: none !important;\r\n    margin-left: 5px;\r\n    display: inline-block;\r\n    border: 1px solid #3b7ac9;\r\n    border-radius: 6px;\r\n    padding: 2px 4px;\r\n    background: #5f86c9;\r\n    font-weight: 700;\r\n    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\ntd.bottommenu a:hover\r\n {\r\n    text-decoration: underline;\r\n    background: #4f75b8;\r\n}\r\n\r\ndiv.btn-post-control a {\r\n    font-size: 0.65rem;\r\n    font-weight: 500;\r\n    visibility: visible;\r\n    color: #fff;\r\n    text-decoration: none !important;\r\n    margin-left: 5px;\r\n    display: inline-block;\r\n    border: 1px solid #3b7ac9;\r\n    border-radius: 6px;\r\n    padding: 2px 4px;\r\n    background: #7899d4;\r\n    font-weight:700;\r\n    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\ndiv.btn-post-control a:hover\r\n {\r\n    text-decoration: underline;\r\n    background: #4f75b8;\r\n}\r\n\r\n\r\n.googleroot  { padding:6px; line-height:130% }\r\n\r\n.googlechild { padding:6px; margin-left:30px; line-height:130% }\r\n\r\n.googlebottom, .googlebottom a:link, .googlebottom a:visited, .googlebottom a:active { font-size:11px; color: #3A4F6C; }\r\n\r\n.googlish, .googlish a:link, .googlish a:visited, .googlish a:active { font-size:14px; font-weight:bold; color:#00D; }\r\n\r\n.googlepagelinks { font-size:1.1em; letter-spacing:1px }\r\n\r\n.googlesmall, .googlesmall a:link, .googlesmall a:active, .googlesmall a:visited { font-size:10px; color:#434951 }\r\n\r\n\r\n\r\nli.helprow { padding:0px; margin:0px 0px 10px 0px }\r\n\r\nul#help    { padding:0px 0px 0px 15px }\r\n\r\n\r\n\r\noption.cat { font-weight:bold; }\r\n\r\noption.sub { font-weight:bold;color:#555 }\r\n\r\n.caldate   { text-align:right;font-weight:bold;font-size:11px;color:#777;background-color:#DFE6EF;padding:4px;margin:0px }\r\n\r\n\r\n\r\n.warngood { color:green }\r\n\r\n.warnbad  { color:red }\r\n\r\n\r\n\r\n#padandcenter { margin-left:auto;margin-right:auto;text-align:center;padding:14px 0px 14px 0px }\r\n\r\n\r\n\r\n#profilename { font-size:28px; font-weight:bold; }\r\n\r\n#calendarname { font-size:22px; font-weight:bold; }\r\n\r\n\r\n\r\n#photowrap { padding:6px; }\r\n\r\n#phototitle { font-size:24px; border-bottom:1px solid black }\r\n\r\n#photoimg   { text-align:center; margin-top:15px } \r\n\r\n\r\n\r\n#ucpmenu    { line-height:150%;width:22%; border:1px solid #3b7ac9;background-color: #F5F9FD }\r\n\r\n#ucpmenu p  { padding:2px 5px 6px 9px;margin:0px; }\r\n\r\n#ucpcontent { background-color: #F5F9FD; border:1px solid #3b7ac9;line-height:150%; width:auto }\r\n\r\n#ucpcontent p  { padding:10px;margin:0px; }\r\n\r\n\r\n\r\n#ipsbanner { position:absolute;top:1px;right:5%; }\r\n\r\n#logostrip { border:1px solid #3b7ac9;background-color: #5f86c9; border-radius:3px; }\r\n\r\n#submenu   { border-radius:3px;  border:1px solid #BCD0ED;background-color: #DFE6EF;font-size:10px;margin:3px 0px 3px 0px;color:#3A4F6C;font-weight:bold;}\r\n\r\n#submenu a:link, #submenu  a:visited, #submenu a:active { font-weight:bold;font-size:13px;text-decoration: none; color: #3A4F6C; }\r\n\r\n#userlinks { border:1px solid #C2CFDF; background-color: #F0F5FA; border-radius:3px; }\r\n\r\n\r\n\r\n#navstrip  { font-weight:bold;padding:6px 0px 6px 0px; }\r\n\r\n\r\n\r\n.activeuserstrip { background-color:#BCD0ED; padding:6px }\r\n\r\n\r\n\r\n/* Form stuff (post / profile / etc) */\r\n\r\n.pformstrip { background-color: #D1DCEB; color:#3A4F6C;font-weight:bold;padding:7px;margin-top:1px }\r\n\r\n.pformleft  { background-color: #F5F9FD; padding:6px; margin-top:1px;width:25%; border-top:1px solid #C2CFDF; border-right:1px solid #C2CFDF; }\r\n\r\n.pformleftw { background-color: #F5F9FD; padding:6px; margin-top:1px;width:40%; border-top:1px solid #C2CFDF; border-right:1px solid #C2CFDF; }\r\n\r\n.pformright { background-color: #F5F9FD; padding:6px; margin-top:1px;border-top:1px solid #C2CFDF; }\r\n\r\n\r\n\r\n/* Topic View elements */\r\n\r\n.signature   { font-size: 12px; color: #339; line-height:150% }\r\n\r\n.postdetails { font-size: 12px }\r\n\r\n.postcolor   { font-size: 16px;}\r\n\r\n.postcolor img  {border-radius:.5em; max-width:700px;}\r\n\r\n.prew img {border-radius:.5em; max-width:700px;}\r\n\r\n.normalname { font-size: 12px; font-weight: bold; color: #003 }\r\n\r\n.normalname a:link, .normalname a:visited, .normalname a:active { font-size: 14px }\r\n\r\n.unreg { font-size: 12px; font-weight: bold; color: #900 }\r\n\r\n\r\n.prew { background-color: #fff; font-size:15px }\r\n\r\n.post1 { background-color: #fff }\r\n\r\n.post2 { background-color: #fff }\r\n\r\n.postlinksbar { background-color:#d4e2f5;padding:7px;margin-top:1px;font-size:12px; }\r\n\r\n\r\n\r\n/* Common elements */\r\n\r\n.row1 { background-color: #F5F9FD }\r\n\r\n.row2 { background-color: #DFE6EF }\r\n\r\n.row3 { background-color: #EEF2F7 }\r\n\r\n.row4 { background-color: #E4EAF2 }\r\n\r\n.row5 { background-color: #fff }\r\n\r\n\r\n\r\n.darkrow1 { background-color: #C2CFDF; color:#4C77B6; }\r\n\r\n.darkrow2 { background-color: #BCD0ED; color:#3A4F6C; }\r\n\r\n.darkrow3 { background-color: #D1DCEB; color:#3A4F6C; }\r\n\r\n\r\n\r\n.hlight { background-color: #DFE6EF }\r\n\r\n.dlight { background-color: #EEF2F7 }\r\n\r\n\r\n\r\n.titlemedium { font-weight:bold; color:#3A4F6C; padding:7px; margin:0px; background:#b9c9e8 }\r\n\r\n.titlemedium  a:link, .titlemedium  a:visited, .titlemedium  a:active  { text-decoration: underline; color: #3A4F6C }\r\n\r\n\r\n\r\n/* Main table top (dark blue gradient by default) */\r\n\r\n.maintitle {font-size:14px;text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); vertical-align:middle;font-weight:bold; color:#FFF; padding:8px 0px 8px 5px; background:#5f86c9 }\r\n\r\n.maintitle a:link, .maintitle  a:visited, .maintitle  a:active { text-decoration: none; color: #FFF }\r\n\r\n.maintitle a:hover { text-decoration: none; }\r\n\r\n\r\n\r\n/* tableborders gives the white column / row lines effect */\r\n\r\n.plainborder { border:1px solid #3b7ac9;background-color:#F5F9FD }\r\n\r\n.tableborder { border:1px solid #b8c9de;background-color:#FFF; border-radius:3px; padding:0; margin:0 }\r\n\r\n.tablefill   { border:1px solid #3b7ac9;background-color:#F5F9FD;padding:5px;  border-radius:.5em;}\r\n\r\n.tablepad    { background-color:#F5F9FD;padding:6px }\r\n\r\n.tablebasic  { width:100%; padding:0px 0px 0px 0px; margin:0px; border:0px }\r\n\r\n\r\n\r\n.wrapmini    { float:left;line-height:1.5em;width:25% }\r\n\r\n.pagelinks   { float:left;line-height:1.2em;width:35% }\r\n\r\n\r\n\r\n.desc { font-size:12px; color:#434951 }\r\n\r\n.edit { font-size: 11px }\r\n\r\n\r\n\r\n\r\n\r\n.searchlite { font-weight:bold; color:#F00; background-color:#FF0 }\r\n\r\n.rules-wrapper {\r\n        white-space: normal;\r\n    font-size: 0.85rem;\r\n    color: #2c3e50;\r\n    background-color: #f8fbff;\r\n    border: 1px solid #d1d9e6;\r\n    border-left: 5px solid #fcbc20;\r\n    padding: 0.5rem .75rem;\r\n    display: block;\r\n    border-radius: 0.5rem;\r\n}\r\n\r\n.quote-wrapper {\r\n    white-space: normal;\r\n    font-size: 0.85rem;\r\n    color: #2c3e50;\r\n    background-color: #f8fbff;\r\n    border: 1px solid #d1d9e6;\r\n    border-left: 5px solid #3498db;\r\n    padding: 0.5rem .75rem;\r\n    display: block;\r\n    border-radius: 0.5rem;\r\n}\r\n\r\n.quote-content {\r\n    /* This ensures text inside the quote doesn\'t hit the border */\r\n    padding: 0 0 0 0.5rem;\r\n}\r\n\r\n#SPOILER { font-family: \'Nunito\', sans-serif; font-size: 8pt; color: #FAFCFE; background-color: #FAFCFE; border: 1px solid Black; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px }\r\n\r\n/* Container for the code block */\r\npre[class*=\"language-\"] {\r\n    display: block;\r\n    background: #f0f4f8; /* Very light blue-grey */\r\n    color: #334155;      /* Deep slate instead of blurry blue */\r\n    font-family: \"JetBrains Mono\", \"Cascadia Code\", \"Fira Code\", \"Courier New\", monospace;\r\n    font-size: 13px;\r\n    line-height: 1.6;\r\n    padding: 15px;\r\n    margin: 15px 0;\r\n    border: 1px solid #e2e8f0;\r\n    border-left: 4px solid #465584; /* Legacy IPB blue as an accent */\r\n    border-radius: 6px;\r\n    overflow-x: auto;\r\n    box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);\r\n    white-space: pre-wrap; /* Better for reading on mobile/regular views */\r\n    word-break: break-all;\r\n}\r\n\r\n/* The actual code tag */\r\npre[class*=\"language-\"] code {\r\n    font-family: inherit;\r\n    font-size: inherit;\r\n    background: none;\r\n    padding: 0;\r\n    color: inherit;\r\n}\r\n\r\n/* Making the syntax tokens pop without extra JS */\r\n.token.keyword { color: #0550ae; font-weight: 600; } /* blue */\r\n.token.string  { color: #248046; } /* green */\r\n.token.comment { color: #6a737d; font-style: italic; }\r\n.token.variable { color: #953800; } /* orange/brown */\r\n.copyright { font-family: \'Nunito\', Sans-Serif; font-size: 13px; line-height: 12px }\r\n\r\n.forminput, .textinput, .radiobutton, .checkbox  { font-family: \'Nunito\', sans-serif; color: #000;\r\n    background-color: #fff !important;\r\n    padding: 0.3rem 0.5rem;\r\n    font-family: inherit;\r\n    font-size: 0.9rem;\r\n    line-height: inherit;\r\n    vertical-align: middle;\r\n    border-radius: .5em;\r\n    border: 1px solid #bbb; }\r\n\r\n\r\n\r\n.thin { padding:6px 0px 6px 0px;line-height:140%;margin:2px 0px 2px 0px;border-top:1px solid #FFF;border-bottom:1px solid #FFF }\r\n\r\n\r\n\r\n.purple { color:purple;font-weight:bold }\r\n\r\n.red    { color:red;font-weight:bold }\r\n\r\n.green  { color:green;font-weight:bold }\r\n\r\n.blue   { color:blue;font-weight:bold }\r\n\r\n.orange { color:#F90;font-weight:bold }\r\n\r\n\r\n/* SVG Icons */\r\n\r\n.icon {\r\n    display: inline-block;\r\n    fill: currentColor;\r\n    vertical-align: middle;\r\n}\r\n\r\n.icon-12 {\r\n    width: 12px;\r\n    height: 12px;\r\n}\r\n\r\n.icon-14 {\r\n    width: 14px;\r\n    height: 14px;\r\n}\r\n\r\n.icon-16 {\r\n    width: 16px;\r\n    height: 16px;\r\n}\r\n\r\n/* SVG Icons */\r\n\r\n\r\n\r\n/* Container for the icon */\r\n.forum-locked-wrapper {\r\n    position: relative;\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n}\r\n\r\n/* The Lock Badge */\r\n.lock-badge {\r\n    position: absolute;\r\n    bottom: -2px; \r\n    right: -2px;\r\n    font-size: 12px;\r\n    background: rgba(0, 0, 0, 0.6); /* Dark circular background */\r\n    color: white;\r\n    border-radius: 50%;\r\n    width: 16px;\r\n    height: 16px;\r\n    line-height: 16px;\r\n    text-align: center;\r\n    border: 1px solid #fff;\r\n    box-shadow: 0px 0px 2px #000;\r\n}\r\n\r\n\r\n\r\n\r\n@media screen and (max-width: 768px) {\r\n\r\n\r\n    /* Force the main IPB wrapper to take full width */\r\n    #ipbwrapper { \r\n        width: 95% !important; \r\n    }\r\n\r\n    /* Hide the sidebar and the spacer column completely on mobile */\r\n    .portal-sidebar, \r\n    table[width=\'<{tbl_width}>\'] > tbody > tr > td[width=\"1%\"] {\r\n        display: none !important;\r\n    }\r\n\r\n    .welcome-panel, .guest-panel {\r\n        display: none !important;\r\n    }\r\n\r\n    /* Force the main content column to be full width */\r\n    .portal-content {\r\n        display: block !important;\r\n        width: 100% !important;\r\n        padding: 0 !important;\r\n    }\r\n\r\n    /* Ensure images don\'t break the layout */\r\n    .postcolor img, .prew img, .row5 img {\r\n        max-width: 100% !important;\r\n        height: auto !important;\r\n    }\r\n\r\n    /* Make large table headers more readable on small screens */\r\n    .maintitle {\r\n        font-size: 13px !important;\r\n        padding: 10px 5px !important;\r\n    }\r\n\r\n    /* Expand the internal content blocks */\r\n    .tableborder, .tablefill {\r\n        width: 100% !important;\r\n        margin-bottom: 10px !important;\r\n    }\r\n\r\n    /* Fix Guest/Welcome panel columns for mobile stacking */\r\n    .row5[width=\"70%\"], .row5[width=\"30%\"], .row5[width=\"64\"] {\r\n        display: block !important;\r\n        text-align: left !important;\r\n        padding: 10px !important;\r\n    }\r\n    iframe{\r\n        width:100%!important;\r\n    }\r\n    video{\r\n        width:100%!important;\r\n    }\r\n    .prew img {\r\n        width:100%!important;\r\n    }\r\n}\r\n', NULL, 1777493250);
 
 -- --------------------------------------------------------
 
@@ -236,8 +196,8 @@ INSERT INTO `ibf_css` (`cssid`, `css_name`, `css_text`, `css_comments`, `updated
 -- Table structure for table `ibf_email_logs`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_email_logs` (
-  `email_id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_email_logs` (
+  `email_id` int(10) NOT NULL,
   `email_subject` varchar(255) NOT NULL DEFAULT '',
   `email_content` text NOT NULL,
   `email_date` int(10) NOT NULL DEFAULT 0,
@@ -246,10 +206,7 @@ CREATE TABLE IF NOT EXISTS `ibf_email_logs` (
   `from_ip_address` varchar(16) NOT NULL DEFAULT '127.0.0.1',
   `to_member_id` mediumint(8) NOT NULL DEFAULT 0,
   `to_email_address` varchar(250) NOT NULL DEFAULT '',
-  `topic_id` int(10) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`email_id`),
-  KEY `from_member_id` (`from_member_id`),
-  KEY `email_date` (`email_date`)
+  `topic_id` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -258,13 +215,12 @@ CREATE TABLE IF NOT EXISTS `ibf_email_logs` (
 -- Table structure for table `ibf_emoticons`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_emoticons` (
-  `id` smallint(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_emoticons` (
+  `id` smallint(3) NOT NULL,
   `typed` varchar(32) NOT NULL DEFAULT '',
   `image` varchar(128) NOT NULL DEFAULT '',
-  `clickable` smallint(2) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `clickable` smallint(2) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_emoticons`
@@ -298,13 +254,12 @@ INSERT INTO `ibf_emoticons` (`id`, `typed`, `image`, `clickable`) VALUES
 -- Table structure for table `ibf_faq`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_faq` (
-  `id` mediumint(8) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_faq` (
+  `id` mediumint(8) NOT NULL,
   `title` varchar(128) NOT NULL DEFAULT '',
   `text` text DEFAULT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_faq`
@@ -334,8 +289,8 @@ INSERT INTO `ibf_faq` (`id`, `title`, `text`, `description`) VALUES
 -- Table structure for table `ibf_files`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_files` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_files` (
+  `id` int(11) NOT NULL,
   `mid` int(11) NOT NULL DEFAULT 0,
   `cat` int(11) NOT NULL DEFAULT 0,
   `open` tinyint(1) NOT NULL DEFAULT 0,
@@ -346,8 +301,7 @@ CREATE TABLE IF NOT EXISTS `ibf_files` (
   `views` int(10) NOT NULL DEFAULT 0,
   `file_size` int(10) NOT NULL DEFAULT 0,
   `updated` int(10) NOT NULL DEFAULT 0,
-  `approved` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  `approved` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -356,15 +310,14 @@ CREATE TABLE IF NOT EXISTS `ibf_files` (
 -- Table structure for table `ibf_files_cats`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_files_cats` (
-  `cid` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_files_cats` (
+  `cid` int(11) NOT NULL,
   `cname` varchar(255) DEFAULT '',
   `cdesc` text DEFAULT NULL,
   `copen` tinyint(1) NOT NULL DEFAULT 0,
   `sub` int(11) NOT NULL DEFAULT 0,
   `position` int(11) NOT NULL DEFAULT 0,
-  `mid` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`cid`)
+  `mid` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -373,13 +326,11 @@ CREATE TABLE IF NOT EXISTS `ibf_files_cats` (
 -- Table structure for table `ibf_files_downloads`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_files_downloads` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_files_downloads` (
+  `id` int(11) NOT NULL,
   `file_id` int(11) NOT NULL DEFAULT 0,
   `ip_address` varchar(46) DEFAULT '',
-  `download_date` int(10) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  KEY `file_id` (`file_id`)
+  `download_date` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -388,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `ibf_files_downloads` (
 -- Table structure for table `ibf_forums`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_forums` (
+CREATE TABLE `ibf_forums` (
   `id` smallint(5) NOT NULL DEFAULT 0,
   `topics` mediumint(6) DEFAULT NULL,
   `posts` mediumint(6) DEFAULT NULL,
@@ -431,17 +382,15 @@ CREATE TABLE IF NOT EXISTS `ibf_forums` (
   `has_mod_posts` tinyint(1) NOT NULL DEFAULT 0,
   `topic_mm_id` varchar(250) NOT NULL DEFAULT '',
   `notify_modq_emails` text DEFAULT '',
-  PRIMARY KEY (`id`),
-  KEY `category` (`category`),
-  KEY `id` (`id`)
+  `icon` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_forums`
 --
 
-INSERT INTO `ibf_forums` (`id`, `topics`, `posts`, `last_post`, `last_poster_id`, `last_poster_name`, `name`, `description`, `position`, `use_ibc`, `use_html`, `status`, `start_perms`, `reply_perms`, `read_perms`, `password`, `category`, `last_title`, `last_id`, `sort_key`, `sort_order`, `prune`, `show_rules`, `upload_perms`, `preview_posts`, `allow_poll`, `allow_pollbump`, `inc_postcount`, `skin_id`, `parent_id`, `subwrap`, `sub_can_post`, `quick_reply`, `redirect_url`, `redirect_on`, `redirect_hits`, `redirect_loc`, `rules_title`, `rules_text`, `has_mod_posts`, `topic_mm_id`, `notify_modq_emails`) VALUES
-(1, 3, 0, 1777774947, 1, 'MadRomas', 'General', 'Legacy forum platform ', 1, 1, 0, '1', '*', '*', '*', '', 1, 'Pictures testing', 4, 'last_post', 'Z-A', 30, 2, '', 0, 1, 1, 1, NULL, -1, 0, 1, 1, '', 0, 0, '', 'Rules', 'Be nice!', 0, '', '');
+INSERT INTO `ibf_forums` (`id`, `topics`, `posts`, `last_post`, `last_poster_id`, `last_poster_name`, `name`, `description`, `position`, `use_ibc`, `use_html`, `status`, `start_perms`, `reply_perms`, `read_perms`, `password`, `category`, `last_title`, `last_id`, `sort_key`, `sort_order`, `prune`, `show_rules`, `upload_perms`, `preview_posts`, `allow_poll`, `allow_pollbump`, `inc_postcount`, `skin_id`, `parent_id`, `subwrap`, `sub_can_post`, `quick_reply`, `redirect_url`, `redirect_on`, `redirect_hits`, `redirect_loc`, `rules_title`, `rules_text`, `has_mod_posts`, `topic_mm_id`, `notify_modq_emails`, `icon`) VALUES
+(1, 4, 3, 1778111162, 2, 'Test', 'General', 'Legacy forum platform ', 1, 1, 0, '1', '*', '*', '*', '', 1, 'Mark Wahlberg Karaoke Performance', 5, 'last_post', 'Z-A', 30, 2, '', 0, 1, 1, 1, NULL, -1, 0, 1, 1, '', 0, 0, '', 'Rules', 'Be nice mother fuckers!', 0, '', '', '14');
 
 -- --------------------------------------------------------
 
@@ -449,11 +398,10 @@ INSERT INTO `ibf_forums` (`id`, `topics`, `posts`, `last_post`, `last_poster_id`
 -- Table structure for table `ibf_forum_perms`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_forum_perms` (
-  `perm_id` int(10) NOT NULL AUTO_INCREMENT,
-  `perm_name` varchar(250) NOT NULL DEFAULT '',
-  PRIMARY KEY (`perm_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `ibf_forum_perms` (
+  `perm_id` int(10) NOT NULL,
+  `perm_name` varchar(250) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_forum_perms`
@@ -472,14 +420,13 @@ INSERT INTO `ibf_forum_perms` (`perm_id`, `perm_name`) VALUES
 -- Table structure for table `ibf_forum_tracker`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_forum_tracker` (
-  `frid` mediumint(8) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_forum_tracker` (
+  `frid` mediumint(8) NOT NULL,
   `member_id` varchar(32) NOT NULL DEFAULT '',
   `forum_id` smallint(5) NOT NULL DEFAULT 0,
   `start_date` int(10) DEFAULT NULL,
-  `last_sent` int(10) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`frid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `last_sent` int(10) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_forum_tracker`
@@ -494,8 +441,8 @@ INSERT INTO `ibf_forum_tracker` (`frid`, `member_id`, `forum_id`, `start_date`, 
 -- Table structure for table `ibf_groups`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_groups` (
-  `g_id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_groups` (
+  `g_id` int(3) UNSIGNED NOT NULL,
   `g_view_board` tinyint(1) DEFAULT NULL,
   `g_mem_info` tinyint(1) DEFAULT NULL,
   `g_other_topics` tinyint(1) DEFAULT NULL,
@@ -539,9 +486,8 @@ CREATE TABLE IF NOT EXISTS `ibf_groups` (
   `g_dohtml` tinyint(1) NOT NULL DEFAULT 0,
   `g_edit_topic` tinyint(1) NOT NULL DEFAULT 0,
   `g_email_limit` varchar(15) NOT NULL DEFAULT '10:15',
-  `g_display` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`g_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `g_display` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_groups`
@@ -550,7 +496,7 @@ CREATE TABLE IF NOT EXISTS `ibf_groups` (
 INSERT INTO `ibf_groups` (`g_id`, `g_view_board`, `g_mem_info`, `g_other_topics`, `g_use_search`, `g_email_friend`, `g_invite_friend`, `g_edit_profile`, `g_post_new_topics`, `g_reply_own_topics`, `g_reply_other_topics`, `g_edit_posts`, `g_delete_own_posts`, `g_open_close_posts`, `g_delete_own_topics`, `g_post_polls`, `g_vote_polls`, `g_use_pm`, `g_is_supmod`, `g_access_cp`, `g_title`, `g_can_remove`, `g_append_edit`, `g_access_offline`, `g_avoid_q`, `g_avoid_flood`, `g_icon`, `g_attach_max`, `g_avatar_upload`, `g_calendar_post`, `prefix`, `suffix`, `g_max_messages`, `g_max_mass_pm`, `g_search_flood`, `g_edit_cutoff`, `g_promotion`, `g_hide_from_list`, `g_post_closed`, `g_perm_id`, `g_photo_max_vars`, `g_dohtml`, `g_edit_topic`, `g_email_limit`, `g_display`) VALUES
 (1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Validating', 0, 1, 0, 0, 0, NULL, 0, 0, 0, NULL, NULL, 50, 0, 20, 0, '-1&-1', 0, 0, '1', '', 0, 0, '10:15', 0),
 (2, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, 'Guests', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, 50, 0, 20, 0, '-1&-1', 0, 0, '2', '', 0, 0, '10:15', 0),
-(3, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 'Members', 0, 1, 0, 0, 0, '', 0, 1, 0, '', '', 50, 0, 20, 0, '-1&-1', 0, 0, '3', '', 0, 0, '10:15', 0),
+(3, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 'Members', 0, 0, 0, 0, 0, '', 0, 1, 0, '', '', 50, 0, 20, 10, 'none&', 0, 0, '3', '::', 0, 1, '10:15', 0),
 (4, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Admin', 0, 1, 1, 1, 1, '', 50000, 1, 1, '<span style=\'color:red\'>', '</span>', 50, 6, 0, 5, '-1&-1', 0, 1, '4', '::', 1, 1, '10:15', 0),
 (5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Banned', 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 50, 0, 20, 0, '-1&-1', 1, 0, '5', '', 0, 0, '10:15', 0);
 
@@ -560,14 +506,13 @@ INSERT INTO `ibf_groups` (`g_id`, `g_view_board`, `g_mem_info`, `g_other_topics`
 -- Table structure for table `ibf_languages`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_languages` (
-  `lid` mediumint(8) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_languages` (
+  `lid` mediumint(8) NOT NULL,
   `ldir` varchar(64) NOT NULL DEFAULT '',
   `lname` varchar(250) NOT NULL DEFAULT '',
   `lauthor` varchar(250) DEFAULT NULL,
-  `lemail` varchar(250) DEFAULT NULL,
-  PRIMARY KEY (`lid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `lemail` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_languages`
@@ -582,15 +527,13 @@ INSERT INTO `ibf_languages` (`lid`, `ldir`, `lname`, `lauthor`, `lemail`) VALUES
 -- Table structure for table `ibf_macro`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_macro` (
-  `macro_id` smallint(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_macro` (
+  `macro_id` smallint(3) NOT NULL,
   `macro_value` varchar(200) DEFAULT NULL,
   `macro_replace` text DEFAULT NULL,
   `can_remove` tinyint(1) DEFAULT 0,
-  `macro_set` smallint(3) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`macro_id`),
-  KEY `macro_set` (`macro_set`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `macro_set` smallint(3) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_macro`
@@ -670,10 +613,9 @@ INSERT INTO `ibf_macro` (`macro_id`, `macro_value`, `macro_replace`, `can_remove
 -- Table structure for table `ibf_macro_name`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_macro_name` (
+CREATE TABLE `ibf_macro_name` (
   `set_id` smallint(3) NOT NULL DEFAULT 0,
-  `set_name` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`set_id`)
+  `set_name` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -686,10 +628,28 @@ INSERT INTO `ibf_macro_name` (`set_id`, `set_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ibf_md5image`
+--
+
+CREATE TABLE `ibf_md5image` (
+  `real_name` varchar(80) NOT NULL,
+  `hash_name` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_md5image`
+--
+
+INSERT INTO `ibf_md5image` (`real_name`, `hash_name`) VALUES
+('post-1-1778106924.jpg', '3767d58eb77b1bbed5462256a33f498b');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ibf_members`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_members` (
+CREATE TABLE `ibf_members` (
   `id` mediumint(8) NOT NULL DEFAULT 0,
   `name` varchar(255) NOT NULL DEFAULT '',
   `mgroup` smallint(3) NOT NULL DEFAULT 0,
@@ -745,12 +705,7 @@ CREATE TABLE IF NOT EXISTS `ibf_members` (
   `org_supmod` tinyint(1) DEFAULT 0,
   `integ_msg` varchar(250) DEFAULT '',
   `temp_ban` varchar(100) DEFAULT NULL,
-  `sub_end` int(10) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  KEY `name` (`name`),
-  KEY `mgroup` (`mgroup`),
-  KEY `bday_day` (`bday_day`),
-  KEY `bday_month` (`bday_month`)
+  `sub_end` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -758,8 +713,7 @@ CREATE TABLE IF NOT EXISTS `ibf_members` (
 --
 
 INSERT INTO `ibf_members` (`id`, `name`, `mgroup`, `password`, `email`, `joined`, `ip_address`, `avatar`, `avatar_size`, `posts`, `aim_name`, `icq_number`, `location`, `signature`, `website`, `yahoo`, `title`, `allow_admin_mails`, `time_offset`, `interests`, `hide_email`, `email_pm`, `email_full`, `skin`, `warn_level`, `warn_lastwarn`, `language`, `msnname`, `last_post`, `restrict_post`, `view_sigs`, `view_img`, `view_avs`, `view_pop`, `bday_day`, `bday_month`, `bday_year`, `new_msg`, `msg_from_id`, `msg_msg_id`, `msg_total`, `vdirs`, `show_popup`, `misc`, `last_visit`, `last_activity`, `dst_in_use`, `view_prefs`, `coppa_user`, `mod_posts`, `auto_track`, `org_perm_id`, `org_supmod`, `integ_msg`, `temp_ban`, `sub_end`) VALUES
-(0, 'Guest', 2, '', 'test@localhost.com', 0, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, '0', 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 1052787402, 1052787402, 0, '-1&-1', 0, '0', 0, '0', 0, '', '', 0),
-
+(0, 'Guest', 2, '', 'test@localhost.com', 0, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, '0', 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 1052787402, 1052787402, 0, '-1&-1', 0, '0', 0, '0', 0, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -767,7 +721,7 @@ INSERT INTO `ibf_members` (`id`, `name`, `mgroup`, `password`, `email`, `joined`
 -- Table structure for table `ibf_member_extra`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_member_extra` (
+CREATE TABLE `ibf_member_extra` (
   `id` mediumint(8) NOT NULL DEFAULT 0,
   `notes` text DEFAULT NULL,
   `links` text DEFAULT NULL,
@@ -775,8 +729,7 @@ CREATE TABLE IF NOT EXISTS `ibf_member_extra` (
   `ta_size` char(3) DEFAULT NULL,
   `photo_type` varchar(10) DEFAULT '',
   `photo_location` varchar(255) DEFAULT '',
-  `photo_dimensions` varchar(200) DEFAULT '',
-  PRIMARY KEY (`id`)
+  `photo_dimensions` varchar(200) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -792,8 +745,8 @@ INSERT INTO `ibf_member_extra` (`id`, `notes`, `links`, `bio`, `ta_size`, `photo
 -- Table structure for table `ibf_messages`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_messages` (
-  `msg_id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_messages` (
+  `msg_id` int(10) NOT NULL,
   `msg_date` int(10) DEFAULT NULL,
   `read_state` tinyint(1) DEFAULT NULL,
   `title` varchar(128) DEFAULT NULL,
@@ -806,11 +759,8 @@ CREATE TABLE IF NOT EXISTS `ibf_messages` (
   `attach_file` tinyint(128) DEFAULT NULL,
   `cc_users` text DEFAULT NULL,
   `tracking` tinyint(1) DEFAULT 0,
-  `read_date` int(10) DEFAULT NULL,
-  PRIMARY KEY (`msg_id`),
-  KEY `member_id` (`member_id`),
-  KEY `vid` (`vid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `read_date` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_messages`
@@ -825,8 +775,8 @@ INSERT INTO `ibf_messages` (`msg_id`, `msg_date`, `read_state`, `title`, `messag
 -- Table structure for table `ibf_moderators`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_moderators` (
-  `mid` mediumint(8) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_moderators` (
+  `mid` mediumint(8) NOT NULL,
   `forum_id` int(5) NOT NULL DEFAULT 0,
   `member_name` varchar(32) NOT NULL DEFAULT '',
   `member_id` mediumint(8) NOT NULL DEFAULT 0,
@@ -850,11 +800,7 @@ CREATE TABLE IF NOT EXISTS `ibf_moderators` (
   `group_id` smallint(3) DEFAULT NULL,
   `group_name` varchar(200) DEFAULT NULL,
   `split_merge` tinyint(1) DEFAULT 0,
-  `can_mm` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`mid`),
-  KEY `forum_id` (`forum_id`),
-  KEY `group_id` (`group_id`),
-  KEY `member_id` (`member_id`)
+  `can_mm` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -863,8 +809,8 @@ CREATE TABLE IF NOT EXISTS `ibf_moderators` (
 -- Table structure for table `ibf_moderator_logs`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_moderator_logs` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_moderator_logs` (
+  `id` int(10) NOT NULL,
   `forum_id` int(5) DEFAULT 0,
   `topic_id` int(10) NOT NULL DEFAULT 0,
   `post_id` int(10) DEFAULT NULL,
@@ -875,9 +821,8 @@ CREATE TABLE IF NOT EXISTS `ibf_moderator_logs` (
   `ctime` int(10) DEFAULT NULL,
   `topic_title` varchar(128) DEFAULT NULL,
   `action` varchar(128) DEFAULT NULL,
-  `query_string` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `query_string` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 -- --------------------------------------------------------
@@ -886,10 +831,9 @@ CREATE TABLE IF NOT EXISTS `ibf_moderator_logs` (
 -- Table structure for table `ibf_pfields_content`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_pfields_content` (
+CREATE TABLE `ibf_pfields_content` (
   `member_id` mediumint(8) NOT NULL DEFAULT 0,
-  `updated` int(10) DEFAULT 0,
-  PRIMARY KEY (`member_id`)
+  `updated` int(10) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -905,8 +849,8 @@ INSERT INTO `ibf_pfields_content` (`member_id`, `updated`) VALUES
 -- Table structure for table `ibf_pfields_data`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_pfields_data` (
-  `fid` smallint(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_pfields_data` (
+  `fid` smallint(5) NOT NULL,
   `ftitle` varchar(200) NOT NULL DEFAULT '',
   `fdesc` varchar(250) DEFAULT '',
   `fcontent` text DEFAULT NULL,
@@ -916,8 +860,7 @@ CREATE TABLE IF NOT EXISTS `ibf_pfields_data` (
   `fmaxinput` smallint(6) DEFAULT 250,
   `fedit` tinyint(1) DEFAULT 1,
   `forder` smallint(6) DEFAULT 1,
-  `fshowreg` tinyint(1) DEFAULT 0,
-  PRIMARY KEY (`fid`)
+  `fshowreg` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -926,16 +869,15 @@ CREATE TABLE IF NOT EXISTS `ibf_pfields_data` (
 -- Table structure for table `ibf_polls`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_polls` (
-  `pid` mediumint(8) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_polls` (
+  `pid` mediumint(8) NOT NULL,
   `tid` int(10) NOT NULL DEFAULT 0,
   `start_date` int(10) DEFAULT NULL,
   `choices` text DEFAULT NULL,
   `starter_id` mediumint(8) NOT NULL DEFAULT 0,
   `votes` smallint(5) NOT NULL DEFAULT 0,
   `forum_id` smallint(5) NOT NULL DEFAULT 0,
-  `poll_question` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`pid`)
+  `poll_question` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -944,8 +886,8 @@ CREATE TABLE IF NOT EXISTS `ibf_polls` (
 -- Table structure for table `ibf_posts`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_posts` (
-  `pid` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_posts` (
+  `pid` int(10) NOT NULL,
   `append_edit` tinyint(1) DEFAULT 0,
   `edit_time` int(10) DEFAULT NULL,
   `author_id` mediumint(8) NOT NULL DEFAULT 0,
@@ -966,13 +908,15 @@ CREATE TABLE IF NOT EXISTS `ibf_posts` (
   `post_title` varchar(255) DEFAULT NULL,
   `new_topic` tinyint(1) DEFAULT 0,
   `edit_name` varchar(255) DEFAULT NULL,
-  `has_modcomment` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`pid`),
-  KEY `topic_id` (`topic_id`,`author_id`),
-  KEY `author_id` (`author_id`),
-  KEY `forum_id` (`forum_id`,`post_date`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `has_modcomment` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ibf_posts`
+--
+
+INSERT INTO `ibf_posts` (`pid`, `append_edit`, `edit_time`, `author_id`, `author_name`, `use_sig`, `use_emo`, `ip_address`, `post_date`, `icon_id`, `post`, `queued`, `topic_id`, `forum_id`, `attach_id`, `attach_hits`, `attach_type`, `attach_file`, `post_title`, `new_topic`, `edit_name`, `has_modcomment`) VALUES
+(10, 0, 1778172639, 1, 'MadRomas', 1, 1, '107.143.11.45', 1777735872, 13, '<p>This is a 20+ some whatever year old forum platform. Optomized almost fully. Work in progress so to speak(<em>something that is being developed or suggested but that is not yet complete)</em></p>\n<p>TinyMCE is by far the best choice of text editor for this project. Modern and fits just right.</p>\n<p>Create, reply submit errors right here in this forum. 😎</p>', 0, 2, 1, 0, 0, '', '', NULL, 1, 'MadRomas', 0);
 
 -- --------------------------------------------------------
 
@@ -980,53 +924,13 @@ CREATE TABLE IF NOT EXISTS `ibf_posts` (
 -- Table structure for table `ibf_reg_antispam`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_reg_antispam` (
+CREATE TABLE `ibf_reg_antispam` (
   `regid` varchar(32) NOT NULL DEFAULT '',
   `regcode` varchar(8) NOT NULL DEFAULT '',
   `ip_address` varchar(32) DEFAULT NULL,
-  `ctime` int(10) DEFAULT NULL,
-  PRIMARY KEY (`regid`)
+  `ctime` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ibf_reg_antispam`
---
-
-INSERT INTO `ibf_reg_antispam` (`regid`, `regcode`, `ip_address`, `ctime`) VALUES
-('04beef9d44703ee7d92fac588af49326', '596123', '107.143.11.45', 1777757995),
-('052f30d372f11d0ed5259273d8ca371f', '682214', '107.143.11.45', 1777757843),
-('074f5c9414f27e9d506ee7cdec4918ae', '219066', '107.143.11.45', 1777756826),
-('193ae85c797fbdb931fc5e24a75a288e', '550511', '107.143.11.45', 1777756408),
-('1a1537abca563fd888bee4b162e25a54', '596228', '107.143.11.45', 1777758209),
-('21acea0d2e982bd5ac156bdf67981a72', '796362', '107.143.11.45', 1777756741),
-('2ce51a04fa92b3943f9c6fb9d9ea303a', '676538', '107.143.11.45', 1777757645),
-('2d4b75353404e72151e0f4c1e35e6e72', '643431', '107.143.11.45', 1777755644),
-('463ec3a94c4fc05deeee08e27a7cd5bb', '957363', '107.143.11.45', 1777756736),
-('49ede70856f605ec1979517739b53098', '377138', '107.143.11.45', 1777757994),
-('527b8d35c7664821b31063241c184285', '882151', '107.143.11.45', 1777756828),
-('587d99ce5d012fb0e3f62c50c7063e07', '339888', '107.143.11.45', 1777758036),
-('64a354106b1a7fab5aa58bdead5b72d2', '117622', '107.143.11.45', 1777757996),
-('691e0cea650e62b6566f647867ade08e', '727329', '107.143.11.45', 1777757992),
-('695affc5651af003bd8c841a8e961f6b', '175071', '107.143.11.45', 1777756356),
-('7651137ae800c1ee63f52d95057e65cd', '467654', '107.143.11.45', 1777756408),
-('8a19475014e50ed9f87b044373d21b54', '480801', '107.143.11.45', 1777756407),
-('8be282153ae616bd5d380cb665030d12', '420932', '107.143.11.45', 1777757843),
-('8ff9adfb35d9d69e764707035a143fed', '520746', '107.143.11.45', 1777757842),
-('9235b5082e0477274014b4c8de95ae66', '104129', '107.143.11.45', 1777756830),
-('a2b88bb664a28cee5a7a28507284e3df', '786023', '107.143.11.45', 1777756357),
-('a8185ddde843a76f6f53df9bc18b3c21', '754084', '107.143.11.45', 1777756404),
-('af48d27150e4eacf6a3a2e9f45c6c944', '300652', '107.143.11.45', 1777756829),
-('af5c356c4d702a5aeae1d3ebc8a7c87e', '686312', '107.143.11.45', 1777755699),
-('b4397dec8b319865d9d002e73ef4d243', '493242', '107.143.11.45', 1777756403),
-('bacf9963e38c6f994f7fc44dea2f3184', '914255', '107.143.11.45', 1777756399),
-('c899154b33edf18b635c255c68456420', '547697', '107.143.11.45', 1777755660),
-('d9171b34dc6ae1d60d02a735daef5e03', '122430', '107.143.11.45', 1777756828),
-('dd32486bcc9465e87abccd438703b960', '157068', '107.143.11.45', 1777757841),
-('dd53dfaff23304cc62950352429154a3', '279493', '107.143.11.45', 1777757649),
-('ecbf29018f80a72b4c207b5915d28f7a', '278037', '107.143.11.45', 1777756409),
-('f02aa70b644fc088c173b0cb0a2843b4', '921856', '107.143.11.45', 1777763284),
-('fdded9a977e5739edb43149b1fcf4572', '497506', '107.143.11.45', 1777756734),
-('fe278c4bf24fb7e52065683334aaf556', '572612', '107.143.11.45', 1777757993);
 
 -- --------------------------------------------------------
 
@@ -1034,7 +938,7 @@ INSERT INTO `ibf_reg_antispam` (`regid`, `regcode`, `ip_address`, `ctime`) VALUE
 -- Table structure for table `ibf_search_results`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_search_results` (
+CREATE TABLE `ibf_search_results` (
   `id` varchar(32) NOT NULL DEFAULT '',
   `topic_id` text NOT NULL,
   `search_date` int(12) NOT NULL DEFAULT 0,
@@ -1048,19 +952,6 @@ CREATE TABLE IF NOT EXISTS `ibf_search_results` (
   `query_cache` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ibf_search_results`
---
-
-INSERT INTO `ibf_search_results` (`id`, `topic_id`, `search_date`, `topic_max`, `sort_key`, `sort_order`, `member_id`, `ip_address`, `post_id`, `post_max`, `query_cache`) VALUES
-('70a36451837e6e42a8276048282f1a62', '1', 1777680267, 1, 'last_post', 'desc', 1, '107.143.11.45', NULL, 0, NULL),
-('6342b78ec60475e6f15aaa081d5de28f', '1', 1777680367, 1, 'last_post', 'desc', 1, '107.143.11.45', NULL, 0, NULL),
-('4f64d767ab6195350aa3fa9bdc1e0aac', '1', 1777680373, 1, 'last_post', 'desc', 1, '107.143.11.45', NULL, 0, NULL),
-('7f2cb7ff5895ff0b1de94adae06bae3d', '1', 1777680389, 1, 'last_post', 'desc', 1, '107.143.11.45', NULL, 0, NULL),
-('17cdf4ec159875de89a998aa2d061e86', '1', 1777682306, 1, 'last_post', 'desc', 1, '107.143.11.45', NULL, 0, NULL),
-('688073ba93ead054658dcb9df8026ead', '1', 1777685689, 1, 'last_post', 'desc', 1, '107.143.11.45', NULL, 0, NULL),
-('e2af69d914f74eeeaabfbdc29a5da988', '2,1', 1777735928, 2, 'last_post', 'desc', 0, '107.143.11.45', NULL, 0, NULL),
-('76621bd9096742ce0610048d411c6bdf', '0', 1777763245, 0, 'last_post', 'desc', 0, '107.143.11.45', '11', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -1068,7 +959,7 @@ INSERT INTO `ibf_search_results` (`id`, `topic_id`, `search_date`, `topic_max`, 
 -- Table structure for table `ibf_sessions`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_sessions` (
+CREATE TABLE `ibf_sessions` (
   `id` varchar(32) NOT NULL DEFAULT '0',
   `member_name` varchar(64) DEFAULT NULL,
   `member_id` mediumint(8) NOT NULL DEFAULT 0,
@@ -1079,10 +970,7 @@ CREATE TABLE IF NOT EXISTS `ibf_sessions` (
   `location` varchar(40) DEFAULT NULL,
   `member_group` smallint(3) DEFAULT NULL,
   `in_forum` smallint(5) NOT NULL DEFAULT 0,
-  `in_topic` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `in_topic` (`in_topic`),
-  KEY `in_forum` (`in_forum`)
+  `in_topic` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -1092,8 +980,8 @@ CREATE TABLE IF NOT EXISTS `ibf_sessions` (
 -- Table structure for table `ibf_skins`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_skins` (
-  `uid` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_skins` (
+  `uid` int(10) NOT NULL,
   `sname` varchar(100) NOT NULL DEFAULT '',
   `sid` int(10) NOT NULL DEFAULT 0,
   `set_id` int(5) NOT NULL DEFAULT 0,
@@ -1105,11 +993,8 @@ CREATE TABLE IF NOT EXISTS `ibf_skins` (
   `tbl_border` varchar(250) DEFAULT NULL,
   `hidden` tinyint(1) NOT NULL DEFAULT 0,
   `default_set` tinyint(1) NOT NULL DEFAULT 0,
-  `css_method` varchar(100) DEFAULT 'inline',
-  PRIMARY KEY (`uid`),
-  KEY `tmpl_id` (`tmpl_id`),
-  KEY `css_id` (`css_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `css_method` varchar(100) DEFAULT 'inline'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_skins`
@@ -1124,17 +1009,16 @@ INSERT INTO `ibf_skins` (`uid`, `sname`, `sid`, `set_id`, `tmpl_id`, `macro_id`,
 -- Table structure for table `ibf_skin_templates`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_skin_templates` (
-  `suid` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_skin_templates` (
+  `suid` int(10) NOT NULL,
   `set_id` int(10) NOT NULL DEFAULT 0,
   `group_name` varchar(255) NOT NULL DEFAULT '',
   `section_content` mediumtext DEFAULT NULL,
   `func_name` varchar(255) DEFAULT NULL,
   `func_data` text DEFAULT NULL,
   `updated` int(10) DEFAULT NULL,
-  `can_remove` tinyint(4) DEFAULT 0,
-  PRIMARY KEY (`suid`)
-) ENGINE=InnoDB AUTO_INCREMENT=509 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `can_remove` tinyint(4) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_skin_templates`
@@ -1150,7 +1034,7 @@ INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_conte
 (7, 1, 'skin_boards', '<tr>\n           <td class=\'pformstrip\' colspan=\'2\'>$active[TOTAL] {$ibforums->lang[\'active_users\']}</td>\n    	</tr>\n    	<tr>\n          <td width=\"5%\" class=\'row2\'><{F_ACTIVE}></td>\n          <td class=\'row4\' width=\'95%\'>\n            <b>{$active[GUESTS]}</b> {$ibforums->lang[\'guests\']}, <b>$active[MEMBERS]</b> {$ibforums->lang[\'public_members\']} <b>$active[ANON]</b> {$ibforums->lang[\'anon_members\']}\n            <div class=\'thin\'>{$active[NAMES]}</div>\n            {$active[\'links\']}\n          </td>\n        </tr>\n        <!--IBF.WHOSCHATTING-->', 'ActiveUsers', '$active', 1035406235, 0),
 (8, 1, 'skin_boards', '{$ibforums->lang[\'oul_show_more\']} <a href=\'{$ibforums->base_url}act=Online&amp;CODE=listall&amp;sort_key=click\'>{$ibforums->lang[\'oul_click\']}</a>, <a href=\'{$ibforums->base_url}act=Online&amp;CODE=listall&amp;sort_key=name&amp;sort_order=asc&amp;show_mem=reg\'>{$ibforums->lang[\'oul_name\']}</a>', 'active_user_links', '', 1035406235, 0),
 (9, 1, 'skin_boards', '<tr>\n		     <td class=\'pformstrip\' colspan=\'2\'>{$ibforums->lang[\'board_stats\']}</td>\n		   </tr>\n		   <tr>\n			 <td class=\'row2\' width=\'5%\' valign=\'middle\'><{F_STATS}></td>\n			 <td class=\'row4\' width=\"95%\" align=\'left\'>$text<br />{$ibforums->lang[\'most_online\']}</td>\n		   </tr>', 'ShowStats', '$text', 1035406235, 0),
-(10, 1, 'skin_boards', '<tr>\n           <td class=\'pformstrip\' colspan=\'2\'>{$ibforums->lang[\'birthday_header\']}</td>\n    	</tr>\n    	<tr>\n          <td class=\'row2\' width=\'5%\' valign=\'middle\'><{F_ACTIVE}></td>\n          <td class=\'row4\' width=\'95%\'><b>$total</b> $birth_lang<br />$birthusers</td>\n        </tr>', 'birthdays', '$birthusers=\"\", $total=\"\", $birth_lang=\"\"', 1035406235, 0),
+(10, 1, 'skin_boards', '<tr>\n           <td class=\'pformstrip\' colspan=\'2\'>{$ibforums->lang[\'birthday_header\']}</td>\n    	</tr>\n    	<tr>\n          <td class=\'row2\' width=\'5%\' valign=\'middle\'><{F_ACTIVE}></td>\n          <td class=\'row4\' width=\'95%\'><b>$total</b> $birth_lang<br />$birthusers</td>\n        </tr>', 'birthdays', '$birthusers=\"\", $total=\"\", $birth_lang=\"\"', 1777932474, 0),
 (11, 1, 'skin_boards', '<tr>\n           <td class=\'pformstrip\' colspan=\'2\'>{$ibforums->lang[\'calender_f_title\']}</td>\n    	</tr>\n    	<tr>\n          <td class=\'row2\' width=\'5%\' valign=\'middle\'><{F_ACTIVE}></td>\n          <td class=\'row4\' width=\'95%\'>$events</td>\n        </tr>', 'calendar_events', '$events = \"\"', 1035406235, 0),
 (12, 1, 'skin_boards', '</table>\n	 </div>\n    <!-- Board Stats -->', 'stats_footer', '', 1035406235, 0),
 (13, 1, 'skin_boards', '<br />\n   <div align=\'right\'><a href=\"{$ibforums->base_url}act=Login&amp;CODE=06\">{$ibforums->lang[\'d_delete_cookies\']}</a> &middot; <a href=\"{$ibforums->base_url}act=Login&amp;CODE=05\">{$ibforums->lang[\'d_post_read\']}</a></div>', 'bottom_links', '', 1035406235, 0),
@@ -1275,7 +1159,7 @@ INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_conte
 (131, 1, 'skin_global', '<table width=\"100%\" id=\"userlinks\" cellspacing=\"6\">\n   <tr>\n    <td>{$ibforums->lang[\'guest_stuff\']} ( <a href=\'{$ibforums->base_url}act=Login&amp;CODE=00\'>{$ibforums->lang[\'log_in\']}</a> | <a href=\'{$ibforums->base_url}act=Reg&amp;CODE=00\'>{$ibforums->lang[\'register\']}</a> )</td>\n    <td align=\'right\'><a href=\'{$ibforums->base_url}act=Reg&amp;CODE=reval\'>{$ibforums->lang[\'ml_revalidate\']}</a></td>\n   </tr>\n  </table>', 'Guest_bar', '', 1035406235, 0),
 (132, 1, 'skin_global', '<table width=\"100%\" id=\"userlinks\" cellspacing=\"6\">\n   <tr>\n    <td><strong>{$ibforums->lang[\'mb_disabled\']} </strong></td>\n   </tr>\n  </table>', 'member_bar_disabled', '', 1035406235, 0),
 (133, 1, 'skin_global', '<table width=\"100%\" id=\"userlinks\" cellspacing=\"6\">\n   <tr>\n    <td><b>{$ibforums->lang[\'logged_in_as\']} {$ibforums->member[\'name\']}</b> ( <a href=\'{$ibforums->base_url}act=Login&amp;CODE=03\'>{$ibforums->lang[\'log_out\']}</a>$ad_link $mod_link $val_link )</td>\n    <td align=\'right\'>\n   <b><a href=\'{$ibforums->base_url}act=UserCP&amp;CODE=00\' title=\'{$ibforums->lang[\'cp_tool_tip\']}\'>{$ibforums->lang[\'your_cp\']}</a></b>\n    &middot;  <a href=\'{$ibforums->base_url}act=Search&amp;CODE=getnew\'>{$ibforums->lang[\'view_new_posts\']}</a>  &middot;  <a href=\'javascript:buddy_pop();\' title=\'{$ibforums->lang[\'bb_tool_tip\']}\'>{$ibforums->lang[\'l_qb\']}</a></td>\n   </tr>\n  </table>', 'Member_no_usepm_bar', '$ad_link, $mod_link, $val_link', 1035406235, 0),
-(134, 1, 'skin_global', '<script language=\'JavaScript\' type=\"text/javascript\">\n<!--\nfunction buddy_pop() { window.open(\'index.{$ibforums->vars[\'php_ext\']}?act=buddy&s={$ibforums->session_id}\',\'BrowserBuddy\',\'width=250,height=500,resizable=yes,scrollbars=yes\'); }\nfunction chat_pop(cw,ch)  { window.open(\'index.{$ibforums->vars[\'php_ext\']}?s={$ibforums->session_id}&act=chat&pop=1\',\'Chat\',\'width=\'+cw+\',height=\'+ch+\',resizable=yes,scrollbars=yes\'); }\nfunction multi_page_jump( url_bit, total_posts, per_page )\n{\npages = 1; cur_st = parseInt(\"{$ibforums->input[\'st\']}\"); cur_page  = 1;\nif ( total_posts % per_page == 0 ) { pages = total_posts / per_page; }\n else { pages = Math.ceil( total_posts / per_page ); }\nmsg = \"{$ibforums->lang[\'tpl_q1\']}\" + \" \" + pages;\nif ( cur_st > 0 ) { cur_page = cur_st / per_page; cur_page = cur_page -1; }\nshow_page = 1;\nif ( cur_page < pages )  { show_page = cur_page + 1; }\nif ( cur_page >= pages ) { show_page = cur_page - 1; }\n else { show_page = cur_page + 1; }\nuserPage = prompt( msg, show_page );\nif ( userPage > 0  ) {\n	if ( userPage < 1 )     {    userPage = 1;  }\n	if ( userPage > pages ) { userPage = pages; }\n	if ( userPage == 1 )    {     start = 0;    }\n	else { start = (userPage - 1) * per_page; }\n	window.location = url_bit + \"&st=\" + start;\n}\n}\n//-->\n</script>\n \n<!--IBF.BANNER-->\n<div id=\'logostrip\'>\n  <a href=\'{$ibforums->base_url}\' title=\'Board Home\'>{$ibforums->vars[\'board_name\']}</a>\n</div>\n<!-- IE6/Win TABLE FIX -->\n<table  width=\"100%\" cellspacing=\"6\" id=\"submenu\">\n<tr>\n <td><a href=\'{$ibforums->vars[\'home_url\']}\'>{$ibforums->vars[\'home_name\']}</a><!--IBF.RULES--></td>\n <td align=\"right\">\n   <img src=\"{$ibforums->vars[\'img_url\']}/atb_help.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=Help\'>{$ibforums->lang[\'tb_help\']}</a>\n   &nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_search.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=Search&amp;f={$ibforums->input[\'f\']}\'>{$ibforums->lang[\'tb_search\']}</a>\n   &nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_members.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=Members\'>{$ibforums->lang[\'tb_mlist\']}</a>\n   &nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_calendar.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=calendar\'>{$ibforums->lang[\'tb_calendar\']}</a>\n   <!--IBF.CHATLINK-->\n   <!--IBF.TSLLINK-->\n </td>\n</tr>\n</table>\n<% MEMBER BAR %>\n<br />', 'BoardHeader', '$time=\"\"', 1777750002, 0),
+(134, 1, 'skin_global', '<script language=\'JavaScript\' type=\"text/javascript\">\n<!--\nfunction buddy_pop() { window.open(\'index.{$ibforums->vars[\'php_ext\']}?act=buddy&s={$ibforums->session_id}\',\'BrowserBuddy\',\'width=250,height=500,resizable=yes,scrollbars=yes\'); }\nfunction chat_pop(cw,ch)  { window.open(\'index.{$ibforums->vars[\'php_ext\']}?s={$ibforums->session_id}&act=chat&pop=1\',\'Chat\',\'width=\'+cw+\',height=\'+ch+\',resizable=yes,scrollbars=yes\'); }\nfunction multi_page_jump( url_bit, total_posts, per_page )\n{\npages = 1; cur_st = parseInt(\"{$ibforums->input[\'st\']}\"); cur_page  = 1;\nif ( total_posts % per_page == 0 ) { pages = total_posts / per_page; }\n else { pages = Math.ceil( total_posts / per_page ); }\nmsg = \"{$ibforums->lang[\'tpl_q1\']}\" + \" \" + pages;\nif ( cur_st > 0 ) { cur_page = cur_st / per_page; cur_page = cur_page -1; }\nshow_page = 1;\nif ( cur_page < pages )  { show_page = cur_page + 1; }\nif ( cur_page >= pages ) { show_page = cur_page - 1; }\n else { show_page = cur_page + 1; }\nuserPage = prompt( msg, show_page );\nif ( userPage > 0  ) {\n	if ( userPage < 1 )     {    userPage = 1;  }\n	if ( userPage > pages ) { userPage = pages; }\n	if ( userPage == 1 )    {     start = 0;    }\n	else { start = (userPage - 1) * per_page; }\n	window.location = url_bit + \"&st=\" + start;\n}\n}\n//-->\n</script>\n \n<!--IBF.BANNER-->\n<div id=\'logostrip\'>\n  <a href=\'{$ibforums->base_url}\' title=\'Board Home\'>{$ibforums->vars[\'board_name\']}</a>\n</div>\n<!-- IE6/Win TABLE FIX -->\n<table  width=\"100%\" cellspacing=\"6\" id=\"submenu\">\n<tr>\n <td><a href=\'{$ibforums->vars[\'home_url\']}\'>{$ibforums->vars[\'home_name\']}</a><!--IBF.RULES--></td>\n <td align=\"right\">\n 🦮&nbsp;<a href=\'{$ibforums->base_url}act=Help\'>{$ibforums->lang[\'tb_help\']}</a>\n   &nbsp; &nbsp;&nbsp🔍&nbsp;<a href=\'{$ibforums->base_url}act=Search&amp;f={$ibforums->input[\'f\']}\'>{$ibforums->lang[\'tb_search\']}</a>\n   &nbsp; &nbsp;&nbsp; 👥{$ibforums->lang[\'tb_mlist\']}</a>\n   &nbsp; &nbsp;&nbsp;📅&nbsp;<a href=\'{$ibforums->base_url}act=calendar\'>{$ibforums->lang[\'tb_calendar\']}</a>\n   <!--IBF.CHATLINK-->\n   <!--IBF.TSLLINK-->\n </td>\n</tr>\n</table>\n<% MEMBER BAR %>\n<br />', 'BoardHeader', '$time=\"\"', 1777932033, 0),
 (135, 1, 'skin_global', '&nbsp;&middot; <a href=\"$url\">$title</a>', 'rules_link', '$url=\"\", $title=\"\"', 1035406235, 0),
 (136, 1, 'skin_global', '&nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_toplist.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=module&amp;module=toplist\'>{$ibforums->lang[\'tb_toplist\']}</a>', 'show_tsl_link_inline', '', 1035406235, 0),
 (137, 1, 'skin_global', '&nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_chat.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=chat\'>{$ibforums->lang[\'live_chat\']}</a>', 'show_chat_link_inline', '', 1035406235, 0),
@@ -1663,13 +1547,12 @@ INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_conte
 -- Table structure for table `ibf_spider_logs`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_spider_logs` (
-  `sid` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_spider_logs` (
+  `sid` int(10) NOT NULL,
   `bot` varchar(255) NOT NULL DEFAULT '',
   `query_string` text NOT NULL,
   `entry_date` int(10) NOT NULL DEFAULT 0,
-  `ip_address` varchar(16) NOT NULL DEFAULT '',
-  PRIMARY KEY (`sid`)
+  `ip_address` varchar(16) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1678,7 +1561,7 @@ CREATE TABLE IF NOT EXISTS `ibf_spider_logs` (
 -- Table structure for table `ibf_stats`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_stats` (
+CREATE TABLE `ibf_stats` (
   `TOTAL_REPLIES` int(10) NOT NULL DEFAULT 0,
   `TOTAL_TOPICS` int(10) NOT NULL DEFAULT 0,
   `LAST_MEM_NAME` varchar(32) DEFAULT NULL,
@@ -1688,12 +1571,6 @@ CREATE TABLE IF NOT EXISTS `ibf_stats` (
   `MEM_COUNT` mediumint(8) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ibf_stats`
---
-
-INSERT INTO `ibf_stats` (`TOTAL_REPLIES`, `TOTAL_TOPICS`, `LAST_MEM_NAME`, `LAST_MEM_ID`, `MOST_DATE`, `MOST_COUNT`, `MEM_COUNT`) VALUES
-(0, 3, 'Test', 2, 1777645012, 10, 2);
 
 -- --------------------------------------------------------
 
@@ -1701,16 +1578,15 @@ INSERT INTO `ibf_stats` (`TOTAL_REPLIES`, `TOTAL_TOPICS`, `LAST_MEM_NAME`, `LAST
 -- Table structure for table `ibf_subscriptions`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_subscriptions` (
-  `sub_id` smallint(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_subscriptions` (
+  `sub_id` smallint(5) NOT NULL,
   `sub_title` varchar(250) NOT NULL DEFAULT '',
   `sub_desc` text DEFAULT NULL,
   `sub_new_group` mediumint(8) NOT NULL DEFAULT 0,
   `sub_length` smallint(5) NOT NULL DEFAULT 1,
   `sub_unit` varchar(2) NOT NULL DEFAULT 'm',
   `sub_cost` decimal(10,2) NOT NULL DEFAULT 0.00,
-  `sub_run_module` varchar(250) NOT NULL DEFAULT '',
-  PRIMARY KEY (`sub_id`)
+  `sub_run_module` varchar(250) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1719,12 +1595,11 @@ CREATE TABLE IF NOT EXISTS `ibf_subscriptions` (
 -- Table structure for table `ibf_subscription_currency`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_subscription_currency` (
+CREATE TABLE `ibf_subscription_currency` (
   `subcurrency_code` varchar(10) NOT NULL,
   `subcurrency_desc` varchar(250) NOT NULL DEFAULT '',
   `subcurrency_exchange` decimal(10,8) NOT NULL,
-  `subcurrency_default` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`subcurrency_code`)
+  `subcurrency_default` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1743,8 +1618,8 @@ INSERT INTO `ibf_subscription_currency` (`subcurrency_code`, `subcurrency_desc`,
 -- Table structure for table `ibf_subscription_extra`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_subscription_extra` (
-  `subextra_id` smallint(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_subscription_extra` (
+  `subextra_id` smallint(5) NOT NULL,
   `subextra_sub_id` smallint(5) NOT NULL DEFAULT 0,
   `subextra_method_id` smallint(5) NOT NULL DEFAULT 0,
   `subextra_product_id` varchar(250) NOT NULL DEFAULT '0',
@@ -1754,8 +1629,7 @@ CREATE TABLE IF NOT EXISTS `ibf_subscription_extra` (
   `subextra_custom_2` text DEFAULT NULL,
   `subextra_custom_3` text DEFAULT NULL,
   `subextra_custom_4` text DEFAULT NULL,
-  `subextra_custom_5` text DEFAULT NULL,
-  PRIMARY KEY (`subextra_id`)
+  `subextra_custom_5` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1764,15 +1638,14 @@ CREATE TABLE IF NOT EXISTS `ibf_subscription_extra` (
 -- Table structure for table `ibf_subscription_logs`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_subscription_logs` (
-  `sublog_id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_subscription_logs` (
+  `sublog_id` int(10) NOT NULL,
   `sublog_date` int(10) NOT NULL DEFAULT 0,
   `sublog_member_id` mediumint(8) NOT NULL DEFAULT 0,
   `sublog_transid` int(10) NOT NULL DEFAULT 0,
   `sublog_ipaddress` varchar(16) NOT NULL DEFAULT '',
   `sublog_data` text DEFAULT NULL,
-  `sublog_postdata` text DEFAULT NULL,
-  PRIMARY KEY (`sublog_id`)
+  `sublog_postdata` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1781,8 +1654,8 @@ CREATE TABLE IF NOT EXISTS `ibf_subscription_logs` (
 -- Table structure for table `ibf_subscription_methods`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_subscription_methods` (
-  `submethod_id` smallint(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_subscription_methods` (
+  `submethod_id` smallint(5) NOT NULL,
   `submethod_title` varchar(250) NOT NULL DEFAULT '',
   `submethod_name` varchar(20) NOT NULL DEFAULT '',
   `submethod_email` varchar(250) NOT NULL DEFAULT '',
@@ -1797,9 +1670,8 @@ CREATE TABLE IF NOT EXISTS `ibf_subscription_methods` (
   `submethod_desc` text DEFAULT NULL,
   `submethod_logo` text DEFAULT NULL,
   `submethod_active` tinyint(1) NOT NULL DEFAULT 0,
-  `submethod_use_currency` varchar(10) NOT NULL DEFAULT 'USD',
-  PRIMARY KEY (`submethod_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `submethod_use_currency` varchar(10) NOT NULL DEFAULT 'USD'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_subscription_methods`
@@ -1817,8 +1689,8 @@ INSERT INTO `ibf_subscription_methods` (`submethod_id`, `submethod_title`, `subm
 -- Table structure for table `ibf_subscription_trans`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_subscription_trans` (
-  `subtrans_id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_subscription_trans` (
+  `subtrans_id` int(10) NOT NULL,
   `subtrans_sub_id` smallint(5) NOT NULL DEFAULT 0,
   `subtrans_member_id` mediumint(8) NOT NULL DEFAULT 0,
   `subtrans_old_group` smallint(5) NOT NULL DEFAULT 0,
@@ -1830,8 +1702,7 @@ CREATE TABLE IF NOT EXISTS `ibf_subscription_trans` (
   `subtrans_state` varchar(200) NOT NULL DEFAULT '',
   `subtrans_trxid` varchar(200) NOT NULL DEFAULT '',
   `subtrans_subscrid` varchar(200) NOT NULL DEFAULT '',
-  `subtrans_currency` varchar(10) NOT NULL DEFAULT 'USD',
-  PRIMARY KEY (`subtrans_id`)
+  `subtrans_currency` varchar(10) NOT NULL DEFAULT 'USD'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1840,19 +1711,18 @@ CREATE TABLE IF NOT EXISTS `ibf_subscription_trans` (
 -- Table structure for table `ibf_templates`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_templates` (
-  `tmid` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_templates` (
+  `tmid` int(10) NOT NULL,
   `template` mediumtext DEFAULT NULL,
-  `name` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`tmid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `name` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_templates`
 --
 
 INSERT INTO `ibf_templates` (`tmid`, `template`, `name`) VALUES
-(1, '<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head> \r\n<title><% TITLE %></title> \r\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" /> \r\n<meta name=\"referrer\" content=\"no-referrer-when-downgrade\">\r\n<% GENERATOR %> \r\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/fav/apple-touch-icon.png\">\r\n<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/fav/favicon-32x32.png\">\r\n<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/fav/favicon-16x16.png\">\r\n<link rel=\"manifest\" href=\"/fav/site.webmanifest\">\r\n<% CSS %> \r\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.0.0/tinymce.min.js\"></script>\r\n<% JAVASCRIPT %> \r\n</head> \r\n<body>\r\n<div id=\"ipbwrapper\">\r\n<% BOARD HEADER %> \r\n<% NAVIGATION %> \r\n<% BOARD %> \r\n<% STATS %> \r\n<% COPYRIGHT %>\r\n</div>\r\n</body> \r\n</html>', 'Invision Board Standard');
+(1, '<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head> \r\n<title><% TITLE %></title> \r\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" /> \r\n<meta name=\"referrer\" content=\"no-referrer-when-downgrade\">\r\n<% GENERATOR %> \r\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/fav/apple-touch-icon.png\">\r\n<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/fav/favicon-32x32.png\">\r\n<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/fav/favicon-16x16.png\">\r\n<link rel=\"manifest\" href=\"/fav/site.webmanifest\">\r\n<link\r\n  rel=\"stylesheet\"\r\n  href=\"https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css\"\r\n/>\r\n<% CSS %> \r\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.0.0/tinymce.min.js\"></script>\r\n<script src=\"https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js\"></script>\r\n<% JAVASCRIPT %> \r\n</head> \r\n<body>\r\n<div id=\"ipbwrapper\">\r\n<% BOARD HEADER %> \r\n<% NAVIGATION %> \r\n<% BOARD %> \r\n<% STATS %> \r\n<div align=\'center\'><% LOFI %></div> \r\n<% COPYRIGHT %>\r\n</div>\r\n<script>\r\nFancybox.bind(\"[data-fancybox]\", {\r\n  Background: \"#0f1729\", // Matches your site theme\r\n});\r\n</script>\r\n</body> \r\n\r\n</html>', 'Invision Board Standard');
 
 -- --------------------------------------------------------
 
@@ -1860,13 +1730,12 @@ INSERT INTO `ibf_templates` (`tmid`, `template`, `name`) VALUES
 -- Table structure for table `ibf_titles`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_titles` (
-  `id` smallint(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_titles` (
+  `id` smallint(5) NOT NULL,
   `posts` int(10) DEFAULT NULL,
   `title` varchar(128) DEFAULT NULL,
-  `pips` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `pips` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_titles`
@@ -1883,14 +1752,13 @@ INSERT INTO `ibf_titles` (`id`, `posts`, `title`, `pips`) VALUES
 -- Table structure for table `ibf_tmpl_names`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_tmpl_names` (
-  `skid` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_tmpl_names` (
+  `skid` int(10) NOT NULL,
   `skname` varchar(60) NOT NULL DEFAULT 'Invision Board',
   `author` varchar(250) DEFAULT '',
   `email` varchar(250) DEFAULT '',
-  `url` varchar(250) DEFAULT '',
-  PRIMARY KEY (`skid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `url` varchar(250) DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ibf_tmpl_names`
@@ -1905,8 +1773,8 @@ INSERT INTO `ibf_tmpl_names` (`skid`, `skname`, `author`, `email`, `url`) VALUES
 -- Table structure for table `ibf_topics`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_topics` (
-  `tid` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_topics` (
+  `tid` int(10) NOT NULL,
   `title` varchar(250) NOT NULL DEFAULT '',
   `description` varchar(70) DEFAULT NULL,
   `state` varchar(8) DEFAULT NULL,
@@ -1928,11 +1796,15 @@ CREATE TABLE IF NOT EXISTS `ibf_topics` (
   `moved_to` varchar(64) DEFAULT NULL,
   `rating` text DEFAULT NULL,
   `total_votes` int(5) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`tid`),
-  KEY `last_post` (`last_post`),
-  KEY `forum_id` (`forum_id`,`approved`,`pinned`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `firstpost` int(10) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ibf_topics`
+--
+
+INSERT INTO `ibf_topics` (`tid`, `title`, `description`, `state`, `posts`, `starter_id`, `start_date`, `last_poster_id`, `last_post`, `icon_id`, `starter_name`, `last_poster_name`, `poll_state`, `last_vote`, `views`, `forum_id`, `approved`, `author_mode`, `pinned`, `moved_to`, `rating`, `total_votes`, `firstpost`) VALUES
+(2, 'Super important topic', 'Please read', 'open', 1, 1, 1777735872, 1, 1778105306, 13, 'MadRomas', 'MadRomas', '0', 0, 91, 1, 1, 1, 1, NULL, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1940,8 +1812,8 @@ CREATE TABLE IF NOT EXISTS `ibf_topics` (
 -- Table structure for table `ibf_topic_mmod`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_topic_mmod` (
-  `mm_id` smallint(5) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_topic_mmod` (
+  `mm_id` smallint(5) NOT NULL,
   `mm_title` varchar(250) NOT NULL DEFAULT '',
   `mm_enabled` tinyint(1) NOT NULL DEFAULT 0,
   `topic_state` varchar(10) NOT NULL DEFAULT 'leave',
@@ -1952,8 +1824,7 @@ CREATE TABLE IF NOT EXISTS `ibf_topic_mmod` (
   `topic_title_end` varchar(250) NOT NULL DEFAULT '',
   `topic_reply` tinyint(1) NOT NULL DEFAULT 0,
   `topic_reply_content` text NOT NULL,
-  `topic_reply_postcount` tinyint(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`mm_id`)
+  `topic_reply_postcount` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1962,13 +1833,12 @@ CREATE TABLE IF NOT EXISTS `ibf_topic_mmod` (
 -- Table structure for table `ibf_tracker`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_tracker` (
-  `trid` mediumint(8) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_tracker` (
+  `trid` mediumint(8) NOT NULL,
   `member_id` mediumint(8) NOT NULL DEFAULT 0,
   `topic_id` bigint(20) NOT NULL DEFAULT 0,
   `start_date` int(10) DEFAULT NULL,
-  `last_sent` int(10) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`trid`)
+  `last_sent` int(10) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1977,7 +1847,7 @@ CREATE TABLE IF NOT EXISTS `ibf_tracker` (
 -- Table structure for table `ibf_validating`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_validating` (
+CREATE TABLE `ibf_validating` (
   `vid` varchar(32) NOT NULL DEFAULT '',
   `member_id` mediumint(8) NOT NULL DEFAULT 0,
   `real_group` smallint(3) NOT NULL DEFAULT 0,
@@ -1987,9 +1857,7 @@ CREATE TABLE IF NOT EXISTS `ibf_validating` (
   `lost_pass` tinyint(1) NOT NULL DEFAULT 0,
   `new_reg` tinyint(1) NOT NULL DEFAULT 0,
   `email_chg` tinyint(1) NOT NULL DEFAULT 0,
-  `ip_address` varchar(16) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`vid`),
-  KEY `new_reg` (`new_reg`)
+  `ip_address` varchar(16) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -1998,14 +1866,13 @@ CREATE TABLE IF NOT EXISTS `ibf_validating` (
 -- Table structure for table `ibf_voters`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_voters` (
-  `vid` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_voters` (
+  `vid` int(10) NOT NULL,
   `ip_address` varchar(16) NOT NULL DEFAULT '',
   `vote_date` int(10) NOT NULL DEFAULT 0,
   `tid` int(10) NOT NULL DEFAULT 0,
   `member_id` varchar(32) DEFAULT NULL,
-  `forum_id` smallint(5) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`vid`)
+  `forum_id` smallint(5) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -2014,38 +1881,583 @@ CREATE TABLE IF NOT EXISTS `ibf_voters` (
 -- Table structure for table `ibf_warn_logs`
 --
 
-CREATE TABLE IF NOT EXISTS `ibf_warn_logs` (
-  `wlog_id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `ibf_warn_logs` (
+  `wlog_id` int(10) NOT NULL,
   `wlog_mid` mediumint(8) NOT NULL DEFAULT 0,
   `wlog_notes` text NOT NULL,
   `wlog_contact` varchar(250) NOT NULL DEFAULT 'none',
   `wlog_contact_content` text NOT NULL,
   `wlog_date` int(10) NOT NULL DEFAULT 0,
   `wlog_type` varchar(6) NOT NULL DEFAULT 'pos',
-  `wlog_addedby` mediumint(8) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`wlog_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `wlog_addedby` mediumint(8) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ibf_warn_logs`
---
 
-INSERT INTO `ibf_warn_logs` (`wlog_id`, `wlog_mid`, `wlog_notes`, `wlog_contact`, `wlog_contact_content`, `wlog_date`, `wlog_type`, `wlog_addedby`) VALUES
-(1, 1, '<content>Test warning</content><mod>,d,</mod><post>,d, </post><susp>,d</susp>', 'none', '', 1777769810, 'neg', 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `ibf_admin_logs`
+--
+ALTER TABLE `ibf_admin_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_admin_sessions`
+--
+ALTER TABLE `ibf_admin_sessions`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `ibf_badwords`
+--
+ALTER TABLE `ibf_badwords`
+  ADD PRIMARY KEY (`wid`);
+
+--
+-- Indexes for table `ibf_cache_store`
+--
+ALTER TABLE `ibf_cache_store`
+  ADD PRIMARY KEY (`cs_key`);
+
+--
+-- Indexes for table `ibf_calendar_events`
+--
+ALTER TABLE `ibf_calendar_events`
+  ADD PRIMARY KEY (`eventid`),
+  ADD KEY `unix_stamp` (`unix_stamp`);
+
+--
+-- Indexes for table `ibf_categories`
+--
+ALTER TABLE `ibf_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `ibf_contacts`
+--
+ALTER TABLE `ibf_contacts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_css`
+--
+ALTER TABLE `ibf_css`
+  ADD PRIMARY KEY (`cssid`);
+
+--
+-- Indexes for table `ibf_email_logs`
+--
+ALTER TABLE `ibf_email_logs`
+  ADD PRIMARY KEY (`email_id`),
+  ADD KEY `from_member_id` (`from_member_id`),
+  ADD KEY `email_date` (`email_date`);
+
+--
+-- Indexes for table `ibf_emoticons`
+--
+ALTER TABLE `ibf_emoticons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_faq`
+--
+ALTER TABLE `ibf_faq`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_files`
+--
+ALTER TABLE `ibf_files`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_files_cats`
+--
+ALTER TABLE `ibf_files_cats`
+  ADD PRIMARY KEY (`cid`);
+
+--
+-- Indexes for table `ibf_files_downloads`
+--
+ALTER TABLE `ibf_files_downloads`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `file_id` (`file_id`);
+
+--
+-- Indexes for table `ibf_forums`
+--
+ALTER TABLE `ibf_forums`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category` (`category`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `ibf_forum_perms`
+--
+ALTER TABLE `ibf_forum_perms`
+  ADD PRIMARY KEY (`perm_id`);
+
+--
+-- Indexes for table `ibf_forum_tracker`
+--
+ALTER TABLE `ibf_forum_tracker`
+  ADD PRIMARY KEY (`frid`);
+
+--
+-- Indexes for table `ibf_groups`
+--
+ALTER TABLE `ibf_groups`
+  ADD PRIMARY KEY (`g_id`);
+
+--
+-- Indexes for table `ibf_languages`
+--
+ALTER TABLE `ibf_languages`
+  ADD PRIMARY KEY (`lid`);
+
+--
+-- Indexes for table `ibf_macro`
+--
+ALTER TABLE `ibf_macro`
+  ADD PRIMARY KEY (`macro_id`),
+  ADD KEY `macro_set` (`macro_set`);
+
+--
+-- Indexes for table `ibf_macro_name`
+--
+ALTER TABLE `ibf_macro_name`
+  ADD PRIMARY KEY (`set_id`);
+
+--
+-- Indexes for table `ibf_members`
+--
+ALTER TABLE `ibf_members`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `name` (`name`),
+  ADD KEY `mgroup` (`mgroup`),
+  ADD KEY `bday_day` (`bday_day`),
+  ADD KEY `bday_month` (`bday_month`);
+
+--
+-- Indexes for table `ibf_member_extra`
+--
+ALTER TABLE `ibf_member_extra`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_messages`
+--
+ALTER TABLE `ibf_messages`
+  ADD PRIMARY KEY (`msg_id`),
+  ADD KEY `member_id` (`member_id`),
+  ADD KEY `vid` (`vid`);
+
+--
+-- Indexes for table `ibf_moderators`
+--
+ALTER TABLE `ibf_moderators`
+  ADD PRIMARY KEY (`mid`),
+  ADD KEY `forum_id` (`forum_id`),
+  ADD KEY `group_id` (`group_id`),
+  ADD KEY `member_id` (`member_id`);
+
+--
+-- Indexes for table `ibf_moderator_logs`
+--
+ALTER TABLE `ibf_moderator_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_pfields_content`
+--
+ALTER TABLE `ibf_pfields_content`
+  ADD PRIMARY KEY (`member_id`);
+
+--
+-- Indexes for table `ibf_pfields_data`
+--
+ALTER TABLE `ibf_pfields_data`
+  ADD PRIMARY KEY (`fid`);
+
+--
+-- Indexes for table `ibf_polls`
+--
+ALTER TABLE `ibf_polls`
+  ADD PRIMARY KEY (`pid`);
+
+--
 -- Indexes for table `ibf_posts`
 --
+ALTER TABLE `ibf_posts`
+  ADD PRIMARY KEY (`pid`),
+  ADD KEY `topic_id` (`topic_id`,`author_id`),
+  ADD KEY `author_id` (`author_id`),
+  ADD KEY `forum_id` (`forum_id`,`post_date`);
 ALTER TABLE `ibf_posts` ADD FULLTEXT KEY `post` (`post`);
+
+--
+-- Indexes for table `ibf_reg_antispam`
+--
+ALTER TABLE `ibf_reg_antispam`
+  ADD PRIMARY KEY (`regid`);
+
+--
+-- Indexes for table `ibf_sessions`
+--
+ALTER TABLE `ibf_sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `in_topic` (`in_topic`),
+  ADD KEY `in_forum` (`in_forum`);
+
+--
+-- Indexes for table `ibf_skins`
+--
+ALTER TABLE `ibf_skins`
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `tmpl_id` (`tmpl_id`),
+  ADD KEY `css_id` (`css_id`);
+
+--
+-- Indexes for table `ibf_skin_templates`
+--
+ALTER TABLE `ibf_skin_templates`
+  ADD PRIMARY KEY (`suid`);
+
+--
+-- Indexes for table `ibf_spider_logs`
+--
+ALTER TABLE `ibf_spider_logs`
+  ADD PRIMARY KEY (`sid`);
+
+--
+-- Indexes for table `ibf_subscriptions`
+--
+ALTER TABLE `ibf_subscriptions`
+  ADD PRIMARY KEY (`sub_id`);
+
+--
+-- Indexes for table `ibf_subscription_currency`
+--
+ALTER TABLE `ibf_subscription_currency`
+  ADD PRIMARY KEY (`subcurrency_code`);
+
+--
+-- Indexes for table `ibf_subscription_extra`
+--
+ALTER TABLE `ibf_subscription_extra`
+  ADD PRIMARY KEY (`subextra_id`);
+
+--
+-- Indexes for table `ibf_subscription_logs`
+--
+ALTER TABLE `ibf_subscription_logs`
+  ADD PRIMARY KEY (`sublog_id`);
+
+--
+-- Indexes for table `ibf_subscription_methods`
+--
+ALTER TABLE `ibf_subscription_methods`
+  ADD PRIMARY KEY (`submethod_id`);
+
+--
+-- Indexes for table `ibf_subscription_trans`
+--
+ALTER TABLE `ibf_subscription_trans`
+  ADD PRIMARY KEY (`subtrans_id`);
+
+--
+-- Indexes for table `ibf_templates`
+--
+ALTER TABLE `ibf_templates`
+  ADD PRIMARY KEY (`tmid`);
+
+--
+-- Indexes for table `ibf_titles`
+--
+ALTER TABLE `ibf_titles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_tmpl_names`
+--
+ALTER TABLE `ibf_tmpl_names`
+  ADD PRIMARY KEY (`skid`);
 
 --
 -- Indexes for table `ibf_topics`
 --
+ALTER TABLE `ibf_topics`
+  ADD PRIMARY KEY (`tid`),
+  ADD KEY `last_post` (`last_post`),
+  ADD KEY `forum_id` (`forum_id`,`approved`,`pinned`);
 ALTER TABLE `ibf_topics` ADD FULLTEXT KEY `title` (`title`);
+
+--
+-- Indexes for table `ibf_topic_mmod`
+--
+ALTER TABLE `ibf_topic_mmod`
+  ADD PRIMARY KEY (`mm_id`);
+
+--
+-- Indexes for table `ibf_tracker`
+--
+ALTER TABLE `ibf_tracker`
+  ADD PRIMARY KEY (`trid`);
+
+--
+-- Indexes for table `ibf_validating`
+--
+ALTER TABLE `ibf_validating`
+  ADD PRIMARY KEY (`vid`),
+  ADD KEY `new_reg` (`new_reg`);
+
+--
+-- Indexes for table `ibf_voters`
+--
+ALTER TABLE `ibf_voters`
+  ADD PRIMARY KEY (`vid`);
+
+--
+-- Indexes for table `ibf_warn_logs`
+--
+ALTER TABLE `ibf_warn_logs`
+  ADD PRIMARY KEY (`wlog_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `ibf_admin_logs`
+--
+ALTER TABLE `ibf_admin_logs`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT for table `ibf_badwords`
+--
+ALTER TABLE `ibf_badwords`
+  MODIFY `wid` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `ibf_calendar_events`
+--
+ALTER TABLE `ibf_calendar_events`
+  MODIFY `eventid` mediumint(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_contacts`
+--
+ALTER TABLE `ibf_contacts`
+  MODIFY `id` mediumint(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_css`
+--
+ALTER TABLE `ibf_css`
+  MODIFY `cssid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_email_logs`
+--
+ALTER TABLE `ibf_email_logs`
+  MODIFY `email_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_emoticons`
+--
+ALTER TABLE `ibf_emoticons`
+  MODIFY `id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `ibf_faq`
+--
+ALTER TABLE `ibf_faq`
+  MODIFY `id` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `ibf_files`
+--
+ALTER TABLE `ibf_files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_files_cats`
+--
+ALTER TABLE `ibf_files_cats`
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_files_downloads`
+--
+ALTER TABLE `ibf_files_downloads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_forum_perms`
+--
+ALTER TABLE `ibf_forum_perms`
+  MODIFY `perm_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `ibf_forum_tracker`
+--
+ALTER TABLE `ibf_forum_tracker`
+  MODIFY `frid` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_groups`
+--
+ALTER TABLE `ibf_groups`
+  MODIFY `g_id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `ibf_languages`
+--
+ALTER TABLE `ibf_languages`
+  MODIFY `lid` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_macro`
+--
+ALTER TABLE `ibf_macro`
+  MODIFY `macro_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT for table `ibf_messages`
+--
+ALTER TABLE `ibf_messages`
+  MODIFY `msg_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_moderators`
+--
+ALTER TABLE `ibf_moderators`
+  MODIFY `mid` mediumint(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_moderator_logs`
+--
+ALTER TABLE `ibf_moderator_logs`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `ibf_pfields_data`
+--
+ALTER TABLE `ibf_pfields_data`
+  MODIFY `fid` smallint(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_polls`
+--
+ALTER TABLE `ibf_polls`
+  MODIFY `pid` mediumint(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_posts`
+--
+ALTER TABLE `ibf_posts`
+  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `ibf_skins`
+--
+ALTER TABLE `ibf_skins`
+  MODIFY `uid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_skin_templates`
+--
+ALTER TABLE `ibf_skin_templates`
+  MODIFY `suid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=509;
+
+--
+-- AUTO_INCREMENT for table `ibf_spider_logs`
+--
+ALTER TABLE `ibf_spider_logs`
+  MODIFY `sid` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_subscriptions`
+--
+ALTER TABLE `ibf_subscriptions`
+  MODIFY `sub_id` smallint(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_subscription_extra`
+--
+ALTER TABLE `ibf_subscription_extra`
+  MODIFY `subextra_id` smallint(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_subscription_logs`
+--
+ALTER TABLE `ibf_subscription_logs`
+  MODIFY `sublog_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_subscription_methods`
+--
+ALTER TABLE `ibf_subscription_methods`
+  MODIFY `submethod_id` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `ibf_subscription_trans`
+--
+ALTER TABLE `ibf_subscription_trans`
+  MODIFY `subtrans_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_templates`
+--
+ALTER TABLE `ibf_templates`
+  MODIFY `tmid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_titles`
+--
+ALTER TABLE `ibf_titles`
+  MODIFY `id` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `ibf_tmpl_names`
+--
+ALTER TABLE `ibf_tmpl_names`
+  MODIFY `skid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_topics`
+--
+ALTER TABLE `ibf_topics`
+  MODIFY `tid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `ibf_topic_mmod`
+--
+ALTER TABLE `ibf_topic_mmod`
+  MODIFY `mm_id` smallint(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_tracker`
+--
+ALTER TABLE `ibf_tracker`
+  MODIFY `trid` mediumint(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_voters`
+--
+ALTER TABLE `ibf_voters`
+  MODIFY `vid` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_warn_logs`
+--
+ALTER TABLE `ibf_warn_logs`
+  MODIFY `wlog_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
