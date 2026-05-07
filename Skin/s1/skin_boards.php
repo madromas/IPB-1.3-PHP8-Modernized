@@ -341,7 +341,7 @@ return <<<EOF
       <div class='maintitle' align='left'><{CAT_IMG}>&nbsp;{$lang_welcome} {$ibforums->member['name']}</div>
       <table width="100%" border="0" cellspacing="1" cellpadding="4">
         <tr> 
-          <td class="row4" align="center">{$data['avatar']}</td>
+          <td class="row4" align="center"><span class="avatar">{$data['avatar']}</span></td>
           <td class="row2" width="45%">{$lang_now} {$data['time']}<br />
             {$lang_lastv} {$data['lastv']}<br />
             {$lang_thbeen} {$data['posts_scince']} {$lang_posts_n} {$data['topics_scince']} {$lang_topics}<br />
@@ -368,7 +368,7 @@ return <<<EOF
 	  <div class='maintitle' align='left'><{CAT_IMG}>&nbsp;{$ibforums->lang['welcome_guest']} <a href="{$ibforums->base_url}&amp;act=Login&amp;CODE=00"><u>{$ibforums->lang['wel_login']}</u></a> {$ibforums->lang['wel_or']} <a href="{$ibforums->base_url}&amp;act=Reg&amp;CODE=00"><u>{$ibforums->lang['wel_reg']}</u></a>!</div>
       <table width="100%" border="0" cellspacing="1" cellpadding="4">
         <tr> 
-          <td class="row4"><img src='{$ibforums->vars['board_url']}/html/avatars/default.svg' border='0' alt='{$ibforums->lang['av_not_sel']}' /></td>
+          <td class="row4"><span class="avatar"><img src='{$ibforums->vars['board_url']}/html/avatars/default.svg' border='0' alt='{$ibforums->lang['av_not_sel']}' /></span></td>
           <td class="row2" width="100%">{$ibforums->lang['its_now']} {$data['time']}<br />
 		  {$ibforums->lang['today_thbeen']} {$data['posts_scince']} {$ibforums->lang['posts_in']} {$data['topics_scince']} topics<br />
 		  <a href="{$ibforums->base_url}act=Search&amp;CODE=getactive">{$ibforums->lang['sm_todays_posts']}</a><br />
