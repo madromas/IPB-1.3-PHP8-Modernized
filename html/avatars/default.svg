@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96">
+  <circle cx="48" cy="48" r="46" fill="#eff4fd" stroke="#E4EAF2" stroke-width="2"/>
+  <path fill="#D1DCEB" d="
+    M48 19
+    C40 19 35 25 35 34
+    C35 43 40 48 48 48
+    C56 48 61 43 61 34
+    C61 25 56 19 48 19
+    Z
+    M18 74
+    C22 61 34 53 48 53
+    C62 53 74 61 78 74
+    C70 82 60 86 48 86
+    C36 86 26 82 18 74
+    Z
+  "/>
+</svg>
