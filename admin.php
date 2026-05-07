@@ -493,17 +493,7 @@ else
 			
 			// Print the "well done page"
 			
-			$ADMIN->page_title = "Log in successful";
-			
-			$ADMIN->page_detail = "Taking you to the administrative control panel";
-			
-			$ADMIN->html .= $SKIN->start_table("Proceed");
-			
-			$ADMIN->html .= "<tr><td id='tdrow1'><meta http-equiv='refresh' content='2; url=".$INFO['board_url']."/admin.".$INFO['php_ext']."?adsess=".$IN['AD_SESS']."'><a href='".$INFO['board_url']."/admin.".$INFO['php_ext']."?adsess=".$IN['AD_SESS']."'>( Click here if you do not wish to wait )</a></td></tr>";
-			
-			$ADMIN->html .= $SKIN->end_table();
-			
-			$ADMIN->output();
+			$std->boink_it($INFO['board_url']."/admin.".$INFO['php_ext']."?adsess=".$IN['AD_SESS']); 
 		
 		}
 		
