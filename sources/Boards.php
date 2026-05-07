@@ -539,7 +539,7 @@ $data['tp_num']  = $row['posts'] ?? 0;
  			$data['posts_scince']	= ($row['posts'] < 1) ? 0 : $row['posts'];
 			$data['topics_scince']	= ($row['topics'] < 1) ? 0 : $row['topics'];
 			
-			$t_html = $data['time'] ?? '';
+			$t_html = $this->html->guestpanel($data);
 			$this->output = preg_replace( "/<!-- WELCOMEPANEL -->/" , "$t_html" , $this->output );
 		}
 		
