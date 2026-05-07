@@ -368,9 +368,9 @@ return <<<EOF
 	  <div class='maintitle' align='left'><{CAT_IMG}>&nbsp;{$ibforums->lang['welcome_guest']} <a href="{$ibforums->base_url}&amp;act=Login&amp;CODE=00"><u>{$ibforums->lang['wel_login']}</u></a> {$ibforums->lang['wel_or']} <a href="{$ibforums->base_url}&amp;act=Reg&amp;CODE=00"><u>{$ibforums->lang['wel_reg']}</u></a>!</div>
       <table width="100%" border="0" cellspacing="1" cellpadding="4">
         <tr> 
-          <td class="row4"><img src='{$ibforums->vars['board_url']}/html/avatars/noavatar.gif' border='0' alt='{$ibforums->lang['av_not_sel']}' /></td>
+          <td class="row4"><img src='{$ibforums->vars['board_url']}/html/avatars/default.svg' border='0' alt='{$ibforums->lang['av_not_sel']}' /></td>
           <td class="row2" width="100%">{$ibforums->lang['its_now']} {$data['time']}<br />
-		  {$ibforums->lang['today_thbeen']} {$data['posts_scince']} {$ibforums->lang['posts_in']} {$data['topics_scince']} темах<br />
+		  {$ibforums->lang['today_thbeen']} {$data['posts_scince']} {$ibforums->lang['posts_in']} {$data['topics_scince']} topics<br />
 		  <a href="{$ibforums->base_url}act=Search&amp;CODE=getactive">{$ibforums->lang['sm_todays_posts']}</a><br />
 		  {$ibforums->lang['most_online']}
           </td>
@@ -378,11 +378,11 @@ return <<<EOF
 		  <form style='display:inline' action="{$ibforums->base_url}act=Login&amp;CODE=01&amp;CookieDate=1" method="post">
 		    <table border="0" cellspacing="0" cellpadding="1">
 			  <tr>
-			    <td>{$ibforums->lang['youname']}:&nbsp;</td>
+			    <!--<td>{$ibforums->lang['youname']}:&nbsp;</td>-->
 				<td><input type="text" class="forminput" size="20" name="UserName" onfocus="this.value=''" value="{$ibforums->lang['qli_name']}" /></td>
 			  </tr>
 			  <tr>
-			    <td>{$ibforums->lang['youpasswd']}:&nbsp;</td>
+			    <!--<td>{$ibforums->lang['youpasswd']}:&nbsp;</td>-->
 				<td><input type='password' class='forminput' size='20' name='PassWord' onfocus="this.value=''" value='ibfrules!' /></td>
 			  </tr>
 			</table>
