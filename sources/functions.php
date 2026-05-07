@@ -757,14 +757,32 @@ class FUNC {
         	$sub_cat_img = '_CAT';
         }
         
-        if ($forum_data['password'] and $sub == 0)
-        {
-            return $forum_data['last_post'] > $rtime ? "<{C_ON_RES}>"
-                                                     : "<{C_OFF_RES}>";
-        }
-        
-        return $forum_data['last_post']  > $rtime ? "<{C_ON".$sub_cat_img."}>"
-                                                  : "<{C_OFF".$sub_cat_img."}>";
+      // --- Custom Forum Icon Logic Start ---
+if ($forum_data['icon']) 
+{
+    $icon_img = "<img src=\"".$ibforums->vars['html_url']."/icons/".$forum_data['icon'].".gif\" border=\"0\" alt=\"\" />";
+    
+    // Create the link wrapper
+    $link_start = "<a href=\"{$ibforums->base_url}showforum={$forum_data['id']}\">";
+    $link_end   = "</a>";
+
+    if ($forum_data['password'] and $sub == 0) 
+    {
+        // Display clickable custom icon with a lock overlay
+        return $link_start . "<span class='forum-locked-wrapper'>".$icon_img."<span class='lock-badge'>🔒</span></span>" . $link_end;
+    }
+
+    // Display custom icon normally but clickable
+    return $link_start . $icon_img . $link_end;
+}
+// --- Custom Forum Icon Logic End ---
+
+if ($forum_data['password'] and $sub == 0)
+{
+    return $forum_data['last_post'] > $rtime ? "<{C_ON_RES}>" : "<{C_OFF_RES}>";
+}
+
+return $forum_data['last_post'] > $rtime ? "<{C_ON".$sub_cat_img."}>" : "<{C_OFF".$sub_cat_img."}>";
     }
     
 	/*-------------------------------------------------------------------------*/
@@ -2248,27 +2266,34 @@ class display {
     
     function redirect_screen($text="", $url="", $override=0)
     {
-    	global $ibforums, $skin_universal, $DB;
+    	global $ibforums, $std, $skin_universal, $DB;
     	
-    	if ($ibforums->input['debug'])
+    	if ( $ibforums->input['debug'] ) 
+    {
+        flush();
+    } 
+    else
+    {
+        // If override is NOT 1, we build the full URL
+        if ( !$override )
         {
-        	flush();
-        	exit();
+            // Check if base_url exists, otherwise fallback to board_url
+            if ( $ibforums->base_url )
+            {
+                $url = $ibforums->base_url . $url;
+            }
+            else
+            {
+                $url = $ibforums->vars['board_url'] . "/index." . $ibforums->vars['php_ext'] . "?" . $url;
+            }
         }
-        
-        if ( $override != 1 )
-        {
-			if ( $ibforums->base_url )
-			{
-				$url = $ibforums->base_url.$url;
-			}
-			else
-			{
-				$url = "{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?".$url;
-			}
-    	}
-    	
-    	$ibforums->lang['stand_by'] = stripslashes($ibforums->lang['stand_by']);
+
+        // boink_it sends a Location header for an instant redirect
+        $std->boink_it($url);
+    }
+
+    exit();
+
     	
     	//---------------------------------------------------------
         // CSS
