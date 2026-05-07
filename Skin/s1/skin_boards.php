@@ -255,9 +255,10 @@ EOF;
 function PageTop($lastvisit) {
 global $ibforums;
 return <<<EOF
-<div align='left' style='text-align:left;padding-bottom:4px'>
-  <!-- IBF.NEWSLINK -->{$ibforums->lang['welcome_back_text']} $lastvisit
-</div><!-- STATPANEL -->
+    <div align='left' style='text-align:left;padding-bottom:4px'>
+        <!-- IBF.NEWSLINK -->
+    </div>
+    <!-- WELCOMEPANEL -->
 EOF;
 }
 
@@ -297,7 +298,7 @@ return <<<EOF
           <td class="row4"><b><a href="{$ibforums->base_url}showforum={$info['id']}">{$info['name']}</a></b><br /><span class='desc'>{$info['description']}<br />{$info['moderator']}</span></td>
           <td class="row2" align="center">{$info['topics']}</td>
           <td class="row2" align="center">{$info['posts']}</td>
-          <td class="row2" nowrap="nowrap">{$info['last_post']}<br />{$ibforums->lang['in']}:&nbsp;{$info['last_unread']}{$info['last_topic']}<br />{$ibforums->lang['by']}: {$info['last_poster']}</td>
+          <td class="row2">{$info['last_post']}<br />{$ibforums->lang['in']}:&nbsp;{$info['last_unread']}{$info['last_topic']}<br />{$ibforums->lang['by']}: {$info['last_poster']}</td>
         </tr>
 EOF;
 }

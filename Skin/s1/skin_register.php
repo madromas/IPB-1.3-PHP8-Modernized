@@ -384,10 +384,6 @@ function Validate() {
     <td class="pformleft">{$ibforums->lang['email_address']}</td>
     <td class="pformright"><input type='text' size='32' maxlength='50' value='{$ibforums->input['EmailAddress']}'  name='EmailAddress' class='forminput' /></td>
   </tr>
-  <tr>
-    <td class="pformleft">{$ibforums->lang['email_address_two']}</td>
-    <td class="pformright"><input type='text' size='32' maxlength='50'  value='{$ibforums->input['EmailAddress_two']}' name='EmailAddress_two' class='forminput' /></td>
-  </tr>
   <!--{REQUIRED.FIELDS}-->
   <!--{OPTIONAL.FIELDS}-->
   <!--IBF.MODULES.EXTRA-->
