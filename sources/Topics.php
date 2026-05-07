@@ -865,7 +865,7 @@ if ( isset($row['author_id']) && $row['author_id'] > 0 ) {
 				
 				$row['post'] = preg_replace( "#<!--emo&(.+?)-->.+?<!--endemo-->#", "\\1" , $row['post'] );
 				
-				$row['post'] = preg_replace( "/<img src=[\"'](.+?)[\"'].+?".">/", "(IMG:<a href='\\1' target='_blank'>\\1</a>)", $row['post'] );
+				$row['post'] = preg_replace( "/<img src=[\"'](.+?)[\"'](.*?)>/i", "<a href='\\1' target='_blank'><img src='\\1'\\2></a>", $row['post'] );
 			}
 			
 			//--------------------------------------------------------------
@@ -1066,6 +1066,8 @@ if ( $ibforums->vars['post_wordwrap'] > 0 )
 			
 			$row['post']      = str_replace( "<br>", "<br />", $row['post'] );
 			$row['signature'] = str_replace( "<br>", "<br />", $row['signature'] );
+
+$row['topic_starter_id'] = $this->topic['starter_id'];
 
 			$this->output .= $this->html->RenderRow( $row, $poster );
 			
