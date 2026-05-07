@@ -23,9 +23,9 @@ $lang = array (
 'av_not_sel'  => "No avatar selected",
 'today_thbeen'  => "There has been",
 'today_topics'  => "topics today!",
-'tot_topics'  => "Username",
-'tot_topics'  => "Password",
-'tot_topics'  => "Log me in",
+'youname'  => "Username",
+'youpasswd'  => "Password",
+'log_me'  => "Log me in",
 //End Welcome Panel
 
 'whoschatting_total' => "Members Talking in",
