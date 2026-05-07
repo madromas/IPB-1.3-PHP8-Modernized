@@ -327,13 +327,15 @@ $ibforums->vars['display_max_posts']  = (isset($ppu) && $ppu > 0) ? $ppu : ($ibf
 
 if ( $ibforums->session_type == 'cookie' )
 {
-	$ibforums->session_id = "";
-	$ibforums->base_url   = $ibforums->vars['board_url'].'/index.'.$ibforums->vars['php_ext'].'?';
+    $ibforums->session_id = "";
+    $ibforums->base_url   = $ibforums->vars['board_url'].'/index.'.$ibforums->vars['php_ext'].'?';
 }
 else
 {
-	$ibforums->base_url = $ibforums->vars['board_url'].'/index.'.$ibforums->vars['php_ext'].'?s='.$ibforums->session_id.'&amp;';
-}
+    $session_id = ( $ibforums->session_id ) ? "s=".$ibforums->session_id."&amp;" : "";
+
+    $ibforums->base_url = $ibforums->vars['board_url'].'/index.'.$ibforums->vars['php_ext'].'?'.$session_id;
+} 
 
 $ibforums->js_base_url = $ibforums->vars['board_url'].'/index.'.$ibforums->vars['php_ext'].'?s='.$ibforums->session_id.'&';
 
