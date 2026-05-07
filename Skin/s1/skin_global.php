@@ -2,7 +2,14 @@
 
 class skin_global {
 
+function lofi_link($act = "") {
+global $ibforums;
+return <<<EOF
 
+<a href="{$ibforums->vars['board_url']}/lofiversion/index.php{$act}"><b>Lo-Fi Version</b></a>
+
+EOF;
+} 
 
 function pop_up_window($title, $css, $text) {
 global $ibforums;
