@@ -68,6 +68,19 @@ img.attach { border:2px outset #EEF2F7;padding:2px;}
 
 .avatar img {border-radius:.5em}
 
+.post-author {
+    display: inline-block;
+    margin-left: 2px;
+    padding: 0 .3rem;
+    font-size: 12px;
+    font-weight: 600;
+    color: #143876 !important;
+    background-color: transparent;
+    border: 1px solid #5f86c9 !important;
+    border-radius: 4px;
+    backdrop-filter: blur(8px);
+}
+
 td.bottommenu a
  {
     font-size: 0.9rem;
