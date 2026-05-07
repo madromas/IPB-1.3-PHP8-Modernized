@@ -440,12 +440,12 @@ function bot_antispam($regid) {
     foreach($chars as $char) {
         $rotate = rand(-10, 10);
         // Using a dark green fill to match the reference image
-        $svg_content .= "<text x='$x' y='45' font-family='serif, cursive' font-size='38' font-weight='bold' fill='#2d5a27' transform='rotate($rotate $x 45)'>$char</text>";
+        $svg_content .= "<text x='$x' y='45' font-family='serif, cursive' font-size='38' font-weight='bold' fill='#3A4F6C' transform='rotate($rotate $x 45)'>$char</text>";
         $x += ($char == '+') ? 25 : 35;
     }
     
     // Light green background (#c9f1c5) and black border as seen in the screenshot
-    $svg = '<svg width="200" height="60" xmlns="http://www.w3.org/2000/svg" style="background:#c9f1c5; border:1px solid #000; vertical-align:middle;">' . $svg_content . '</svg>';
+    $svg = '<svg width="200" height="60" xmlns="http://www.w3.org/2000/svg" style="border-radius:.5em;background:#D1DCEB; border:1px solid #b8c9de; vertical-align:middle;">' . $svg_content . '</svg>';
 
     return <<<EOF
 <br />
