@@ -1106,6 +1106,22 @@ class ad_forums {
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Description</b><br>You may use HTML - linebreaks are converted 'Auto-Magically'" ,
 												  $SKIN->form_textarea("FORUM_DESC")
 									     )      );
+
+		$dh = opendir( $INFO['html_dir'].'/icons' );
+$icons = array();
+$icons[] = array("", "Default Icons");
+while ($icon = readdir($dh)) {
+if(preg_match("/(.gif)/",$icon) && !preg_match("/(_off)/",$icon)) {
+if($icon != '.' || $icon != '..') {
+$iconname = str_replace(".gif","",$icon);
+$icons[] = array($iconname, $iconname);
+}
+}
+}
+closedir($dh);
+
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_dropdown( "icon", $icons, $forum['icon'] )
+) );
 									     
 		//+-------------------------------
 		
@@ -1352,6 +1368,7 @@ class ad_forums {
 															'redirect_on'       => $IN['redirect_on'],
 															'redirect_hits'     => $IN['redirect_hits'],
 															'redirect_url'      => $IN['redirect_url'],
+															'icon' => $IN['icon'],
 															'redirect_loc'		=> $IN['redirect_loc'],
 															'notify_modq_emails'=> $IN['notify_modq_emails'],
 															
@@ -1500,6 +1517,22 @@ class ad_forums {
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Description</b><br>You may use HTML - linebreaks 'Auto-Magically' converted to &lt;br&gt;" ,
 												  $SKIN->form_textarea("FORUM_DESC", $std->my_br2nl( $forum['description']) )
 									     )      );
+
+		$dh = opendir( $INFO['html_dir'].'/icons' );
+$icons = array();
+$icons[] = array("", "Default Icons");
+while ($icon = readdir($dh)) {
+if(preg_match("/(.gif)/",$icon) && !preg_match("/(_off)/",$icon)) {
+if($icon != '.' || $icon != '..') {
+$iconname = str_replace(".gif","",$icon);
+$icons[] = array($iconname, $iconname);
+}
+}
+}
+closedir($dh);
+
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_dropdown( "icon", $icons, $forum['icon'] )
+) );
 		
 		$ADMIN->html .= $SKIN->end_table();
 		
@@ -1754,6 +1787,7 @@ class ad_forums {
 															'redirect_on'       => $IN['redirect_on'],
 															'redirect_hits'     => $IN['redirect_hits'],
 															'redirect_url'      => $IN['redirect_url'],
+															'icon' => $IN['icon'],
 															'redirect_loc'		=> $IN['redirect_loc'],
 															'notify_modq_emails'=> $IN['notify_modq_emails'],
 															
@@ -1866,6 +1900,22 @@ class ad_forums {
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Description</b>" ,
 												  $SKIN->form_textarea("desc", $forum['description'])
 									     )      );
+
+		$dh = opendir( $INFO['html_dir'].'/icons' );
+$icons = array();
+$icons[] = array("", "Default Icons");
+while ($icon = readdir($dh)) {
+if(preg_match("/(.gif)/",$icon) && !preg_match("/(_off)/",$icon)) {
+if($icon != '.' || $icon != '..') {
+$iconname = str_replace(".gif","",$icon);
+$icons[] = array($iconname, $iconname);
+}
+}
+}
+closedir($dh);
+
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_dropdown( "icon", $icons, $forum['icon'] )
+) );
 									     
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum State</b>" ,
 												  $SKIN->form_dropdown( "FORUM_STATUS",
@@ -2109,6 +2159,7 @@ class ad_forums {
 															'redirect_on'       => $IN['redirect_on'],
 															'redirect_hits'     => $IN['redirect_hits'],
 															'redirect_url'      => $IN['redirect_url'],
+															'icon' => $IN['icon'],
 															'redirect_loc'		=> $IN['redirect_loc'],
 															'notify_modq_emails'=> $IN['notify_modq_emails'],
 															
