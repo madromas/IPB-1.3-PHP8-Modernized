@@ -2,7 +2,7 @@
 
 A modernized distribution of **Invision Power Board 1.3**, fully patched for **PHP 8.4** and **MariaDB** compatibility. This project preserves the classic, lightweight "pre-bloat" UI of the early 2000s while ensuring it runs securely and efficiently on modern server stacks.
 
-<img width="700" alt="69fe1904b9a1244f117e6129" src="https://github.com/user-attachments/assets/9b4cc78f-d8a8-44e5-8943-87a4b2585a83" />
+<img width="700" alt="69fe1ed9e6e5452a9d127996" src="https://github.com/user-attachments/assets/23cbc0ee-2d1c-4d82-b66e-ff92e1669cb4" />
 
 <img width="700" alt="69fe1935debc337d903b352c" src="https://github.com/user-attachments/assets/80136a29-e673-46e7-8a9b-411daa97764b" />
 
