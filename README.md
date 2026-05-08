@@ -6,6 +6,10 @@ A modernized distribution of **Invision Power Board 1.3**, fully patched for **P
 
 <img width="700" alt="download" src="https://github.com/user-attachments/assets/39e28cb0-f4db-4ccf-86ea-4939e8f8c336" />
 
+<img width="700" alt="Screenshot 2026-05-08 125949" src="https://github.com/user-attachments/assets/7174f5bd-dbd3-414f-ab02-fadb7eaa9734" />
+
+<img width="700" alt="Screenshot 2026-05-08 130247" src="https://github.com/user-attachments/assets/8c9c0c5f-c99f-43a9-a5f4-2feab03d91d4" />
+
 <img width="700" alt="Screenshot 2026-05-03 113528" src="https://github.com/user-attachments/assets/98796223-3904-4c2c-bdec-3966799bfe62" />
 
 ## 🚀 Key Features
