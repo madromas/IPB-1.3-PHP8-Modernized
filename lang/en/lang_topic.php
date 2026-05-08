@@ -115,8 +115,8 @@ $lang = array (
 
 // Online-Offline Hack.
 
-'M_On_T'    => "<span style='color:green; font-size:14px;'>●</span> <font color='<#ON_COLOR#>'>Online</font>",
-'M_Off_T'   => "<span style='color:red; font-size:14px;'>●</span> <font color='<#OFF_COLOR#>'>Offline</font>",
+'M_On_T'    => "<span style='color:#00c000; font-size:14px;'>●</span> <font color='#00c000'>Online</font>",
+'M_Off_T'   => "<span style='color:gray; font-size:14px;'>●</span> <font color='gray'>Offline</font>",
 'M_On_I'    => "<img src='<#ON_IMAGE#>' alt='Online'>",
 'M_Off_I'   => "<img src='<#OFF_IMAGE#>' alt='Offline'>",
 
