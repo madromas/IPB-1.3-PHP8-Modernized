@@ -564,3 +564,60 @@ pre[class*="language-"] code {
         width:100%!important;
     }
 }
+
+/* Mod tags */
+
+.mod-notice-wrapper, .ex-notice-wrapper {
+    margin: 15px auto;
+    width: 98%;
+    border-radius: .5em; 
+    overflow: hidden;
+    border: 1px solid #ccc;
+}
+
+.mod-table, .ex-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+}
+
+
+.mod-icon-blue {
+    width: 60px;
+    background-color: #578ede; 
+    color: #ffffff;
+    font-size: 48px; 
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.mod-content {
+    padding: 15px;
+    font-size: 14px;
+    color: #000000;
+    line-height: 1.5;
+    vertical-align: top;
+}
+
+.ex-icon-red {
+    width: 60px;
+    background-color: #ff6060;
+    color: #ffffff;
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.ex-content {
+    padding: 15px;
+    font-size: 14px;
+    color: #000000;
+    line-height: 1.5;
+    vertical-align: top;
+}
+
+/* Mod tags */
