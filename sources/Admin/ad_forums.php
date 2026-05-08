@@ -1199,6 +1199,10 @@ $ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_drop
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Posts in this forum increase member's cumulative post count?</b>" ,
 												  $SKIN->form_yes_no("inc_postcount", 1 )
 									     )      );
+
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Enable topic ratings?</b>" ,
+												  $SKIN->form_yes_no("rating", 1 )
+									     )      );
 									     
 		//-----------
 									     
@@ -1362,6 +1366,7 @@ $ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_drop
 															'allow_poll'       => $IN['allow_poll'],
 															'allow_pollbump'   => $IN['allow_pollbump'],
 															'inc_postcount'    => $IN['inc_postcount'],
+															'rating'    => $IN['rating'],
 															'parent_id'        => $parent,
 															'sub_can_post'     => $IN['sub_can_post'],
 															'quick_reply'      => $IN['quick_reply'],
@@ -1638,6 +1643,10 @@ $ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_drop
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Posts in this forum increase member's cumulative post count?</b>" ,
 												  $SKIN->form_yes_no("inc_postcount", $forum['inc_postcount'] )
 									     )      );
+
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Enable topic ratings?</b>" ,
+												  $SKIN->form_yes_no("rating", $forum['rating'] )
+									     )      );
 									     
 		//-----------
 		
@@ -1781,6 +1790,8 @@ $ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_drop
 															'allow_poll'        => $IN['allow_poll'],
 															'allow_pollbump'    => $IN['allow_pollbump'],
 															'inc_postcount'     => $IN['inc_postcount'],
+															'rating'            => $IN['rating'],
+
 															'parent_id'         => $parent,
 															'sub_can_post'      => $IN['sub_can_post'],
 															'quick_reply'       => $IN['quick_reply'],
@@ -2027,6 +2038,10 @@ $ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_drop
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Posts in this forum increase member's cumulative post count?</b>" ,
 												  $SKIN->form_yes_no("inc_postcount", $forum['inc_postcount'] )
 									     )      );
+
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Enable topic ratings?</b>" ,
+												  $SKIN->form_yes_no("rating", $forum['rating'] )
+									     )      );
 									     
 		//-----------
 		
@@ -2155,6 +2170,7 @@ $ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_drop
 															'allow_poll'        => $IN['allow_poll'],
 															'allow_pollbump'    => $IN['allow_pollbump'],
 															'inc_postcount'     => $IN['inc_postcount'],
+															'rating'            => $IN['rating'],
 															'quick_reply'       => $IN['quick_reply'],
 															'redirect_on'       => $IN['redirect_on'],
 															'redirect_hits'     => $IN['redirect_hits'],

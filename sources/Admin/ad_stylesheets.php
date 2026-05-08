@@ -426,7 +426,7 @@ class ad_settings {
 				if ($part != "")
 				{
 					list($definition, $data) = explode( ":", $part );
-					$defs[]   = trim($definition).": ".trim($data);
+					$defs[] = trim((string)$definition).": ".trim((string)$data);
 				}
 			}
 			
