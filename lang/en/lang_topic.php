@@ -2,6 +2,17 @@
 
 $lang = array (
 
+'rating_cannot'               => "You can rate this topic.",
+'rating_raters'               => " voters",
+'rating_choose'               => "Select your rating: ",
+'rating_rate'                 => "Rate!",
+'rating_guests'               => "Guests cannot rate this topic.",
+'rating_already'              => "You have already rated this topic recently.",
+'rating_unrated'              => "not rated",
+'rating_by'                   => " by ",
+'rating_topic'                => "Rating for this topic:",
+'rating_of'                   => "Topic rating:",	
+
 'tt_link' => "Show the link to this post",
 'tt_prompt' => "Manually copy the direct link to this post below to store the link in your computer's clipboard",
 

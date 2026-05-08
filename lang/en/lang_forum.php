@@ -2,6 +2,8 @@
 
 $lang = array (
 
+	'h_rating'                    => "Rating",
+
 //1.2
 
 'post_modq'  => "This forum has topics/posts awaiting moderation.",
