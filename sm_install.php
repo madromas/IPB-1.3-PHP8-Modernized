@@ -80,20 +80,45 @@ if ($step == 'process') {
         die("Connection Failed: " . mysqli_connect_error() . "<br><a href='sm_install.php?step=form'>Back</a>");
     }
 
+    // --- NEW: SQL AUTO-IMPORT ---
+    if (file_exists('database.sql')) {
+        $sql_query = file_get_contents('database.sql');
+        
+        /* Replace default prefix if necessary */
+        if ($_POST['pre'] != 'ibf_') {
+            $sql_query = str_replace('ibf_', $_POST['pre'], $sql_query);
+        }
+
+        if (mysqli_multi_query($link, $sql_query)) {
+            do {
+                /* flush multi_queries */
+                if ($result = mysqli_store_result($link)) { mysqli_free_result($result); }
+            } while (mysqli_next_result($link));
+            echo "<p>✅ Database tables imported successfully.</p>";
+        } else {
+            echo "<p style='color:orange;'>⚠️ SQL Import warning: " . mysqli_error($link) . "</p>";
+        }
+    } else {
+        echo "<p style='color:red;'>⚠️ database.sql not found. Skipping import...</p>";
+    }
+
     // Admin Creation
     $prefix = $_POST['pre'];
     $pass = md5($_POST['ap']);
     $time = time();
     $admin_sql = "INSERT INTO {$prefix}members (name, password, email, mgroup, joined) 
                   VALUES ('" . mysqli_real_escape_string($link, $_POST['an']) . "', '$pass', '" . mysqli_real_escape_string($link, $_POST['ae']) . "', 4, '$time')";
-    @mysqli_query($link, $admin_sql);
+    
+    if (@mysqli_query($link, $admin_sql)) {
+        echo "<p>✅ Admin account created.</p>";
+    }
 
     // Auto-detect Paths
     $base_path = realpath(dirname(__FILE__)) . '/';
     
-    // Build Complete Config Array[cite: 1, 2]
+    // Build Complete Config Array
     $INFO = [];
-    $INFO['sql_driver']      = 'mysqli'; // Required for PHP 8
+    $INFO['sql_driver']      = 'mysqli'; 
     $INFO['sql_host']        = $_POST['h'];
     $INFO['sql_database']    = $_POST['d'];
     $INFO['sql_user']        = $_POST['u'];
@@ -109,7 +134,6 @@ if ($step == 'process') {
     $INFO['email_out']       = $_POST['ae'];
     $INFO['board_start']     = $time;
     
-    // Add all standard IPB 1.3 settings
     $defaults = [
         'EMOTICONS_URL' => 'html/emoticons', 'admin_group' => '4', 'allow_images' => '1',
         'avatar_ext' => 'gif|jpeg|jpg|swf|png|webp', 'avatars_on' => '1', 'avup_size_max' => '20',
@@ -125,8 +149,8 @@ if ($step == 'process') {
 
     if (file_put_contents('conf_global.php', $config_output)) {
         echo "<p>✅ Config generated with <b>mysqli</b> driver.</p>";
-        echo "<p>✅ Admin account created.</p>";
-        echo "<p style='color:green;'><strong>Done! Delete sm_install.php now.</strong></p>";
+        echo "<p style='color:green;'><strong>Installation Complete! Delete sm_install.php and database.sql now.</strong></p>";
+        echo "<a href='index.php'><input type='submit' value='Go to Board'></a>";
     } else {
         echo "<p style='color:red;'>Error: Could not write conf_global.php.</p>";
     }
