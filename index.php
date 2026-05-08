@@ -469,6 +469,7 @@ $choice = array(
 		         'FileCP'    => 'FileCP',
                  'calendar' => "calendar",
                  'buddy'    => "browsebuddy",
+                 'rep'      => "Reputation",
                  'boardrules' => "misc/contact_member",
                  'mmod'     => "misc/multi_moderate",
                  'warn'     => "misc/warn",
