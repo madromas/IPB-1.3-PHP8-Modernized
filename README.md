@@ -35,10 +35,9 @@ A modernized distribution of **Invision Power Board 1.3**, fully patched for **P
 
 ## 📦 Installation
 
-1.  **Database**: Create a new database and import the provided SQL dump via phpMyAdmin or Adminer.
-2.  **Upload**: Upload the repository files to your web directory.
-3.  **Configure**: Run `sm_install.php` in your browser.
-4.  **Security**: Once the `conf_global.php` is generated, **delete** `sm_install.php` from your server immediately.
+1.  **Upload**: Upload the repository files to your web directory.
+2.  **Configure**: Run `sm_install.php` in your browser.
+3.  **Security**: Once the `conf_global.php` is generated, **delete** `sm_install.php` and `database.sql` from your server immediately.
 
 ---
 
