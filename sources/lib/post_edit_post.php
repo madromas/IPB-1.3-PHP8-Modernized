@@ -493,15 +493,17 @@ $this->post['queued']      = intval($this->post['queued']);
 		
 		//---------------------------------------
 		
-		$class->output = str_replace( "<!--START TABLE-->" , $start_table  , $class->output );
-		$class->output = str_replace( "<!--NAME FIELDS-->" , $name_fields  , $class->output );
-		$class->output = str_replace( "<!--POST BOX-->"    , $post_box     , $class->output );
-		$class->output = str_replace( "<!--POST ICONS-->"  , $post_icons   , $class->output );
-		$class->output = str_replace( "<!--END TABLE-->"   , $end_form     , $class->output );
-		$class->output = str_replace( "<!--UPLOAD FIELD-->", $upload_field , $class->output );
-		$class->output = str_replace( "<!--MOD OPTIONS-->" , $edit_option  , $class->output );
-		$class->output = str_replace( "<!--FORUM RULES-->" , $std->print_forum_rules($class->forum), $class->output );
-		$class->output = str_replace( "<!--TOPIC TITLE-->" , $topic_title  , $class->output );
+
+$class->output = str_replace( "<!--START TABLE-->" , (string)$start_table  , $class->output );
+$class->output = str_replace( "<!--NAME FIELDS-->" , (string)$name_fields   , $class->output );
+$class->output = str_replace( "<!--POST BOX-->"    , (string)$post_box      , $class->output );
+$class->output = str_replace( "<!--POST ICONS-->"  , (string)$post_icons    , $class->output );
+$class->output = str_replace( "<!--END TABLE-->"   , (string)$end_form      , $class->output );
+$class->output = str_replace( "<!--UPLOAD FIELD-->", (string)$upload_field , $class->output );
+$class->output = str_replace( "<!--MOD OPTIONS-->" , (string)$edit_option   , $class->output );
+$class->output = str_replace( "<!--FORUM RULES-->" , (string)$std->print_forum_rules($class->forum), $class->output );
+$class->output = str_replace( "<!--TOPIC TITLE-->" , (string)$topic_title   , $class->output );
+
 		
 		//---------------------------------------
 		
