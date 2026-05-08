@@ -81,6 +81,7 @@ return <<<EOF
 			<th width='14%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_topic_starter']}</th>
 			<th width='7%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_replies']}</th>
 			<th width='7%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_hits']}</th>
+            <th width='7%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_rating']}</th>
 			<th width='27%' align='left' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_last_action']}</th>
 		  </tr>
         <!-- Forum page unique top -->
@@ -200,6 +201,18 @@ EOF;
 
 function RenderRow($data) {
 global $ibforums;
+
+$score = intval($data['rating_total']);
+
+if ($score == 0) {
+    $data['rating'] = "<span class='rating-neutral'>0</span>";
+} else {
+    $class = ($score > 0) ? "rating-positive" : "rating-negative";
+    // abs() ensures that -5 becomes 5, and we remove the + for positive numbers
+    $display = abs($score); 
+    $data['rating'] = "<span class='{$class}'>{$display}</span>";
+}
+
 return <<<EOF
     <!-- Begin Topic Entry {$data['tid']} -->
     <tr> 
@@ -211,6 +224,7 @@ return <<<EOF
       <td align='center' class='row2'>{$data['starter']}</td>
       <td align='center' class='row4'>{$data['posts']}</td>
       <td align='center' class='row2'>{$data['views']}</td>
+      <td align='center' class='row4'>{$data['rating']}</td>
       <td class='row2'><span class='desc'>{$data['last_post']}<br /><a href='{$ibforums->base_url}showtopic={$data['tid']}&amp;view=getlastpost'>{$data['last_text']}</a> <b>{$data['last_poster']}</b></span></td>
     </tr>
     <!-- End Topic Entry {$data['tid']} -->
@@ -224,7 +238,7 @@ return <<<EOF
     <tr>
       <td align='center' class='darkrow1'>&nbsp;</td>
       <td align='center' class='darkrow1'>&nbsp;</td>
-	  <td align='left' class='darkrow1' colspan='5' style='padding:6px'><b>{$ibforums->lang['pinned_start']}</b></td>
+	  <td align='left' class='darkrow1' colspan='6' style='padding:6px'><b>{$ibforums->lang['pinned_start']}</b></td>
     </tr>
 EOF;
 }
@@ -236,7 +250,7 @@ return <<<EOF
     <tr>
       <td align='center' class='darkrow1'>&nbsp;</td>
       <td align='center' class='darkrow1'>&nbsp;</td>
-	  <td align='left' class='darkrow1' colspan='5' style='padding:6px'><b>{$ibforums->lang['regular_topics']}</b></td>
+	  <td align='left' class='darkrow1' colspan='6' style='padding:6px'><b>{$ibforums->lang['regular_topics']}</b></td>
     </tr>
 EOF;
 }
@@ -244,6 +258,18 @@ EOF;
 
 function render_pinned_row($data) {
 global $ibforums;
+
+$score = intval($data['rating_total']);
+
+if ($score == 0) {
+    $data['rating'] = "<span class='rating-neutral'>0</span>";
+} else {
+    $class = ($score > 0) ? "rating-positive" : "rating-negative";
+    // abs() ensures that -5 becomes 5, and we remove the + for positive numbers
+    $display = abs($score); 
+    $data['rating'] = "<span class='{$class}'>{$display}</span>";
+}
+
 return <<<EOF
     <!-- Begin Pinned Topic Entry {$data['tid']} -->
     <tr> 
@@ -255,6 +281,7 @@ return <<<EOF
       <td align='center' class='row4'>{$data['starter']}</td>
       <td align='center' class='row4'>{$data['posts']}</td>
       <td align='center' class='row4'>{$data['views']}</td>
+      <td align='center' class='row4'>{$data['rating']}</td>
       <td class='row4'><span class='desc'>{$data['last_post']}<br /><a href='{$ibforums->base_url}showtopic={$data['tid']}&amp;view=getlastpost'>{$data['last_text']}</a> <b>{$data['last_poster']}</b></span></td>
     </tr>
     <!-- End Pinned Topic Entry {$data['tid']} -->

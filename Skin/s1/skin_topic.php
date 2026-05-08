@@ -297,8 +297,14 @@ return <<<EOF
         <img src='{$ibforums->vars['img_url']}/spacer.gif' alt='' width='160' height='1' /><br /> 
       </td>
       <td width='100%' valign='top' class='{$post['post_css']}'>
-        <!-- THE POST {$post['pid']} -->
-        <div class='postcolor'>{$post['post']} {$post['attachment']}</div>
+      <div style='float:right; margin-left:10px;'>
+        {$post['topic_rating_box']}
+    </div>
+
+    <div class='postcolor'>
+        {$post['post']} 
+        {$post['attachment']}
+    </div>
         {$post['signature']}
         <!-- THE POST -->
       </td>
@@ -651,6 +657,24 @@ function nameField_reg() {
 global $ibforums;
 return <<<EOF
 <!-- REG NAME -->
+EOF;
+}
+
+function rate($data) {
+global $ibforums;
+return <<<EOF
+<form action='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}' method='post' style='display:inline;'>
+<input type='hidden' name='act' value='ST'>
+<input type='hidden' name='f' value='{$data['forum']}'>
+<input type='hidden' name='t' value='{$data['topic']}'>
+<input type='hidden' name='s' value='{$ibforums->session_id}'>
+<input type='hidden' name='CODE' value='00'>
+
+    <div style='float:right;padding:.3em;'>
+       {$data['rating']} {$data['choices']}
+    </div>
+
+</form>
 EOF;
 }
 

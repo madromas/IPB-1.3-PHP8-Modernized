@@ -436,6 +436,18 @@ EOF;
 
 function news($data) {
 global $ibforums;
+
+$score = intval($data['rating_total']);
+
+if ($score == 0) {
+    $data['rating'] = "<span class='rating-neutral'>0</span>";
+} else {
+    $class = ($score > 0) ? "rating-positive" : "rating-negative";
+    // abs() ensures that -5 becomes 5, and we remove the + for positive numbers
+    $display = abs($score); 
+    $data['rating'] = "<span class='{$class}'>{$display}</span>";
+}
+
 return <<<EOF
     
           <table cellpadding='4' cellspacing='1' border='0' width='100%' class='tableborder'>
@@ -447,9 +459,23 @@ return <<<EOF
 <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}&view=getlastpost'>{$data['title']}</a></b></td>
            </tr>
                <tr>
-                 <td class='row5'>{$ibforums->lang['postby']} <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}'>{$data['member_name']}</a> @ {$data['start_date']} {$data['extra']}</td>
-               </tr>
+    <td class='row5' style='padding:6px;'>
+        
+        <div style='float:right;'>
+            {$data['rating']}
+        </div>
+
+        <div>
+            {$ibforums->lang['postby']} 
+            <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}'>{$data['member_name']}</a> 
+            @ {$data['start_date']} {$data['extra']} 
+        </div>
+
+        <div style='clear:both;'></div>
+    </td>
+</tr>
                <tr>
+
                    <td class='prew' style='cursor:pointer' onclick="window.location.href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}&view=getlastpost'">{$data['post_body']} {$data['post_body_extra']}</td>
                </tr>
                <tr>
