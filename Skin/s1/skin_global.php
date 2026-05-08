@@ -218,6 +218,7 @@ if ( userPage > 0  ) {
    <img src="{$ibforums->vars['img_url']}/atb_help.gif" border="0" alt="" />&nbsp;<a href='{$ibforums->base_url}act=Help'>{$ibforums->lang['tb_help']}</a>
    &nbsp; &nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/atb_search.gif" border="0" alt="" />&nbsp;<a href='{$ibforums->base_url}act=Search&amp;f={$ibforums->input['f']}'>{$ibforums->lang['tb_search']}</a>
    &nbsp; &nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/atb_members.gif" border="0" alt="" />&nbsp;<a href='{$ibforums->base_url}act=Members'>{$ibforums->lang['tb_mlist']}</a>
+   &nbsp; &nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/atb_reput.gif" border="0" alt="" />&nbsp;<a href='{$ibforums->base_url}act=rep&CODE=totals'>{$ibforums->lang['rep_name']}</a>
    &nbsp; &nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/atb_calendar.gif" border="0" alt="" />&nbsp;<a href='{$ibforums->base_url}act=calendar'>{$ibforums->lang['tb_calendar']}</a>
    <!--IBF.CHATLINK-->
    <!--IBF.TSLLINK-->

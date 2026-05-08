@@ -2,6 +2,15 @@
 
 class skin_topic {
 
+	function rep_options_links($stuff) {
+global $ibforums;
+return <<<EOF
+[ <a href='{$ibforums->base_url}act=rep&CODE=01&mid=$stuff[mid]&f=$stuff[f]&t=$stuff[t]&p=$stuff[p]'>+</a>
+|
+<a href='{$ibforums->base_url}act=rep&CODE=02&mid=$stuff[mid]&f=$stuff[f]&t=$stuff[t]&p=$stuff[p]'>—</a> ]
+EOF;
+}
+
 function warn_level_warn($id, $percent) {
 global $ibforums;
 return <<<EOF
@@ -257,7 +266,7 @@ return <<<EOF
         
         <!-- POSTED DATE DIV -->
         
-        <div align='left' class='row4' style='float:left;padding-top:4px;padding-bottom:4px'>
+        <div align='left' class='row4' style='float:left;padding-top:2px;padding-bottom:2px'>
         {$post['post_icon']}<span class='postdetails'><b><a title="{$ibforums->lang['tt_link']}" href="#" onclick="link_to_post({$post['pid']}); return false;" style="text-decoration:underline">{$ibforums->lang['posted_on']}</a></b> {$post['post_date']}</span>
         </div>
         
@@ -280,6 +289,7 @@ return <<<EOF
         {$author['member_posts']}<br />
         {$author['member_number']}<br />
         {$author['member_joined']}<br />
+        {$author['rep']} {$post['rep_options']}<br />
         {$author['files']}<br />
         {$author['downloads']}<br /><br />
         {$author['warn_text']} {$author['warn_minus']}{$author['warn_img']}{$author['warn_add']}</span><br />

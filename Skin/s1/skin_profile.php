@@ -2,6 +2,15 @@
 
 class skin_profile {
 
+	function rep_options_links($stuff) {
+global $ibforums;
+return <<<EOF
+[ <a href='{$ibforums->base_url}act=rep&CODE=01&mid=$stuff[mid]&t=$stuff[t]'>+</a>
+|
+<a href='{$ibforums->base_url}act=rep&CODE=02&mid=$stuff[mid]&t=$stuff[t]'>—</a> ]
+EOF;
+}
+
 function warn_level($mid, $img, $percent) {
 global $ibforums;
 return <<<EOF
@@ -389,6 +398,10 @@ return <<<EOF
 		<td class="row3" valign='top'><b>{$ibforums->lang['siggie']}</b></td>
 		<td align='left' class='row1'>{$info['signature']}</td>
 	  </tr>
+	   <tr>
+        <td class="row3" valign='top'><b>{$ibforums->lang['rep_name']}:</b></td>
+        <td align='left' class='row1'>{$info['rep']} <a href='{$ibforums->base_url}act=rep&CODE=03&mid={$info['mid']}'>{$ibforums->lang['rep_details']}</a></td>
+      </tr>
 	  <!--{WARN_LEVEL}-->
 	  </table>
 	</td>
