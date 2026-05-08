@@ -2,6 +2,10 @@
 
 $lang = array (
 
+	'rep_name' => "Reputation",
+'rep_postfix' => "pts",
+'rep_none' => "none",
+
 //rc1
 
 'fj_redirect' => " (Redirect Forum)",

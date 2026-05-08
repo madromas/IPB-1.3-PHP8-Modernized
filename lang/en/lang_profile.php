@@ -2,6 +2,8 @@
 
 $lang = array (
 
+'rep_details' => "[details >>]",
+
 'latest_x_posts'    => "Latest Posts by",
 
 //added 1.2 b3

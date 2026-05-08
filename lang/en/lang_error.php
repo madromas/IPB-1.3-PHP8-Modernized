@@ -2,6 +2,17 @@
 
 $lang = array (
 
+	'rep_cantchange'	=> "You have been restricted from changing members reputation",
+'rep_noanon'		=> "You have been restricted from voting anonimously",
+'rep_gcantchange'	=> "Your group has been restricted from changing members reputation",
+'rep_gcantchangeg'	=> "The group you are in has no right to change reputation of members from this group",
+'rep_forum_hide'	=> "Reputation has been disabled within this forum",
+'rep_full'			=> "This member's reputation is full",
+'rep_low'			=> "This member can not lose any more reputation",
+'rep_self'			=> "You cannot change your own reputation!",
+'rep_early'			=> "You have recently changed this member's reputation.<br><#EXTRA#> days should pass before you can do it again",
+'rep_noposts'		=> "You do not have enough posts to change members' reputation. <#EXTRA#> posts required",
+
 'cat_no_open'			=> "This category is not open!",
 'no_cats_exists'			=> "No categories exist!",
 'no_cat'				=> "No category specified!",
