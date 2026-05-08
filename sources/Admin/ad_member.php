@@ -2961,7 +2961,34 @@ class ad_forums {
 		}
 								     							     							     
 		//+-------------------------------
-									     							     							     							     
+					
+$ADMIN->html .= $SKIN->end_table();
+		
+        $SKIN->td_header[] = array( "&nbsp;"  , "40%" );
+        $SKIN->td_header[] = array( "&nbsp;"  , "60%" );
+		
+        //+-------------------------------+
+		
+        $ADMIN->html .= $SKIN->start_table( "Reputation Control" );
+		
+        //+-------------------------------
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Allow this member to change others' Reputation?</b>" ,
+                                                  $SKIN->form_yes_no("rep_rep", $mem['allow_rep'])
+                                         )    );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Allow anonymous voting?</b><br>Will only work if board overall anonymous voting is allowed" ,
+                                                  $SKIN->form_yes_no("rep_anon", $mem['allow_anon'])
+                                         )    );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>This member's Reputation count</b><br>Note that you may encounter glitches in Reputation stats if you change this manually" ,
+                                                  $SKIN->form_input("rep_count", $mem['rep'])
+                                         )    );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Recount this member's Reputation?" ,
+                                                  $SKIN->form_yes_no("rep_recount", 0)
+                                         )    );
+
 		$ADMIN->html .= $SKIN->end_form("Edit this member");
 										 
 		$ADMIN->html .= $SKIN->end_table();
@@ -3051,6 +3078,9 @@ class ad_forums {
 															'location'     => $IN['location'],
 															'interests'    => $IN['interests'],
 															'signature'    => $IN['signature'],
+															'allow_anon'   => $IN['rep_anon'],
+															'allow_rep'    => $IN['rep_rep'],
+															'rep'          => $IN['rep_count'],
 															'mod_posts'    => $mod_queue,
 															'org_perm_id'  => $permid,
 															'warn_level'   => $IN['warn_level'],
@@ -3059,6 +3089,20 @@ class ad_forums {
 												  
 		$DB->query("UPDATE ibf_members SET $db_string".$password." WHERE id='".$IN['mid']."'");
 		
+        if ($IN['rep_recount'])
+        {
+            $DB->query("SELECT COUNT(member_id) AS raise FROM ibf_reputation WHERE member_id = '".$IN['mid']."' AND CODE='01'");
+            $row = $DB->fetch_row();
+            $plus = $row['raise'];
+            
+            $DB->query("SELECT COUNT(member_id) AS lower FROM ibf_reputation WHERE member_id = '".$IN['mid']."' AND CODE='02'");
+            $row = $DB->fetch_row();
+            $minus = $row['lower'];
+            
+            $rep = $plus - $minus;
+            $DB->query("UPDATE ibf_members SET rep = '".$rep."' WHERE id = '".$IN['mid']."'");
+        }
+
 		//----------------------------------
 		// Remove photo?
 		//----------------------------------

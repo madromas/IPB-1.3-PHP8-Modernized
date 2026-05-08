@@ -1608,6 +1608,8 @@ class ad_groups {
 							 'g_reply_own_topics'   => $IN['g_reply_own_topics'],
 							 'g_reply_other_topics' => $IN['g_reply_other_topics'],
 							 'g_edit_posts'         => $IN['g_edit_posts'],
+							 'g_change_rep'         => $IN['g_change_rep'],
+							 'g_exclude_rep'        => $IN['g_exclude_rep'],
 							 'g_edit_cutoff'        => $IN['g_edit_cutoff'],
 							 'g_delete_own_posts'   => $IN['g_delete_own_posts'],
 							 'g_open_close_posts'   => $IN['g_open_close_posts'],
@@ -2060,7 +2062,27 @@ class ad_groups {
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Can add events to the calendar?$guest_legend</b>" ,
 												  $SKIN->form_yes_no("g_calendar_post", $group['g_calendar_post'] )
 									     )      );
+
 									     					     							     
+		$ADMIN->html .= $SKIN->end_table();
+
+		//+-------------------------------
+		
+		$SKIN->td_header[] = array( "&nbsp;"  , "40%" );
+		$SKIN->td_header[] = array( "&nbsp;"  , "60%" );
+		
+		//+-------------------------------
+		
+		$ADMIN->html .= $SKIN->start_table( "Reputation Control", "Allow or deny this group to change Reputation" );
+		
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Allow this group to change others' Reputation?</b>$guest_legend" ,
+												  $SKIN->form_yes_no("g_change_rep", $group['g_change_rep'] )
+									     )      );
+		
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Members in this group cannot change Reputation of members in the following groups.</b><br />Group IDs. Separate with comma. No whitespaces.$guest_legend" ,
+												  $SKIN->form_input("g_exclude_rep", $group['g_exclude_rep'] )
+									     )      );
+		
 		$ADMIN->html .= $SKIN->end_table();
 		
 		//+-------------------------------

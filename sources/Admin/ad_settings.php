@@ -257,6 +257,31 @@ class ad_settings {
 			case 'docount':
 				$this->docount();
 				break;
+			case 'rep':
+				$this->reput();
+				break;
+			case 'rep_ranks':
+				$this->reput_ranks();
+				break;
+			case 'rep_add_rank':
+				$this->reput_add_rank();
+				break;
+			case 'rep_edit_rank':
+				$this->reput_edit_rank();
+				break;
+			case 'rep_doedit_rank':
+				$this->reput_do_edit_rank();
+				break;
+			case 'rep_delete_rank':
+				$this->reput_delete_rank();
+				break;
+			case 'dorep':
+				if ($IN['rep_rcall']) $this->reput_recount_all();
+				$this->save_config( array ( 'rep_remove', 'rep_time', 'rep_posts', 'rep_allow_anon', 'rep_anon_posts', 'rep_msg_length', 'rep_enable_emo',
+					'rep_enable_ibc', 'rep_good_anon', 'rep_bad_anon', 'rep_goodtitle', 'rep_goodnum', 'rep_badtitle', 'rep_badnum', 'rep_titlechange',
+					'rep_per_page', 'rep_use_ranks', 'rep_total_exclude', 'rep_change_exclude', 'rep_remove_days', 'rep_time_nomod', 'rep_profile',
+					'rep_memstats', 'rep_allow_comments', 'rep_mems_limit' ) );
+				break;
 			default:
 				$this->cookie();
 				break;
@@ -1070,6 +1095,352 @@ class ad_settings {
 	
 	//=====================================================
 	
+     function reput_add_rank() {
+		
+		global $IN, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+		
+		foreach( array( 'amount', 'title' ) as $field )
+		{
+			if ($IN[ $field ] == "")
+			{
+				$ADMIN->error("You must complete the form fully");
+			}
+		}
+		
+		$db_string = $DB->compile_db_insert_string( array (
+															 'amount' => trim($IN['amount']),
+															 'title'  => trim($IN['title']),
+												  )       );
+												  
+		$DB->query("INSERT INTO ibf_reput_ranks (" .$db_string['FIELD_NAMES']. ") VALUES (". $db_string['FIELD_VALUES'] .")");
+		
+		$ADMIN->done_screen("Rank Added", "Back to Rank Text Control", "act=op&code=rep_ranks" );					
+	}
+	
+	function reput_edit_rank() {
+		
+		global $IN, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+		
+		if ($IN['id'] == "")
+		{
+			$ADMIN->error("No rank ID was set, please try again");
+		}
+		
+		$ADMIN->page_title = "Editing Rank";
+		
+		$ADMIN->page_detail = "You may edit an existing Rank below";
+		
+		$DB->query("SELECT * FROM ibf_reput_ranks WHERE id='".$IN['id']."'");
+		$rank = $DB->fetch_row();
+		
+		//+-------------------------------
+		
+		$ADMIN->html .= $SKIN->start_form( array( 1 => array( 'code'  , 'rep_doedit_rank'	),
+												  2 => array( 'act'   , 'op'				),
+												  3 => array( 'id'    , $rank['id']			),
+									     )      );
+		
+		//+-------------------------------
+		
+		$SKIN->td_header[] = array( "&nbsp;"  , "40%" );
+		$SKIN->td_header[] = array( "&nbsp;"  , "60%" );
+		
+		//+-------------------------------
+		
+		$ADMIN->html .= $SKIN->start_table( "Member Rank to Edit" );
+									     
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Rank title</b>" ,
+												  $SKIN->form_input( "title", $rank['title'] )
+									     )      );
+									     
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Minimum amount of Reputation</b>" ,
+												  $SKIN->form_input( "amount", $rank['amount'] )
+									     )      );
+		
+		$ADMIN->html .= $SKIN->end_form("Complete edit");
+		
+		$ADMIN->html .= $SKIN->end_table();
+		
+		$ADMIN->output();
+	}
+	
+	function reput_do_edit_rank() {
+		
+		global $IN, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+		
+		if ($IN['id'] == "")
+		{
+			$ADMIN->error("We could not match that ID");
+		}
+		
+		//+-------------------------------
+		
+		foreach( array( 'amount', 'title' ) as $field )
+		{
+			if ($IN[ $field ] == "")
+			{
+				$ADMIN->error("You must complete the form fully");
+			}
+		}
+		
+		//+-------------------------------
+		
+		$db_string = $DB->compile_db_update_string( array (
+															 'amount' => trim($IN['amount']),
+															 'title'  => trim($IN['title']),
+												  )       );
+		
+		$DB->query("UPDATE ibf_reput_ranks SET $db_string WHERE id='".$IN['id']."'");
+		
+		$ADMIN->done_screen("Rank Edited", "Back to Rank Text Control", "act=op&code=rep_ranks" );					
+	}
+	
+	function reput_delete_rank() {
+		
+		global $IN, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+		
+		if ($IN['id'] == "")
+		{
+			$ADMIN->error("We could not match that ID");
+		}
+		
+		$DB->query("DELETE FROM ibf_reput_ranks WHERE id='".$IN['id']."'");
+		
+		$ADMIN->done_screen("Rank Deleted", "Back to Rank Text Control", "act=op&code=rep_ranks" );
+	}
+	
+    function reput_ranks() {
+    	
+    	global $IN, $INFO, $DB, $SKIN, $ADMIN;
+    	
+		$ADMIN->page_title = "Text as Ranks";
+		
+		$ADMIN->page_detail = "This section allows you to modify, delete or add text that may be used instead of numbers when displaying Reputation";
+		
+		
+		//+-------------------------------
+		
+		$SKIN->td_header[] = array( "Rank displayed" , "30%" );
+		$SKIN->td_header[] = array( "When Reputation is more than" , "30%" );
+		$SKIN->td_header[] = array( "&nbsp;" , "20%" );
+		$SKIN->td_header[] = array( "&nbsp;" , "20%" );
+		
+		//+-------------------------------
+		
+		$ADMIN->html .= $SKIN->start_table( "Member Ranks" );
+		
+		$DB->query("SELECT * FROM ibf_reput_ranks ORDER BY amount");
+		
+		while ( $r = $DB->fetch_row() )
+		{
+			$ADMIN->html .= $SKIN->add_td_row( array( "<b>".$r['title']."</b>" ,
+													  $r['amount'],
+													  "<a href='{$SKIN->base_url}&act=op&code=rep_edit_rank&id={$r['id']}'>Edit</a>",
+													  "<a href='{$SKIN->base_url}&act=op&code=rep_delete_rank&id={$r['id']}'>Delete</a>",
+											 )      );
+		}
+		
+		$ADMIN->html .= $SKIN->end_table();
+		
+		//+-------------------------------
+		
+		$ADMIN->html .= $SKIN->start_form( array( 1 => array( 'code'  , 'rep_add_rank'  ),
+												  2 => array( 'act'   , 'op'       ),
+									     )      );
+		
+		//+-------------------------------
+		
+		$SKIN->td_header[] = array( "&nbsp;"  , "40%" );
+		$SKIN->td_header[] = array( "&nbsp;"  , "60%" );
+		
+		//+-------------------------------
+		
+		$ADMIN->html .= $SKIN->start_table( "Add a Rank" );
+		
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Rank title</b>" ,
+												  $SKIN->form_input( "title" )
+									     )      );
+		
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Minimum amount of Reputation</b>" ,
+												  $SKIN->form_input( "amount" )
+									     )      );
+		
+		$ADMIN->html .= $SKIN->end_form("Add this rank");
+		
+		$ADMIN->html .= $SKIN->end_table();
+		
+		$ADMIN->output();
+	}
+    
+    function reput()
+    {
+        global $IN, $root_path, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+        $this->common_header('dorep', 'Reputation Settings', 'You may change your reputation settings below');
+		
+        $ADMIN->html .= $SKIN->add_td_basic( 'General Settings', 'left', 'catrow2' );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Number of posts required to use the Reputation system?</b>" ,
+        $SKIN->form_input( "rep_posts", $INFO['rep_posts'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>How many days the member can't change the same member's Reputation again?</b>" ,
+        $SKIN->form_input( "rep_time", $INFO['rep_time'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>...and the above time limit doesn't apply to admins & mods?</b>" ,
+        $SKIN->form_yes_no( "rep_time_nomod", $INFO['rep_time_nomod'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Use text ranks instead of numbers when displaying Reputation?</b><br>If 'yes', will add one query per topic and profile view" ,
+        $SKIN->form_yes_no( "rep_use_ranks", $INFO['rep_use_ranks'] )
+        . "&nbsp;&nbsp;&nbsp<a href='{$SKIN->base_url}&act=op&code=rep_ranks'>Click here for extra settings</a>"
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Remove posting rights if Reputation below [X]?</b><br>Leave blank for no effect" ,
+        $SKIN->form_input( "rep_remove", $INFO['rep_remove'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Posting rights are removed for how many days?</b><br>Applies to the above option. 0 for permanent removal" ,
+        $SKIN->form_input( "rep_remove_days", $INFO['rep_remove_days'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Allow Reputation changes directly in member Profile?</b>" ,
+        $SKIN->form_yes_no( "rep_profile", $INFO['rep_profile'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Allow Reputation changes in member Reputation stats?</b>" ,
+        $SKIN->form_yes_no( "rep_memstats", $INFO['rep_memstats'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_basic( 'Exclude Forums', 'left', 'catrow2' );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Hide Reputation system completely in the following forums</b><br>Enter excluded forum IDs. Separate with comma" ,
+        $SKIN->form_input( "rep_total_exclude", $INFO['rep_total_exclude'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Hide [ + | — ] links in the following forums (only Reputation stats will be shown in these forums)</b><br>Enter excluded forum IDs. Separate with comma" ,
+        $SKIN->form_input( "rep_change_exclude", $INFO['rep_change_exclude'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_basic( 'Fine-tuning the Look of Reputation :)', 'left', 'catrow2' );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Show [X] Reputation changes per page in stats</b><br>Auto-set to '30' if blank" ,
+        $SKIN->form_input( "rep_per_page", $INFO['rep_per_page'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Only show [X] most respected users in total stats</b>" ,
+        $SKIN->form_input( "rep_mems_limit", $INFO['rep_mems_limit'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Maximum length for 'Reason' field when changing Reputation? (bytes)</b><br>Blank or 0 for no effect" ,
+        $SKIN->form_input( "rep_msg_length", $INFO['rep_msg_length'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Allow the use of emoticons when changing Reputation?</b>" ,
+        $SKIN->form_yes_no( "rep_enable_emo", $INFO['rep_enable_emo'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Allow the use of IBF CODE when changing Reputation?</b>" ,
+        $SKIN->form_yes_no( "rep_enable_ibc", $INFO['rep_enable_ibc'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Allow user comments on Reputation changes?</b>" ,
+        $SKIN->form_yes_no( "rep_allow_comments", $INFO['rep_allow_comments'] )
+        ) );		
+		
+        $ADMIN->html .= $SKIN->add_td_basic( 'Anonymous Voting', 'left', 'catrow2' );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Allow anonymous voting?</b>" ,
+        $SKIN->form_yes_no( "rep_allow_anon", $INFO['rep_allow_anon'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Only allow anonymous voting to members with more than [X] posts?</b>" ,
+        $SKIN->form_input( "rep_anon_posts", $INFO['rep_anon_posts'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Name for Anonymous when raising Reputation</b><br>When a member raised someone's rep anonymously, he is represented in the rep change stats with this name" ,
+        $SKIN->form_input( "rep_good_anon", $INFO['rep_good_anon'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Name for Anonymous when lowering Reputation</b><br>When a member lowered someone's rep anonymously, he is represented in the rep change stats with this name<br>E.g., you can use 'Coward' or 'Windbag' :)" ,
+        $SKIN->form_input( "rep_bad_anon", $INFO['rep_bad_anon'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_basic( 'Member Titles', 'left', 'catrow2' );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Positive prefix to member's title</b><br>E.g., setting this to 'Good' means: when some Newbie reaches a certain amount of rep points (see next option), he becomes a Good Newbie" ,
+        $SKIN->form_input( "rep_goodtitle", $INFO['rep_goodtitle'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Minimum number of rep points letting members have a 'positive' prefix to their title</b><br>Blank or 0 if you don't want to allow this" ,
+        $SKIN->form_input( "rep_goodnum", $INFO['rep_goodnum'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Negative prefix to member's title</b><br>E.g., setting this to 'Bad' means: when some Newbie falls below some rep points (see next option), he becomes a Bad Newbie" ,
+        $SKIN->form_input( "rep_badtitle", $INFO['rep_badtitle'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Minimum number of rep points (usually negative) letting members have a 'negative' prefix to their title</b><br>Don't set this higher than the positive one - you can get something like Bad Good Newbie :)<br>Blank or 0 if you don't want to allow this" ,
+        $SKIN->form_input( "rep_badnum", $INFO['rep_badnum'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Amount of Reputation a member must have before allowing them to change their member title</b><br>Blank or 0 to disable completely" ,
+        $SKIN->form_input( "rep_titlechange", $INFO['rep_titlechange'] )
+        ) );
+		
+        $ADMIN->html .= $SKIN->add_td_basic( 'Misc', 'left', 'catrow2' );
+		
+        $ADMIN->html .= $SKIN->add_td_row( array( "<b>Recount all members' Reputation?</b><br>Resynchronise all Reputation data" ,
+        $SKIN->form_yes_no( "rep_rcall", 0 )
+        ) );
+		
+        $this->common_footer();
+    }
+
+    function reput_recount_all()
+    {
+        global $DB;
+		
+        $DB->query("SELECT * FROM ibf_reputation WHERE 1");
+        
+        $users = array();
+        $queries = array();
+        
+        while ($change = $DB->fetch_row() )
+        {
+            if ($change['CODE'] == '01')
+            {
+            	$users[ $change['member_id'] ]['rep'] ++;
+            }
+            else
+            {
+            	if (!$users[ $change['member_id'] ]['rep'])
+            	$users[ $change['member_id'] ]['rep'] = -1;
+            	else $users[ $change['member_id'] ]['rep'] -- ;
+            }
+            
+            $users[ $change['from_id'] ]['rep_do'] ++;
+            
+            if ($change['vis']) $users[ $change['from_id'] ]['rep_do_open'] ++;
+        }
+		
+		$DB->query("SELECT id FROM ibf_members WHERE 1");
+		
+		while ($row = $DB->fetch_row())
+		{
+			$query = '';
+			if (!is_numeric( $users[ $row['id'] ]['rep'] )) $query .= 'rep=NULL'; else $query .= 'rep='.$users[ $row['id'] ]['rep'];
+			$query .= ', ';
+			if (!is_numeric( $users[ $row['id'] ]['rep_do'] )) $query .= 'rep_do=NULL'; else $query .= 'rep_do='.$users[ $row['id'] ]['rep_do'];
+			$query .= ', ';
+			if (!is_numeric( $users[ $row['id'] ]['rep_do_open'] )) $query .= 'rep_do_open=NULL'; else $query .= 'rep_do_open='.$users[ $row['id'] ]['rep_do_open'];
+			
+			$queries[] = "UPDATE ibf_members SET $query WHERE id = {$row['id']}";
+		}
+		
+		foreach ($queries as $query) $DB->query($query);
+    }
+
 	
 	function edit_emoticons()
 	{
