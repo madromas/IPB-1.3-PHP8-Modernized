@@ -1094,7 +1094,14 @@ else
 //--------------------------------------------------------------
 
 // Force the parser to run on every single row
-$row['post'] = $this->parser->post_db_parse($row['post'], ($this->forum['use_html'] AND $row['g_dohtml']) ? 1 : 0);
+$is_mod = ($ibforums->member['g_is_supmod'] == 1 or $this->moderator['member_id'] == $ibforums->member['id']) ? TRUE : FALSE;
+
+// Parse the post with the MOD_FLAG enabled for the viewer
+$row['post'] = $this->parser->convert(array(
+    'TEXT'      => $row['post'],
+    'SIGNATURE' => 0,
+    'MOD_FLAG'  => $is_mod,
+));
 
 //--------------------------------------------------------------
 // Do word wrap?
