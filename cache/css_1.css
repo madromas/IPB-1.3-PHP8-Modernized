@@ -68,6 +68,40 @@ img.attach { border:2px outset #EEF2F7;padding:2px;}
 
 .avatar img {border-radius:.5em;width: 80px;}
 
+/* Base style for all ratings */
+.rating-positive, 
+.rating-negative, 
+.rating-neutral {
+    font-size: 0.65rem;
+    color: #fff;
+    text-decoration: none !important;
+    margin-left: 5px;
+    display: inline-block;
+    border-radius: 6px;
+    padding: 2px 4px;
+    font-weight: 700;
+    width: 30px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    visibility: visible;
+    text-align: center;
+}
+
+.rating-positive {
+    background: #3fae54;
+    border: 1px solid #21913b;
+}
+
+.rating-negative {
+    background: #dc3545;
+    border: 1px solid #bf2d3b;
+}
+
+.rating-neutral {
+    background: #a9a9a9;
+    border: 1px solid #8e9295;
+}
+/* Base style for all ratings */
+
 .post-author {
     display: inline-block;
     margin-left: 2px;
