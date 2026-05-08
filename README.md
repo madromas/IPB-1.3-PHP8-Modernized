@@ -27,6 +27,7 @@ A modernized distribution of **Invision Power Board 1.3**, fully patched for **P
 *   **Lofi Version 2.0**: Completely overhauled the legacy text-only lofiversion.
 *   **Forum Icon Customization**: Developed a modular system to override standard folder icons with custom GIFs assigned via the Admin CP.
 *   **Reputation System**: Added community rating engine, that allows users to vote on each other's profiles and leave comments explaining their feedback.
+*   **Advanced Topic Ratings**: Replaced the legacy star-based system with a streamlined, AJAX-ready voting engine integrated directly into the first post for increased user engagement.
 
 ## 📦 Installation
 
