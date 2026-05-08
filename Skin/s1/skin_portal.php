@@ -543,6 +543,7 @@ return <<<EOF
     </td>
   </tr>
 </table>
+<br>
 EOF;
 }
 
@@ -591,6 +592,7 @@ return <<<EOF
     </td>
   </tr>
 </table>
+<br>
 EOF;
 }
 
