@@ -404,6 +404,67 @@ $info['posts'] = $member['posts'] ? $member['posts'] : 0;
     	$info['joined']      = $std->get_date( $member['joined'], 'JOINED' );
     	
     	$info['member_title'] = $member['title']     ? $member['title']      : $ibforums->lang['no_info'];
+
+    	$tmp_rep = empty ($member['rep']) ? 0 : $member['rep'];
+        $tmp_title = "";
+        if ($ibforums->vars['rep_goodnum'] and $tmp_rep >= $ibforums->vars['rep_goodnum']) $tmp_title = $ibforums->vars['rep_goodtitle'];
+        if ($ibforums->vars['rep_badnum']  and $tmp_rep <= $ibforums->vars['rep_badnum'])  $tmp_title = $ibforums->vars['rep_badtitle'];
+		
+        if ($tmp_title and $info['member_title'] != $ibforums->lang['no_info']) $info['member_title'] = $tmp_title.' '.$info['member_title'];
+		
+        if ($ibforums->vars['rep_use_ranks'])
+        {
+			$DB->query("SELECT id, title, amount FROM ibf_reput_ranks ORDER BY amount DESC");
+        	
+        	while ($row = $DB->fetch_row())
+        	{
+         		$this->rep_ranks[ $row['id'] ] = array(
+													 'TITLE'  => $row['title'],
+													 'AMOUNT' => $row['amount'],
+												   );
+        	}
+        	
+        	if (is_array($this->rep_ranks))
+        	{
+        		foreach ($this->rep_ranks as $k => $v)
+				{
+					if ($member['rep'] >= $v['AMOUNT'])
+					{
+						$member['rep'] = $this->rep_ranks[ $k ]['TITLE'];
+						break;
+					}
+				}
+			}
+			
+			if (empty($member['rep'])) $member['rep'] = $ibforums->lang['rep_none'];
+		}
+        else
+        {
+        	if( empty($member['rep']) )
+        	{
+            	if (! is_numeric( $member['rep'] ))
+        		{
+                	$member['rep'] = $ibforums->lang['rep_none'];
+            	}
+            	else
+            	{
+                	$member['rep'] .= " ".$ibforums->lang['rep_postfix'];
+            	}
+        	}
+        	else
+        	{
+            	$member['rep'] .= " ".$ibforums->lang['rep_postfix'];
+        	}
+        }
+		
+        $info['rep']         = $member['rep'];
+		
+		if ($ibforums->member['id'] && $ibforums->vars['rep_profile'] && ( $ibforums->member['id'] != $member['id'] ) )
+		{
+			$stuff = array( 't' => 'p', 'mid' => $member['id'] );
+			
+			$info['rep'] .= " " . $this->html->rep_options_links($stuff);
+        }
     	
     	$info['aim_name']    = $member['aim_name']   ? $member['aim_name']   : $ibforums->lang['no_info'];
     	$info['icq_number']  = $member['icq_number'] ? $member['icq_number'] : $ibforums->lang['no_info'];

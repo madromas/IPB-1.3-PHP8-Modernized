@@ -1879,7 +1879,8 @@ class UserCP {
 		
 		$this->output .= $this->html->personal_panel($this->member);
 		
-		if ( ($ibforums->vars['post_titlechange']) and ($this->member['posts'] > $ibforums->vars['post_titlechange']) )
+		 if ( (($ibforums->vars['post_titlechange']) and ($this->member['posts'] > $ibforums->vars['post_titlechange']))
+          or (($ibforums->vars['rep_titlechange'] ) and ($this->member['rep']  >= $ibforums->vars['rep_titlechange'] )) )
 		{
 			$t_html = $this->html->member_title($this->member['title']);
 			$this->output = preg_replace( "/<!--\{MEMBERTITLE\}-->/", $t_html, $this->output );

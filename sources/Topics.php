@@ -42,6 +42,9 @@ class Topics {
     var $parser     = "";
     var $mimetypes  = "";
     var $nav_extra  = "";
+    var $rep_ranks  = array();
+    var $rep_hide   = array();
+    var $rep_exclude = array();
     var $read_array = array();
     var $mod_panel_html = "";
     var $warn_range = 0;
@@ -380,6 +383,21 @@ else
 												 'POSTS' => $i['posts'],
 											   );
         }
+
+        if ($ibforums->vars['rep_use_ranks'])
+        {
+			$DB->query("SELECT id, title, amount FROM ibf_reput_ranks ORDER BY amount DESC");
+        	while ($row = $DB->fetch_row())
+        	{
+         		$this->rep_ranks[ $row['id'] ] = array(
+													 'TITLE'  => $row['title'],
+													 'AMOUNT' => $row['amount'],
+												   );
+        	}
+        }
+        
+        $this->rep_exclude = explode(",", $ibforums->vars['rep_total_exclude']  ?? "");
+$this->rep_hide    = explode(",", $ibforums->vars['rep_change_exclude'] ?? "");
         
         //-------------------------------------
         // Are we a moderator?
@@ -753,7 +771,7 @@ while ($s_row = $DB->fetch_row()) {
 		$DB->query( "SELECT p.*,
 				    m.id,m.name,m.mgroup,m.email,m.joined,m.avatar,m.avatar_size,m.posts,m.aim_name,m.icq_number,
 				    m.signature, m.website,m.yahoo,m.integ_msg,m.title,m.hide_email,m.msnname, m.warn_level, m.warn_lastwarn,
-				    g.g_id, g.g_title, g.g_icon, g.g_dohtml $join_get_fields
+				    g.g_id, g.g_title, g.g_icon, m.rep, g.g_dohtml $join_get_fields
 				    FROM ibf_posts p
 				      LEFT JOIN ibf_members m ON (p.author_id=m.id)
 				      LEFT JOIN ibf_groups g ON (g.g_id=m.mgroup)
@@ -917,6 +935,8 @@ if ( isset($row['author_id']) && $row['author_id'] > 0 ) {
 			$row['report_link'] = (($ibforums->vars['disable_reportpost'] != 1) and ( $ibforums->member['id'] ))
 							    ? $this->html->report_link($row)
 							    : "";
+
+			$row['rep_options'] = $this->rep_options($poster['id'], $row['pid']);				    
 			
 			//--------------------------------------------------------------
 							  
@@ -1422,6 +1442,57 @@ $row['topic_starter_id'] = $this->topic['starter_id'];
 		{
 			$member['msn_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=MSN&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_MSN}></a>";
 		}
+
+		$tmp_rep = empty ($member['rep']) ? 0 : $member['rep'];
+        if ($ibforums->vars['rep_goodnum'] and $tmp_rep >= $ibforums->vars['rep_goodnum']) $member['title'] = $ibforums->vars['rep_goodtitle'].' '.$member['title'];
+        if ($ibforums->vars['rep_badnum']  and $tmp_rep <= $ibforums->vars['rep_badnum'])  $member['title'] = $ibforums->vars['rep_badtitle']. ' '.$member['title'];
+		
+        if ($ibforums->vars['rep_use_ranks'] && is_array($this->rep_ranks))
+        {
+        	foreach($this->rep_ranks as $k => $v)
+			{
+				if ($member['rep'] >= $v['AMOUNT'])
+				{
+					$member['rep'] = $this->rep_ranks[ $k ]['TITLE'];
+					break;
+				}
+			}
+			
+			if (empty($member['rep'])) $member['rep'] = $ibforums->lang['rep_none'];
+		}
+        else
+        {
+        	if( empty($member['rep']) )
+        	{
+            	if (! is_numeric( $member['rep'] ))
+        		{
+                	$member['rep'] = $ibforums->lang['rep_none'];
+            	}
+            	else
+            	{
+                	$member['rep'] .= " ".$ibforums->lang['rep_postfix'];
+            	}
+        	}
+        	else
+        	{
+            	$member['rep'] .= " ".$ibforums->lang['rep_postfix'];
+        	}
+        }
+		
+        if ($ibforums->member['id'])
+        {
+            $stuff = array( 't' => $this->topic['tid'],
+                            'f' => $this->forum['id'],
+                            'mid' => $member['id'] );
+            
+            $member['rep'] = "<a href='{$ibforums->base_url}act=rep&CODE=03&mid=".$stuff['mid']."'>".$ibforums->lang['rep_name'].":</a> ".$member['rep'];
+        }
+        else
+        {
+            $member['rep'] = $ibforums->lang['rep_name'].": ".$member['rep'];
+        }
+		
+		if (in_array( $this->forum['id'], $this->rep_exclude)) $member['rep'] = "";
 		
 		if ($member['integ_msg'])
 		{
@@ -1662,6 +1733,27 @@ if ( is_array($this->moderator) AND isset($this->moderator['edit_post']) AND $th
 		}
 	
 	}
+
+	//--------------------------------------------------------------
+	// Render reputation options
+	//--------------------------------------------------------------
+
+	function rep_options($memid, $pid)
+    {
+        global $ibforums;
+		
+        if (!$ibforums->member['id'] or in_array($this->forum['id'], $this->rep_exclude) or in_array($this->forum['id'], $this->rep_hide))
+        {
+            return "";
+        }
+        else
+        {
+            if (($memid) and ($ibforums->member['id'] != $memid)) {
+                $stuff = array( 't' => $this->topic['tid'], 'f' => $this->forum['id'], 'mid' => $memid, 'p' => $pid );
+                return $this->html->rep_options_links($stuff);
+            }
+        }
+    }
 	
 	//--------------------------------------------------------------
 	// Render the topic multi-moderation

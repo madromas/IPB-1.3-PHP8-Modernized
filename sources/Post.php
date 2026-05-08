@@ -1235,7 +1235,7 @@ $FILE_TYPE = $_FILES['FILE_UPLOAD']['type'] ?? '';
 				
 				$row['post'] = preg_replace( "#<!--emo&(.+?)-->.+?<!--endemo-->#", "\\1" , $row['post'] );
 				
-				$row['post'] = preg_replace( "/<img src=[\"'](.+?)[\"'].+?".">/", "(IMG:<a href='\\1' target='_blank'>\\1</a>)", $row['post'] );
+				$row['post'] = preg_replace( "/<img src=[\"'](.+?)[\"'](.*?)>/i", "<a href='\\1' target='_blank'><img src='\\1'\\2></a>", $row['post'] );
 			}
 			
 			$row['post']   = $this->parser->post_db_parse($row['post'], $this->forum['use_html'] AND $ibforums->member['g_dohtml'] ? 1 : 0);

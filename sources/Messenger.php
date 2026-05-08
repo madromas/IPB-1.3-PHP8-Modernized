@@ -2272,6 +2272,10 @@ class Messenger {
 		$member['member_group'] = $ibforums->lang['m_group'].' '.$member['g_title'];
 		
 		$member['member_posts'] = $ibforums->lang['m_posts'].' '.$std->do_number_format($member['posts']);
+
+		 if (empty ($member['rep'])) $member['rep'] = 0;
+        if ($ibforums->vars['rep_goodnum'] and $member['rep'] >= $ibforums->vars['rep_goodnum']) $member['title'] = $ibforums->vars['rep_goodtitle'].' '.$member['title'];
+        if ($ibforums->vars['rep_badnum']  and $member['rep'] <= $ibforums->vars['rep_badnum'])  $member['title'] = $ibforums->vars['rep_badtitle']. ' '.$member['title'];
 		
 		$member['member_number'] = $ibforums->lang['member_no'].' '.$std->do_number_format($member['id']);
 		
