@@ -514,32 +514,30 @@ global $ibforums, $stats;
 return <<<EOF
 <table width="100%" align="center" border="0" cellspacing="1" cellpadding="0" class='tableborder welcome-panel'>
   <tr> 
-    <td class='maintitle' > 
-      <table width="100%" border="0" cellspacing="0" cellpadding="3">
-        <tr> 
-          <td><{CAT_IMG}></td>
-          <td width="100%"><b>{$ibforums->lang['welcome_back']}, {$ibforums->member['name']}</b></td>
-        </tr>
-      </table>
+    <td class='maintitle'>
+        <{CAT_IMG}> <b>{$ibforums->lang['welcome_back']}, {$ibforums->member['name']}</b>
     </td>
   </tr>
   <tr>
     <td class='mainbg'>
       <table width="100%" border="0" cellspacing="1" cellpadding="4">
         <tr> 
-<td class="row5 avatar" width="{$data['width']}">{$data['avatar']}</td>
-<td class="row5" width="70%" nowrap>{$ibforums->lang['it_is_now']} {$data['time']}.<br>
-{$ibforums->lang['last_visited']} {$data['lastv']}.<br>
-{$ibforums->lang['there_has_been']} {$data['posts_since']} {$ibforums->lang['posts_in']} {$data['topics_since']}<br>
-{$ibforums->lang['topics_since_last_visit']}<br>
-<a href="index.php?s={$ibforums->session_id}&act=Search&CODE=getnew">{$ibforums->lang['view_newposts']}</a></td>
-
-<td class="row5" width="30%" nowrap>{$ibforums->lang['forum_stats']}<br>
-{$ibforums->lang['mem_count']} {$data['stats']['MEM_COUNT']}, {$ibforums->lang['total_topics']} {$data['stats']['TOTAL_TOPICS']}<br>
-{$ibforums->lang['total_replies']} {$data['stats']['TOTAL_REPLIES']}, {$ibforums->lang['total_posts']} {$data['stats']['TOTAL_POSTS']}<br>
-{$ibforums->lang['newest_member']} <a href="{$ibforums->vars['board_url']}/index.php?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['stats']['LAST_MEM_ID']}">{$data['stats']['LAST_MEM_NAME']}</a><br>
-{$ibforums->lang['top_thread_starter']} <a href="{$ibforums->vars['board_url']}/index.php?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['tt_id']}">{$data['tt_name']}</a> ({$data['tt_num']})<br>
-{$ibforums->lang['top_poster']} <a href="{$ibforums->vars['board_url']}/index.php?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['tp_id']}">{$data['tp_name']}</a> ({$data['tp_num']})<br></td>
+          <td class="row5 avatar" width="{$data['width']}">{$data['avatar']}</td>
+          <td class="row5" width="70%" nowrap>
+            {$ibforums->lang['it_is_now']} {$data['time']}.<br>
+            {$ibforums->lang['last_visited']} {$data['lastv']}.<br>
+            {$ibforums->lang['there_has_been']} {$data['posts_since']} {$ibforums->lang['posts_in']} {$data['topics_since']}<br>
+            {$ibforums->lang['topics_since_last_visit']}<br>
+            <a href="index.php?s={$ibforums->session_id}&act=Search&CODE=getnew">{$ibforums->lang['view_newposts']}</a>
+          </td>
+          <td class="row5" width="30%" nowrap>
+            {$ibforums->lang['forum_stats']}<br>
+            {$ibforums->lang['mem_count']} {$data['stats']['MEM_COUNT']}, {$ibforums->lang['total_topics']} {$data['stats']['TOTAL_TOPICS']}<br>
+            {$ibforums->lang['total_replies']} {$data['stats']['TOTAL_REPLIES']}, {$ibforums->lang['total_posts']} {$data['stats']['TOTAL_POSTS']}<br>
+            {$ibforums->lang['newest_member']} <a href="{$ibforums->vars['board_url']}/index.php?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['stats']['LAST_MEM_ID']}">{$data['stats']['LAST_MEM_NAME']}</a><br>
+            {$ibforums->lang['top_thread_starter']} <a href="{$ibforums->vars['board_url']}/index.php?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['tt_id']}">{$data['tt_name']}</a> ({$data['tt_num']})<br>
+            {$ibforums->lang['top_poster']} <a href="{$ibforums->vars['board_url']}/index.php?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['tp_id']}">{$data['tp_name']}</a> ({$data['tp_num']})<br>
+          </td>
         </tr>
       </table>
     </td>
@@ -553,39 +551,41 @@ global $ibforums, $stats;
 return <<<EOF
 <table width="100%" align="center" border="0" cellspacing="1" cellpadding="0" class='tableborder guest-panel'>
   <tr> 
-    <td class='maintitle' > 
-      <table width="100%" border="0" cellspacing="1" cellpadding="4">
-        <tr> 
-          <td><{CAT_IMG}></td>
-          <td width="100%" class="maintitle"><b>{$ibforums->lang['welcome_guest']} <a href="{$ibforums->vars['board_url']}/index.php?act=Reg&CODE=00">{$ibforums->lang['register']}</a> {$ibforums->lang['or']} <a href="{$ibforums->vars['board_url']}/index.php?act=Login&CODE=00">{$ibforums->lang['login']}</a>!</b></td>
-        </tr>
-      </table>
+    <td class='maintitle'>
+        <{CAT_IMG}> <b>{$ibforums->lang['welcome_guest']} <a href="{$ibforums->vars['board_url']}/index.php?act=Reg&CODE=00">{$ibforums->lang['register']}</a> {$ibforums->lang['or']} <a href="{$ibforums->vars['board_url']}/index.php?act=Login&CODE=00">{$ibforums->lang['login']}</a>!</b>
     </td>
   </tr>
   <tr>
     <td class='mainbg'>
       <table width="100%" border="0" cellspacing="1" cellpadding="4">
         <tr>
-                  <td class="row5" width="64"><img src='{$ibforums->vars['board_url']}/html/avatars/IPB_Community_Pack/Green-haze.gif'></td>
-                  <td class="row5" width="70%">{$ibforums->lang['it_is_now']} {$data['time']}.<br>
-                    {$ibforums->lang['there_has_been']} {$data['posts_since']} {$ibforums->lang['posts_in']} {$data['topics_since']} {$ibforums->lang['topics_today']}<br>
-                        <a href="index.php?s{$ibforums->session_id}=&act=Search&CODE=getactive">{$ibforums->lang['view_all_posts_today']}</a></td>
-                  <td class="row5" width="30%" align="right">
-                    <table border="0" cellspacing="0" cellpadding="1">
-                          <tr><form action="index.php" method="post" name='LOGIN'><input type="hidden" name="CookieDate" value="1"><input type='hidden' name='act' value='Login'><input type='hidden' name='CODE' value='01'>
-                            <td align="right">{$ibforums->lang['b_username']} </td>
-                                <td><input type='text' size='20' maxlength='64' name='UserName' class='forminput'></td>
-                          </tr>
-                          <tr>
-                            <td align="right">{$ibforums->lang['b_password']} </td>
-                                <td><input type='password' size='20' name='PassWord' class='forminput'></td>
-                          </tr>
-                          <tr>
-                            <td></td>
-                                <td><input type="submit" name='submit' value="{$ibforums->lang['b_submit']}" class='forminput'></td>
-                          </tr></form>
-                        </table>
-                  </td>
+          <td class="row5 avatar" width="{$data['width']}"><img src='{$ibforums->vars['board_url']}/html/avatars/default.svg'></td>
+          <td class="row5" width="70%">
+            {$ibforums->lang['it_is_now']} {$data['time']}.<br>
+            {$ibforums->lang['there_has_been']} {$data['posts_since']} {$ibforums->lang['posts_in']} {$data['topics_since']} {$ibforums->lang['topics_today']}<br>
+            <a href="index.php?s{$ibforums->session_id}=&act=Search&CODE=getactive">{$ibforums->lang['view_all_posts_today']}</a>
+          </td>
+          <td class="row5" width="30%" align="right">
+            <table border="0" cellspacing="0" cellpadding="1">
+              <form action="index.php" method="post" name='LOGIN'>
+                <input type="hidden" name="CookieDate" value="1">
+                <input type='hidden' name='act' value='Login'>
+                <input type='hidden' name='CODE' value='01'>
+                <tr>
+                  <td align="right">{$ibforums->lang['b_username']} </td>
+                  <td><input type='text' size='20' maxlength='64' name='UserName' class='forminput'></td>
+                </tr>
+                <tr>
+                  <td align="right">{$ibforums->lang['b_password']} </td>
+                  <td><input type='password' size='20' name='PassWord' class='forminput'></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><input type="submit" name='submit' value="{$ibforums->lang['b_submit']}" class='forminput'></td>
+                </tr>
+              </form>
+            </table>
+          </td>
         </tr>
       </table>
     </td>
@@ -603,7 +603,7 @@ return <<<EOF
  <tr>
   <!-- Sidebar Column -->
   <td width="22%" vAlign="top" class="portal-sidebar">
-    {$data['loginbox']}
+    <div style="display:none;">{$data['loginbox']}</div>
     {$data['navigation']}
     {$data['forums_list']}
     {$data['new_posts']}
