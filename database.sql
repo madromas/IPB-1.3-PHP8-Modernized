@@ -1,0 +1,2512 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.5
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: May 08, 2026 at 02:30 PM
+-- Server version: 10.11.10-MariaDB-cll-lve
+-- PHP Version: 7.4.33
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_admin_logs`
+--
+
+CREATE TABLE `ibf_admin_logs` (
+  `id` bigint(20) NOT NULL,
+  `act` varchar(255) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `member_id` int(10) DEFAULT NULL,
+  `ctime` int(10) DEFAULT NULL,
+  `note` text DEFAULT NULL,
+  `ip_address` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+--
+-- Table structure for table `ibf_admin_sessions`
+--
+
+CREATE TABLE `ibf_admin_sessions` (
+  `ID` varchar(32) NOT NULL DEFAULT '',
+  `IP_ADDRESS` varchar(32) NOT NULL DEFAULT '',
+  `MEMBER_NAME` varchar(32) NOT NULL DEFAULT '',
+  `MEMBER_ID` varchar(32) NOT NULL DEFAULT '',
+  `SESSION_KEY` varchar(32) NOT NULL DEFAULT '',
+  `LOCATION` varchar(64) DEFAULT 'index',
+  `LOG_IN_TIME` int(10) NOT NULL DEFAULT 0,
+  `RUNNING_TIME` int(10) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
+-- Table structure for table `ibf_badwords`
+--
+
+CREATE TABLE `ibf_badwords` (
+  `wid` int(3) NOT NULL,
+  `type` varchar(250) NOT NULL DEFAULT '',
+  `swop` varchar(250) DEFAULT NULL,
+  `m_exact` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_badwords`
+--
+
+INSERT INTO `ibf_badwords` (`wid`, `type`, `swop`, `m_exact`) VALUES
+(1, 'fuck', 'f**k', 1),
+(2, 'fucking', 'f**king', 1),
+(3, 'F**king', 'F**king', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_cache_store`
+--
+
+CREATE TABLE `ibf_cache_store` (
+  `cs_key` varchar(255) NOT NULL DEFAULT '',
+  `cs_value` text NOT NULL,
+  `cs_extra` varchar(255) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_cache_store`
+--
+
+INSERT INTO `ibf_cache_store` (`cs_key`, `cs_value`, `cs_extra`) VALUES
+('adminnotes', 'You can use this section to keep notes for yourself and other admins, etc.', ''),
+('csite_fav_contents', '', ''),
+('csite_nav_contents', '{board_url} [Forums]\r\n{board_url}act=Search&amp;CODE=getactive [Today&#39;s Active Topics]\r\n{board_url}act=Stats [Today&#39;s Top 10 Posters]\r\n{board_url}act=Stats&amp;CODE=leaders [Contact Staff]', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_calendar_events`
+--
+
+CREATE TABLE `ibf_calendar_events` (
+  `eventid` mediumint(8) NOT NULL,
+  `userid` mediumint(8) NOT NULL DEFAULT 0,
+  `year` int(4) NOT NULL DEFAULT 2002,
+  `month` int(2) NOT NULL DEFAULT 1,
+  `mday` int(2) NOT NULL DEFAULT 1,
+  `title` varchar(254) NOT NULL DEFAULT 'no title',
+  `event_text` text NOT NULL,
+  `read_perms` varchar(254) NOT NULL DEFAULT '*',
+  `unix_stamp` int(10) NOT NULL DEFAULT 0,
+  `priv_event` tinyint(1) NOT NULL DEFAULT 0,
+  `show_emoticons` tinyint(1) NOT NULL DEFAULT 1,
+  `rating` smallint(2) NOT NULL DEFAULT 1,
+  `event_ranged` tinyint(1) NOT NULL DEFAULT 0,
+  `event_repeat` tinyint(1) NOT NULL DEFAULT 0,
+  `repeat_unit` char(2) NOT NULL DEFAULT '',
+  `end_day` int(2) DEFAULT NULL,
+  `end_month` int(2) DEFAULT NULL,
+  `end_year` int(4) DEFAULT NULL,
+  `end_unix_stamp` int(10) DEFAULT NULL,
+  `event_bgcolor` varchar(32) NOT NULL DEFAULT '',
+  `event_color` varchar(32) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_categories`
+--
+
+CREATE TABLE `ibf_categories` (
+  `id` smallint(5) NOT NULL DEFAULT 0,
+  `position` tinyint(3) DEFAULT NULL,
+  `state` varchar(10) DEFAULT NULL,
+  `name` varchar(128) NOT NULL DEFAULT '',
+  `description` text DEFAULT NULL,
+  `image` varchar(128) DEFAULT NULL,
+  `url` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_categories`
+--
+
+INSERT INTO `ibf_categories` (`id`, `position`, `state`, `name`, `description`, `image`, `url`) VALUES
+(-1, NULL, NULL, '-', NULL, NULL, NULL),
+(1, 1, '1', 'Glonks Hub', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_contacts`
+--
+
+CREATE TABLE `ibf_contacts` (
+  `id` mediumint(8) NOT NULL,
+  `contact_id` mediumint(8) NOT NULL DEFAULT 0,
+  `member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `contact_name` varchar(32) NOT NULL DEFAULT '',
+  `allow_msg` tinyint(1) DEFAULT NULL,
+  `contact_desc` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_css`
+--
+
+CREATE TABLE `ibf_css` (
+  `cssid` int(10) NOT NULL,
+  `css_name` varchar(128) NOT NULL DEFAULT '',
+  `css_text` text DEFAULT NULL,
+  `css_comments` text DEFAULT NULL,
+  `updated` int(10) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_css`
+--
+
+INSERT INTO `ibf_css` (`cssid`, `css_name`, `css_text`, `css_comments`, `updated`) VALUES
+(1, '', '/* FIX IE6 Scrollbars bug - Leave this in! */\r\n\r\n@import url(\'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap\');\r\n\r\nhtml { overflow-x: auto;} \r\n\r\ndiv#logostrip a {\r\n    font-size: 32px;\r\n    font-weight: 700;\r\n    color: #FFFFFF;\r\n    text-decoration: none;\r\n    letter-spacing: -2px;\r\n    line-height: 52px;\r\n    padding-left:.5em;\r\n    display: inline-block;\r\n    /* Subtle shadow to prevent it looking flat against the blue gradient */\r\n    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\ndiv#logostrip a:hover {\r\n    color: #FAFCFE; /* Matches your code block background for a subtle hover glow */\r\n    text-decoration: none;\r\n}\r\n\r\n/* Body entry, change forum page background colour, default font, font size, etc. Leave text-align:center to center board content\r\n\r\n   #ipwrapper will set text-align back to left for the forum. Any other tables / divs you use must use text-align:left to re-align\r\n\r\n   the content properly. This is a work around to a known Internet Explorer bug */\r\n\r\nBODY { font-family: \'Nunito\', sans-serif; font-size: 13px; color: #000; margin:0px;padding:0px;background-color:#eff4fd; text-align:center }\r\n\r\nTABLE, TR, TD { font-family: \'Nunito\', sans-serif; font-size: 13px; }\r\n\r\nINPUT {vertical-align:middle;font-family: \'Nunito\', sans-serif;}\r\n\r\n/* MAIN WRAPPER: Adjust forum width here. Leave margins alone to auto-center content */\r\n\r\n#ipbwrapper { text-align:left; width:85%; margin-left:auto;margin-right:auto }\r\n\r\niframe {\r\n    border-radius: 5px;\r\n    border:none;\r\n    display: inline-block;\r\n}\r\n\r\nvideo {\r\n    width: 560px;\r\n    border-radius: 5px;\r\n    border: none;\r\n    height: 100%;\r\n    display: inline-block;\r\n}\r\n\r\na:link, a:visited, a:active { text-decoration: underline; color: #000 }\r\n\r\na:hover { color: #465584; text-decoration:underline }\r\n\r\nfieldset.search { padding:6px; line-height:150% }\r\n\r\nlabel      { cursor:pointer; }\r\n\r\nform       { display:inline; }\r\n\r\nimg        { vertical-align:middle; border:0px;}\r\n\r\nimg.attach { border:2px outset #EEF2F7;padding:2px;}\r\n\r\n.avatar img {border-radius:.5em;width: 80px;}\r\n\r\n/* Base style for all ratings */\r\n.rating-positive, \r\n.rating-negative, \r\n.rating-neutral {\r\n    font-size: 0.65rem;\r\n    color: #fff;\r\n    text-decoration: none !important;\r\n    margin-left: 5px;\r\n    display: inline-block;\r\n    border-radius: 6px;\r\n    padding: 2px 4px;\r\n    font-weight: 700;\r\n    width: 30px;\r\n    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);\r\n    visibility: visible;\r\n    text-align: center;\r\n}\r\n\r\n.rating-positive {\r\n    background: #3fae54;\r\n    border: 1px solid #21913b;\r\n}\r\n\r\n.rating-negative {\r\n    background: #dc3545;\r\n    border: 1px solid #bf2d3b;\r\n}\r\n\r\n.rating-neutral {\r\n    background: #a9a9a9;\r\n    border: 1px solid #8e9295;\r\n}\r\n/* Base style for all ratings */\r\n\r\n.post-author {\r\n    display: inline-block;\r\n    margin-left: 2px;\r\n    padding: 0 .3rem;\r\n    font-size: 12px;\r\n    font-weight: 600;\r\n    color: #143876 !important;\r\n    background-color: transparent;\r\n    border: 1px solid #5f86c9 !important;\r\n    border-radius: 4px;\r\n    backdrop-filter: blur(8px);\r\n}\r\n\r\ntd.bottommenu a\r\n {\r\n    font-size: 0.9rem;\r\n    font-weight: 500;\r\n    visibility: visible;\r\n    color: #fff;\r\n    text-decoration: none !important;\r\n    margin-left: 5px;\r\n    display: inline-block;\r\n    border: 1px solid #3b7ac9;\r\n    border-radius: 6px;\r\n    padding: 2px 4px;\r\n    background: #5f86c9;\r\n    font-weight: 700;\r\n    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\ntd.bottommenu a:hover\r\n {\r\n    text-decoration: underline;\r\n    background: #4f75b8;\r\n}\r\n\r\ndiv.btn-post-control a {\r\n    font-size: 0.65rem;\r\n    font-weight: 500;\r\n    visibility: visible;\r\n    color: #fff;\r\n    text-decoration: none !important;\r\n    margin-left: 5px;\r\n    display: inline-block;\r\n    border: 1px solid #3b7ac9;\r\n    border-radius: 6px;\r\n    padding: 2px 4px;\r\n    background: #7899d4;\r\n    font-weight:700;\r\n    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\ndiv.btn-post-control a:hover\r\n {\r\n    text-decoration: underline;\r\n    background: #4f75b8;\r\n}\r\n\r\n\r\n.googleroot  { padding:6px; line-height:130% }\r\n\r\n.googlechild { padding:6px; margin-left:30px; line-height:130% }\r\n\r\n.googlebottom, .googlebottom a:link, .googlebottom a:visited, .googlebottom a:active { font-size:11px; color: #3A4F6C; }\r\n\r\n.googlish, .googlish a:link, .googlish a:visited, .googlish a:active { font-size:14px; font-weight:bold; color:#00D; }\r\n\r\n.googlepagelinks { font-size:1.1em; letter-spacing:1px }\r\n\r\n.googlesmall, .googlesmall a:link, .googlesmall a:active, .googlesmall a:visited { font-size:10px; color:#434951 }\r\n\r\n\r\n\r\nli.helprow { padding:0px; margin:0px 0px 10px 0px }\r\n\r\nul#help    { padding:0px 0px 0px 15px }\r\n\r\n\r\n\r\noption.cat { font-weight:bold; }\r\n\r\noption.sub { font-weight:bold;color:#555 }\r\n\r\n.caldate   { text-align:right;font-weight:bold;font-size:11px;color:#777;background-color:#DFE6EF;padding:4px;margin:0px }\r\n\r\n\r\n\r\n.warngood { color:green }\r\n\r\n.warnbad  { color:red }\r\n\r\n\r\n\r\n#padandcenter { margin-left:auto;margin-right:auto;text-align:center;padding:14px 0px 14px 0px }\r\n\r\n\r\n\r\n#profilename { font-size:28px; font-weight:bold; }\r\n\r\n#calendarname { font-size:22px; font-weight:bold; }\r\n\r\n\r\n\r\n#photowrap { padding:6px; }\r\n\r\n#phototitle { font-size:24px; border-bottom:1px solid black }\r\n\r\n#photoimg   { text-align:center; margin-top:15px } \r\n\r\n\r\n\r\n#ucpmenu    { line-height:150%;width:22%; border:1px solid #3b7ac9;background-color: #F5F9FD }\r\n\r\n#ucpmenu p  { padding:2px 5px 6px 9px;margin:0px; }\r\n\r\n#ucpcontent { background-color: #F5F9FD; border:1px solid #3b7ac9;line-height:150%; width:auto }\r\n\r\n#ucpcontent p  { padding:10px;margin:0px; }\r\n\r\n\r\n\r\n#ipsbanner { position:absolute;top:1px;right:5%; }\r\n\r\n#logostrip { border:1px solid #3b7ac9;background-color: #5f86c9; border-radius:3px; }\r\n\r\n#submenu   { border-radius:3px;  border:1px solid #BCD0ED;background-color: #DFE6EF;font-size:10px;margin:3px 0px 3px 0px;color:#3A4F6C;font-weight:bold;}\r\n\r\n#submenu a:link, #submenu  a:visited, #submenu a:active { font-weight:bold;font-size:13px;text-decoration: none; color: #3A4F6C; }\r\n\r\n#userlinks { border:1px solid #C2CFDF; background-color: #F0F5FA; border-radius:3px; }\r\n\r\n\r\n\r\n#navstrip  { font-weight:bold;padding:6px 0px 6px 0px; }\r\n\r\n\r\n\r\n.activeuserstrip { background-color:#BCD0ED; padding:6px }\r\n\r\n\r\n\r\n/* Form stuff (post / profile / etc) */\r\n\r\n.pformstrip { background-color: #D1DCEB; color:#3A4F6C;font-weight:bold;padding:7px;margin-top:1px }\r\n\r\n.pformleft  { background-color: #F5F9FD; padding:6px; margin-top:1px;width:25%; border-top:1px solid #C2CFDF; border-right:1px solid #C2CFDF; }\r\n\r\n.pformleftw { background-color: #F5F9FD; padding:6px; margin-top:1px;width:40%; border-top:1px solid #C2CFDF; border-right:1px solid #C2CFDF; }\r\n\r\n.pformright { background-color: #F5F9FD; padding:6px; margin-top:1px;border-top:1px solid #C2CFDF; }\r\n\r\n\r\n\r\n/* Topic View elements */\r\n\r\n.signature   { font-size: 12px; color: #339; line-height:150% }\r\n\r\n.postdetails { font-size: 12px }\r\n\r\n.postcolor   { font-size: 16px;}\r\n\r\n.postcolor img  {border-radius:.5em; max-width:700px;}\r\n\r\n.prew img {border-radius:.5em; max-width:700px;}\r\n\r\n.normalname { font-size: 12px; font-weight: bold; color: #003 }\r\n\r\n.normalname a:link, .normalname a:visited, .normalname a:active { font-size: 14px }\r\n\r\n.unreg { font-size: 12px; font-weight: bold; color: #900 }\r\n\r\n\r\n.prew { background-color: #fff; font-size:15px }\r\n\r\n.post1 { background-color: #fff }\r\n\r\n.post2 { background-color: #fff }\r\n\r\n.postlinksbar { background-color:#d4e2f5;padding:7px;margin-top:1px;font-size:12px; }\r\n\r\n\r\n\r\n/* Common elements */\r\n\r\n.row1 { background-color: #F5F9FD }\r\n\r\n.row2 { background-color: #DFE6EF }\r\n\r\n.row3 { background-color: #EEF2F7 }\r\n\r\n.row4 { background-color: #E4EAF2 }\r\n\r\n.row5 { background-color: #fff }\r\n\r\n\r\n\r\n.darkrow1 { background-color: #C2CFDF; color:#4C77B6; }\r\n\r\n.darkrow2 { background-color: #BCD0ED; color:#3A4F6C; }\r\n\r\n.darkrow3 { background-color: #D1DCEB; color:#3A4F6C; }\r\n\r\n\r\n\r\n.hlight { background-color: #DFE6EF }\r\n\r\n.dlight { background-color: #EEF2F7 }\r\n\r\n\r\n\r\n.titlemedium { font-weight:bold; color:#3A4F6C; padding:7px; margin:0px; background:#b9c9e8 }\r\n\r\n.titlemedium  a:link, .titlemedium  a:visited, .titlemedium  a:active  { text-decoration: underline; color: #3A4F6C }\r\n\r\n\r\n\r\n/* Main table top (dark blue gradient by default) */\r\n\r\n.maintitle {font-size:14px;text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); vertical-align:middle;font-weight:bold; color:#FFF; padding:8px 0px 8px 5px; background:#5f86c9 }\r\n\r\n.maintitle a:link, .maintitle  a:visited, .maintitle  a:active { text-decoration: none; color: #FFF }\r\n\r\n.maintitle a:hover { text-decoration: none; }\r\n\r\n\r\n\r\n/* tableborders gives the white column / row lines effect */\r\n\r\n.plainborder { border:1px solid #3b7ac9;background-color:#F5F9FD }\r\n\r\n.tableborder { border:1px solid #b8c9de;background-color:#FFF; border-radius:3px; padding:0; margin:0 }\r\n\r\n.tablefill   { border:1px solid #3b7ac9;background-color:#F5F9FD;padding:5px;  border-radius:.5em;}\r\n\r\n.tablepad    { background-color:#F5F9FD;padding:6px }\r\n\r\n.tablebasic  { width:100%; padding:0px 0px 0px 0px; margin:0px; border:0px }\r\n\r\n\r\n\r\n.wrapmini    { float:left;line-height:1.5em;width:25% }\r\n\r\n.pagelinks   { float:left;line-height:1.2em;width:35% }\r\n\r\n\r\n\r\n.desc { font-size:12px; color:#434951 }\r\n\r\n.edit { font-size: 11px }\r\n\r\n\r\n\r\n\r\n\r\n.searchlite { font-weight:bold; color:#F00; background-color:#FF0 }\r\n\r\n.rules-wrapper {\r\n        white-space: normal;\r\n    font-size: 0.85rem;\r\n    color: #2c3e50;\r\n    background-color: #f8fbff;\r\n    border: 1px solid #d1d9e6;\r\n    border-left: 5px solid #fcbc20;\r\n    padding: 0.5rem .75rem;\r\n    display: block;\r\n    border-radius: 0.5rem;\r\n}\r\n\r\n.quote-wrapper {\r\n    white-space: normal;\r\n    font-size: 0.85rem;\r\n    color: #2c3e50;\r\n    background-color: #f8fbff;\r\n    border: 1px solid #d1d9e6;\r\n    border-left: 5px solid #3498db;\r\n    padding: 0.5rem .75rem;\r\n    display: block;\r\n    border-radius: 0.5rem;\r\n}\r\n\r\n.quote-content {\r\n    /* This ensures text inside the quote doesn\'t hit the border */\r\n    padding: 0 0 0 0.5rem;\r\n}\r\n\r\n#SPOILER { font-family: \'Nunito\', sans-serif; font-size: 8pt; color: #FAFCFE; background-color: #FAFCFE; border: 1px solid Black; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px }\r\n\r\n/* Container for the code block */\r\npre[class*=\"language-\"] {\r\n    display: block;\r\n    background: #f0f4f8; /* Very light blue-grey */\r\n    color: #334155;      /* Deep slate instead of blurry blue */\r\n    font-family: \"JetBrains Mono\", \"Cascadia Code\", \"Fira Code\", \"Courier New\", monospace;\r\n    font-size: 13px;\r\n    line-height: 1.6;\r\n    padding: 15px;\r\n    margin: 15px 0;\r\n    border: 1px solid #e2e8f0;\r\n    border-left: 4px solid #465584; /* Legacy IPB blue as an accent */\r\n    border-radius: 6px;\r\n    overflow-x: auto;\r\n    box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);\r\n    white-space: pre-wrap; /* Better for reading on mobile/regular views */\r\n    word-break: break-all;\r\n}\r\n\r\n/* The actual code tag */\r\npre[class*=\"language-\"] code {\r\n    font-family: inherit;\r\n    font-size: inherit;\r\n    background: none;\r\n    padding: 0;\r\n    color: inherit;\r\n}\r\n\r\n/* Making the syntax tokens pop without extra JS */\r\n.token.keyword { color: #0550ae; font-weight: 600; } /* blue */\r\n.token.string  { color: #248046; } /* green */\r\n.token.comment { color: #6a737d; font-style: italic; }\r\n.token.variable { color: #953800; } /* orange/brown */\r\n.copyright { font-family: \'Nunito\', Sans-Serif; font-size: 13px; line-height: 12px }\r\n\r\n.forminput, .textinput, .radiobutton, .checkbox  { font-family: \'Nunito\', sans-serif; color: #000;\r\n    background-color: #fff !important;\r\n    padding: 0.3rem 0.5rem;\r\n    font-family: inherit;\r\n    font-size: 0.9rem;\r\n    line-height: inherit;\r\n    vertical-align: middle;\r\n    border-radius: .5em;\r\n    border: 1px solid #bbb; }\r\n\r\n\r\n\r\n.thin { padding:6px 0px 6px 0px;line-height:140%;margin:2px 0px 2px 0px;border-top:1px solid #FFF;border-bottom:1px solid #FFF }\r\n\r\n\r\n\r\n.purple { color:purple;font-weight:bold }\r\n\r\n.red    { color:red;font-weight:bold }\r\n\r\n.green  { color:green;font-weight:bold }\r\n\r\n.blue   { color:blue;font-weight:bold }\r\n\r\n.orange { color:#F90;font-weight:bold }\r\n\r\n\r\n/* SVG Icons */\r\n\r\n.icon {\r\n    display: inline-block;\r\n    fill: currentColor;\r\n    vertical-align: middle;\r\n}\r\n\r\n.icon-12 {\r\n    width: 12px;\r\n    height: 12px;\r\n}\r\n\r\n.icon-14 {\r\n    width: 14px;\r\n    height: 14px;\r\n}\r\n\r\n.icon-16 {\r\n    width: 16px;\r\n    height: 16px;\r\n}\r\n\r\n/* SVG Icons */\r\n\r\n\r\n\r\n/* Container for the icon */\r\n.forum-locked-wrapper {\r\n    position: relative;\r\n    display: inline-block;\r\n    vertical-align: middle;\r\n}\r\n\r\n/* The Lock Badge */\r\n.lock-badge {\r\n    position: absolute;\r\n    bottom: -2px; \r\n    right: -2px;\r\n    font-size: 12px;\r\n    background: rgba(0, 0, 0, 0.6); /* Dark circular background */\r\n    color: white;\r\n    border-radius: 50%;\r\n    width: 16px;\r\n    height: 16px;\r\n    line-height: 16px;\r\n    text-align: center;\r\n    border: 1px solid #fff;\r\n    box-shadow: 0px 0px 2px #000;\r\n}\r\n\r\n\r\n\r\n\r\n@media screen and (max-width: 768px) {\r\n\r\n\r\n    /* Force the main IPB wrapper to take full width */\r\n    #ipbwrapper { \r\n        width: 95% !important; \r\n    }\r\n\r\n    /* Hide the sidebar and the spacer column completely on mobile */\r\n    .portal-sidebar, \r\n    table[width=\'<{tbl_width}>\'] > tbody > tr > td[width=\"1%\"] {\r\n        display: none !important;\r\n    }\r\n\r\n    .welcome-panel, .guest-panel {\r\n        display: none !important;\r\n    }\r\n\r\n    /* Force the main content column to be full width */\r\n    .portal-content {\r\n        display: block !important;\r\n        width: 100% !important;\r\n        padding: 0 !important;\r\n    }\r\n\r\n    /* Ensure images don\'t break the layout */\r\n    .postcolor img, .prew img, .row5 img {\r\n        max-width: 100% !important;\r\n        height: auto !important;\r\n    }\r\n\r\n    /* Make large table headers more readable on small screens */\r\n    .maintitle {\r\n        font-size: 13px !important;\r\n        padding: 10px 5px !important;\r\n    }\r\n\r\n    /* Expand the internal content blocks */\r\n    .tableborder, .tablefill {\r\n        width: 100% !important;\r\n        margin-bottom: 10px !important;\r\n    }\r\n\r\n    /* Fix Guest/Welcome panel columns for mobile stacking */\r\n    .row5[width=\"70%\"], .row5[width=\"30%\"], .row5[width=\"64\"] {\r\n        display: block !important;\r\n        text-align: left !important;\r\n        padding: 10px !important;\r\n    }\r\n    iframe{\r\n        width:100%!important;\r\n    }\r\n    video{\r\n        width:100%!important;\r\n    }\r\n    .prew img {\r\n        width:100%!important;\r\n    }\r\n}\r\n', NULL, 1777493250);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_email_logs`
+--
+
+CREATE TABLE `ibf_email_logs` (
+  `email_id` int(10) NOT NULL,
+  `email_subject` varchar(255) NOT NULL DEFAULT '',
+  `email_content` text NOT NULL,
+  `email_date` int(10) NOT NULL DEFAULT 0,
+  `from_member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `from_email_address` varchar(250) NOT NULL DEFAULT '',
+  `from_ip_address` varchar(16) NOT NULL DEFAULT '127.0.0.1',
+  `to_member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `to_email_address` varchar(250) NOT NULL DEFAULT '',
+  `topic_id` int(10) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_emoticons`
+--
+
+CREATE TABLE `ibf_emoticons` (
+  `id` smallint(3) NOT NULL,
+  `typed` varchar(32) NOT NULL DEFAULT '',
+  `image` varchar(128) NOT NULL DEFAULT '',
+  `clickable` smallint(2) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_emoticons`
+--
+
+INSERT INTO `ibf_emoticons` (`id`, `typed`, `image`, `clickable`) VALUES
+(1, ':mellow:', 'mellow.gif', 0),
+(2, ':huh:', 'huh.gif', 1),
+(3, '^_^', 'happy.gif', 0),
+(4, ':o', 'ohmy.gif', 1),
+(5, ';)', 'wink.gif', 1),
+(6, ':P', 'tongue.gif', 1),
+(7, ':D', 'biggrin.gif', 1),
+(8, ':lol:', 'laugh.gif', 1),
+(9, 'B)', 'cool.gif', 1),
+(10, ':rolleyes:', 'rolleyes.gif', 1),
+(11, '-_-', 'sleep.gif', 0),
+(12, '&lt;_&lt;', 'dry.gif', 1),
+(13, ':)', 'smile.gif', 1),
+(14, ':wub:', 'wub.gif', 0),
+(15, ':angry:', 'mad.gif', 1),
+(16, ':(', 'sad.gif', 1),
+(17, ':unsure:', 'unsure.gif', 1),
+(18, ':wacko:', 'wacko.gif', 0),
+(19, ':blink:', 'blink.gif', 1),
+(20, ':ph34r:', 'ph34r.gif', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_faq`
+--
+
+CREATE TABLE `ibf_faq` (
+  `id` mediumint(8) NOT NULL,
+  `title` varchar(128) NOT NULL DEFAULT '',
+  `text` text DEFAULT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_faq`
+--
+
+INSERT INTO `ibf_faq` (`id`, `title`, `text`, `description`) VALUES
+(1, 'Registration benefits', 'To be able to use all the features on this board, the administrator will probably require that you register for a member account. Registration is free and only takes a moment to complete.\r<br>\r<br>During registration, the administrator requires that you supply a valid email address. This is important as the administrator may require that you validate your registration via an email. If this is the case, you will be notified when registering. If your e-mail does not arrive, then on the member bar at the top of the page, there will be a link that will allow you to re-send the validation e-mail. \r<br>\r<br>In some cases, the administrator will need to approve your registration before you can use your member account fully. If this is the case you will be notified during registration.\r<br>\r<br>Once you have registered and logged in, you will have access to your personal messenger and your control panel.\r<br>\r<br>For more information on these items, please see the relevant sections in this documentation.', 'How to register and the added benefits of being a registered member.'),
+(2, 'Cookies and cookie usage', 'Using cookies is optional, but strongly recommended. Cookies are used to track topics, showing you which topics have new replies since your last visit and to automatically log you in when you return.\r<br>\r<br>If your computer is unable to use the cookie system to browse the board correctly, then the board will automatically add in a session ID to each link to track you around the board.\r<br>\r<br><b>Clearing Cookies</b>\r<br>\r<br>You can clear the cookies at any time by clicking on the link found at the bottom of the main board page (the first page you see when returning to the board). If this does not work for you, you may need to remove the cookies manually.\r<br>\r<br><u>Removing Cookies in Internet Explorer for Windows</u>\r<br>\r<br><ul>\r<br><li> Close all open Internet Explorer Windows\r<br><li> Click on the \'start\' button\r<br><li> Move up to \'Find\' and click on \'Files and Folders\'\r<br><li> When the new window appears, type in the domain name of the board you are using into the \'containing text\' field. (If the boards address was \'http://www.invisionboard.com/forums/index.php\' you would enter \'invisionboard.com\' without the quotes)\r<br><li> In the \'look in\' box, type in <b>C:WindowsCookies</b> and press \'Find Now\'\r<br><li> After it has finished searching, highlight all files (click on a file then press CTRL+A) and delete them.\r<br></ul>\r<br>\r<br><u>Removing Cookies in Internet Explorer for Macintosh</u>\r<br>\r<br><ul>\r<br><li> With Internet Explorer active, choose \'Edit\' and then \'Preferences\' from the Macintosh menu bar at the top of the screen\r<br><li> When the preferences panel opens, choose \'Cookies\' found in the \'Receiving Files\' section.\r<br><li> When the cookie pane loads, look for the domain name of the board (If the boards address was \'http://www.invisionboard.com/forums/index.php\' look for \'invisionboard.com\' or \'www.invisionboard.com\'\r<br><li> For each cookie, click on the entry and press the delete button.\r<br></ul>\r<br>\r<br>Your cookies should now be removed. In some cases you may need to restart your computer for the changes to take effect.', 'The benefits of using cookies and how to remove cookies set by this board.'),
+(3, 'Recovering lost or forgotten passwords', 'Security is a big feature on this board, and to that end, all passwords are encrypted when you register.\r<br>This means that we cannot email your password to you as we hold no record of your \'uncrypted\' password. You can however, apply to have your password reset.\r<br>\r<br>To do this, click on the <a href=\'index.php?act=Reg&CODE=10\'>Lost Password link</a> found on the log in page.\r<br>\r<br>Further instruction is available from there.', 'How to reset your password if you\'ve forgotten it.'),
+(4, 'Your Control Panel (My Controls)', 'Your control panel is your own private board console. You can change how the board looks and feels as well as your own information from here.\r<br>\r<br><b>Subscriptions</b>\r<br>\r<br>This is where you manage your topic and forums subscriptions. Please see the help file \'Email Notification of new messages\' for more information on how to subscribe to topics.\r<br>\r<br><b>Edit Profile Info</b>\r<br>\r<br>This section allows you to add or edit your contact information and enter some personal information if you choose.\r<br>\r<br><b>Edit Signature</b>\r<br>\r<br>A board \'signature\' is very similar to an email signature. This signature is attached to the foot of every message you post unless you choose to check the box that allows you to ommit the signature in the message you are posting. You may use BB Code if available and in some cases, pure HTML (if the board administrator allows it).\r<br>\r<br><b>Edit Avatar Settings</b>\r<br>\r<br>An avatar is a little image that appears under your username when you view a topic or post you authored. If the administrator allows, you may either choose from the board gallery, enter a URL to an avatar stored on your server or upload an avatar to use. You may also set the width of the avatar to ensure that it\'s sized in proportion.\r<br>\r<br><b>Change Personal Photo</b>\r<br>\r<br>This section will allow you to add a photograph to your profile. This will be displayed when a user clicks to view your profile, on the mini-profile screen and will also be linked to from the member list.\r<br>\r<br><b>Email Settings</b>\r<br>\r<br><u>Hide my email address</u> allows you to deny the ability for other users to send you an email from the board.\r<br><u>Send me updates sent by the board administrator</u> will allow the administrator to include your email address in any mailings they send out - this is used mostly for important updates and community information.\r<br><u>Include a copy of the post when emailing me from a subscribed topic</u>, this allows you to have the new post included in any reply to topic notifications.\r<br><u>Send a confirmation email when I receive a new private message</u>, this will send you an e-mail notification to your registered e-mail address each time you receive a private message on the board.\r<br><u>Enable \'Email Notification\' by default?</u>, this will automatically subscribe you to any topic that you make a reply to. You may unsubscribe from the \'Subscriptions\' section of My Controls if you wish.\r<br>\r<br><b>Board Settings</b>\r<br>\r<br>From this section, you can set your time zone, choose to not see users signatures, avatars and posted images.\r<br>You can choose to get a pop up window informing you when you have a new message and choose to show or hide the \'Fast Reply\' box where it is enabled.\r<br>You are also able to choose display preferences for the number of topics/posts shown per page on the board.\r<br>\r<br><b>Skins and Languages</b>\r<br>\r<br>If available, you can choose a skin style and language choice. This affects how the board is displayed so you may wish to preview the skin before submitting the form.\r<br>\r<br><b>Change Email Address</b>\r<br>\r<br>At any time, you can change the email address that is registered to your account. In some cases, you will need to revalidate your account after changing your email address. If this is the case, you will be notified before your email address change is processed.\r<br>\r<br><b>Change Password</b>\r<br>\r<br>You may change your password from this section. Please note that you will need to know your current password before you can change your password.', 'Editing contact information, personal information, avatars, signatures, board settings, languages and style choices.'),
+(5, 'Email Notification of new messages', 'This board can notify you when a new reply is added to a topic. Many users find this useful to keep up to date on topics without the need to view the board to check for new messages.\r<br>\r<br>There are three ways to subscribe to a topic:\r<br>\r<br><li>Click the \'Track This Topic\' link at the top of the topic that you wish to track\r<br><li> On the posting screen when replying to or creating a topic, check the \'Enable email notification of replies?\' checkbox\r<br><li> From the E-Mail settings section of your User CP (My Controls) check the \'Enable Email Notification by default?\' option, this will automatically subscribe you to any topic that you make a reply to\r<br>\r<br>Please note that to avoid multiple emails being sent to your email address, you will only get one e-mail for each topic you are subscribed to until the next time you visit the board.\r<br>\r<br>You are also able to subscribe to each individual forum on the board, to be notified when a new topic is created in that particular forum. To enable this, click the \'Subscribe to this forum\' link at the bottom of the forum that you wish to subscribe to.\r<br>\r<br>To unsubscribe from any forums or topics that you are subscribed to - just go to the \'Subscriptions\' section of \'My Controls\' and you can do this from there.', 'How to get emailed when a new reply is added to a topic.'),
+(6, 'Your Personal Messenger', 'Your personal messenger acts much like an email account in that you can send and receive messages and store messages in folders.\r<br>\r<br><b>Send a new PM</b>\r<br>\r<br>This will allow you to send a message to another member. If you have names in your contact list, you can choose a name from it - or you may choose to enter a name in the relevant form field. This will be automatically filled in if you clicked a \'PM\' button on the board (from the member list or a post). If allowed, you may also be able to enter in multiple names in the box provided, will need to add one username per line.\r<br>If the administrator allows, you may use BB Code and HTML in your private message. If you choose to check the \'Add a copy of this message to you sent items folder\' box, a copy of the message will be saved for you for later reference. If you tick the \'Track this message?\' box, then the details of the message will be available in your \'Message Tracker\' where you will be able to see if/when it has been read.\r<br>\r<br><b>Go to Inbox</b>\r<br>\r<br>Your inbox is where all new messages are sent to. Clicking on the message title will show you the message in a similar format to the board topic view. You can also delete or move messages from your inbox.\r<br>\r<br><b>Empty PM Folders</b>\r<br>\r<br>This option provides you with a quick and easy way to clear out all of your PM folders.\r<br>\r<br><b>Edit Storage Folders</b>\r<br>\r<br>You may rename, add or remove folders to store messages is, allowing you to organise your messages to your preference. You cannot remove \'Sent Items\' or \'Inbox\'.\r<br>\r<br><b>PM Buddies/Block List</b>\r<br>\r<br>You may add in users names in this section, or edit any saved entries. You can also use this as a ban list, denying the named member the ability to message you.\r<br>Names entered in this section will appear in the drop down list when sending a new PM, allowing you to quickly choose the members name when sending a message.\r<br>\r<br><b>Archive Messages</b>\r<br>\r<br>If your messenger folders are full and you are unable to receive new messages, you can archive them off. This compiles the messages into a single HTML page or Microsoft Ã‚Â© Excel Format. This page is then emailed to your registered email address for your convenience.\r<br>\r<br><b>Saved (Unsent) PMs</b>\r<br>\r<br>This area will allow you to go back to any PM\'s that you have chosen to save to be sent later.\r<br>\r<br><b>Message Tracker</B>\r<br>\r<br>This is the page that any messages that you have chosen to track will appear. Details of if and when they have been read by the recipient will appear here. This also gives you the chance to delete any messages that you have sent and not yet been read by the intended recipient.', 'How to send personal messages, track them, edit your messenger folders and archive stored messages.'),
+(7, 'Contacting the moderating team & reporting posts', '<b>Contacting the moderating team</b>\r<br>\r<br>If you need to contact a moderator or simply wish to view the complete administration team, you can click the link \'The moderating team\' found at the bottom of the main board page (the first page you see when visiting the board), or from \'My Assistant\'.\r<br>\r<br>This list will show you administrators (those who have administration control panel access), global moderators (those who can moderate in all forums) and the moderators of the individual forums.\r<br>\r<br>If you wish to contact someone about your member account, then contact an administrator - if you wish to contact someone about a post or topic, contact either a global moderator or the forum moderator.\r<br>\r<br><b>Reporting a post</b>\r<br>\r<br>If the administrator has enabled this function on the board, you\'ll see a \'Report\' button in a post, next to the \'Quote\' button. This function will let you report the post to the forum moderator (or the administrator(s), if there isn\'t a specific moderator available). You can use this function when you think the moderator(s) should be aware of the existance of that post. However, <b>do not use this to chat with the moderator(s)!</b>. You can use the email function or the Personal Messenger function for that.', 'Where to find a list of the board moderators and administrators.'),
+(8, 'Viewing members profile information', 'You can view a members profile at any time by clicking on their name when it is underlined (as a link) or by clicking on their name in a post within a topic.\r<br>\r<br>This will show you their profile page which contains their contact information (if they have entered some) and their \'active stats\'.\r<br>\r<br>You can also click on the \'Mini Profile\' button underneath their posts, this will show up a mini \'e-card\' with their contact information and a photograph if they have chosen to have one.', 'How to view members contact information.'),
+(9, 'Viewing active topics and new posts', 'You can view which new topics have new replies today by clicking on the \'Today\'s Active Topics\' link found at the bottom of the main board page (the first page you see when visiting the board). You can set your own date criteria, choosing to view all topics  with new replies during several date choices.\r<br>\r<br>The \'View New Posts\' link in the member bar at the top of each page, will allow you to view all of the topics which have new replies in since your last visit to the board.', 'How to view all the topics which have a new reply today and the new posts made since your last visit.'),
+(10, 'Searching Topics and Posts', 'The search feature is designed to allow you to quickly find topics and posts that contain the keywords you enter.\r<br>\r<br>There are two types of search form available, simple search and advanced search. You may switch between the two using the \'More Options\' and \'Simple Mode\' buttons.\r<br>\r<br><b>Simple Mode</b>\r<br>\r<br>All you need to do here is enter in a keyword into the search box, and select a forum(s) to search in. (to select multiple forums, hold down the control key on a PC, or the Shift/Apple key on a Mac) choose a sorting order and search.\r<br>\r<br><b>Advanced Mode</b>\r<br>\r<br>The advanced search screen, will give you a much greater range of options to choose from to refine your search. In addition to searching by keyword, you are able to search by a members username or a combination of both. You can also choose to refine your search by selecting a date range, and there are a number of sorting options available. There are also two ways of displaying the search results, can either show the post text in full or just show a link to the topic, can choose this using the radio buttons available.\r<br>\r<br>If the administrator has enabled it, you may have a minimum amount of time to wait between searches, this is known as search flood control.\r<br>\r<br>There are also search boxes available at the bottom of each forum, to allow you to carry out a quick search of all of the topics within that particular forum.', 'How to use the search feature.'),
+(11, 'Logging in and out', 'If you have chosen not to remember your log in details in cookies, or you are accessing the board on another computer, you will need to log into the board to access your member profile and post with your registered name.\r<br>\r<br>When you log in, you have the choice to save cookies that will log you in automatically when you return. Do not use this option on a shared computer for security.\r<br>\r<br>You can also choose to hide - this will keep your name from appearing in the active users list.\r<br>\r<br>Logging out is simply a matter of clicking on the \'Log Out\' link that is displayed when you are logged in. If you find that you are not logged out, you may need to manually remove your cookies. See the \'Cookies\' help file for more information.', 'How to log in and out from the board and how to remain anonymous and not be shown on the active users list.'),
+(12, 'Posting', 'There are three different posting screens available. The new topic button, visible in forums and in topics allows you to add a new topic to that particular forum. The new poll button (if the admin has enabled it) will also be viewable in topics and forums allowing you to create a new poll in the forum. When viewing a topic, there will be an add reply button, allowing you to add a new reply onto that particular topic. \r\n<br>\r\n<br><b>Posting new topics and replying</b>\r\n<br>\r\n<br>When making a post, you will most likely have the option to use IBF code when posting. This will allow you to add various types of formatting to your messages. For more information on this, click the \'BB Code Help\' link under the emoticon box to launch the help window.\r\n<br>\r\n<br>On the left of the text entry box, there is the clickable emoticons box - you can click on these to add them to the content of your message (these are sometimes known as \'smilies\').\r\n<br>\r\n<br>There are three options available when making a post or a reply. \'Enable emoticons?\' if this is unchecked, then any text that would normally be converted into an emoticon will not be. \'Enable signature?\' allows you to choose whether or not you would like your signature to appear on that individual post. \'Enable email notification of replies?\' ticking this box will mean that you will receive e-mail updates to the topic, see the \'Email Notification of new messages\' help topic for more information on this.\r\n<br>\r\n<br>You also have the option to choose a post icon for the topic/post when creating one. This icon will appear next to the topic name on the topic listing in that forum, or will appear next to the date/time of the message if making a reply to a topic.\r\n<br>\r\n<br>If the admin has enabled it, you will also see a file attachments option, this will allow you to attach a file to be uploaded when making a post. Click the browse button to select a file from your computer to be uploaded. If you upload an image file, it may be shown in the content of the post, all other file types will be linked to.\r\n<br>\r\n<br><b>Poll Options</b>\r\n<br>\r\n<br>If you have chosen to post a new poll, there will be an extra two option boxes at the top of the help screen. The first input box will allow you to enter the question that you are asking in the poll. The text field underneath is where you will input the choices for the poll. Simply enter a different option on each line. The maximum number of choices is set by the board admin, and this figure is displayed on the left.\r\n<br>\r\n<br><b>Quoting Posts</b>\r\n<br>\r\n<br>Displayed above each post in a topic, there is a \'Quote\' button. Pressing this button will allow you to reply to a topic, and have the text from a particular reply quoted in your own reply. When you choose to do this, an extra text field will appear below the main text input box to allow you to edit the content of the post being quoted.\r\n<br>\r\n<br><b>Editing Posts</b>\r\n<br>\r\n<br>Above any posts that you have made, you may see an \'Edit\' button. Pressing this will allow you to edit the post that you had previously made. \r\n<br>\r\n<br>When editing you may see an option to \'Add the \'Edit by\' line in this post?\'. If you tick this then it will show up in the posts that it has been edited and the time at which it was edited. If this option does not appear, then the edit by line will always be added to the post.\r\n<br>\r\n<br>If you are unable to see the edit button displayed on each post that you have made, then the administrator may have prevented you from editing posts, or the time limit for editing may have expired.\r\n<br>\r\n<br><b>Fast Reply</b>\r\n<br>\r\n<br>Where it has been enabled, there will be a fast reply button on each topic. Clicking this will open up a posting box on the topic view screen, cutting down on the time required to load the main posting screen. Click the fast reply button to expand the reply box and type the post inside of there. Although the fast reply box is not expanded by default, you can choose the option to have it expanded by default, from the board settings section of your control panel. Pressing the \'More Options\' button will take you to the normal posting screen.', 'A guide to the features avaliable when posting on the boards.'),
+(13, 'My Assistant', 'This feature is sometimes referred to as a \'Browser Buddy\'. \r<br>\r<br>At the top it tells you how many posts have been made since you last visited the board.. Also underneath this the number of posts with replies that have been made in topics that the individual has also posted in.\r<br>Click on the \'View\' link on either of the two sentences to see the posts.\r<br>\r<br>The next section is five links to useful features:\r<br>\r<br><li>The link to the moderating team is basically a quick link to see all those that either administrate or moderate certain forums on the message board.\r<br><li> The link to \'Today\'s Active Topics\' shows you all the topics that have been created in the last 24 hours on the board.\r<br><li>Today\'s Top 10 Posters link shows you exactly as the name suggests. It shows you the amount of posts by the members and also their total percentage of the total posts made that day.\r<br><li>The overall Top 10 Posters link shows you the top 10 posters for the whole time that the board has been installed.\r<br><li>My last 10 posts links to the latest topics that you have made on the board. These are shortened on the page, to save space, and are linked to if you require to read more of them.\r<br>\r<br>The two search features allow you to search the whole board for certain words in a whole topic. It isn\'t as featured as the normal search option so it is not as comprehensive.\r<br>\r<br>The Help Search is just as comprehensive as the normal help section\'s search function and allows for quick searching of all the help topics on the board.', 'A comprehensive guide to use this handy little feature.'),
+(14, 'Member List', 'The member list, accessed via the \'Members\' link at the top of each page, is basically a listing of all of the members that have registered on the board. \r\n<br>\r\n<br>If you are looking to search for a particular member by all/part of their username, then in the drop down box at the bottom of the page, change the selection from \'Search All Available\' to \'Name Begins With\' or \'Name Contains\' and input all/part of their name in the text input field and press the \'Go!\' button. \r\n<br>\r\n<br>Also, at the bottom of the member list page, there are a number of sorting options available to alter the way in which the list is displayed. \r\n<br>\r\n<br>If a member has chosen to add a photo to their profile information, then a camera icon will appear next to their name, and you may click this to view the photo.', 'Explaining the different ways to sort and search through the list of members.'),
+(15, 'Topic Options', 'At the bottom of each topic, there is a \'Topic Options\' button. Pressing this button will expand the topic options box. \r\n<br>\r\n<br>From this box, you can select from the following options: \r\n<br>\r\n<br><li>Track this topic - this option will allow you to receive e-mail updates for the topic, see the \'Email Notification of new messages\' help file for more information on this \r\n<br><li>Subscribe to this forum - will allow you to receive e-mail updates for any new topics posted in the forum, see the Notification of new messages\' help file for more information on this \r\n<br><li>Download / Print this Topic - will show the topic in a number of different formats. \'Printer Friendly Version\' will display a version of the topic that is suitable for printing out. \'Download HTML Version\' will download a copy of the topic to your hard drive, and this can then be viewed in a web browser, without having to visit the board. \'Download Microsoft Word Version\' will allow you to download the file to your hard drive and open it up in the popular word processing application, Microsoft Word, for viewing offline.', 'A guide to the options avaliable when viewing a topic.'),
+(16, 'Calendar', 'This board features it\'s very own calendar feature, which can be accessed via the calendar link at the top of the board.\r\n<br>\r\n<br>You are able to add your own personal events to the calendar - and these are only viewable by yourself. To add a new event, use the \'Add New Event\' button to be taken to the event posting screen. There are three types of events that you can now add:\r\n<br>\r\n<br><li>A single day/one off event can be added using the first option, by just selecting the date for it to appear on.\r\n<br><li>Ranged Event - is an event that spans across multiple days, to do this in addition to selecting the start date as above, will need to add the end date for the event. There are also options available  to highlight the message on the calendar, useful if there is more than one ranged event being displayed at any one time.\r\n<br><li>Recurring Event - is a one day event, that you can set to appear at set intervals on the calendar, either weekly, monthly or yearly.\r\n<br>\r\n<br>If the admistrator allows you, you may also be able to add a public event, that will not just be shown to yourself, but will be viewable by everyone.\r\n<br>\r\n<br>Also, if the admistrator has chosen,  there will be a link to all the birthdays happening on a particular day displayed on the calendar, and your birthday will appear if you have chosen to enter a date of birth in the Profile Info section of your control panel.', 'More information on the boards calendar feature.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_files`
+--
+
+CREATE TABLE `ibf_files` (
+  `id` int(11) NOT NULL,
+  `mid` int(11) NOT NULL DEFAULT 0,
+  `cat` int(11) NOT NULL DEFAULT 0,
+  `open` tinyint(1) NOT NULL DEFAULT 0,
+  `screenshot` varchar(255) DEFAULT '',
+  `sname` varchar(255) DEFAULT '',
+  `author` varchar(255) DEFAULT '',
+  `downloads` int(10) NOT NULL DEFAULT 0,
+  `views` int(10) NOT NULL DEFAULT 0,
+  `file_size` int(10) NOT NULL DEFAULT 0,
+  `updated` int(10) NOT NULL DEFAULT 0,
+  `approved` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_files_cats`
+--
+
+CREATE TABLE `ibf_files_cats` (
+  `cid` int(11) NOT NULL,
+  `cname` varchar(255) DEFAULT '',
+  `cdesc` text DEFAULT NULL,
+  `copen` tinyint(1) NOT NULL DEFAULT 0,
+  `sub` int(11) NOT NULL DEFAULT 0,
+  `position` int(11) NOT NULL DEFAULT 0,
+  `mid` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_files_downloads`
+--
+
+CREATE TABLE `ibf_files_downloads` (
+  `id` int(11) NOT NULL,
+  `file_id` int(11) NOT NULL DEFAULT 0,
+  `ip_address` varchar(46) DEFAULT '',
+  `download_date` int(10) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_forums`
+--
+
+CREATE TABLE `ibf_forums` (
+  `id` smallint(5) NOT NULL DEFAULT 0,
+  `topics` mediumint(6) DEFAULT NULL,
+  `posts` mediumint(6) DEFAULT NULL,
+  `last_post` int(10) DEFAULT NULL,
+  `last_poster_id` mediumint(8) NOT NULL DEFAULT 0,
+  `last_poster_name` varchar(32) DEFAULT NULL,
+  `name` varchar(128) NOT NULL DEFAULT '',
+  `description` text DEFAULT NULL,
+  `position` tinyint(2) DEFAULT NULL,
+  `use_ibc` tinyint(1) DEFAULT NULL,
+  `use_html` tinyint(1) DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `start_perms` varchar(255) NOT NULL DEFAULT '',
+  `reply_perms` varchar(255) NOT NULL DEFAULT '',
+  `read_perms` varchar(255) NOT NULL DEFAULT '',
+  `password` varchar(32) DEFAULT NULL,
+  `category` tinyint(2) NOT NULL DEFAULT 0,
+  `last_title` varchar(128) DEFAULT NULL,
+  `last_id` int(10) DEFAULT NULL,
+  `sort_key` varchar(32) DEFAULT NULL,
+  `sort_order` varchar(32) DEFAULT NULL,
+  `prune` tinyint(3) DEFAULT NULL,
+  `show_rules` tinyint(1) DEFAULT NULL,
+  `upload_perms` varchar(255) DEFAULT NULL,
+  `preview_posts` tinyint(1) DEFAULT NULL,
+  `allow_poll` tinyint(1) NOT NULL DEFAULT 1,
+  `allow_pollbump` tinyint(1) NOT NULL DEFAULT 0,
+  `inc_postcount` tinyint(1) NOT NULL DEFAULT 1,
+  `skin_id` int(10) DEFAULT NULL,
+  `parent_id` mediumint(5) DEFAULT -1,
+  `subwrap` tinyint(1) DEFAULT 0,
+  `sub_can_post` tinyint(1) DEFAULT 1,
+  `quick_reply` tinyint(1) DEFAULT 0,
+  `redirect_url` varchar(250) DEFAULT '',
+  `redirect_on` tinyint(1) NOT NULL DEFAULT 0,
+  `redirect_hits` int(10) NOT NULL DEFAULT 0,
+  `redirect_loc` varchar(250) DEFAULT '',
+  `rules_title` varchar(255) NOT NULL DEFAULT '',
+  `rules_text` text DEFAULT NULL,
+  `has_mod_posts` tinyint(1) NOT NULL DEFAULT 0,
+  `topic_mm_id` varchar(250) NOT NULL DEFAULT '',
+  `notify_modq_emails` text DEFAULT '',
+  `icon` text DEFAULT NULL,
+  `rating` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_forums`
+--
+
+INSERT INTO `ibf_forums` (`id`, `topics`, `posts`, `last_post`, `last_poster_id`, `last_poster_name`, `name`, `description`, `position`, `use_ibc`, `use_html`, `status`, `start_perms`, `reply_perms`, `read_perms`, `password`, `category`, `last_title`, `last_id`, `sort_key`, `sort_order`, `prune`, `show_rules`, `upload_perms`, `preview_posts`, `allow_poll`, `allow_pollbump`, `inc_postcount`, `skin_id`, `parent_id`, `subwrap`, `sub_can_post`, `quick_reply`, `redirect_url`, `redirect_on`, `redirect_hits`, `redirect_loc`, `rules_title`, `rules_text`, `has_mod_posts`, `topic_mm_id`, `notify_modq_emails`, `icon`, `rating`) VALUES
+(1, 4, 3, 1778111162, 2, 'Test', 'General', 'Legacy forum platform ', 1, 1, 0, '1', '*', '*', '*', '', 1, 'Mark Wahlberg Karaoke Performance', 5, 'last_post', 'Z-A', 30, 2, '', 0, 1, 1, 1, NULL, -1, 0, 1, 1, '', 0, 0, '', 'Rules', 'Be nice mother fuckers!', 0, '', '', '14', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_forum_perms`
+--
+
+CREATE TABLE `ibf_forum_perms` (
+  `perm_id` int(10) NOT NULL,
+  `perm_name` varchar(250) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_forum_perms`
+--
+
+INSERT INTO `ibf_forum_perms` (`perm_id`, `perm_name`) VALUES
+(1, 'Validating Forum Mask'),
+(2, 'Guest Forum Mask'),
+(3, 'Member Forum Mask'),
+(4, 'Admin Forum Mask'),
+(5, 'Banned Forum Mask');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_forum_tracker`
+--
+
+CREATE TABLE `ibf_forum_tracker` (
+  `frid` mediumint(8) NOT NULL,
+  `member_id` varchar(32) NOT NULL DEFAULT '',
+  `forum_id` smallint(5) NOT NULL DEFAULT 0,
+  `start_date` int(10) DEFAULT NULL,
+  `last_sent` int(10) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_forum_tracker`
+--
+
+INSERT INTO `ibf_forum_tracker` (`frid`, `member_id`, `forum_id`, `start_date`, `last_sent`) VALUES
+(1, '1', 1, 1777517227, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_groups`
+--
+
+CREATE TABLE `ibf_groups` (
+  `g_id` int(3) UNSIGNED NOT NULL,
+  `g_view_board` tinyint(1) DEFAULT NULL,
+  `g_mem_info` tinyint(1) DEFAULT NULL,
+  `g_other_topics` tinyint(1) DEFAULT NULL,
+  `g_use_search` tinyint(1) DEFAULT NULL,
+  `g_email_friend` tinyint(1) DEFAULT NULL,
+  `g_invite_friend` tinyint(1) DEFAULT NULL,
+  `g_edit_profile` tinyint(1) DEFAULT NULL,
+  `g_post_new_topics` tinyint(1) DEFAULT NULL,
+  `g_reply_own_topics` tinyint(1) DEFAULT NULL,
+  `g_reply_other_topics` tinyint(1) DEFAULT NULL,
+  `g_edit_posts` tinyint(1) DEFAULT NULL,
+  `g_delete_own_posts` tinyint(1) DEFAULT NULL,
+  `g_open_close_posts` tinyint(1) DEFAULT NULL,
+  `g_delete_own_topics` tinyint(1) DEFAULT NULL,
+  `g_post_polls` tinyint(1) DEFAULT NULL,
+  `g_vote_polls` tinyint(1) DEFAULT NULL,
+  `g_use_pm` tinyint(1) DEFAULT NULL,
+  `g_is_supmod` tinyint(1) DEFAULT NULL,
+  `g_access_cp` tinyint(1) DEFAULT NULL,
+  `g_title` varchar(32) NOT NULL DEFAULT '',
+  `g_can_remove` tinyint(1) DEFAULT NULL,
+  `g_append_edit` tinyint(1) DEFAULT NULL,
+  `g_access_offline` tinyint(1) DEFAULT NULL,
+  `g_avoid_q` tinyint(1) DEFAULT NULL,
+  `g_avoid_flood` tinyint(1) DEFAULT NULL,
+  `g_icon` varchar(64) DEFAULT NULL,
+  `g_attach_max` bigint(20) DEFAULT NULL,
+  `g_avatar_upload` tinyint(1) DEFAULT 0,
+  `g_calendar_post` tinyint(1) DEFAULT 0,
+  `prefix` varchar(250) DEFAULT NULL,
+  `suffix` varchar(250) DEFAULT NULL,
+  `g_max_messages` int(5) DEFAULT 50,
+  `g_max_mass_pm` int(5) DEFAULT 0,
+  `g_search_flood` mediumint(6) DEFAULT 20,
+  `g_edit_cutoff` int(10) DEFAULT 0,
+  `g_promotion` varchar(10) DEFAULT '-1&-1',
+  `g_hide_from_list` tinyint(1) DEFAULT 0,
+  `g_post_closed` tinyint(1) DEFAULT 0,
+  `g_perm_id` varchar(255) NOT NULL DEFAULT '',
+  `g_photo_max_vars` varchar(200) DEFAULT '',
+  `g_dohtml` tinyint(1) NOT NULL DEFAULT 0,
+  `g_edit_topic` tinyint(1) NOT NULL DEFAULT 0,
+  `g_email_limit` varchar(15) NOT NULL DEFAULT '10:15',
+  `g_display` int(11) NOT NULL DEFAULT 0,
+  `g_change_rep` tinyint(1) DEFAULT 1,
+  `g_exclude_rep` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_groups`
+--
+
+INSERT INTO `ibf_groups` (`g_id`, `g_view_board`, `g_mem_info`, `g_other_topics`, `g_use_search`, `g_email_friend`, `g_invite_friend`, `g_edit_profile`, `g_post_new_topics`, `g_reply_own_topics`, `g_reply_other_topics`, `g_edit_posts`, `g_delete_own_posts`, `g_open_close_posts`, `g_delete_own_topics`, `g_post_polls`, `g_vote_polls`, `g_use_pm`, `g_is_supmod`, `g_access_cp`, `g_title`, `g_can_remove`, `g_append_edit`, `g_access_offline`, `g_avoid_q`, `g_avoid_flood`, `g_icon`, `g_attach_max`, `g_avatar_upload`, `g_calendar_post`, `prefix`, `suffix`, `g_max_messages`, `g_max_mass_pm`, `g_search_flood`, `g_edit_cutoff`, `g_promotion`, `g_hide_from_list`, `g_post_closed`, `g_perm_id`, `g_photo_max_vars`, `g_dohtml`, `g_edit_topic`, `g_email_limit`, `g_display`, `g_change_rep`, `g_exclude_rep`) VALUES
+(1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Validating', 0, 1, 0, 0, 0, NULL, 0, 0, 0, NULL, NULL, 50, 0, 20, 0, '-1&-1', 0, 0, '1', '', 0, 0, '10:15', 0, 1, NULL),
+(2, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, 'Guests', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, 50, 0, 20, 0, '-1&-1', 0, 0, '2', '', 0, 0, '10:15', 0, 1, NULL),
+(3, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 'Members', 0, 0, 0, 0, 0, '', 0, 1, 0, '', '', 50, 0, 20, 10, 'none&', 0, 0, '3', '::', 0, 1, '10:15', 0, 1, NULL),
+(4, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 'Admin', 0, 1, 1, 1, 1, '', 50000, 1, 1, '<span style=\'color:red\'>', '</span>', 50, 6, 0, 5, '-1&-1', 0, 1, '4', '::', 1, 1, '10:15', 0, 1, NULL),
+(5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Banned', 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 50, 0, 20, 0, '-1&-1', 1, 0, '5', '', 0, 0, '10:15', 0, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_languages`
+--
+
+CREATE TABLE `ibf_languages` (
+  `lid` mediumint(8) NOT NULL,
+  `ldir` varchar(64) NOT NULL DEFAULT '',
+  `lname` varchar(250) NOT NULL DEFAULT '',
+  `lauthor` varchar(250) DEFAULT NULL,
+  `lemail` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_languages`
+--
+
+INSERT INTO `ibf_languages` (`lid`, `ldir`, `lname`, `lauthor`, `lemail`) VALUES
+(1, 'en', 'English', 'Invision Power Board', 'languages@invisionboard.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_macro`
+--
+
+CREATE TABLE `ibf_macro` (
+  `macro_id` smallint(3) NOT NULL,
+  `macro_value` varchar(200) DEFAULT NULL,
+  `macro_replace` text DEFAULT NULL,
+  `can_remove` tinyint(1) DEFAULT 0,
+  `macro_set` smallint(3) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_macro`
+--
+
+INSERT INTO `ibf_macro` (`macro_id`, `macro_value`, `macro_replace`, `can_remove`, `macro_set`) VALUES
+(1, 'A_LOCKED_B', '<img src=\'style_images/<#IMG_DIR#>/t_closed.gif\' border=\'0\'  alt=\'Closed Topic\' />', 1, 1),
+(2, 'A_MOVED_B', '<img src=\'style_images/<#IMG_DIR#>/t_moved.gif\' border=\'0\'  alt=\'Moved Topic\'>', 1, 1),
+(3, 'A_POLLONLY_B', '<img src=\'style_images/<#IMG_DIR#>/t_closed.gif\' border=\'0\'  alt=\'Poll Only\' />', 1, 1),
+(4, 'A_POST', 'NEW TOPIC', 1, 1),
+(5, 'A_REPLY', 'ADD REPLY', 1, 1),
+(6, 'A_POLL', 'NEW POLL', 1, 1),
+(7, 'A_STAR', '<img src=\'style_images/<#IMG_DIR#>/pip.gif\' border=\'0\'  alt=\'*\' />', 1, 1),
+(8, 'B_HOT', '<img src=\'style_images/<#IMG_DIR#>/f_hot.gif\' border=\'0\'  alt=\'Hot topic\' />', 1, 1),
+(9, 'B_HOT_NN', '<img src=\'style_images/<#IMG_DIR#>/f_hot_no.gif\' border=\'0\'  alt=\'No new\' />', 1, 1),
+(10, 'B_LOCKED', '<img src=\'style_images/<#IMG_DIR#>/f_closed.gif\' border=\'0\'  alt=\'Closed\' />', 1, 1),
+(11, 'B_MOVED', '<img src=\'style_images/<#IMG_DIR#>/f_moved.gif\' border=\'0\'  alt=\'Moved\' />', 1, 1),
+(12, 'B_NEW', '<img src=\'style_images/<#IMG_DIR#>/f_norm.gif\' border=\'0\'  alt=\'New Posts\' />', 1, 1),
+(13, 'B_NORM', '<img src=\'style_images/<#IMG_DIR#>/f_norm_no.gif\' border=\'0\'  alt=\'No New Posts\' />', 1, 1),
+(14, 'B_PIN', '<img src=\'style_images/<#IMG_DIR#>/f_pinned.gif\' border=\'0\'  alt=\'Pinned\' />', 1, 1),
+(15, 'B_POLL', '<img src=\'style_images/<#IMG_DIR#>/f_poll.gif\' border=\'0\'  alt=\'Poll\' />', 1, 1),
+(16, 'B_POLL_NN', '<img src=\'style_images/<#IMG_DIR#>/f_poll_no.gif\' border=\'0\'  alt=\'No new votes\' />', 1, 1),
+(17, 'B_HOT_DOT', '<img src=\'style_images/<#IMG_DIR#>/f_hot_dot.gif\' border=\'0\' alt=\'New Posts\'>', 1, 1),
+(18, 'B_NEW_DOT', '<img src=\'style_images/<#IMG_DIR#>/f_norm_dot.gif\' border=\'0\' alt=\'No New Posts\'>', 1, 1),
+(19, 'B_HOT_NN_DOT', '<img src=\'style_images/<#IMG_DIR#>/f_hot_no_dot.gif\' border=\'0\' alt=\'No New Posts*\'>', 1, 1),
+(20, 'B_NORM_DOT', '<img src=\'style_images/<#IMG_DIR#>/f_norm_no_dot.gif\' border=\'0\' alt=\'No New Posts*\'>', 1, 1),
+(21, 'B_POLL_DOT', '<img src=\'style_images/<#IMG_DIR#>/f_poll_dot.gif\' border=\'0\' alt=\'Poll*\'>', 1, 1),
+(22, 'B_POLL_NN_DOT', '<img src=\'style_images/<#IMG_DIR#>/f_poll_no_dot.gif\' border=\'0\' alt=\'No New Votes*\'>', 1, 1),
+(23, 'C_LOCKED', '<img src=\'style_images/<#IMG_DIR#>/bf_readonly.gif\' border=\'0\'  alt=\'Read Only Forum\' />', 1, 1),
+(24, 'C_OFF', '<img src=\'style_images/<#IMG_DIR#>/bf_nonew.gif\' border=\'0\'  alt=\'No New Posts\' />', 1, 1),
+(25, 'C_OFF_CAT', '<img src=\'style_images/<#IMG_DIR#>/bc_nonew.gif\' border=\'0\'  alt=\'No New Posts\' />', 1, 1),
+(26, 'C_OFF_RES', '<img src=\'style_images/<#IMG_DIR#>/br_nonew.gif\' border=\'0\'  alt=\'No New Posts\' />', 1, 1),
+(27, 'C_ON', '<img src=\'style_images/<#IMG_DIR#>/bf_new.gif\' border=\'0\'  alt=\'New Posts\' />', 1, 1),
+(28, 'C_ON_CAT', '<img src=\'style_images/<#IMG_DIR#>/bc_new.gif\' border=\'0\'  alt=\'New Posts\' />', 1, 1),
+(29, 'C_ON_RES', '<img src=\'style_images/<#IMG_DIR#>/br_new.gif\' border=\'0\'  alt=\'New Posts\'  />', 1, 1),
+(30, 'F_ACTIVE', '<img src=\'style_images/<#IMG_DIR#>/user.gif\' border=\'0\'  alt=\'Active Users\' />', 1, 1),
+(31, 'F_NAV_SEP', '&nbsp;-&gt;&nbsp;', 1, 1),
+(32, 'F_NAV', '<img src=\'style_images/<#IMG_DIR#>/nav.gif\' border=\'0\'  alt=\'&gt;\' />', 1, 1),
+(33, 'F_STATS', '<img src=\'style_images/<#IMG_DIR#>/stats.gif\' border=\'0\'  alt=\'Board Stats\' />', 1, 1),
+(34, 'NO_PHOTO', '<img src=\'style_images/<#IMG_DIR#>/nophoto.gif\' border=\'0\'  alt=\'No Photo\' />', 1, 1),
+(35, 'CAMERA', '<img src=\'style_images/<#IMG_DIR#>/camera.gif\' border=\'0\'  alt=\'Photo\' />', 1, 1),
+(36, 'M_READ', '<img src=\'style_images/<#IMG_DIR#>/f_norm_no.gif\' border=\'0\'  alt=\'Read Msg\' />', 1, 1),
+(37, 'M_UNREAD', '<img src=\'style_images/<#IMG_DIR#>/f_norm.gif\' border=\'0\'  alt=\'Unread Msg\' />', 1, 1),
+(38, 'P_AOL', '<img src=\'style_images/<#IMG_DIR#>/p_aim.gif\' border=\'0\'  alt=\'AOL\' />', 1, 1),
+(39, 'P_DELETE', 'DELETE', 1, 1),
+(40, 'P_EDIT', 'EDIT', 1, 1),
+(41, 'P_EMAIL', '<img src=\'style_images/<#IMG_DIR#>/p_email.gif\' border=\'0\'  alt=\'Email Poster\' />', 1, 1),
+(42, 'P_ICQ', '<img src=\'style_images/<#IMG_DIR#>/p_icq.gif\' border=\'0\'  alt=\'ICQ\' />', 1, 1),
+(43, 'P_MSG', '<img src=\'style_images/<#IMG_DIR#>/p_pm.gif\' border=\'0\'  alt=\'PM\' />', 1, 1),
+(44, 'P_QUOTE', 'QUOTE', 1, 1),
+(45, 'P_WEBSITE', '<img src=\'style_images/<#IMG_DIR#>/p_www.gif\' border=\'0\'  alt=\'Users Website\' />', 1, 1),
+(46, 'P_YIM', '<img src=\'style_images/<#IMG_DIR#>/p_yim.gif\' border=\'0\' alt=\'Yahoo\' />', 1, 1),
+(47, 'P_REPORT', 'REPORT', 1, 1),
+(48, 'P_MSN', '<img src=\'style_images/<#IMG_DIR#>/p_msn.gif\' border=\'0\' alt=\'MSN\' />', 1, 1),
+(49, 'CAT_IMG', '<img src=\'style_images/<#IMG_DIR#>/nav_m.gif\' border=\'0\'  alt=\'&gt;\' width=\'8\' height=\'8\' />', 1, 1),
+(50, 'NEW_POST', '<img src=\'style_images/<#IMG_DIR#>/newpost.gif\' border=\'0\'  alt=\'Goto last unread\' title=\'Goto last unread\' hspace=2>', 1, 1),
+(51, 'LAST_POST', '<img src=\'style_images/<#IMG_DIR#>/lastpost.gif\' border=\'0\'  alt=\'Last Post\' />', 1, 1),
+(52, 'BR_REDIRECT', '<img src=\'style_images/<#IMG_DIR#>/br_redirect.gif\' border=\'0\'  alt=\'Redirect\' />', 1, 1),
+(53, 'INTEGRITY_MSGR', '<img src=\'style_images/<#IMG_DIR#>/p_im.gif\' border=\'0\'  alt=\'Integrity Messenger IM\' />', 1, 1),
+(54, 'ADDRESS_CARD', '<img src=\'style_images/<#IMG_DIR#>/addresscard.gif\' border=\'0\'  alt=\'Mini Profile\' />', 1, 1),
+(55, 'T_QREPLY', '<img src=\'style_images/<#IMG_DIR#>/t_qr.gif\' border=\'0\'  alt=\'Fast Reply\' />', 1, 1),
+(56, 'T_OPTS', '<img src=\'style_images/<#IMG_DIR#>/t_options.gif\' border=\'0\'  alt=\'Topic Options\' />', 1, 1),
+(57, 'CAL_NEWEVENT', '<img src=\'style_images/<#IMG_DIR#>/cal_newevent.gif\' border=\'0\'  alt=\'Add New Event\' />', 1, 1),
+(58, 'F_RULES', '<img src=\'style_images/<#IMG_DIR#>/forum_rules.gif\' border=\'0\'  alt=\'Forum Rules\' />', 1, 1),
+(59, 'WARN_0', '<img src=\'style_images/<#IMG_DIR#>/warn0.gif\' border=\'0\'  alt=\'-----\' />', 1, 1),
+(60, 'WARN_1', '<img src=\'style_images/<#IMG_DIR#>/warn1.gif\' border=\'0\'  alt=\'X----\' />', 1, 1),
+(61, 'WARN_2', '<img src=\'style_images/<#IMG_DIR#>/warn2.gif\' border=\'0\'  alt=\'XX---\' />', 1, 1),
+(62, 'WARN_3', '<img src=\'style_images/<#IMG_DIR#>/warn3.gif\' border=\'0\'  alt=\'XXX--\' />', 1, 1),
+(63, 'WARN_4', '<img src=\'style_images/<#IMG_DIR#>/warn4.gif\' border=\'0\'  alt=\'XXXX-\' />', 1, 1),
+(64, 'WARN_5', '<img src=\'style_images/<#IMG_DIR#>/warn5.gif\' border=\'0\'  alt=\'XXXXX\' />', 1, 1),
+(65, 'WARN_ADD', '<img src=\'style_images/<#IMG_DIR#>/warn_add.gif\' border=\'0\'  alt=\'+\' />', 1, 1),
+(66, 'WARN_MINUS', '<img src=\'style_images/<#IMG_DIR#>/warn_minus.gif\' border=\'0\'  alt=\'-\' />', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_macro_name`
+--
+
+CREATE TABLE `ibf_macro_name` (
+  `set_id` smallint(3) NOT NULL DEFAULT 0,
+  `set_name` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_macro_name`
+--
+
+INSERT INTO `ibf_macro_name` (`set_id`, `set_name`) VALUES
+(1, 'IPB Default Macro Set');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_md5image`
+--
+
+CREATE TABLE `ibf_md5image` (
+  `real_name` varchar(80) NOT NULL,
+  `hash_name` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_md5image`
+--
+
+INSERT INTO `ibf_md5image` (`real_name`, `hash_name`) VALUES
+('post-1-1778106924.jpg', '3767d58eb77b1bbed5462256a33f498b');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_members`
+--
+
+CREATE TABLE `ibf_members` (
+  `id` mediumint(8) NOT NULL DEFAULT 0,
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `mgroup` smallint(3) NOT NULL DEFAULT 0,
+  `password` varchar(32) NOT NULL DEFAULT '',
+  `email` varchar(60) NOT NULL DEFAULT '',
+  `joined` int(10) NOT NULL DEFAULT 0,
+  `ip_address` varchar(16) NOT NULL DEFAULT '',
+  `avatar` varchar(128) DEFAULT NULL,
+  `avatar_size` varchar(9) DEFAULT NULL,
+  `posts` mediumint(7) DEFAULT 0,
+  `aim_name` varchar(40) DEFAULT NULL,
+  `icq_number` varchar(40) DEFAULT NULL,
+  `location` varchar(128) DEFAULT NULL,
+  `signature` text DEFAULT NULL,
+  `website` varchar(70) DEFAULT NULL,
+  `yahoo` varchar(32) DEFAULT NULL,
+  `title` varchar(64) DEFAULT NULL,
+  `allow_admin_mails` tinyint(1) DEFAULT NULL,
+  `time_offset` varchar(10) DEFAULT NULL,
+  `interests` text DEFAULT NULL,
+  `hide_email` varchar(8) DEFAULT NULL,
+  `email_pm` tinyint(1) DEFAULT NULL,
+  `email_full` tinyint(1) DEFAULT NULL,
+  `skin` smallint(5) DEFAULT NULL,
+  `warn_level` int(10) DEFAULT NULL,
+  `warn_lastwarn` int(10) NOT NULL DEFAULT 0,
+  `language` varchar(32) DEFAULT NULL,
+  `msnname` varchar(64) DEFAULT NULL,
+  `last_post` int(10) DEFAULT NULL,
+  `restrict_post` varchar(100) NOT NULL DEFAULT '0',
+  `view_sigs` tinyint(1) DEFAULT 1,
+  `view_img` tinyint(1) DEFAULT 1,
+  `view_avs` tinyint(1) DEFAULT 1,
+  `view_pop` tinyint(1) DEFAULT 1,
+  `bday_day` int(2) DEFAULT NULL,
+  `bday_month` int(2) DEFAULT NULL,
+  `bday_year` int(4) DEFAULT NULL,
+  `new_msg` tinyint(2) DEFAULT NULL,
+  `msg_from_id` mediumint(8) DEFAULT NULL,
+  `msg_msg_id` int(10) DEFAULT NULL,
+  `msg_total` smallint(5) DEFAULT NULL,
+  `vdirs` text DEFAULT NULL,
+  `show_popup` tinyint(1) DEFAULT NULL,
+  `misc` varchar(128) DEFAULT NULL,
+  `last_visit` int(10) DEFAULT 0,
+  `last_activity` int(10) DEFAULT 0,
+  `dst_in_use` tinyint(1) DEFAULT 0,
+  `view_prefs` varchar(64) DEFAULT '-1&-1',
+  `coppa_user` tinyint(1) DEFAULT 0,
+  `mod_posts` varchar(100) NOT NULL DEFAULT '0',
+  `auto_track` tinyint(1) DEFAULT 0,
+  `org_perm_id` varchar(255) DEFAULT '',
+  `org_supmod` tinyint(1) DEFAULT 0,
+  `integ_msg` varchar(250) DEFAULT '',
+  `temp_ban` varchar(100) DEFAULT NULL,
+  `sub_end` int(10) NOT NULL DEFAULT 0,
+  `rep` int(10) NOT NULL DEFAULT 0,
+  `allow_rep` tinyint(1) NOT NULL DEFAULT 1,
+  `allow_anon` tinyint(1) NOT NULL DEFAULT 1,
+  `rep_do` int(10) NOT NULL DEFAULT 0,
+  `rep_do_open` int(10) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_members`
+--
+
+INSERT INTO `ibf_members` (`id`, `name`, `mgroup`, `password`, `email`, `joined`, `ip_address`, `avatar`, `avatar_size`, `posts`, `aim_name`, `icq_number`, `location`, `signature`, `website`, `yahoo`, `title`, `allow_admin_mails`, `time_offset`, `interests`, `hide_email`, `email_pm`, `email_full`, `skin`, `warn_level`, `warn_lastwarn`, `language`, `msnname`, `last_post`, `restrict_post`, `view_sigs`, `view_img`, `view_avs`, `view_pop`, `bday_day`, `bday_month`, `bday_year`, `new_msg`, `msg_from_id`, `msg_msg_id`, `msg_total`, `vdirs`, `show_popup`, `misc`, `last_visit`, `last_activity`, `dst_in_use`, `view_prefs`, `coppa_user`, `mod_posts`, `auto_track`, `org_perm_id`, `org_supmod`, `integ_msg`, `temp_ban`, `sub_end`, `rep`, `allow_rep`, `allow_anon`, `rep_do`, `rep_do_open`) VALUES
+(0, 'Guest', 2, '', 'test@localhost.com', 0, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, '0', 1, 1, 1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', 1052787402, 1052787402, 0, '-1&-1', 0, '0', 0, '0', 0, '', '', 0, 0, 1, 1, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_member_extra`
+--
+
+CREATE TABLE `ibf_member_extra` (
+  `id` mediumint(8) NOT NULL DEFAULT 0,
+  `notes` text DEFAULT NULL,
+  `links` text DEFAULT NULL,
+  `bio` text DEFAULT NULL,
+  `ta_size` char(3) DEFAULT NULL,
+  `photo_type` varchar(10) DEFAULT '',
+  `photo_location` varchar(255) DEFAULT '',
+  `photo_dimensions` varchar(200) DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_member_extra`
+--
+
+INSERT INTO `ibf_member_extra` (`id`, `notes`, `links`, `bio`, `ta_size`, `photo_type`, `photo_location`, `photo_dimensions`) VALUES
+(2, NULL, NULL, NULL, NULL, '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_messages`
+--
+
+CREATE TABLE `ibf_messages` (
+  `msg_id` int(10) NOT NULL,
+  `msg_date` int(10) DEFAULT NULL,
+  `read_state` tinyint(1) DEFAULT NULL,
+  `title` varchar(128) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `from_id` mediumint(8) NOT NULL DEFAULT 0,
+  `vid` varchar(32) DEFAULT NULL,
+  `member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `recipient_id` mediumint(8) NOT NULL DEFAULT 0,
+  `attach_type` tinyint(128) DEFAULT NULL,
+  `attach_file` tinyint(128) DEFAULT NULL,
+  `cc_users` text DEFAULT NULL,
+  `tracking` tinyint(1) DEFAULT 0,
+  `read_date` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+--
+-- Table structure for table `ibf_moderators`
+--
+
+CREATE TABLE `ibf_moderators` (
+  `mid` mediumint(8) NOT NULL,
+  `forum_id` int(5) NOT NULL DEFAULT 0,
+  `member_name` varchar(32) NOT NULL DEFAULT '',
+  `member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `edit_post` tinyint(1) DEFAULT NULL,
+  `edit_topic` tinyint(1) DEFAULT NULL,
+  `delete_post` tinyint(1) DEFAULT NULL,
+  `delete_topic` tinyint(1) DEFAULT NULL,
+  `view_ip` tinyint(1) DEFAULT NULL,
+  `open_topic` tinyint(1) DEFAULT NULL,
+  `close_topic` tinyint(1) DEFAULT NULL,
+  `mass_move` tinyint(1) DEFAULT NULL,
+  `mass_prune` tinyint(1) DEFAULT NULL,
+  `move_topic` tinyint(1) DEFAULT NULL,
+  `pin_topic` tinyint(1) DEFAULT NULL,
+  `unpin_topic` tinyint(1) DEFAULT NULL,
+  `post_q` tinyint(1) DEFAULT NULL,
+  `topic_q` tinyint(1) DEFAULT NULL,
+  `allow_warn` tinyint(1) DEFAULT NULL,
+  `edit_user` tinyint(1) NOT NULL DEFAULT 0,
+  `is_group` tinyint(1) DEFAULT 0,
+  `group_id` smallint(3) DEFAULT NULL,
+  `group_name` varchar(200) DEFAULT NULL,
+  `split_merge` tinyint(1) DEFAULT 0,
+  `can_mm` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_moderator_logs`
+--
+
+CREATE TABLE `ibf_moderator_logs` (
+  `id` int(10) NOT NULL,
+  `forum_id` int(5) DEFAULT 0,
+  `topic_id` int(10) NOT NULL DEFAULT 0,
+  `post_id` int(10) DEFAULT NULL,
+  `member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `member_name` varchar(32) NOT NULL DEFAULT '',
+  `ip_address` varchar(16) NOT NULL DEFAULT '0',
+  `http_referer` varchar(255) DEFAULT NULL,
+  `ctime` int(10) DEFAULT NULL,
+  `topic_title` varchar(128) DEFAULT NULL,
+  `action` varchar(128) DEFAULT NULL,
+  `query_string` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+--
+-- Table structure for table `ibf_pfields_content`
+--
+
+CREATE TABLE `ibf_pfields_content` (
+  `member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `updated` int(10) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_pfields_content`
+--
+
+INSERT INTO `ibf_pfields_content` (`member_id`, `updated`) VALUES
+(2, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_pfields_data`
+--
+
+CREATE TABLE `ibf_pfields_data` (
+  `fid` smallint(5) NOT NULL,
+  `ftitle` varchar(200) NOT NULL DEFAULT '',
+  `fdesc` varchar(250) DEFAULT '',
+  `fcontent` text DEFAULT NULL,
+  `ftype` varchar(250) DEFAULT 'text',
+  `freq` tinyint(1) DEFAULT 0,
+  `fhide` tinyint(1) DEFAULT 0,
+  `fmaxinput` smallint(6) DEFAULT 250,
+  `fedit` tinyint(1) DEFAULT 1,
+  `forder` smallint(6) DEFAULT 1,
+  `fshowreg` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_polls`
+--
+
+CREATE TABLE `ibf_polls` (
+  `pid` mediumint(8) NOT NULL,
+  `tid` int(10) NOT NULL DEFAULT 0,
+  `start_date` int(10) DEFAULT NULL,
+  `choices` text DEFAULT NULL,
+  `starter_id` mediumint(8) NOT NULL DEFAULT 0,
+  `votes` smallint(5) NOT NULL DEFAULT 0,
+  `forum_id` smallint(5) NOT NULL DEFAULT 0,
+  `poll_question` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_posts`
+--
+
+CREATE TABLE `ibf_posts` (
+  `pid` int(10) NOT NULL,
+  `append_edit` tinyint(1) DEFAULT 0,
+  `edit_time` int(10) DEFAULT NULL,
+  `author_id` mediumint(8) NOT NULL DEFAULT 0,
+  `author_name` varchar(32) DEFAULT NULL,
+  `use_sig` tinyint(1) NOT NULL DEFAULT 0,
+  `use_emo` tinyint(1) NOT NULL DEFAULT 0,
+  `ip_address` varchar(16) NOT NULL DEFAULT '',
+  `post_date` int(10) DEFAULT NULL,
+  `icon_id` smallint(3) DEFAULT NULL,
+  `post` text DEFAULT NULL,
+  `queued` tinyint(1) DEFAULT NULL,
+  `topic_id` int(10) NOT NULL DEFAULT 0,
+  `forum_id` smallint(5) NOT NULL DEFAULT 0,
+  `attach_id` int(10) NOT NULL DEFAULT 0,
+  `attach_hits` int(10) NOT NULL DEFAULT 0,
+  `attach_type` varchar(128) DEFAULT NULL,
+  `attach_file` varchar(255) DEFAULT NULL,
+  `post_title` varchar(255) DEFAULT NULL,
+  `new_topic` tinyint(1) DEFAULT 0,
+  `edit_name` varchar(255) DEFAULT NULL,
+  `has_modcomment` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_posts`
+--
+
+INSERT INTO `ibf_posts` (`pid`, `append_edit`, `edit_time`, `author_id`, `author_name`, `use_sig`, `use_emo`, `ip_address`, `post_date`, `icon_id`, `post`, `queued`, `topic_id`, `forum_id`, `attach_id`, `attach_hits`, `attach_type`, `attach_file`, `post_title`, `new_topic`, `edit_name`, `has_modcomment`) VALUES
+(10, 0, 1778172639, 1, 'MadRomas', 1, 1, '000', 1777735872, 13, '<p>This is a 20+ some whatever year old forum platform. Optomized almost fully. Work in progress so to speak(<em>something that is being developed or suggested but that is not yet complete)</em></p>\n<p>TinyMCE is by far the best choice of text editor for this project. Modern and fits just right.</p>\n<p>Create, reply submit errors right here in this forum. 😎</p>', 0, 2, 1, 0, 0, '', '', NULL, 1, 'MadRomas', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_reg_antispam`
+--
+
+CREATE TABLE `ibf_reg_antispam` (
+  `regid` varchar(32) NOT NULL DEFAULT '',
+  `regcode` varchar(8) NOT NULL DEFAULT '',
+  `ip_address` varchar(32) DEFAULT NULL,
+  `ctime` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
+-- Table structure for table `ibf_reputation`
+--
+
+CREATE TABLE `ibf_reputation` (
+  `msg_id` bigint(20) NOT NULL,
+  `msg_date` int(10) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `from_id` varchar(32) DEFAULT NULL,
+  `member_id` varchar(32) NOT NULL DEFAULT '0',
+  `forum_id` smallint(5) NOT NULL DEFAULT 0,
+  `topic_id` varchar(20) NOT NULL DEFAULT '0',
+  `post` bigint(20) NOT NULL,
+  `CODE` varchar(2) NOT NULL,
+  `vis` tinyint(1) NOT NULL DEFAULT 1,
+  `comment` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
+-- Table structure for table `ibf_reput_ranks`
+--
+
+CREATE TABLE `ibf_reput_ranks` (
+  `id` smallint(5) NOT NULL,
+  `amount` int(10) DEFAULT 0,
+  `title` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_search_results`
+--
+
+CREATE TABLE `ibf_search_results` (
+  `id` varchar(32) NOT NULL DEFAULT '',
+  `topic_id` text NOT NULL,
+  `search_date` int(12) NOT NULL DEFAULT 0,
+  `topic_max` int(3) NOT NULL DEFAULT 0,
+  `sort_key` varchar(32) NOT NULL DEFAULT 'last_post',
+  `sort_order` varchar(4) NOT NULL DEFAULT 'desc',
+  `member_id` mediumint(10) DEFAULT 0,
+  `ip_address` varchar(64) DEFAULT NULL,
+  `post_id` text DEFAULT NULL,
+  `post_max` int(10) NOT NULL DEFAULT 0,
+  `query_cache` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_sessions`
+--
+
+CREATE TABLE `ibf_sessions` (
+  `id` varchar(32) NOT NULL DEFAULT '0',
+  `member_name` varchar(64) DEFAULT NULL,
+  `member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `ip_address` varchar(16) DEFAULT NULL,
+  `browser` varchar(64) DEFAULT NULL,
+  `running_time` int(10) DEFAULT NULL,
+  `login_type` tinyint(1) DEFAULT NULL,
+  `location` varchar(40) DEFAULT NULL,
+  `member_group` smallint(3) DEFAULT NULL,
+  `in_forum` smallint(5) NOT NULL DEFAULT 0,
+  `in_topic` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_skins`
+--
+
+CREATE TABLE `ibf_skins` (
+  `uid` int(10) NOT NULL,
+  `sname` varchar(100) NOT NULL DEFAULT '',
+  `sid` int(10) NOT NULL DEFAULT 0,
+  `set_id` int(5) NOT NULL DEFAULT 0,
+  `tmpl_id` int(10) NOT NULL DEFAULT 0,
+  `macro_id` int(10) NOT NULL DEFAULT 1,
+  `css_id` int(10) NOT NULL DEFAULT 1,
+  `img_dir` varchar(200) DEFAULT '1',
+  `tbl_width` varchar(250) DEFAULT NULL,
+  `tbl_border` varchar(250) DEFAULT NULL,
+  `hidden` tinyint(1) NOT NULL DEFAULT 0,
+  `default_set` tinyint(1) NOT NULL DEFAULT 0,
+  `css_method` varchar(100) DEFAULT 'inline'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_skins`
+--
+
+INSERT INTO `ibf_skins` (`uid`, `sname`, `sid`, `set_id`, `tmpl_id`, `macro_id`, `css_id`, `img_dir`, `tbl_width`, `tbl_border`, `hidden`, `default_set`, `css_method`) VALUES
+(1, 'Invision Power Board', 0, 1, 1, 1, 1, '1', '95%', '#999999', 0, 1, 'inline');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_skin_templates`
+--
+
+CREATE TABLE `ibf_skin_templates` (
+  `suid` int(10) NOT NULL,
+  `set_id` int(10) NOT NULL DEFAULT 0,
+  `group_name` varchar(255) NOT NULL DEFAULT '',
+  `section_content` mediumtext DEFAULT NULL,
+  `func_name` varchar(255) DEFAULT NULL,
+  `func_data` text DEFAULT NULL,
+  `updated` int(10) DEFAULT NULL,
+  `can_remove` tinyint(4) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_skin_templates`
+--
+
+INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_content`, `func_name`, `func_data`, `updated`, `can_remove`) VALUES
+(1, 1, 'skin_boards', '<tr>\n           <td class=\'pformstrip\' colspan=\'2\'>{$total} {$ibforums->lang[\'whoschatting_total\']} <a href=\'$link\'>{$ibforums->lang[\'whoschatting_loadchat\']}</a></td>\n    	</tr>\n    	<tr>\n          <td width=\"5%\" class=\'row2\'><{F_ACTIVE}></td>\n          <td class=\'row4\' width=\'95%\'>\n            {$names}<div class=\'desc\' style=\'margin-top:5px\'>$txt</div>\n          </td>\n        </tr>', 'whoschatting_show', '$total, $names, $link, $txt', 1035406235, 0),
+(2, 1, 'skin_boards', '<tr>\n           <td class=\'pformstrip\' colspan=\'2\'>{$ibforums->lang[\'whoschatting_total\']} <a href=\'$link\'>{$ibforums->lang[\'whoschatting_loadchat\']}</a></td>\n    	</tr>\n    	<tr>\n          <td width=\"5%\" class=\'row2\'><{F_ACTIVE}></td>\n          <td class=\'row4\' width=\'95%\'>\n            <i>{$ibforums->lang[\'whoschatting_none\']}</i>\n          </td>\n        </tr>', 'whoschatting_empty', '$link', 1035406235, 0),
+(3, 1, 'skin_boards', '{$ibforums->base_url}act=chat', 'whoschatting_inline_link', '', 1035406235, 0),
+(4, 1, 'skin_boards', 'javascript:chat_pop({$ibforums->vars[\'chat_width\']}, {$ibforums->vars[\'chat_height\']});', 'whoschatting_popup_link', '', 1035406235, 0),
+(5, 1, 'skin_boards', ',', 'active_list_sep', '', 1035406235, 0),
+(6, 1, 'skin_boards', '<!-- Board Stats -->\n	<!--IBF.QUICK_LOG_IN-->\n    <br />\n	<div align=\'center\'>\n		<a href=\'{$ibforums->base_url}act=Stats&amp;CODE=leaders\'>{$ibforums->lang[\'sm_forum_leaders\']}</a> |\n		<a href=\'{$ibforums->base_url}act=Search&amp;CODE=getactive\'>{$ibforums->lang[\'sm_todays_posts\']}</a> |\n		<a href=\'{$ibforums->base_url}act=Stats\'>{$ibforums->lang[\'sm_today_posters\']}</a> |\n		<a href=\'{$ibforums->base_url}act=Members&amp;max_results=10&amp;sort_key=posts&amp;sort_order=desc\'>{$ibforums->lang[\'sm_all_posters\']}</a>\n	</div>\n    <br />\n	<div class=\"tableborder\">\n		<div class=\"maintitle\">{$ibforums->lang[\'board_stats\']}</div>\n		<table cellpadding=\'4\' cellspacing=\'1\' border=\'0\' width=\'100%\'>', 'stats_header', '', 1035406235, 0),
+(7, 1, 'skin_boards', '<tr>\n           <td class=\'pformstrip\' colspan=\'2\'>$active[TOTAL] {$ibforums->lang[\'active_users\']}</td>\n    	</tr>\n    	<tr>\n          <td width=\"5%\" class=\'row2\'><{F_ACTIVE}></td>\n          <td class=\'row4\' width=\'95%\'>\n            <b>{$active[GUESTS]}</b> {$ibforums->lang[\'guests\']}, <b>$active[MEMBERS]</b> {$ibforums->lang[\'public_members\']} <b>$active[ANON]</b> {$ibforums->lang[\'anon_members\']}\n            <div class=\'thin\'>{$active[NAMES]}</div>\n            {$active[\'links\']}\n          </td>\n        </tr>\n        <!--IBF.WHOSCHATTING-->', 'ActiveUsers', '$active', 1035406235, 0),
+(8, 1, 'skin_boards', '{$ibforums->lang[\'oul_show_more\']} <a href=\'{$ibforums->base_url}act=Online&amp;CODE=listall&amp;sort_key=click\'>{$ibforums->lang[\'oul_click\']}</a>, <a href=\'{$ibforums->base_url}act=Online&amp;CODE=listall&amp;sort_key=name&amp;sort_order=asc&amp;show_mem=reg\'>{$ibforums->lang[\'oul_name\']}</a>', 'active_user_links', '', 1035406235, 0),
+(9, 1, 'skin_boards', '<tr>\n		     <td class=\'pformstrip\' colspan=\'2\'>{$ibforums->lang[\'board_stats\']}</td>\n		   </tr>\n		   <tr>\n			 <td class=\'row2\' width=\'5%\' valign=\'middle\'><{F_STATS}></td>\n			 <td class=\'row4\' width=\"95%\" align=\'left\'>$text<br />{$ibforums->lang[\'most_online\']}</td>\n		   </tr>', 'ShowStats', '$text', 1035406235, 0),
+(10, 1, 'skin_boards', '<tr>\n           <td class=\'pformstrip\' colspan=\'2\'>{$ibforums->lang[\'birthday_header\']}</td>\n    	</tr>\n    	<tr>\n          <td class=\'row2\' width=\'5%\' valign=\'middle\'><{F_ACTIVE}></td>\n          <td class=\'row4\' width=\'95%\'><b>$total</b> $birth_lang<br />$birthusers</td>\n        </tr>', 'birthdays', '$birthusers=\"\", $total=\"\", $birth_lang=\"\"', 1777932474, 0),
+(11, 1, 'skin_boards', '<tr>\n           <td class=\'pformstrip\' colspan=\'2\'>{$ibforums->lang[\'calender_f_title\']}</td>\n    	</tr>\n    	<tr>\n          <td class=\'row2\' width=\'5%\' valign=\'middle\'><{F_ACTIVE}></td>\n          <td class=\'row4\' width=\'95%\'>$events</td>\n        </tr>', 'calendar_events', '$events = \"\"', 1035406235, 0),
+(12, 1, 'skin_boards', '</table>\n	 </div>\n    <!-- Board Stats -->', 'stats_footer', '', 1035406235, 0),
+(13, 1, 'skin_boards', '<br />\n   <div align=\'right\'><a href=\"{$ibforums->base_url}act=Login&amp;CODE=06\">{$ibforums->lang[\'d_delete_cookies\']}</a> &middot; <a href=\"{$ibforums->base_url}act=Login&amp;CODE=05\">{$ibforums->lang[\'d_post_read\']}</a></div>', 'bottom_links', '', 1035406235, 0),
+(14, 1, 'skin_boards', '<div class=\"tableborder\">\n	  <div class=\'maintitle\' align=\'left\'><{CAT_IMG}>&nbsp;<a href=\"{$ibforums->base_url}c={$Data[\'id\']}\">{$Data[\'name\']}</a></div>\n      <table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"4\">\n        <tr> \n          <th align=\"center\" width=\"2%\" class=\'titlemedium\'><img src=\"{$ibforums->vars[\'img_url\']}/spacer.gif\" alt=\"\" width=\"28\" height=\"1\" /></th>\n          <th align=\"left\" width=\"59%\" class=\'titlemedium\'>{$ibforums->lang[\'cat_name\']}</th>\n          <th align=\"center\" width=\"7%\" class=\'titlemedium\'>{$ibforums->lang[\'topics\']}</th>\n          <th align=\"center\" width=\"7%\" class=\'titlemedium\'>{$ibforums->lang[\'replies\']}</th>\n          <th align=\"left\" width=\"25%\" class=\'titlemedium\'>{$ibforums->lang[\'last_post_info\']}</th>\n        </tr>', 'CatHeader_Expanded', '$Data', 1035406235, 0),
+(15, 1, 'skin_boards', '<br />\n	<div class=\"tableborder\">\n	  <table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"4\">\n	  <tr> \n		<td align=\"center\" class=\'titlemedium\'><img src=\"{$ibforums->vars[\'img_url\']}/spacer.gif\" alt=\"\" width=\"28\" height=\"1\" /></td>\n		<th align=\'left\' width=\"59%\" class=\'titlemedium\'>{$ibforums->lang[\'cat_name\']}</th>\n		<th align=\"center\" width=\"7%\" class=\'titlemedium\'>{$ibforums->lang[\'topics\']}</th>\n		<th align=\"center\" width=\"7%\" class=\'titlemedium\'>{$ibforums->lang[\'replies\']}</th>\n		<th align=\'left\' width=\"27%\" class=\'titlemedium\'>{$ibforums->lang[\'last_post_info\']}</th>\n	  </tr>', 'subheader', '', 1035406235, 0),
+(16, 1, 'skin_boards', '<tr> \n          <td class=\'darkrow2\' colspan=\"5\">&nbsp;</td>\n        </tr>\n      </table>\n    </div>\n    <br />', 'end_this_cat', '', 1035406235, 0),
+(17, 1, 'skin_boards', '', 'end_all_cats', '', 1035406235, 0),
+(18, 1, 'skin_boards', '<b>{$ibforums->vars[\'board_name\']} {$ibforums->lang[\'newslink\']} <a href=\'{$ibforums->base_url}showtopic=$tid\'>$title</a></b><br />', 'newslink', '$fid=\"\", $title=\"\", $tid=\"\"', 1035406235, 0),
+(19, 1, 'skin_boards', '<div align=\'left\' style=\'text-align:left;padding-bottom:4px\'>\n		<!-- IBF.NEWSLINK -->{$ibforums->lang[\'welcome_back_text\']} $lastvisit\n	</div>', 'PageTop', '$lastvisit', 1035406235, 0),
+(20, 1, 'skin_boards', '<form style=\'display:inline\' action=\"{$ibforums->base_url}act=Login&amp;CODE=01&amp;CookieDate=1\" method=\"post\">\n<div align=\'right\'><strong>{$ibforums->lang[\'qli_title\']}</strong>\n<input type=\"text\" class=\"forminput\" size=\"10\" name=\"UserName\" onfocus=\"this.value=\'\'\" value=\"{$ibforums->lang[\'qli_name\']}\" />\n<input type=\'password\' class=\'forminput\' size=\'10\' name=\'PassWord\' onfocus=\"this.value=\'\'\" value=\'ibfrules\' />\n<input type=\'submit\' class=\'forminput\' value=\'{$ibforums->lang[\'qli_go\']}\' />\n</div>\n</form>', 'quick_log_in', '', 1035406235, 0),
+(21, 1, 'skin_boards', '<a href=\'{$ibforums->base_url}act=Login&amp;CODE=04&amp;f={$id}\' title=\'{$ibforums->lang[\'bi_markread\']}\'>{$img}</a>', 'forum_img_with_link', '$img, $id', 1035406235, 0),
+(22, 1, 'skin_boards', '<a href=\'{$ibforums->base_url}act=Login&amp;CODE=04&amp;f={$id}&amp;i=1\' title=\'{$ibforums->lang[\'bi_markallread\']}\'>{$img}</a>', 'subforum_img_with_link', '$img, $id', 1035406235, 0),
+(23, 1, 'skin_boards', '<tr> \n          <td class=\"row4\" align=\"center\">{$info[\'img_new_post\']}</td>\n          <td class=\"row4\"><b><a href=\"{$ibforums->base_url}showforum={$info[\'id\']}\">{$info[\'name\']}</a></b><br /><span class=\'desc\'>{$info[\'description\']}<br />{$info[\'moderator\']}</span></td>\n          <td class=\"row2\" align=\"center\">{$info[\'topics\']}</td>\n          <td class=\"row2\" align=\"center\">{$info[\'posts\']}</td>\n          <td class=\"row2\" nowrap=\"nowrap\">{$info[\'last_post\']}<br />{$ibforums->lang[\'in\']}:&nbsp;{$info[\'last_unread\']}{$info[\'last_topic\']}<br />{$ibforums->lang[\'by\']}: {$info[\'last_poster\']}</td>\n        </tr>', 'ForumRow', '$info', 1035406235, 0),
+(24, 1, 'skin_boards', '<!-- Forum {$info[\'id\']} entry -->\n        <tr> \n          <td class=\"row4\" align=\"center\"><{BR_REDIRECT}></td>\n          <td class=\"row4\"><b><a href=\"{$ibforums->base_url}showforum={$info[\'id\']}\" {$info[\'redirect_target\']}>{$info[\'name\']}</a></b><br /><span class=\'desc\'>{$info[\'description\']}</span></td>\n          <td class=\"row2\" align=\"center\">-</td>\n          <td class=\"row2\" align=\"center\">-</td>\n          <td class=\"row2\">{$ibforums->lang[\'rd_hits\']}: {$info[\'redirect_hits\']}</td>\n        </tr>\n    <!-- End of Forum {$info[\'id\']} entry -->', 'forum_redirect_row', '$info', 1035406235, 0),
+(25, 1, 'skin_boards', '<a href=\'{$ibforums->base_url}showtopic=$tid&amp;view=getlastpost\' title=\'{$ibforums->lang[\'tt_golast\']}\'><{LAST_POST}></a>', 'forumrow_lastunread_link', '$fid, $tid', 1035406235, 0),
+(26, 1, 'skin_buddy', '<script language=\'javascript\' type=\"text/javascript\">\n<!--\n function redirect_to(where, closewin)\n {\n 	opener.location= \'$ibforums->base_url\' + where;\n 	\n 	if (closewin == 1)\n 	{\n 		self.close();\n 	}\n }\n \n function check_form(helpform)\n {\n 	opener.name = \"ibfmain\";\n \n 	if (helpform == 1) {\n 		document.theForm2.target = \'ibfmain\';\n 	} else {\n 		document.theForm.target = \'ibfmain\';\n 	}\n 	\n 	return true;\n }\n \n function shrink()\n {\n 	window.resizeTo(\'200\',\'75\');\n }\n \n function expand()\n {\n 	window.resizeTo(\'200\',\'450\');\n }\n \n \n //-->\n </script>', 'buddy_js', '', 1035406235, 0),
+(27, 1, 'skin_buddy', '{$ibforums->lang[\'new_posts\']}\n	<br />\n	{$ibforums->lang[\'my_replies\']}', 'build_away_msg', '', 1035406235, 0),
+(28, 1, 'skin_buddy', '( <b><a href=\'javascript:redirect_to(\"$url\", 0)\'>{$ibforums->lang[\'view_link\']}</a></b> )', 'append_view', '$url=\"\"', 1035406235, 0),
+(29, 1, 'skin_buddy', '<div id=\"ucpcontent\">\n <div class=\"titlemedium\" align=\"center\">{$ibforums->lang[\'page_title\']}&nbsp;&nbsp;&nbsp;[ <a href=\'javascript:shrink()\' style=\'text-decoration:none\'>-</a>&nbsp;&nbsp;<a href=\'javascript:expand()\' style=\'text-decoration:none\'>+</a> ]</div>\n <div class=\"pformstrip\" align=\"center\">{$ibforums->lang[\'while_away\']}</div>\n <p>{$away_text}</p>\n <div class=\"pformstrip\" align=\"center\">{$ibforums->lang[\'show_me\']}</div>\n <p>\n	&middot;&nbsp;<a href=\'javascript:redirect_to(\"&amp;act=Stats&amp;CODE=leaders\",0)\'>{$ibforums->lang[\'sm_forum_leaders\']}</a>\n	<br />&middot;&nbsp;<a href=\'javascript:redirect_to(\"&amp;act=Search&amp;CODE=getactive\",0)\'>{$ibforums->lang[\'sm_todays_posts\']}</a>\n	<br />&middot;&nbsp;<a href=\'javascript:redirect_to(\"&amp;act=Stats\",0)\'>{$ibforums->lang[\'sm_today_posters\']}</a>\n	<br />&middot;&nbsp;<a href=\'javascript:redirect_to(\"&amp;act=Members&amp;max_results=10&amp;sort_key=posts&amp;sort_order=desc\",0)\'>{$ibforums->lang[\'sm_all_posters\']}</a>\n	<br />&middot;&nbsp;<a href=\'javascript:redirect_to(\"&amp;act=Search&amp;CODE=lastten\",0)\'>{$ibforums->lang[\'sm_my_last_posts\']}</a>\n </p>\n <div class=\"pformstrip\" align=\"center\">{$ibforums->lang[\'search_forums\']}</div>\n <div align=\"center\">\n <p>\n <form action=\"{$ibforums->base_url}act=Search&amp;CODE=01&amp;forums=all&amp;cat_forum=forum&amp;joinname=1&amp;search_in=posts&amp;result_type=topics\" method=\"post\" name=\'theForm\' onsubmit=\'return check_form();\'>\n  <input type=\'text\' size=\'17\' name=\'keywords\' class=\'forminput\' />&nbsp;<input type=\'submit\' value=\'{$ibforums->lang[\'go\']}\' />\n </form>\n </p>\n </div>\n \n <div class=\"pformstrip\" align=\"center\">{$ibforums->lang[\'search_help\']}</div>\n <div align=\"center\">\n <p>\n <form action=\"{$ibforums->base_url}act=Help&amp;CODE=02\" method=\"post\" name=\'theForm2\' onsubmit=\'return check_form(1);\'>\n  <input type=\'text\' size=\'17\' name=\'search_q\' class=\'forminput\' />&nbsp;<input type=\'submit\' value=\'{$ibforums->lang[\'go\']}\' />\n </form>\n </p>\n </div>\n</div>\n<div align=\"center\"><!--CLOSE.LINK--></div>', 'main', '$away_text=\"\"', 1035406235, 0),
+(30, 1, 'skin_buddy', '<form action=\"{$ibforums->base_url}act=Login&amp;CODE=01&amp;CookieDate=1&amp;buddy=1\" method=\"post\" name=\'theForm\' onSubmit=\'return check_form();\'>\n<div class=\'tableborder\'>\n <div class=\'maintitle\'>{$ibforums->lang[\'page_title\']}</div>\n <div class=\'pformstrip\'>{$ibforums->lang[\'log_in_needed\']}</div>\n <div class=\'tablepad\'>\n  {$ibforums->lang[\'no_guests\']}\n  <br /><br />\n  <center>\n  <b>{$ibforums->lang[\'log_in\']}</b>\n  <br /><br />\n  {$ibforums->lang[\'lin_name\']}<br /><input type=\'text\' name=\'UserName\' class=\'forminput\'>\n  <br />\n  {$ibforums->lang[\'lin_pass\']}<br /><input type=\'password\' name=\'PassWord\' class=\'forminput\'>\n  <br />\n  <input type=\'submit\' value=\'{$ibforums->lang[\'log_in\']}\' class=\'forminput\'>\n  </center>\n  <br /><br />\n  {$ibforums->lang[\'reg_text\']}\n  <br /><br />\n  <center><a href=\'javascript:redirect_to(\"&amp;act=Reg\", 1);\'>{$ibforums->lang[\'reg_link\']}</a></center>\n </div>\n</div>\n<!--CLOSE.LINK-->\n</form>', 'login', '', 1035406235, 0),
+(31, 1, 'skin_buddy', '<div align=\"center\">\n [ <a href=\"javascript:window.location=window.location;\">{$ibforums->lang[\'refresh\']}</a> ] | [ <a href=\'javascript:self.close();\'>{$ibforums->lang[\'close_win\']}</a> ]\n</div>', 'closelink', '', 1035406235, 0),
+(32, 1, 'skin_calendar', '<script language=\'Javascript\' type=\'text/javascript\'>\n	<!--\n	function PopUp(url, name, width,height,center,resize,scroll,posleft,postop) {\n		if (posleft != 0) { x = posleft }\n		if (postop  != 0) { y = postop  }\n	\n		if (!scroll) { scroll = 1 }\n		if (!resize) { resize = 1 }\n	\n		if ((parseInt (navigator.appVersion) >= 4 ) && (center)) {\n		  X = (screen.width  - width ) / 2;\n		  Y = (screen.height - height) / 2;\n		}\n		if (scroll != 0) { scroll = 1 }\n	\n		var Win = window.open( url, name, \'width=\'+width+\',height=\'+height+\',top=\'+Y+\',left=\'+X+\',resizable=\'+resize+\',scrollbars=\'+scroll+\',location=no,directories=no,status=no,menubar=no,toolbar=no\');\n	 }\n	function changeDiv(id, method)\n	{\n		var itm = null;\n		if (document.getElementById) {\n			itm = document.getElementById(id);\n		} else if (document.all)     {\n			itm = document.all[id];\n		} else if (document.layers)   {\n			itm = document.layers[id];\n		}\n		\n		if (itm.style)\n		{\n			if ( method == \'show\' )\n			{\n				itm.style.display = \"\";\n			}\n			else\n			{\n				itm.style.display = \"none\";\n			}\n		}\n		else\n		{\n			itm.visibility = \"show\";\n		}\n	}\n	\n	function selecttype()\n	{\n		\n		if ( document.REPLIER.eventtype[1].checked == true )\n		{\n			// Ranged date...\n			\n			changeDiv( \'rangeshow\', \'show\' );\n			changeDiv( \'rangehide\', \'none\' );\n			changeDiv( \'recurshow\', \'none\' );\n			changeDiv( \'recurhide\', \'show\' );\n		}\n		else if ( document.REPLIER.eventtype[2].checked == true )\n		{\n			// Repeating event\n			\n			changeDiv( \'rangeshow\', \'none\' );\n			changeDiv( \'rangehide\', \'show\' );\n			changeDiv( \'recurshow\', \'show\' );\n			changeDiv( \'recurhide\', \'none\' );\n		}\n		else\n		{\n			changeDiv( \'rangeshow\', \'none\' );\n			changeDiv( \'rangehide\', \'show\' );\n			changeDiv( \'recurshow\', \'none\' );\n			changeDiv( \'recurhide\', \'show\' );\n		}\n	}\n	\n	function changeColour(BOXid, val)\n	{\n		document.all.BOXid.style.backgroundColor = val;\n	}\n	//-->\n</script>\n<table class=\'tableborder\' cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n<tr>\n <td class=\'maintitle\' colspan=\"2\">&nbsp;&nbsp;$data</td>\n</tr>', 'table_top', '$data', 1035406235, 0),
+(33, 1, 'skin_calendar', '<tr>\n  <td class=\'pformstrip\' align=\'center\' style=\'text-align:center\' colspan=\"2\"><input type=\"submit\" name=\"submit\" value=\"$data\" tabindex=\'4\' class=\'forminput\'></td>\n</tr>\n</table>\n</form>\n<br />\n<br clear=\"all\" />', 'calendar_end_form', '$data', 1035406235, 0),
+(34, 1, 'skin_calendar', '<form action=\'{$ibforums->base_url}act=calendar&amp;code=addnewevent\' method=\'post\' name=\'REPLIER\' onSubmit=\'return ValidateForm()\'>', 'calendar_start_form', '', 1035406235, 0),
+(35, 1, 'skin_calendar', '<form action=\'{$ibforums->base_url}act=calendar&amp;code=doedit&amp;eventid=$eventid\' method=\'post\' name=\'REPLIER\' onsubmit=\'return ValidateForm()\'>', 'calendar_start_edit_form', '$eventid', 1035406235, 0),
+(36, 1, 'skin_calendar', '<tr> \n          <td class=\"pformleft\"><strong>{$ibforums->lang[\'calendar_title\']}</strong></td>\n          <td class=\"pformright\"><input type=\'text\' size=\'40\' maxlength=\'40\' name=\'event_title\' class=\'forminput\' value=\'$data\' /></td>\n        </tr>', 'calendar_event_title', '$data=\"\"', 1035406235, 0),
+(37, 1, 'skin_calendar', '<tr> \n          <td class=\"row1\" width=\"100%\" colspan=\'2\' style=\'height:40px;border:1px solid black\'><input type=\'checkbox\' name=\'event_delete\' value=\'1\'>&nbsp;{$ibforums->lang[\'calendar_delete_box\']}</td>\n        </tr>', 'calendar_delete_box', '', 1035406235, 0),
+(38, 1, 'skin_calendar', '<tr> \n          <td class=\"pformleft\" valign=\'top\'><strong>{$ibforums->lang[\'calendar_event_date\']}</strong></td>\n          <td class=\"pformright\">\n          	<table cellpadding=\'3\'>\n          	<tr>\n          	 <td><input type=\'radio\' name=\'eventtype\' id=\'single\' onclick=\'selecttype();\' class=\'radiobutton\' value=\'single\' {$checked[\'normal\']}><strong><label for=\'single\'>{$ibforums->lang[\'fv_single\']}</label></strong></td>\n          	 <td><select name=\'e_day\' class=\'forminput\'>$days</select>&nbsp;&nbsp;<select name=\'e_month\' class=\'forminput\'>$months</select>&nbsp;&nbsp;<select name=\'e_year\' class=\'forminput\'>$years</select></td>\n          	</tr>\n          	<tr>\n          	 <td><input type=\'radio\' name=\'eventtype\' id=\'range\' onclick=\'selecttype();\' class=\'radiobutton\' value=\'range\'{$checked[\'range\']}><strong><label for=\'range\'>{$ibforums->lang[\'fv_range\']}</label></strong></td>\n          	 <td>\n          	    <div id=\'rangeshow\' style=\'display:{$div[\'range_on\']}\'>\n          	      <table cellpadding=\'3\'>\n          	       <tr>\n          	        <td><strong>{$ibforums->lang[\'fv_range_ends\']}</strong></td>\n          	        <td><select name=\'end_day\' class=\'forminput\'>$end_days</select>&nbsp;&nbsp;<select name=\'end_month\' class=\'forminput\'>$end_months</select>&nbsp;&nbsp;<select name=\'end_year\' class=\'forminput\'>$end_years</select></td>\n          	       </tr>\n          	       <tr>\n          	       	<td><strong>{$ibforums->lang[\'fv_bgcolor\']}</strong></td>\n          	       	<td>{$cols[\'bg\']} <input type=\'text\' name=\'style\' size=\'5\' readonly=\'readonly\' id=\'stylebg\' style=\'border:2px inset black;\' /></td>\n          	       </tr>\n          	       <tr>\n          	       	<td><strong>{$ibforums->lang[\'fv_font\']}</strong></td>\n          	       	<td>{$cols[\'ft\']} <input type=\'text\' name=\'style2\' size=\'5\' readonly=\'readonly\' id=\'styleft\' style=\'border:2px inset black;\' /></td>\n          	       </tr>\n          	      </table>\n          	    </div>\n          	    <div id=\'rangehide\' style=\'display:{$div[\'range_off\']}\'>{$ibforums->lang[\'fv_hidden\']}</div>\n          	 </td>\n          	</tr>\n          	<tr>\n          	 <td><input type=\'radio\' name=\'eventtype\' id=\'recur\'  onclick=\'selecttype();\' class=\'radiobutton\' value=\'recur\' {$checked[\'recur\']}><strong><label for=\'recur\'>{$ibforums->lang[\'fv_recur\']}</label></strong></td>\n          	 <td>\n          	     <div id=\'recurshow\' style=\'display:{$div[\'recur_on\']}\'>\n          	     	<strong>{$ibforums->lang[\'fv_recur_every\']}</strong> <select name=\'recur_unit\' class=\'forminput\'>$recur_unit</select>\n          	     	<strong>{$ibforums->lang[\'fv_until\']}</strong> <select name=\'recend_day\' class=\'forminput\'>{$recend[\'d\']}</select><select name=\'recend_month\' class=\'forminput\'>{$recend[\'m\']}</select>&nbsp;&nbsp;<select name=\'recend_year\' class=\'forminput\'>{$recend[\'y\']}</select>\n          	     </div>\n          	     <div id=\'recurhide\' style=\'display:{$div[\'recur_off\']}\'>{$ibforums->lang[\'fv_hidden\']}</div>\n          	 </td>\n			</tr>\n			</table>\n          </td>\n        </tr>', 'calendar_choose_date', '$days, $months, $years, $end_days, $end_months, $end_years, $recur_days, $recur_unit, $div, $checked, $cols, $recend', 1035406235, 0),
+(39, 1, 'skin_calendar', '<tr> \n          <td class=\"pformleft\"><strong>{$ibforums->lang[\'calendar_event_type\']}</strong></td>\n          <td class=\"pformright\"><select name=\'e_type\' class=\'forminput\'><option value=\'public\'$pub_select>{$ibforums->lang[\'calendar_type_public\']}</option><option value=\'private\'$priv_select>{$ibforums->lang[\'calendar_type_private\']}</option></select></td>\n        </tr>', 'calendar_event_type', '$pub_select=\"\", $priv_select=\"\"', 1035406235, 0),
+(40, 1, 'skin_calendar', '<tr> \n          <td class=\"pformleft\">{$ibforums->lang[\'calendar_group_filter\']}</td>\n          <td class=\"pformright\"><select name=\'e_groups[]\' class=\'forminput\' size=\'5\' multiple>$groups</select></td>\n        </tr>', 'calendar_admin_group_box', '$groups', 1035406235, 0),
+(41, 1, 'skin_calendar', '<div align=\'right\'><a href=\'javascript:deleteEvent($id)\'><{P_DELETE}></a>&nbsp;<a href=\'{$ibforums->base_url}act=calendar&amp;code=edit&amp;eventid=$id\'><{P_EDIT}></a></div>', 'cal_edit_del_button', '$id', 1035406235, 0),
+(42, 1, 'skin_calendar', '<div class=\'pformstrip\'>{$event[\'title\']} ($event_type)</div>\n  <table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"3\">\n  <tr>\n   <td class=\'row4\' width=\'1%\' valign=\'middle\' nowrap=\'nowrap\'><span class=\'normalname\'><a href=\'{$ibforums->base_url}showuser={$member[\'id\']}\'>{$member[\'name\']}</a></span></td>\n   <td class=\'row4\' width=\'99%\'><div align=\'left\' style=\'float:left;width:auto;padding-top:4px;padding-bottom:4px;\'><strong>{$ibforums->lang[\'event_date\']} {$event[\'mday\']} {$event[\'month_text\']} {$event[\'year\']}</strong> $date_ends ($type)</div>$edit_button</td>\n  </tr>\n  <tr>\n   <td valign=\'top\' class=\'row1\' nowrap=\'nowrap\'>{$member[\'avatar\']}<span class=\'postdetails\'><br />{$ibforums->lang[\'group\']} {$member[\'g_title\']}<br />{$ibforums->lang[\'posts\']} {$member[\'posts\']}<br />{$ibforums->lang[\'joined\']} {$member[\'joined\']}</span></td>\n   <td valign=\'top\' class=\'row1\'><span class=\'postcolor\'>{$event[\'event_text\']}</span></td>\n  </tr>\n  </table>', 'cal_show_event', '$event, $member, $event_type, $edit_button=\"\", $type, $date_ends=\"\"', 1035406235, 0),
+(43, 1, 'skin_calendar', '<script type=\'text/javascript\'>\n	function deleteEvent(id) {\n		if (confirm(\'{$ibforums->lang[\'js_del_1\']}\')) {\n			 window.location.href = \"{$ibforums->base_url}act=calendar&code=delete&e=\" + id;\n		 }\n		 else {\n			alert (\'{$ibforums->lang[\'js_del_2\']}\');\n		} \n	}\n</script>\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'cal_title_events\']}</div>', 'cal_page_events_start', '', 1035406235, 0),
+(44, 1, 'skin_calendar', '<div align=\'center\' class=\'pformstrip\'>&lt;&lt; <a href=\'{$ibforums->base_url}act=calendar&amp;d={$ibforums->input[\'d\']}&amp;m={$ibforums->input[\'m\']}&amp;y={$ibforums->input[\'y\']}\'>{$ibforums->lang[\'back\']}</a></div>\n</div>', 'cal_page_events_end', '', 1035406235, 0),
+(45, 1, 'skin_calendar', '<div class=\'pformstrip\'>{$ibforums->lang[\'cal_birthdays\']}</div>\n  <div class=\'tablepad\'>\n   <ul>', 'cal_birthday_start', '', 1035406235, 0),
+(46, 1, 'skin_calendar', '<li><a href=\'{$ibforums->base_url}showuser=$uid\'>$uname</a> ($age)</li>', 'cal_birthday_entry', '$uid, $uname, $age=\"\"', 1035406235, 0),
+(47, 1, 'skin_calendar', '</ul>\n  </div>', 'cal_birthday_end', '', 1035406235, 0),
+(48, 1, 'skin_calendar', '<form action=\'{$ibforums->base_url}act=calendar\' method=\'post\'>\n<div align=\'left\' id=\'calendarname\'><a href=\'{$ibforums->base_url}act=calendar&amp;code=newevent\' title=\'{$ibforums->lang[\'post_new_event\']}\'><{CAL_NEWEVENT}></a> <span style=\'position:relative;top:3px\'>$month $year</span></div>\n<br />\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'>\n    <div align=\'center\'>\n      &lt; <a href=\'{$ibforums->base_url}act=calendar&amp;m={$prev[\'month_id\']}&amp;y={$prev[\'year_id\']}\'>{$prev[\'month_name\']} {$prev[\'year_id\']}</a>\n      &middot; {$ibforums->lang[\'table_title\']} &middot;\n	   <a href=\'{$ibforums->base_url}act=calendar&amp;m={$next[\'month_id\']}&amp;y={$next[\'year_id\']}\'>{$next[\'month_name\']} {$next[\'year_id\']}</a> &gt;\n	</div>\n  </div>\n  <table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"0\">\n   <tr>\n	 <!--IBF.DAYS_TITLE_ROW-->\n   \n	 <!--IBF.DAYS_CONTENT-->\n	</tr>\n  </table>\n</div>\n<br />\n<div class=\'tableborder\'>\n  <div class=\'pformstrip\'>\n     <div align=\'left\' style=\'float:left;width:40%\'><a href=\'{$ibforums->base_url}act=calendar&amp;code=newevent\'>{$ibforums->lang[\'post_new_event\']}</a></div>\n  	 <div align=\'right\'><strong>{$ibforums->lang[\'month_jump\']}</strong>&nbsp;<select name=\'m\' class=\'forminput\'><!--IBF.MONTH_BOX--></select>&nbsp;<select name=\'y\' class=\'forminput\'><!--IBF.YEAR_BOX--></select>&nbsp;&nbsp;<input type=\'submit\' value=\'{$ibforums->lang[\'form_submit_show\']}\' class=\'forminput\' /></div>\n  </div>\n</div>\n</form>', 'cal_main_content', '$month, $year, $prev, $next', 1035406235, 0),
+(49, 1, 'skin_calendar', '<td width=\'14%\' class=\'pformstrip\'>$day</td>', 'cal_day_bit', '$day', 1035406235, 0),
+(50, 1, 'skin_calendar', '</tr>\n	<!-- NEW ROW-->\n	<tr>', 'cal_new_row', '', 1035406235, 0),
+(51, 1, 'skin_calendar', '<td style=\'height:100px\' class=\'darkrow1\'><br /></td>', 'cal_blank_cell', '', 1035406235, 0),
+(52, 1, 'skin_calendar', '<td style=\'height:100px\' valign=\'top\' class=\'row3\'>\n	<div class=\'caldate\'>$month_day</div>$events\n	</td>', 'cal_date_cell', '$month_day, $events=\"\"', 1035406235, 0),
+(53, 1, 'skin_calendar', '<td style=\'height:100px;border:2px;border-style:outset\' valign=\'top\' class=\'row1\'>\n	<div class=\'caldate\'>$month_day</div>\n	$events\n	</td>', 'cal_date_cell_today', '$month_day, $events=\"\"', 1035406235, 0),
+(54, 1, 'skin_calendar', '<div style=\'padding:2px\'>', 'cal_events_start', '', 1035406235, 0),
+(55, 1, 'skin_calendar', '&middot;<strong><a href=\'{$ibforums->base_url}act=calendar&amp;$link\'>$text</a></strong><br />', 'cal_events_wrap', '$link, $text', 1035406235, 0),
+(56, 1, 'skin_calendar', '<div style=\'background-color:$bg;color:$ft;padding:3px;border-top:3px outset $bg;border-bottom:3px outset $bg;\'><a href=\'{$ibforums->base_url}act=calendar&amp;$link\' style=\'color:$ft\'>$text</a></div>', 'cal_events_wrap_range', '$link, $text, $ft=\"\", $bg=\"\"', 1035406235, 0),
+(57, 1, 'skin_calendar', '&middot; <a href=\'{$ibforums->base_url}act=calendar&amp;$link\' title=\'{$ibforums->lang[\'tbt_recur\']}\'>$text</a><br />', 'cal_events_wrap_recurring', '$link, $text', 1035406235, 0),
+(58, 1, 'skin_calendar', '</div>', 'cal_events_end', '', 1035406235, 0),
+(59, 1, 'skin_csite', '&nbsp;&middot; <a href=\"$url\">$title</a>', 'rules_link', '$url=\"\", $title=\"\"', 1035406235, 0),
+(60, 1, 'skin_csite', '&nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_chat.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=chat\'>{$ibforums->lang[\'live_chat\']}</a>', 'show_chat_link_inline', '', 1035406235, 0),
+(61, 1, 'skin_csite', '&nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_chat.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\"javascript:chat_pop();\">{$ibforums->lang[\'live_chat\']}</a>', 'show_chat_link_popup', '', 1035406235, 0),
+(62, 1, 'skin_csite', '<script type=\"text/javascript\">\n<!--\nfunction buddy_pop() { window.open(\'{$ibforums->js_base_url}act=buddy\',\'BrowserBuddy\',\'width=200,height=500,resizable=yes,scrollbars=yes\'); }\nfunction chat_pop()  { window.open(\'{$ibforums->js_base_url}act=chat&pop=1\',\'Chat\',\'width={$ibforums->vars[\'chat_width\']},height={$ibforums->vars[\'chat_height\']},resizable=yes,scrollbars=yes\'); }\n//-->\n</script>', 'csite_javascript', '', 1035406235, 0),
+(63, 1, 'skin_csite', '<style type=\'text/css\'>\n{$css}\n</style>', 'csite_css_inline', '$css=\"\"', 1035406235, 0),
+(64, 1, 'skin_csite', ',', 'csite_sep_char', '', 1035406235, 0),
+(65, 1, 'skin_csite', '<style type=\'text/css\' media=\"all\">\n@import url({$ibforums->vars[\'board_url\']}/css.php?d={$css}_{$img}.css);\n</style>', 'csite_css_external', '$css, $img', 1035406235, 0),
+(66, 1, 'skin_csite', '&middot; <a href=\'$link\' style=\'text-decoration:none\'>$name</a><br />', 'tmpl_links_wrap', '$link=\"\", $name=\"\"', 1035406235, 0),
+(67, 1, 'skin_csite', '<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> {$ibforums->lang[\'wbox_welcome\']}, $name</div>\n <div class=\'tablepad\'>\n  <span class=\'desc\'>$last_visit</span>\n  <br />&middot; <a href=\"{$ibforums->base_url}act=Search&amp;CODE=getnew\" style=\'text-decoration:none\'>{$ibforums->lang[\'wbox_getnewposts\']}</a>\n  <br />&middot; <a href=\"{$ibforums->base_url}act=UserCP\" style=\'text-decoration:none\'>{$ibforums->lang[\'wbox_mycontrols\']}</a>\n  <br />&middot; <a href=\"javascript:buddy_pop();\" style=\'text-decoration:none\'>{$ibforums->lang[\'wbox_myassistant\']}</a>\n  <br />&middot; <a href=\"{$ibforums->base_url}act=Login&amp;CODE=03&amp;return=$return\" style=\'text-decoration:none\'>{$ibforums->lang[\'wbox_logout\']}</a>\n </div>\n</div>\n<br />\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> <a href=\'{$ibforums->base_url}&act=Msg\'>{$ibforums->lang[\'pm_title\']}</a></div>\n <div class=\'tablepad\'><span class=\'desc\'>$pm_string</span></div>\n</div>', 'tmpl_welcomebox_member', '$pm_string=\"\",$last_visit=\"\", $name=\"\", $return=\"\"', 1035406235, 0),
+(68, 1, 'skin_csite', '<form action=\"{$ibforums->base_url}act=Login&amp;CODE=01&amp;CookieDate=1&amp;return=$return\" method=\"post\">\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> {$ibforums->lang[\'wbox_welcome\']}, {$ibforums->lang[\'wbox_guest_name\']}</div>\n <div class=\'tablepad\'>\n 	<span class=\'desc\'>$top_string</span>\n 	<br /><br />&middot; <strong><a href=\"{$ibforums->base_url}act=Search&amp;CODE=getactive\" style=\'text-decoration:none\'>{$ibforums->lang[\'wbox_getnewposts\']}</a></strong>\n 	<br /><br /><span class=\'desc\'>{$ibforums->lang[\'wbox_g_username\']}</span>\n 	<br /><input type=\'text\' class=\'textinput\' size=\'15\' name=\'UserName\' />\n 	<br /><span class=\'desc\'>{$ibforums->lang[\'wbox_g_password\']}</span>\n 	<br /><input type=\'password\' class=\'textinput\' size=\'15\' name=\'PassWord\' />\n 	<br /><input type=\'submit\' class=\'textinput\' value=\'{$ibforums->lang[\'wbox_g_login\']}\' />\n </div>\n</div>\n</form>', 'tmpl_welcomebox_guest', '$top_string, $return', 1035406235, 0),
+(69, 1, 'skin_csite', '<br />\n<form action=\'{$ibforums->base_url}act=Search&amp;CODE=01&amp;forums=all\' method=\'post\' name=\'search\'>\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> {$ibforums->lang[\'search_title\']}</div>\n <div class=\'tablepad\' align=\'center\'>\n  <input type=\'text\' name=\'keywords\' value=\'\' size=\'10\' class=\'textinput\' /><input type=\'submit\' value=\'{$ibforums->lang[\'search_go\']}\' />\n  <br /><a href=\'{$ibforums->base_url}act=Search&amp;mode=adv\'>{$ibforums->lang[\'search_advanced\']}</a>\n </div>\n</div>\n</form>', 'tmpl_search', '', 1035406235, 0),
+(70, 1, 'skin_csite', '<br />\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> {$ibforums->lang[\'links_title\']}</div>\n <div class=\'tablepad\'>\n  $links\n </div>\n</div>', 'tmpl_sitenav', '$links', 1035406235, 0),
+(71, 1, 'skin_csite', '<br />\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> {$ibforums->lang[\'aff_title\']}</div>\n <div class=\'tablepad\'>\n  $links\n </div>\n</div>', 'tmpl_affiliates', '$links', 1035406235, 0),
+(72, 1, 'skin_csite', '<br />\n<form action=\"{$ibforums->vars[\'dynamiclite\']}&amp;s={$ibforums->session_id}&amp;setskin=1\" method=\"post\">\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> {$ibforums->lang[\'cskin_title\']}</div>\n <div class=\'tablepad\' align=\"center\">\n  <span class=\'desc\'>{$ibforums->lang[\'cskin_text\']}</span>\n  <br />\n  $select\n  <br />\n  <input type=\'submit\' value=\'{$ibforums->lang[\'cskin_go\']}\' />\n </div>\n</div>\n</form>', 'tmpl_changeskin', '$select', 1035406235, 0),
+(73, 1, 'skin_csite', '<br />\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> <a href=\"{$ibforums->base_url}act=Online\">{$ibforums->lang[\'online_title\']}</a></div>\n <div class=\'tablepad\'>\n  <span class=\'desc\'>$breakdown<br />$split<br />$names</span>\n </div>\n</div>', 'tmpl_onlineusers', '$breakdown, $split, $names', 1035406235, 0),
+(74, 1, 'skin_csite', '<br />\n<form action=\"{$ibforums->base_url}act=Poll&amp;t=$tid\" method=\"post\">\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> <a href=\"{$ibforums->base_url}showtopic=$tid\">{$ibforums->lang[\'poll_title\']}</a></div>\n <div class=\'pformstrip\'>$question</div>\n <div class=\'tablepad\'>', 'tmpl_poll_header', '$question,$tid', 1035406235, 0),
+(75, 1, 'skin_csite', '$choice\n  <br /><img src=\'{$ibforums->vars[\'img_url\']}/bar_left.gif\' border=\'0\' width=\'4\' height=\'11\' align=\'middle\' alt=\'\' /><img src=\'{$ibforums->vars[\'img_url\']}/bar.gif\' border=\'0\' width=\'$width\' height=\'11\' align=\'middle\' alt=\'\' /><img src=\'{$ibforums->vars[\'img_url\']}/bar_right.gif\' border=\'0\' width=\'4\' height=\'11\' align=\'middle\' alt=\'\' />\n  <br />', 'tmpl_poll_result_row', '$votes, $id, $choice, $percent, $width', 1035406235, 0),
+(76, 1, 'skin_csite', '<input type=\'radio\' name=\'poll_vote\' value=\'$id\' class=\'radiobutton\' />&nbsp;<strong>$choice</strong>\n  <br />', 'tmpl_poll_choice_row', '$id, $choice', 1035406235, 0),
+(77, 1, 'skin_csite', '<span class=\'desc\'>\n   &middot; <strong>$total</strong>\n   <br />&middot; $vote\n   <br />&middot; <a href=\"{$ibforums->base_url}showtopic=$tid\">{$ibforums->lang[\'poll_discuss\']}</a>\n  </span>\n  </div>\n</div>\n</form>', 'tmpl_poll_footer', '$vote, $total, $tid', 1035406235, 0),
+(78, 1, 'skin_csite', '<input type=\'submit\' value=\'{$ibforums->lang[\'poll_vote\']}\' class=\'codebuttons\' />', 'tmpl_poll_vote', '', 1035406235, 0),
+(79, 1, 'skin_csite', '<br />\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> {$ibforums->lang[\'discuss_title\']}</div>\n $posts\n</div>', 'tmpl_latestposts', '$posts', 1035406235, 0),
+(80, 1, 'skin_csite', '<div class=\'row2\' style=\'padding:3px\'><strong><a href=\'{$ibforums->base_url}showtopic=$tid\' style=\'text-decoration:none;font-size:10px\'>$title</a></strong></div>\n<div class=\'desc\' style=\'padding:3px\'>\n <a href=\'{$ibforums->base_url}showuser=$mid\' style=\'text-decoration:none\'>$mname</a> &#064; $date\n <br />{$ibforums->lang[\'recent_read\']}: $views &nbsp; {$ibforums->lang[\'recent_comments\']}: $posts\n</div>', 'tmpl_topic_row', '$tid, $title, $posts, $views, $mid, $mname, $date', 1035406235, 0),
+(81, 1, 'skin_csite', '<br />\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}> {$ibforums->lang[\'recent_title\']}</div>\n $articles\n</div>', 'tmpl_recentarticles', '$articles', 1035406235, 0),
+(82, 1, 'skin_csite', '<a href=\"{$ibforums->base_url}showtopic=$tid&amp;view=getlastpost\">{$ibforums->lang[\'article_comment\']}</a>', 'tmpl_comment_link', '$tid', 1035406235, 0),
+(83, 1, 'skin_csite', '...<a href=\"{$ibforums->base_url}showtopic=$tid\">{$ibforums->lang[\'article_readmore\']}</a>', 'tmpl_readmore_link', '$tid', 1035406235, 0),
+(84, 1, 'skin_csite', '$articles', 'tmpl_articles', '$articles', 1035406235, 0),
+(85, 1, 'skin_csite', '<select name=\"skinid\" class=\"forminput\" onchange=\"window.location=\'{$ibforums->vars[\'dynamiclite\']}&s={$ibforums->session_id}&setskin=1&skinid=\' + this.value\">', 'tmpl_skin_select_top', '', 1035406235, 0),
+(86, 1, 'skin_csite', '<option value=\"$sid\" $used>$name</option>', 'tmpl_skin_select_row', '$sid, $name, $used', 1035406235, 0),
+(87, 1, 'skin_csite', '</select>', 'tmpl_skin_select_bottom', '', 1035406235, 0),
+(88, 1, 'skin_csite', '<table cellspacing=\"0\" width=\"100%\" class=\'tableborder\'>\n<tr>\n <td class=\'maintitle\' colspan=\"2\"><img src=\"{$ibforums->vars[\'img_url\']}/cs_page.gif\" alt=\"\" border=\"0\" />&nbsp;<a href=\"{$ibforums->base_url}showtopic={$entry[\'tid\']}\">{$entry[\'title\']}</a></td>\n</tr>\n<tr>\n <td class=\'row2\' colspan=\"2\" style=\'padding:5px\'>$top_string</td>\n</tr>\n<tr>\n <td class=\"post1\" width=\"5%\" valign=\"top\" style=\"padding:5px\">{$entry[\'avatar\']}</td>\n <td class=\"post1\" width=\"95%\" valign=\"top\" style=\"padding:5px\">{$entry[\'post\']} $read_more</td>\n</tr>\n<tr>\n <td class=\'row2\' colspan=\"2\" style=\'padding:5px\' align=\'right\'>\n   $bottom_string\n   &nbsp;&nbsp;<a href=\"{$ibforums->base_url}act=Print&amp;client=printer&amp;f={$entry[\'forum_id\']}&amp;t={$entry[\'tid\']}\"><img src=\"{$ibforums->vars[\'img_url\']}/cs_print.gif\" alt=\"Print\" border=\"0\" /></a>\n   <a href=\"{$ibforums->base_url}act=Forward&amp;f={$entry[\'forum_id\']}&amp;t={$entry[\'tid\']}\"><img src=\"{$ibforums->vars[\'img_url\']}/cs_email.gif\" alt=\"email\" border=\"0\" /></a>\n </td>\n</tr>\n</table>\n<br />', 'tmpl_articles_row', '$entry, $bottom_string, $read_more, $top_string', 1035406235, 0),
+(89, 1, 'skin_csite', '$avatar', 'tmpl_wrap_avatar', '$avatar', 1035406235, 0),
+(90, 1, 'skin_csite', '<div class=\'desc\'>[ DB Queries: $queries ] [ Execution Time: $time ]</div>', 'tmpl_debug', '$queries, $time', 1035406235, 0),
+(91, 1, 'skin_csite', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n        \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n<head>\n	<meta http-equiv=\"content-type\" content=\"text/html; charset=windows-1251\" />\n	<meta name=\"generator\" content=\"IPDynamic Lite\">\n	<meta http-equiv=\"Pragma\" content=\"no-cache\">\n	<meta http-equiv=\"no-cache\">\n	<meta http-equiv=\"Cache-Control\" content=\"no-cache\">\n	<title><!--CS.TEMPLATE.TITLE--></title>\n	<!--CS.TEMPLATE.JAVASCRIPT-->\n	<!--CS.TEMPLATE.CSS-->\n</head>\n<body>\n<div id=\'ipbwrapper\'>\n<!--Header-->\n<div id=\'logostrip\'>\n  <a href=\'{$ibforums->base_url}\' title=\'Board Home\'><img src=\'{$ibforums->vars[\'img_url\']}/logo4.gif\' alt=\'Powered by Invision Power Board\' border=\"0\" /></a>\n</div>\n<table width=\"100%\" cellspacing=\"6\" id=\"submenu\">\n<tr>\n <td><a href=\'{$ibforums->vars[\'home_url\']}\'>{$ibforums->vars[\'home_name\']}</a><!--IBF.RULES--></td>\n <td align=\"right\">\n   <img src=\"{$ibforums->vars[\'img_url\']}/atb_help.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=Help\'>{$ibforums->lang[\'tb_help\']}</a>\n   &nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_search.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=Search&amp;f={$ibforums->input[\'f\']}\'>{$ibforums->lang[\'tb_search\']}</a>\n   &nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_members.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=Members\'>{$ibforums->lang[\'tb_mlist\']}</a>\n   &nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_calendar.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=calendar\'>{$ibforums->lang[\'tb_calendar\']}</a>\n   <!--IBF.CHATLINK-->\n </td>\n</tr>\n</table>\n<!--CS.TEMPLATE.LINKS-->\n<!--End Header-->\n<!--Main Content-->\n<table width=\"100%\" class=\'tableborder\' cellspacing=\"0\" cellpadding=\"6\">\n<tr>\n <td width=\"200\" class=\'row3\' valign=\"top\">\n   <!-- LEFT -->\n    <!--CS.TEMPLATE.WELCOMEBOX-->\n    <!--CS.TEMPLATE.SEARCH-->\n    <!--CS.TEMPLATE.SITENAV-->\n    <!--CS.TEMPLATE.CHANGESKIN-->\n    <!--CS.TEMPLATE.ONLINEUSERS-->\n    <!--CS.TEMPLATE.POLL-->\n    <!--CS.TEMPLATE.LATESTPOSTS-->\n    <!--CS.TEMPLATE.RECENTARTICLES-->\n    <!--CS.TEMPLATE.AFFILIATES-->\n   <!--END LEFT-->\n   <br /><img src=\'{$ibforums->vars[\'img_url\']}/spacer.gif\' alt=\'\' width=\'200\' height=\'1\' />\n </td>\n <!--SPACER-->\n <td width=\"5\" class=\'row3\'>&nbsp;</td>\n <td width=\"90%\" class=\'row3\' valign=\"top\">\n   <!--MAIN-->\n    \n    <!--CS.TEMPLATE.ARTICLES-->\n   \n   <!--END MAIN-->\n </td>\n</tr>\n<!--End Main Content-->\n<tr>\n <td colspan=\'3\'  class=\'row3\' align=\'center\'>\n <!--CS.TEMPLATE.COPYRIGHT-->\n <!--CS.TEMPLATE.DEBUG-->\n </td>\n</tr>\n</table>\n<div class=\'titlemedium\'>&nbsp;</div>\n</div>\n</body>\n</html>', 'csite_skeleton_template', '', 1035406235, 0),
+(92, 1, 'skin_emails', '<div class=\"tableborder\">\n <div class=\"pformstrip\">$title</div>\n <div class=\"tablepad\">$body</div>\n</div>', 'board_rules', '$title=\"\", $body=\"\"', 1035406235, 0),
+(93, 1, 'skin_emails', '<div class=\"tableborder\">\n  <div class=\"pformstrip\">{$ibforums->lang[\'errors_found\']}</div>\n  <div class=\"tablepad\"><span class=\'postcolor\'>$data</span></div>\n</div>\n<br />', 'errors', '$data', 1035406235, 0),
+(94, 1, 'skin_emails', '<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'chat_title\']}</div>\n <div class=\'tablepad\' align=\'center\'>\n  <applet\n	 codebase=\"http://client.invisionchat.com/current/\"\n	 code=\"Client.class\" archive=\"scclient_$lang.zip\"\n	 width=$w height=$h\n	 style=\'border: 1px solid #000\'>\n	 <param name=\"room\" value=\"$acc_no\">\n	 <param name=\"cabbase\" value=\"scclient_$lang.cab\">\n	 <param name=\"username\" value=\"$user\">\n	 <param name=\"password\" value=\"$pass\">\n	 <param name=\"autologin\" value=\"yes\">\n  </applet>\n </div>\n</div>\n<br />\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'chat_help\']}</div>\n <div class=\'tablepad\'>\n   {$ibforums->lang[\'chat_help_text\']}\n </div>\n</div>', 'chat_inline', '$acc_no, $lang, $w, $h, $user=\"\",$pass=\"\"', 1035406235, 0),
+(95, 1, 'skin_emails', '<div align=\'center\'>\n <applet\n	codebase=\"http://client.invisionchat.com/current/\"\n	code=\"Client.class\" archive=\"scclient_$lang.zip\"\n	width=$w height=$h\n	style=\'border: 1px solid <{tbl_border}>\'>\n	<param name=\"room\" value=\"$acc_no\">\n	<param name=\"cabbase\" value=\"scclient_$lang.cab\">\n	<param name=\"username\" value=\"$user\">\n	<param name=\"password\" value=\"$pass\">\n	<param name=\"autologin\" value=\"yes\">\n </applet>\n</div>', 'chat_pop', '$acc_no, $lang, $w, $h, $user=\"\",$pass=\"\"', 1035406235, 0),
+(96, 1, 'skin_emails', '<form action=\"{$ibforums->base_url}act=report&amp;send=1&amp;f=$fid&amp;t=$tid&amp;p=$pid&amp;st=$st\" method=\"post\" name=\'REPLIER\'>\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'report_title\']}</div>\n  <div class=\'pformstrip\'>&nbsp;</div>\n  <table cellpadding=\'4\' cellspacing=\'1\' border=\'0\' width=\'100%\'>\n   <tr>\n   <td class=\'row1\' align=\'left\'  width=\'30%\' valign=\'top\'><b>{$ibforums->lang[\'report_topic\']}</b></td>\n   <td class=\'row1\' width=\'80%\'><a href=\'{$ibforums->base_url}showtopic=$tid&amp;st=$st&amp;&#35;entry$pid\'>$topic_title</a>\n   </td>\n   </tr>\n   <tr>\n   <td class=\'row1\' align=\'left\'  width=\'30%\' valign=\'top\'>{$ibforums->lang[\'report_message\']}</td>\n   <td class=\'row1\' width=\'80%\'><textarea cols=\'60\' rows=\'12\' wrap=\'soft\' name=\'message\' class=\'textinput\'></textarea>\n   </td>\n   </tr>\n  </table>\n  <div align=\'center\' class=\'pformstrip\'><input type=\"submit\" value=\"{$ibforums->lang[\'report_submit\']}\" class=\'forminput\' /></div>\n </div>\n</form>', 'report_form', '$fid, $tid, $pid, $st, $topic_title', 1035406235, 0),
+(97, 1, 'skin_emails', '<object classid=\'clsid:F3A614DC-ABE0-11d2-A441-00C04F795683\' codebase=\'#Version=2,0,0,83\' codetype=\'application/x-oleobject\' id=\'MsgrObj\' name=\'MsgrApp\' width=\'0\' height=\'0\'></object>\n			  <object classid=\'clsid:FB7199AB-79BF-11d2-8D94-0000F875C541\' codetype=\'application/x-oleobject\' id=\'MsgrApp\' name=\'MsgrApp\' width=\'0\' height=\'0\'></object>\n              <tr>\n                <td class=\'row2\' align=\'left\'><b>{$ibforums->lang[\'msn_name\']}</b></td>\n                <td class=\'row2\' align=\'left\'><input type=\'text\' name=\'msnname\' value=\'$msnname\' size=\'40\' class=\'forminput\' onMouseOver=\"this.focus()\" onFocus=\"this.select()\"></td>\n              </tr>\n              <tr>\n                <td class=\'row2\' align=\'center\' colspan=\'2\'><a href=\"javascript:MsgrApp.LaunchIMUI(\'$msnname\');\">{$ibforums->lang[\'msn_send_msg\']}</a></td>\n              </tr>\n              <tr>\n                <td class=\'row2\' align=\'center\' colspan=\'2\'><a href=\"javascript:MsgrApp.LaunchAddContactUI(\'$msnname\');\">{$ibforums->lang[\'msn_add_contact\']}</a></td>\n              </tr>', 'msn_body', '$msnname', 1035406235, 0),
+(98, 1, 'skin_emails', '<tr>\n                <td class=\'row2\' align=\'left\'><b>{$ibforums->lang[\'yahoo_name\']}</b></td>\n                <td class=\'row2\' align=\'left\'><input type=\'text\' name=\'msnname\' value=\'$yahoo\' size=\'40\' class=\'forminput\' onMouseOver=\"this.focus()\" onFocus=\"this.select()\"></td>\n              </tr>\n               <tr>\n                <td class=\'row2\' align=\'left\'><b>{$ibforums->lang[\'yahoo_status\']}</b></td>\n                <td class=\'row2\' align=\'left\'><img border=0 src=\"http://opi.yahoo.com/online?u=$yahoo&amp;m=g&amp;t=2\"></td>\n              </tr>\n              <tr>\n                <td class=\'row2\' align=\'center\' colspan=\'2\'><a href=\"http://edit.yahoo.com/config/send_webmesg?.target=$yahoo&amp;.src=pg\">{$ibforums->lang[\'yahoo_send_msg\']}</a></td>\n              </tr>\n              <tr>\n                <td class=\'row2\' align=\'center\' colspan=\'2\'><a href=\"http://members.yahoo.com/interests?.oc=t&amp;.kw=$yahoo&amp;.sb=1\">{$ibforums->lang[\'yahoo_view_profile\']}</a></td>\n              </tr>', 'yahoo_body', '$yahoo', 1035406235, 0),
+(99, 1, 'skin_emails', '<form action=\"http://msg.mirabilis.com/scripts/WWPMsg.dll\" METHOD=\"POST\" name=\"frmPager\">\n			      <INPUT TYPE=\"hidden\" NAME=\"subject\" VALUE=\"From WebPager Panel\">\n              <input type=\"hidden\" name=\"to\" value=\"{$data[UIN]}\">\n              <tr>\n                <td class=\'row2\' align=\'left\'><b>{$ibforums->lang[\'name\']}</b></td>\n                <td class=\'row2\' align=\'left\'><input type=\'text\' name=\'from\' value=\'{$ibforums->member[\'name\']}\' size=\'40\' class=\'forminput\' onMouseOver=\"this.focus()\" onFocus=\"this.select()\"></td>\n              </tr>\n              <tr>\n                <td class=\'row2\' align=\'left\'><b>{$ibforums->lang[\'email\']}</b></td>\n                <td class=\'row2\' align=\'left\'><input type=\'text\' name=\'fromemail\' value=\'{$ibforums->member[\'email\']}\' size=\'40\' class=\'forminput\' onMouseOver=\"this.focus()\" onFocus=\"this.select()\"></td>\n              </tr>\n              <tr>\n                <td class=\'row2\' align=\'left\' valign=\'top\'><b>{$ibforums->lang[\'msg\']}</b></td>\n                <td class=\'row2\' align=\'left\'><textarea wrap=\'virtual\' cols=\'50\' rows=\'12\' wrap=\'soft\' name=\'body\' class=\'textinput\' onMouseOver=\"this.focus()\" onFocus=\"this.select()\"></textarea></td>\n              </tr>\n              <tr>\n                <td class=\'row2\' align=\'center\' colspan=\'2\'><input type=\'submit\' value=\'{$ibforums->lang[\'submit\']}\' class=\'forminput\'></td>\n              </tr>\n              </form>', 'icq_body', '$data', 1035406235, 0),
+(100, 1, 'skin_emails', '<!-- End content Table -->\n            </table>\n            </td>\n            </tr>\n            <tr>\n            <td class=\'darkrow1\' colspan=\'2\'>&nbsp;</td>\n            </tr>\n            </table>', 'end_table', '', 1035406235, 0),
+(101, 1, 'skin_emails', '<table cellpadding=\'0\' cellspacing=\'0\' border=\'0\' width=\'100%\' bgcolor=\'<{tbl_border}>\' align=\'center\'>\n        <tr>\n            <td>\n              <table cellpadding=\'4\' cellspacing=\'0\' border=\'0\' width=\'100%\'>\n                <tr>\n                   <td colspan=\'2\' align=\'center\' class=\'titlemedium\'>{$data[TITLE]}</td>', 'pager_header', '$data', 1035406235, 0);
+INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_content`, `func_name`, `func_data`, `updated`, `can_remove`) VALUES
+(102, 1, 'skin_emails', '<!-- Begin AIM Remote -->\n<table width=\'140\' align=\'center\'>\n<tr align=\'right\'><td><a href=\"http://www.aol.co.uk/aim/index.html\"><img src=\"http://www.aol.co.uk/aim/remote/gr/aimver_man.gif\" width=44 height=55 border=0 alt=\"Download AIM\"></a><img src=\"http://www.aol.co.uk/aim/remote/gr/aimver_topsm.gif\" width=73 height=55 border=0 alt=\"AIM Remote\"><br /><a href=\"aim:goim?screenname={$data[\'AOLNAME\']}&amp;message=Hi.+Are+you+there?\"><img src=\"http://www.aol.co.uk/aim/remote/gr/aimver_im.gif\" width=117 height=39 border=0 alt=\"Send me an Instant Message\"></a><br /><a href=\"aim:addbuddy?screenname={$data[\'AOLNAME\']}\"><img src=\"http://www.aol.co.uk/aim/remote/gr/aimver_bud.gif\" width=117 height=39 border=0 alt=\"Add me to Your Buddy List\"></a><br /><a href=\"http://www.aol.co.uk/aim/remote.html\"><img src=\"http://www.aol.co.uk/aim/remote/gr/aimver_botadd.gif\" width=117 height=23 border=0 alt=\"Add Remote to Your Page\"></a><br /><a href=\"http://www.aol.co.uk/aim/index.html\"><img src=\"http://www.aol.co.uk/aim/remote/gr/aimver_botdow.gif\" width=117 height=29 border=0 alt=\"Download AOL Instant Messenger\"></a><br /><br /></td></tr></table>\n<!-- End AIM Remote -->', 'aol_body', '$data', 1035406235, 0),
+(103, 1, 'skin_emails', '<form action=\"{$ibforums->base_url}\" method=\"post\" name=\'REPLIER\'>\n<input type=\'hidden\' name=\'act\'  value=\'Forward\'>\n<input type=\'hidden\' name=\'CODE\' value=\'01\'>\n<input type=\'hidden\' name=\'s\'    value=\'{$ibforums->session_id}\'>\n<input type=\'hidden\' name=\'st\'   value=\'{$ibforums->input[\'st\']}\'>\n<input type=\'hidden\' name=\'f\'    value=\'{$ibforums->input[\'f\']}\'>\n<input type=\'hidden\' name=\'t\'    value=\'{$ibforums->input[\'t\']}\'>\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'title\']}</div>\n <table cellpadding=\'4\' cellspacing=\'0\' border=\'0\' width=\'100%\'>\n   <tr>\n   <td class=\'row1\' align=\'left\'  width=\'30%\' valign=\'top\'><b>{$ibforums->lang[\'send_lang\']}</b></td>\n   <td class=\'row1\' width=\'80%\'>$lang</td>\n   </tr>\n   <tr>\n   <td class=\'row1\' align=\'left\'  width=\'30%\' valign=\'top\'><b>{$ibforums->lang[\'to_name\']}</b></td>\n   <td class=\'row1\' width=\'80%\'><input type=\'text\' class=\'forminput\' name=\'to_name\' value=\'\' size=\'30\' maxlength=\'100\'></td>\n   </tr>\n   <tr>\n   <td class=\'row1\' align=\'left\'  width=\'30%\' valign=\'top\'><b>{$ibforums->lang[\'to_email\']}</b></td>\n   <td class=\'row1\' width=\'80%\'><input type=\'text\' class=\'forminput\' name=\'to_email\' value=\'\' size=\'30\' maxlength=\'100\'></td>\n   </tr>\n   <tr>\n   <td class=\'row1\' align=\'left\'  width=\'30%\' valign=\'top\'><b>{$ibforums->lang[\'subject\']}</b></td>\n   <td class=\'row1\' width=\'80%\'><input type=\'text\' class=\'forminput\' name=\'subject\' value=\'{$title}\' size=\'30\' maxlength=\'120\'></td>\n   </tr>\n   <tr>\n   <td class=\'row1\' align=\'left\'  width=\'30%\' valign=\'top\'><b>{$ibforums->lang[\'message\']}</b></td>\n   <td class=\'row1\' width=\'80%\'><textarea cols=\'60\' rows=\'12\' wrap=\'soft\' name=\'message\' class=\'textinput\'>{$text}</textarea>\n   </td>\n   </tr>\n  </table>\n  <div align=\'center\' class=\'pformstrip\'><input type=\"submit\" value=\"{$ibforums->lang[\'submit_send\']}\" class=\'forminput\' /></div>\n</div>\n</form>', 'forward_form', '$title, $text, $lang', 1035406235, 0),
+(104, 1, 'skin_emails', '<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'send_email_to\']} {$data[NAME]}</div>\n  <div class=\'tablepad\'>{$ibforums->lang[\'show_address_text\']}\n  <br />\n  &gt;&gt;<b><a href=\"mailto:{$data[ADDRESS]}\" class=\'misc\'>{$ibforums->lang[\'send_email_to\']} {$data[NAME]}</a></b>\n </div>\n</div>', 'show_address', '$data', 1035406235, 0),
+(105, 1, 'skin_emails', '<form action=\"{$ibforums->base_url}\" method=\"post\" name=\'REPLIER\'>\n<input type=\'hidden\' name=\'act\' value=\'Mail\'>\n<input type=\'hidden\' name=\'CODE\' value=\'01\'>\n<input type=\'hidden\' name=\'to\' value=\'{$data[\'TO\']}\'>\n<div><strong>{$ibforums->lang[\'imp_text\']}</strong></div>\n<br />\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'send_title\']}</div>\n  <div class=\'pformstrip\'>{$ibforums->lang[\'send_email_to\']} {$data[\'NAME\']}</div>\n  <table width=\'100%\' cellspacing=\'1\'>\n	<tr>\n	  <td class=\'pformleftw\' valign=\'top\'><b>{$ibforums->lang[\'subject\']}</b></td>\n	  <td class=\'pformright\'><input type=\'text\' name=\'subject\' value=\'{$data[\'subject\']}\' size=\'50\' maxlength=\'50\' class=\'forminput\' /></td>\n	</tr>\n	<tr>\n	  <td class=\'pformleftw\' valign=\'top\'><b>{$ibforums->lang[\'message\']}</b><br /><br />{$ibforums->lang[\'msg_txt\']}</td>\n	  <td class=\'pformright\'><textarea cols=\'60\' rows=\'12\' wrap=\'soft\' name=\'message\' class=\'textinput\'>{$data[\'content\']}</textarea></td>\n	</tr>\n   </table>\n   <div class=\'pformstrip\' align=\'center\'><input type=\"submit\" value=\"{$ibforums->lang[\'submit_send\']}\" class=\'forminput\' /></div>\n</div>\n</form>', 'send_form', '$data', 1035406235, 0),
+(106, 1, 'skin_emails', '<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'email_sent\']}</div>\n  <div class=\'tablepad\'>{$ibforums->lang[\'email_sent_txt\']} $member_name</div>\n</div>', 'sent_screen', '$member_name', 1035406235, 0),
+(107, 1, 'skin_emails', '<table cellpadding=\'0\' cellspacing=\'1\' border=\'0\' width=\'<{tbl_width}>\' align=\'center\'>\n        <tr>\n            <td align=\'right\'>$data</td>\n        </tr>\n       </table>', 'forum_jump', '$data', 1035406235, 0),
+(108, 1, 'skin_forum', '<a href=\"javascript:multi_page_jump( $total, $pp, \'$qe\' )\" title=\"{$ibforums->lang[\'tpl_jump\']}\">{$ibforums->lang[\'multi_page_forum\']}</a>', 'show_page_jump', '$total, $pp, $qe', 1035406235, 0),
+(109, 1, 'skin_forum', '<form action=\'{$ibforums->base_url};act=SF&amp;f=$data\' method=\'post\'>\n<input type=\'hidden\' name=\'act\' value=\'SF\'>\n<input type=\'hidden\' name=\'f\' value=\'$data\'>\n<input type=\'hidden\' name=\'L\' value=\'1\'>\n<input type=\'hidden\' name=\'s\' value=\'{$ibforums->session_id}\'>\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'need_password\']}</div>\n  <div class=\'tablepad\'>{$ibforums->lang[\'need_password_txt\']}</div>\n  <div class=\'tablepad\' style=\'text-align:center\'>\n    <strong>{$ibforums->lang[\'enter_pass\']}</strong>\n    <br />\n    <input type=\'password\' size=\'20\' name=\'f_password\' />\n  </div>\n  <div class=\'pformstrip\' align=\'center\'><input type=\'submit\' value=\'{$ibforums->lang[\'f_pass_submit\']}\' class=\'forminput\' /></div>\n</div>\n</form>', 'Forum_log_in', '$data', 1035406235, 0),
+(110, 1, 'skin_forum', '&#0124; <a href=\'{$ibforums->base_url}act=Track&amp;f=$fid&amp;type=forum\'>{$ibforums->lang[\'ft_title\']}</a>', 'show_sub_link', '$fid', 1035406235, 0),
+(111, 1, 'skin_forum', '<br />\n<strong>{$ibforums->lang[\'post_modq\']} <a href=\'{$ibforums->base_url}act=modcp\'>{$ibforums->lang[\'post_click\']}</a></strong>', 'show_mod_link', '$fid', 1035406235, 0),
+(112, 1, 'skin_forum', '<script language=\'javascript\' type=\"text/javascript\">\n<!--\n	function who_posted(tid)\n	{\n		window.open(\"{$ibforums->js_base_url}act=Stats&CODE=who&t=\"+tid, \"WhoPosted\", \"toolbar=no,scrollbars=yes,resizable=yes,width=230,height=300\");\n	}\n//-->\n</script>\n<!--IBF.SUBFORUMS-->\n<!--IBF.MODLINK-->\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n<tr>\n <td align=\'left\' width=\"20%\" nowrap=\"nowrap\">{$data[\'SHOW_PAGES\']}</td>\n <td align=\'right\' width=\"80%\"><a href=\'{$ibforums->base_url}act=Post&amp;CODE=00&amp;f={$data[\'id\']}\'><{A_POST}></a>{$data[POLL_BUTTON]}</td>\n</tr>\n</table>\n<br />\n	<form action=\'{$ibforums->base_url}act=SF&amp;f={$data[\'id\']}&amp;st={$ibforums->input[\'st\']}\' method=\'post\'>\n      <div class=\"tableborder\">\n        <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$data[\'name\']}</div>\n		<table width=\'100%\' border=\'0\' cellspacing=\'1\' cellpadding=\'4\'>\n		  <tr> \n			<td align=\'center\' class=\'titlemedium\'><img src=\'{$ibforums->vars[\'img_url\']}/spacer.gif\' alt=\'\' width=\'20\' height=\'1\' /></td>\n			<td align=\'center\' class=\'titlemedium\'><img src=\'{$ibforums->vars[\'img_url\']}/spacer.gif\' alt=\'\' width=\'20\' height=\'1\' /></td>\n			<th width=\'45%\' align=\'left\' nowrap=\"nowrap\" class=\'titlemedium\'>{$ibforums->lang[\'h_topic_title\']}</th>\n			<th width=\'14%\' align=\'center\' nowrap=\"nowrap\" class=\'titlemedium\'>{$ibforums->lang[\'h_topic_starter\']}</th>\n			<th width=\'7%\' align=\'center\' nowrap=\"nowrap\" class=\'titlemedium\'>{$ibforums->lang[\'h_replies\']}</th>\n			<th width=\'7%\' align=\'center\' nowrap=\"nowrap\" class=\'titlemedium\'>{$ibforums->lang[\'h_hits\']}</th>\n			<th width=\'27%\' align=\'left\' nowrap=\"nowrap\" class=\'titlemedium\'>{$ibforums->lang[\'h_last_action\']}</th>\n		  </tr>\n        <!-- Forum page unique top -->', 'PageTop', '$data', 1035406235, 0),
+(113, 1, 'skin_forum', '</table>\n    \n      <!--IBF.FORUM_ACTIVE-->\n      \n      <div align=\'center\' class=\'darkrow2\' style=\'padding:4px\'>{$ibforums->lang[\'showing_text\']}{$ibforums->lang[\'sort_text\']}&nbsp;<input type=\'submit\' value=\'{$ibforums->lang[\'sort_submit\']}\' class=\'forminput\' /></div>\n	</div>\n</form>\n<br />\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n<tr>\n <td align=\'left\' width=\"20%\" nowrap=\"nowrap\">{$data[\'SHOW_PAGES\']}</td>\n <td align=\'right\' width=\"80%\"><a href=\'{$ibforums->base_url}act=Post&amp;CODE=00&amp;f={$data[\'id\']}\'><{A_POST}></a>{$data[POLL_BUTTON]}</td>\n</tr>\n</table>\n<br />\n<div align=\'left\' class=\"wrapmini\">\n	<{B_NEW}>&nbsp;&nbsp;{$ibforums->lang[\'pm_open_new\']}\n	<br /><{B_NORM}>&nbsp;&nbsp;{$ibforums->lang[\'pm_open_no\']}\n	<br /><{B_HOT}>&nbsp;&nbsp;{$ibforums->lang[\'pm_hot_new\']}\n	<br /><{B_HOT_NN}>&nbsp;&nbsp;{$ibforums->lang[\'pm_hot_no\']}\n</div>\n<div align=\'left\' class=\"wrapmini\">\n	<{B_POLL}>&nbsp;&nbsp;{$ibforums->lang[\'pm_poll\']}\n	<br /><{B_POLL_NN}>&nbsp;&nbsp;{$ibforums->lang[\'pm_poll_no\']}\n	<br /><{B_LOCKED}>&nbsp;&nbsp;{$ibforums->lang[\'pm_locked\']}\n	<br /><{B_MOVED}>&nbsp;&nbsp;{$ibforums->lang[\'pm_moved\']}\n</div>\n<div align=\'right\'>\n    <form action=\'{$ibforums->base_url}\' method=\'post\' name=\'search\'>\n	<input type=\'hidden\' name=\'forums\' value=\'{$data[\'id\']}\' />\n	<input type=\'hidden\' name=\'cat_forum\' value=\'forum\' />\n	<input type=\'hidden\' name=\'act\' value=\'Search\' />\n	<input type=\'hidden\' name=\'joinname\' value=\'1\' />\n	<input type=\'hidden\' name=\'CODE\' value=\'01\' />\n	{$ibforums->lang[\'search_forum\']}&nbsp;\n	<input type=\'text\' size=\'30\' name=\'keywords\' class=\'forminput\' value=\'{$ibforums->lang[\'enter_keywords\']}\' onfocus=\'this.value = \"\";\' /><input type=\'submit\' value=\'{$ibforums->lang[\'search_go\']}\' class=\'forminput\' />\n   </form>\n   <br />\n   <br />\n   {$data[FORUM_JUMP]}\n</div>\n<br />\n<br />\n<div align=\'center\'><a href=\'{$ibforums->base_url}act=Login&amp;CODE=04&amp;f={$data[\'id\']}\'>{$ibforums->lang[\'mark_as_read\']}</a> <!--IBF.SUB_FORUM_LINK--></div>\n<br clear=\"all\" />', 'TableEnd', '$data', 1035406235, 0),
+(114, 1, 'skin_forum', '<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$rules[\'title\']}</div>\n  <div class=\'tablepad\'>{$rules[\'body\']}</div>\n  <div class=\'pformstrip\' align=\'center\'>&gt;&gt;<a href=\'{$ibforums->base_url}act=SF&amp;f={$rules[\'fid\']}\'>{$ibforums->lang[\'back_to_forum\']}</a></div>\n</div>', 'show_rules', '$rules', 1035406235, 0),
+(115, 1, 'skin_forum', '<div><span class=\'pagetitle\'>$title</span>$pages</div>', 'page_title', '$title=\"\", $pages=\"\"', 1035406235, 0),
+(116, 1, 'skin_forum', '<div class=\'darkrow2\' style=\'padding:6px\'>{$ibforums->lang[\'active_users_title\']} ({$ibforums->lang[\'active_users_detail\']})</div>\n	  <div class=\'row2\' style=\'padding:6px\'>{$ibforums->lang[\'active_users_members\']} {$active[\'names\']}</div>', 'forum_active_users', '$active=array()', 1035406235, 0),
+(117, 1, 'skin_forum', '<tr> \n					<td class=\'row4\' colspan=\'7\' align=\'center\'>\n						<br />\n                         <b>{$ibforums->lang[\'no_topics\']}</b>\n						<br /><br />\n					</td>\n        </tr>', 'show_no_matches', '', 1035406235, 0),
+(118, 1, 'skin_forum', '<a href=\'javascript:who_posted($tid);\'>$posts</a>', 'who_link', '$tid, $posts', 1035406235, 0),
+(119, 1, 'skin_forum', '<!-- Begin Topic Entry {$data[\'tid\']} -->\n    <tr> \n	  <td align=\'center\' class=\'row4\'>{$data[\'folder_img\']}</td>\n      <td align=\'center\' class=\'row2\'>{$data[\'topic_icon\']}</td>\n      <td class=\'row4\'>\n        {$data[\'go_new_post\']}{$data[\'prefix\']} <a href=\"{$ibforums->base_url}showtopic={$data[\'tid\']}\" title=\"{$ibforums->lang[\'topic_started_on\']} {$data[\'start_date\']}\">{$data[\'title\']}</a>  {$data[PAGES]}\n        <br /><span class=\'desc\'>{$data[\'description\']}</span></td>\n      <td align=\'center\' class=\'row2\'>{$data[\'starter\']}</td>\n      <td align=\'center\' class=\'row4\'>{$data[\'posts\']}</td>\n      <td align=\'center\' class=\'row2\'>{$data[\'views\']}</td>\n      <td class=\'row2\'><span class=\'desc\'>{$data[\'last_post\']}<br /><a href=\'{$ibforums->base_url}showtopic={$data[\'tid\']}&amp;view=getlastpost\'>{$data[\'last_text\']}</a> <b>{$data[\'last_poster\']}</b></span></td>\n    </tr>\n    <!-- End Topic Entry {$data[\'tid\']} -->', 'RenderRow', '$data', 1035406235, 0),
+(120, 1, 'skin_forum', '<!-- START PINNED -->\n    <tr>\n      <td align=\'center\' class=\'darkrow1\'>&nbsp;</td>\n      <td align=\'center\' class=\'darkrow1\'>&nbsp;</td>\n	  <td align=\'left\' class=\'darkrow1\' colspan=\'5\' style=\'padding:6px\'><b>{$ibforums->lang[\'pinned_start\']}</b></td>\n    </tr>', 'render_pinned_start', '', 1035406235, 0),
+(121, 1, 'skin_forum', '<!-- END PINNED -->\n    <tr>\n      <td align=\'center\' class=\'darkrow1\'>&nbsp;</td>\n      <td align=\'center\' class=\'darkrow1\'>&nbsp;</td>\n	  <td align=\'left\' class=\'darkrow1\' colspan=\'5\' style=\'padding:6px\'><b>{$ibforums->lang[\'regular_topics\']}</b></td>\n    </tr>', 'render_pinned_end', '', 1035406235, 0),
+(122, 1, 'skin_forum', '<!-- Begin Pinned Topic Entry {$data[\'tid\']} -->\n    <tr> \n	  <td align=\'center\' class=\'row4\'>{$data[\'folder_img\']}</td>\n      <td align=\'center\' class=\'row2\'>{$data[\'topic_icon\']}</td>\n      <td class=\'row4\'>\n       {$data[\'go_new_post\']}<b>{$data[\'prefix\']} <a href=\'{$ibforums->base_url}showtopic={$data[\'tid\']}\' class=\'linkthru\' title=\'{$ibforums->lang[\'topic_started_on\']} {$data[\'start_date\']}\'>{$data[\'title\']}</a></b>  {$data[PAGES]}\n        <br /><span class=\'desc\'>{$data[\'description\']}</span></td>\n      <td align=\'center\' class=\'row4\'>{$data[\'starter\']}</td>\n      <td align=\'center\' class=\'row4\'>{$data[\'posts\']}</td>\n      <td align=\'center\' class=\'row4\'>{$data[\'views\']}</td>\n      <td class=\'row4\'><span class=\'desc\'>{$data[\'last_post\']}<br /><a href=\'{$ibforums->base_url}showtopic={$data[\'tid\']}&amp;view=getlastpost\'>{$data[\'last_text\']}</a> <b>{$data[\'last_poster\']}</b></span></td>\n    </tr>\n    <!-- End Pinned Topic Entry {$data[\'tid\']} -->', 'render_pinned_row', '$data', 1035406235, 0),
+(123, 1, 'skin_global', '<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> \n<html xml:lang=\"en\" lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\"> \n <head> \n  <meta http-equiv=\"content-type\" content=\"text/html; charset=windows-1251\" /> \n  <title>$title</title>\n  $css\n </head>\n <script language=\'JavaScript\' type=\"text/javascript\">\n <!--\n function buddy_pop() { window.open(\'index.{$ibforums->vars[\'php_ext\']}?act=buddy&s={$ibforums->session_id}\',\'BrowserBuddy\',\'width=250,height=500,resizable=yes,scrollbars=yes\'); }\n function chat_pop(cw,ch)  { window.open(\'index.{$ibforums->vars[\'php_ext\']}?s={$ibforums->session_id}&act=chat&pop=1\',\'Chat\',\'width=\'+cw+\',height=\'+ch+\',resizable=yes,scrollbars=yes\'); }\n function multi_page_jump( url_bit, total_posts, per_page )\n {\n pages = 1; cur_st = parseInt(\"{$ibforums->input[\'st\']}\"); cur_page  = 1;\n if ( total_posts % per_page == 0 ) { pages = total_posts / per_page; }\n  else { pages = Math.ceil( total_posts / per_page ); }\n msg = \"{$ibforums->lang[\'tpl_q1\']}\" + \" \" + pages;\n if ( cur_st > 0 ) { cur_page = cur_st / per_page; cur_page = cur_page -1; }\n show_page = 1;\n if ( cur_page < pages )  { show_page = cur_page + 1; }\n if ( cur_page >= pages ) { show_page = cur_page - 1; }\n  else { show_page = cur_page + 1; }\n userPage = prompt( msg, show_page );\n if ( userPage > 0  ) {\n	 if ( userPage < 1 )     {    userPage = 1;  }\n	 if ( userPage > pages ) { userPage = pages; }\n	 if ( userPage == 1 )    {     start = 0;    }\n	 else { start = (userPage - 1) * per_page; }\n	 window.location = url_bit + \"&st=\" + start;\n }\n }\n //-->\n </script>\n <body>\n <div style=\'text-align:left\'>\n $text\n </div>\n </body>\n</html>', 'pop_up_window', '$title, $css, $text', 1035406235, 0),
+(124, 1, 'skin_global', '<a title=\"{$ibforums->lang[\'tpl_jump\']}\" href=\"javascript:multi_page_jump(\'$ub\',$tp,$pp);\">{$ibforums->lang[\'tpl_pages\']}</a>', 'make_page_jump', '$tp=\"\", $pp=\"\", $ub=\"\"', 1035406235, 0),
+(125, 1, 'skin_global', '<br /><br />--------------------<br />\n<div class=\'signature\'>$sig</div>', 'signature_separator', '$sig=\"\"', 1035406235, 0),
+(126, 1, 'skin_global', '<!-- Show FAQ/Forum Rules -->\n    <div align=\'left\'><{F_RULES}>&nbsp;<b>{$rules[\'title\']}</b><br /><br />{$rules[\'body\']}</div>\n	<br />\n   <!-- End FAQ/Forum Rules -->', 'forum_show_rules_full', '$rules', 1035406235, 0),
+(127, 1, 'skin_global', '<!-- Show FAQ/Forum Rules -->\n	\n    <div align=\'left\'><{F_RULES}>&nbsp;<b><a href=\'{$ibforums->base_url}act=SR&amp;f={$rules[\'fid\']}\'>{$rules[\'title\']}</a></b></div>\n	\n    <!-- End FAQ/Forum Rules -->', 'forum_show_rules_link', '$rules', 1035406235, 0),
+(128, 1, 'skin_global', '<style type=\'text/css\'>\n{$css}\n</style>', 'css_inline', '$css=\"\"', 1035406235, 0),
+(129, 1, 'skin_global', '<style type=\'text/css\' media=\"all\">\n@import url(css.php?d={$css}_{$img}.css);\n</style>', 'css_external', '$css, $img', 1035406235, 0),
+(130, 1, 'skin_global', '<table width=\"100%\" id=\"userlinks\" cellspacing=\"6\">\n   <tr>\n    <td><strong>{$ibforums->lang[\'logged_in_as\']} <a href=\'{$ibforums->base_url}showuser={$ibforums->member[\'id\']}\'>{$ibforums->member[\'name\']}</a></strong> ( <a href=\'{$ibforums->base_url}act=Login&amp;CODE=03\'>{$ibforums->lang[\'log_out\']}</a>$ad_link $mod_link $val_link )</td>\n    <td align=\'right\'>\n      <b><a href=\'{$ibforums->base_url}act=UserCP&amp;CODE=00\' title=\'{$ibforums->lang[\'cp_tool_tip\']}\'>{$ibforums->lang[\'your_cp\']}</a></b> &middot; <a href=\'{$ibforums->base_url}act=Msg&amp;CODE=01\'>{$msg[TEXT]}</a>\n      &middot; <a href=\'{$ibforums->base_url}act=Search&amp;CODE=getnew\'>{$ibforums->lang[\'view_new_posts\']}</a> &middot; <a href=\'javascript:buddy_pop();\' title=\'{$ibforums->lang[\'bb_tool_tip\']}\'>{$ibforums->lang[\'l_qb\']}</a></td>\n   </tr>\n  </table>', 'Member_bar', '$msg, $ad_link, $mod_link, $val_link', 1035406235, 0),
+(131, 1, 'skin_global', '<table width=\"100%\" id=\"userlinks\" cellspacing=\"6\">\n   <tr>\n    <td>{$ibforums->lang[\'guest_stuff\']} ( <a href=\'{$ibforums->base_url}act=Login&amp;CODE=00\'>{$ibforums->lang[\'log_in\']}</a> | <a href=\'{$ibforums->base_url}act=Reg&amp;CODE=00\'>{$ibforums->lang[\'register\']}</a> )</td>\n    <td align=\'right\'><a href=\'{$ibforums->base_url}act=Reg&amp;CODE=reval\'>{$ibforums->lang[\'ml_revalidate\']}</a></td>\n   </tr>\n  </table>', 'Guest_bar', '', 1035406235, 0),
+(132, 1, 'skin_global', '<table width=\"100%\" id=\"userlinks\" cellspacing=\"6\">\n   <tr>\n    <td><strong>{$ibforums->lang[\'mb_disabled\']} </strong></td>\n   </tr>\n  </table>', 'member_bar_disabled', '', 1035406235, 0),
+(133, 1, 'skin_global', '<table width=\"100%\" id=\"userlinks\" cellspacing=\"6\">\n   <tr>\n    <td><b>{$ibforums->lang[\'logged_in_as\']} {$ibforums->member[\'name\']}</b> ( <a href=\'{$ibforums->base_url}act=Login&amp;CODE=03\'>{$ibforums->lang[\'log_out\']}</a>$ad_link $mod_link $val_link )</td>\n    <td align=\'right\'>\n   <b><a href=\'{$ibforums->base_url}act=UserCP&amp;CODE=00\' title=\'{$ibforums->lang[\'cp_tool_tip\']}\'>{$ibforums->lang[\'your_cp\']}</a></b>\n    &middot;  <a href=\'{$ibforums->base_url}act=Search&amp;CODE=getnew\'>{$ibforums->lang[\'view_new_posts\']}</a>  &middot;  <a href=\'javascript:buddy_pop();\' title=\'{$ibforums->lang[\'bb_tool_tip\']}\'>{$ibforums->lang[\'l_qb\']}</a></td>\n   </tr>\n  </table>', 'Member_no_usepm_bar', '$ad_link, $mod_link, $val_link', 1035406235, 0),
+(134, 1, 'skin_global', '<script language=\'JavaScript\' type=\"text/javascript\">\n<!--\nfunction buddy_pop() { window.open(\'index.{$ibforums->vars[\'php_ext\']}?act=buddy&s={$ibforums->session_id}\',\'BrowserBuddy\',\'width=250,height=500,resizable=yes,scrollbars=yes\'); }\nfunction chat_pop(cw,ch)  { window.open(\'index.{$ibforums->vars[\'php_ext\']}?s={$ibforums->session_id}&act=chat&pop=1\',\'Chat\',\'width=\'+cw+\',height=\'+ch+\',resizable=yes,scrollbars=yes\'); }\nfunction multi_page_jump( url_bit, total_posts, per_page )\n{\npages = 1; cur_st = parseInt(\"{$ibforums->input[\'st\']}\"); cur_page  = 1;\nif ( total_posts % per_page == 0 ) { pages = total_posts / per_page; }\n else { pages = Math.ceil( total_posts / per_page ); }\nmsg = \"{$ibforums->lang[\'tpl_q1\']}\" + \" \" + pages;\nif ( cur_st > 0 ) { cur_page = cur_st / per_page; cur_page = cur_page -1; }\nshow_page = 1;\nif ( cur_page < pages )  { show_page = cur_page + 1; }\nif ( cur_page >= pages ) { show_page = cur_page - 1; }\n else { show_page = cur_page + 1; }\nuserPage = prompt( msg, show_page );\nif ( userPage > 0  ) {\n	if ( userPage < 1 )     {    userPage = 1;  }\n	if ( userPage > pages ) { userPage = pages; }\n	if ( userPage == 1 )    {     start = 0;    }\n	else { start = (userPage - 1) * per_page; }\n	window.location = url_bit + \"&st=\" + start;\n}\n}\n//-->\n</script>\n \n<!--IBF.BANNER-->\n<div id=\'logostrip\'>\n  <a href=\'{$ibforums->base_url}\' title=\'Board Home\'>{$ibforums->vars[\'board_name\']}</a>\n</div>\n<!-- IE6/Win TABLE FIX -->\n<table  width=\"100%\" cellspacing=\"6\" id=\"submenu\">\n<tr>\n <td><a href=\'{$ibforums->vars[\'home_url\']}\'>{$ibforums->vars[\'home_name\']}</a><!--IBF.RULES--></td>\n <td align=\"right\">\n 🦮&nbsp;<a href=\'{$ibforums->base_url}act=Help\'>{$ibforums->lang[\'tb_help\']}</a>\n   &nbsp; &nbsp;&nbsp🔍&nbsp;<a href=\'{$ibforums->base_url}act=Search&amp;f={$ibforums->input[\'f\']}\'>{$ibforums->lang[\'tb_search\']}</a>\n   &nbsp; &nbsp;&nbsp; 👥{$ibforums->lang[\'tb_mlist\']}</a>\n   &nbsp; &nbsp;&nbsp;📅&nbsp;<a href=\'{$ibforums->base_url}act=calendar\'>{$ibforums->lang[\'tb_calendar\']}</a>\n   <!--IBF.CHATLINK-->\n   <!--IBF.TSLLINK-->\n </td>\n</tr>\n</table>\n<% MEMBER BAR %>\n<br />', 'BoardHeader', '$time=\"\"', 1777932033, 0),
+(135, 1, 'skin_global', '&nbsp;&middot; <a href=\"$url\">$title</a>', 'rules_link', '$url=\"\", $title=\"\"', 1035406235, 0),
+(136, 1, 'skin_global', '&nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_toplist.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=module&amp;module=toplist\'>{$ibforums->lang[\'tb_toplist\']}</a>', 'show_tsl_link_inline', '', 1035406235, 0),
+(137, 1, 'skin_global', '&nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_chat.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\'{$ibforums->base_url}act=chat\'>{$ibforums->lang[\'live_chat\']}</a>', 'show_chat_link_inline', '', 1035406235, 0),
+(138, 1, 'skin_global', '&nbsp; &nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/atb_chat.gif\" border=\"0\" alt=\"\" />&nbsp;<a href=\"javascript:chat_pop({$ibforums->vars[\'chat_width\']}, {$ibforums->vars[\'chat_height\']});\">{$ibforums->lang[\'live_chat\']}</a>', 'show_chat_link_popup', '', 1035406235, 0),
+(139, 1, 'skin_global', '<div id=\'navstrip\' align=\'left\'><{F_NAV}>&nbsp;', 'start_nav', '', 1035406235, 0),
+(140, 1, 'skin_global', '</div>\n<br />', 'end_nav', '', 1035406235, 0),
+(141, 1, 'skin_global', '<html>\n<head>\n<title>{$ibforums->lang[\'stand_by\']}</title>\n<meta http-equiv=\'refresh\' content=\'2; url=$Url\' />\n<script type=\"text/javascript\"> </script>\n$css\n</head>\n<body>\n<table width=\'100%\' height=\'85%\' align=\'center\'>\n<tr>\n  <td valign=\'middle\'>\n	  <table align=\'center\' cellpadding=\"4\" class=\"tablefill\">\n	  <tr> \n		<td width=\"100%\" align=\"center\">\n		  {$ibforums->lang[\'thanks\']}, \n		  $Text<br /><br />\n		  {$ibforums->lang[\'transfer_you\']}<br /><br />\n	      (<a href=\'$Url\'>{$ibforums->lang[\'dont_wait\']}</a>)\n	    </td>\n	  </tr>\n	</table>\n  </td>\n</tr>\n</table>\n</body>\n</html>', 'Redirect', '$Text, $Url, $css', 1035406235, 0),
+(142, 1, 'skin_global', '<script language=\'JavaScript\' type=\"text/javascript\">\n     <!--\n       window.open(\'index.{$ibforums->vars[\'php_ext\']}?act=Msg&CODE=99&s={$ibforums->session_id}\',\'NewPM\',\'width=500,height=250,resizable=yes,scrollbars=yes\'); \n     //-->\n     </script>', 'PM_popup', '', 1035406235, 0),
+(143, 1, 'skin_global', '&nbsp;&middot; <b><a href=\'{$ibforums->vars[\'board_url\']}/admin.{$ibforums->vars[\'php_ext\']}\' target=\'_blank\'>{$ibforums->lang[\'admin_cp\']}</a></b>', 'admin_link', '', 1035406235, 0),
+(144, 1, 'skin_global', '&middot; <b><a href=\'{$ibforums->base_url}act=modcp&amp;forum={$ibforums->input[\'f\']}\'>{$ibforums->lang[\'mod_cp\']}</a></b>', 'mod_link', '', 1035406235, 0),
+(145, 1, 'skin_global', '&nbsp;&middot; <a href=\'{$ibforums->base_url}act=Reg&amp;CODE=reval\'>{$ibforums->lang[\'ml_revalidate\']}</a>', 'validating_link', '', 1035406235, 0),
+(146, 1, 'skin_global', '<form action=\'{$ibforums->vars[\'board_url\']}/index.{$ibforums->vars[\'php_ext\']}\' method=\'post\'>\n<input type=\'hidden\' name=\'act\' value=\'Login\' />\n<input type=\'hidden\' name=\'CODE\' value=\'01\' />\n<input type=\'hidden\' name=\'s\' value=\'{$ibforums->session_id}\' />\n<input type=\'hidden\' name=\'referer\' value=\'$q_string\' />\n<input type=\'hidden\' name=\'CookieDate\' value=\'1\' />\n<div class=\"tableborder\">\n  <div class=\"titlemedium\">{$ibforums->lang[\'er_log_in_title\']}</div>\n  <table>\n   <tr>\n	<td class=\"pformleft\">{$ibforums->lang[\'erl_enter_name\']}</td>\n	<td class=\"pformright\"><input type=\'text\' size=\'20\' maxlength=\'64\' name=\'UserName\' class=\'forminput\' /></td>\n   </tr>\n   <tr>\n	<td class=\"pformleft\">{$ibforums->lang[\'erl_enter_pass\']}</td>\n	<td class=\"pformright\"><input type=\'password\' size=\'20\' name=\'PassWord\' class=\'forminput\' /></td>\n   </tr>\n  </table>\n  <div class=\"pformstrip\" align=\"center\"><input type=\'submit\' name=\'submit\' value=\'{$ibforums->lang[\'erl_log_in_submit\']}\' class=\'forminput\' /></div>\n</div>\n</form>', 'error_log_in', '$q_string', 1035406235, 0),
+(147, 1, 'skin_global', '<form action=\'{$ibforums->vars[\'board_url\']}/index.{$ibforums->vars[\'php_ext\']}\' method=\'post\'>\n<input type=\'hidden\' name=\'act\' value=\'Login\' />\n<input type=\'hidden\' name=\'CODE\' value=\'01\' />\n<input type=\'hidden\' name=\'s\' value=\'{$ibforums->session_id}\' />\n<input type=\'hidden\' name=\'referer\' value=\'\' />\n<input type=\'hidden\' name=\'CookieDate\' value=\'1\' />\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'offline_title\']}</div>\n  <div class=\'tablepad\'>$message</div>\n  <table width=\'100%\' cellpadding=\'0\' cellspacing=\'0\'>\n  <tr>\n   <td class=\'pformleftw\'>{$ibforums->lang[\'erl_enter_name\']}</td>\n   <td class=\'pformright\'><input type=\'text\' size=\'20\' maxlength=\'64\' name=\'UserName\' class=\'forminput\' /></td>\n  </tr>\n  <tr>\n   <td class=\'pformleftw\'>{$ibforums->lang[\'erl_enter_pass\']}</td>\n   <td class=\'pformright\'><input type=\'password\' size=\'20\' name=\'PassWord\' class=\'forminput\' /></td>\n  </tr>\n  </table>\n  <div class=\'pformstrip\' align=\'center\'><input type=\'submit\' name=\'submit\' value=\'{$ibforums->lang[\'erl_log_in_submit\']}\' class=\'forminput\' /></div>\n</div>\n</form>', 'board_offline', '$message = \"\"', 1035406235, 0),
+(148, 1, 'skin_global', '<script language=\'JavaScript\' type=\"text/javascript\">\n<!--\nfunction contact_admin() {\n  // Very basic spam bot stopper\n	  \n  admin_email_one = \'$ad_email_one\';\n  admin_email_two = \'$ad_email_two\';\n  \n  window.location = \'mailto:\'+admin_email_one+\'@\'+admin_email_two+\'?subject=Error on the forums\';\n  \n}\n//-->\n</script>\n<div class=\"tableborder\">\n <div class=\"maintitle\"><img src=\'{$ibforums->vars[\'img_url\']}/nav_m.gif\' alt=\'\' width=\'8\' height=\'8\' />&nbsp;{$ibforums->lang[\'error_title\']}</div>\n</div>\n<div class=\"tablefill\">\n  {$ibforums->lang[\'exp_text\']}<br /><br />\n  <b>{$ibforums->lang[\'msg_head\']}</b>\n  <br /><br />\n  <span class=\'postcolor\' style=\'padding:10px\'>$message</span>\n  <br /><br />\n  <!--IBF.LOG_IN_TABLE-->\n  <!--IBF.POST_TEXTAREA-->\n  <br /><br />\n  <b>{$ibforums->lang[\'er_links\']}</b>\n  <br /><br />\n  &middot; <a href=\'{$ibforums->base_url}act=Reg&amp;CODE=10\'>{$ibforums->lang[\'er_lost_pass\']}</a><br />\n  &middot; <a href=\'{$ibforums->base_url}act=Reg&amp;CODE=00\'>{$ibforums->lang[\'er_register\']}</a><br />\n  &middot; <a href=\'{$ibforums->base_url}act=Help&amp;CODE=00\'>{$ibforums->lang[\'er_help_files\']}</a><br />\n  &middot; <a href=\'javascript:contact_admin();\'>{$ibforums->lang[\'er_contact_admin\']}</a>\n</div>\n<div class=\"tableborder\">\n <div class=\"pformstrip\" align=\"center\">&lt; <a href=\'javascript:history.go(-1)\'>{$ibforums->lang[\'error_back\']}</a></div>\n</div>', 'Error', '$message, $ad_email_one=\"\", $ad_email_two=\"\"', 1035406235, 0),
+(149, 1, 'skin_global', '<br />\n<div>\n<strong>{$ibforums->lang[\'err_title\']}</strong>\n<br /><br />\n{$ibforums->lang[\'err_expl\']}\n</div>\n<br />\n<br />\n<div align=\'center\'>\n<input type=\'button\' tabindex=\'1\' value=\'{$ibforums->lang[\'err_select\']}\' onclick=\'document.mehform.saved.select()\'><br />\n<form name=\'mehform\'>\n<textarea cols=\'70\' rows=\'5\' name=\'saved\' tabindex=\'2\'>$post</textarea>\n</form>\n</div>', 'error_post_textarea', '$post=\"\"', 1035406235, 0),
+(150, 1, 'skin_help', '<li class=\"helprow\"><a href=\'{$ibforums->base_url}act=Help&amp;CODE=01&amp;HID={$entry[\'id\']}\'><b>{$entry[\'title\']}</b></a><br />{$entry[\'description\']}</li>', 'row', '$entry', 1035406235, 0),
+(151, 1, 'skin_help', '</div>\n<div style=\'padding:4px\'>$text</div>\n</div>', 'display', '$text', 1035406235, 0),
+(152, 1, 'skin_help', '</ul>\n </div>\n</div>', 'end', '', 1035406235, 0),
+(153, 1, 'skin_help', '<tr>\n                   <td class=\'row1\' colspan=\'2\'><b>{$ibforums->lang[\'no_results\']}</b></td>\n                 </tr>', 'no_results', '', 1035406235, 0),
+(154, 1, 'skin_help', '<div>$two_text</div>\n<br />\n<form action=\"{$ibforums->base_url}\" method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'Help\' />\n<input type=\'hidden\' name=\'CODE\' value=\'02\' />\n<div class=\"tableborder\">\n  <div class=\"maintitle\">$one_text</div>\n  <div class=\"tablepad\">{$ibforums->lang[\'search_txt\']}&nbsp;&nbsp;<input type=\'text\' maxlength=\'60\' size=\'30\' class=\'forminput\' name=\'search_q\' />&nbsp;<input type=\'submit\' value=\'{$ibforums->lang[\'submit\']}\' class=\'forminput\' /></div>\n</div>\n</form>\n<br />\n<div class=\"tableborder\">\n  <div class=\"maintitle\">$three_text</div>\n  <div class=\"tablepad\">\n  <ul id=\"help\">', 'start', '$one_text, $two_text, $three_text', 1035406235, 0),
+(155, 1, 'skin_legends', '<form name=\'finduser\' method=\'post\' action=\'{$ibforums->base_url}act=legends&amp;entry=$entry&amp;name=$name&amp;sep=$sep&amp;CODE=finduser_two\'>\n<table cellspacing=\'1\' cellpadding=\'10\' width=\'100%\' height=\'100%\' align=\'center\' class=\'row1\'>\n<tr>\n   <td class=\'pagetitle\' align=\'left\'>{$ibforums->lang[\'fu_title\']}<hr noshade></td>\n</tr>\n<tr>\n   <td align=\'center\' valign=\'middle\'><b>{$ibforums->lang[\'fu_enter_name\']}</b><br /><br /><input type=\'text\' size=\'40\' name=\'username\' class=\'forminput\'><br /><br /><input type=\'submit\' value=\'{$ibforums->lang[\'fu_search_but\']}\'></td>\n</tr>\n<tr>\n   <td align=\'center\' style=\'font-size:12px;font-weight:bold\'><a href=\'javascript:window.close();\'>{$ibforums->lang[\'fu_close_win\']}</a></td>\n</tr>\n</table>\n</form>', 'find_user_one', '$entry=\"\", $name=\"\", $sep=\"comma\"', 1035406235, 0),
+(156, 1, 'skin_legends', '<form name=\'finduser\' method=\'post\' action=\'{$ibforums->base_url}entry=$entry&amp;name=$name&amp;sep=$sep&amp;CODE=finduser_two\'>\n<table cellspacing=\'1\' cellpadding=\'10\' width=\'100%\' height=\'100%\' align=\'center\' class=\'row1\'>\n<tr>\n   <td class=\'pagetitle\' align=\'left\'>{$ibforums->lang[\'fu_error\']}<hr noshade></td>\n</tr>\n<tr>\n   <td align=\'center\' valign=\'middle\'>$msg</td>\n</tr>\n<tr>\n   <td align=\'center\' style=\'font-size:12px;font-weight:bold\'><a href=\'javascript:history.go(-1);\'>{$ibforums->lang[\'fu_back\']}</a> :: <a href=\'javascript:window.close();\'>{$ibforums->lang[\'fu_close_win\']}</a></td>\n</tr>\n</table>\n</form>', 'find_user_error', '$msg', 1035406235, 0),
+(157, 1, 'skin_legends', '<script language=\'javascript\'>\n<!--\n	function add_to_form()\n	{\n		\n		var separator = \'$sep\';\n		var entry     = \'$entry\';\n		\n		var name = document.finduser.username.options[document.finduser.username.selectedIndex].value;\n		\n		if (separator == \'line\')\n		{\n			separator = \'\\\\n\';\n		}\n		\n		if (entry == \'textarea\')\n		{\n			// Where shall we put the separator?\n			\n			var tbox     = opener.document.REPLIER.$name.value;\n			var tboxSize = opener.document.REPLIER.$name.value.length;\n			\n			// Remove leading spaces...\n			\n			while ( opener.document.REPLIER.$name.value.slice(0,1) == \" \" )\n			{\n				opener.document.REPLIER.$name.value = opener.document.REPLIER.$name.value.substr(1, opener.document.REPLIER.$name.value.length - 1);\n				opener.document.REPLIER.$name.value.length = opener.document.REPLIER.$name.value.length;\n			}\n			\n			// Remove trailing spaces...\n			\n			while ( opener.document.REPLIER.$name.value.slice(opener.document.REPLIER.$name.value.length - 1, opener.document.REPLIER.$name.value.length) == \" \" )\n			{\n				opener.document.REPLIER.$name.value = opener.document.REPLIER.$name.value.substr(0, opener.document.REPLIER.$name.value.length - 1);\n				opener.document.REPLIER.$name.value.length = opener.document.REPLIER.$name.value.length;\n			}\n			\n			// Do we have a leading comma?\n			\n			while ( opener.document.REPLIER.$name.value.slice(0,1) == \"\\\\n\" )\n			{\n				opener.document.REPLIER.$name.value = opener.document.REPLIER.$name.value.substr(1, opener.document.REPLIER.$name.value.length - 1);\n				opener.document.REPLIER.$name.value.length = opener.document.REPLIER.$name.value.length;\n			}\n			\n			// Do we have a trailing comma?...\n			\n			while ( opener.document.REPLIER.$name.value.slice(opener.document.REPLIER.$name.value.length - 1, opener.document.REPLIER.$name.value.length) == \"\\\\n\" )\n			{\n				opener.document.REPLIER.$name.value = opener.document.REPLIER.$name.value.substr(0, opener.document.REPLIER.$name.value.length - 1);\n				opener.document.REPLIER.$name.value.length = opener.document.REPLIER.$name.value.length;\n			}\n			\n			// First in box?\n			\n			if ( opener.document.REPLIER.$name.value.length == 0)\n			{\n				opener.document.REPLIER.$name.value += name;\n			}\n			else\n			{\n				opener.document.REPLIER.$name.value += separator + name;\n			}\n		}\n		\n	}\n//-->\n</script>\n<form name=\'finduser\'>\n<table cellspacing=\'1\' cellpadding=\'10\' width=\'100%\' height=\'100%\' align=\'center\' class=\'row1\'>\n<tr>\n   <td class=\'pagetitle\' align=\'left\'>{$ibforums->lang[\'fu_title\']}<hr noshade></td>\n</tr>\n<tr>\n   <td align=\'center\' valign=\'middle\'>{$ibforums->lang[\'fu_add_desc\']}<br /><br /><select name=\'username\' class=\'forminput\'>$names</select><br /><br /><input type=\'button\' name=\'add\' onClick=\'add_to_form()\' value=\'{$ibforums->lang[\'fu_add_mem\']}\'></td>\n</tr>\n<tr>\n   <td align=\'center\' style=\'font-size:12px;font-weight:bold\'><a href=\'javascript:history.go(-1);\'>{$ibforums->lang[\'fu_back\']}</a> :: <a href=\'javascript:window.close();\'>{$ibforums->lang[\'fu_close_win\']}</a></td>\n</tr>\n</table>\n</form>', 'find_user_final', '$names=\"\",$entry=\"\", $name=\"\", $sep=\"line\"', 1035406235, 0),
+(158, 1, 'skin_legends', '<script language=\'javascript\'>\n<!--\n	function add_smilie(code)\n	{\n		opener.document.REPLIER.Post.value += \' \' + code + \' \';\n		//return true;\n	}\n//-->\n</script>', 'emoticon_javascript', '', 1035406235, 0),
+(159, 1, 'skin_legends', '<div style=\'padding:6px\'>{$ibforums->lang[\'bbc_intro\']}</div>\n<br />', 'bbcode_header', '', 1035406235, 0),
+(160, 1, 'skin_legends', '<span style=\'color:#F00;font-weight:bold;\'>$tag</span>', 'wrap_tag', '$tag', 1035406235, 0),
+(161, 1, 'skin_legends', '<div class=\'tableborder\'>\n  <div class=\'maintitle\'>$title</div>\n  <table class=\'tablebasic\' cellspacing=\'1\' cellpadding=\'4\'>\n  <tr>\n	 <td width=\'50%\' align=\'center\' class=\'pformstrip\' valign=\'middle\'>$row1</td>\n	 <td width=\'50%\' align=\'center\' class=\'pformstrip\' valign=\'middle\'>$row2</td>\n  </tr>', 'page_header', '$title, $row1, $row2', 1035406235, 0),
+(162, 1, 'skin_legends', '<tr>\n	  <td align=\'center\' class=\'row1\' valign=\'middle\'><a href={$out}javascript:add_smilie({$in}$code{$in}){$out}>$code</a></td>\n	  <td align=\'center\' class=\'row2\' valign=\'middle\'><a href={$out}javascript:add_smilie({$in}$code{$in}){$out}><img src=\'{$ibforums->vars[\'EMOTICONS_URL\']}/$image\' border=\'0\' valign=\'absmiddle\' alt=\'$image\'></a></td>\n   </tr>', 'emoticons_row', '$code, $image, $in=\"\'\", $out=\"\'\"', 1035406235, 0),
+(163, 1, 'skin_legends', '<tr>\n	  <td align=\'left\' class=\'row1\' valign=\'middle\'>$before</td>\n	  <td align=\'left\' class=\'row2\' valign=\'middle\'>$after</td>\n   </tr>', 'bbcode_row', '$before, $after', 1035406235, 0),
+(164, 1, 'skin_legends', '</table>\n</div>', 'page_footer', '', 1035406235, 0),
+(165, 1, 'skin_login', '<div class=\"tableborder\">\n  <div class=\"pformstrip\">{$ibforums->lang[\'errors_found\']}</div>\n  <div class=\"tablepad\"><span class=\'postcolor\'>$data</span></div>\n</div>\n<br />', 'errors', '$data', 1035406235, 0),
+(166, 1, 'skin_login', '<script language=\'JavaScript\' type=\"text/javascript\">\n<!--\nfunction ValidateForm() {\n	var Check = 0;\n	if (document.LOGIN.UserName.value == \'\') { Check = 1; }\n	if (document.LOGIN.PassWord.value == \'\') { Check = 1; }\n	if (Check == 1) {\n		alert(\"{$ibforums->lang[\'blank_fields\']}\");\n		return false;\n	} else {\n		document.LOGIN.submit.disabled = true;\n		return true;\n	}\n}\n//-->\n</script>     \n{$ibforums->lang[\'login_text\']}\n<br />\n<br />\n<b>{$ibforums->lang[\'forgot_pass\']} <a href=\'{$ibforums->vars[\'board_url\']}/index.{$ibforums->vars[\'php_ext\']}?act=Reg&amp;CODE=10\'>{$ibforums->lang[\'pass_link\']}</a></b>\n<br />\n<br />\n<form action=\"{$ibforums->base_url}act=Login&amp;CODE=01\" method=\"post\" name=\'LOGIN\' onsubmit=\'return ValidateForm()\'>\n<input type=\'hidden\' name=\'referer\' value=\"$referer\" />\n<div class=\"tableborder\">\n  <div class=\"maintitle\"><{CAT_IMG}>&nbsp;{$ibforums->lang[\'log_in\']}</div>\n  <div class=\'pformstrip\'>$message</div>\n  <table class=\"tablebasic\" cellspacing=\"1\">\n  <tr>\n    <td class=\'pformleftw\'>{$ibforums->lang[\'enter_name\']}</td>\n    <td class=\'pformright\'><input type=\'text\' size=\'20\' maxlength=\'64\' name=\'UserName\' class=\'forminput\' /></td>\n  </tr>\n  <tr>\n    <td class=\'pformleftw\'>{$ibforums->lang[\'enter_pass\']}</td>\n    <td class=\'pformright\'><input type=\'password\' size=\'20\' name=\'PassWord\' class=\'forminput\' /></td>\n  </tr>\n  </table>\n  <div class=\"pformstrip\">{$ibforums->lang[\'options\']}</div>		\n  <table class=\"tablebasic\" cellspacing=\"1\">\n  <tr>\n    <td class=\'pformleftw\'>{$ibforums->lang[\'cookies\']}</td>\n    <td class=\'pformright\'><input type=\"radio\" name=\"CookieDate\" value=\"1\" checked=\"checked\" />{$ibforums->lang[\'cookie_yes\']}<br /><input type=\"radio\" name=\"CookieDate\" value=\"0\" />{$ibforums->lang[\'cookie_no\']}</td>\n  </tr>\n  <tr>\n    <td class=\'pformleftw\'>{$ibforums->lang[\'privacy\']}</td>\n    <td class=\'pformright\'><input type=\"checkbox\" name=\"Privacy\" value=\"1\" />{$ibforums->lang[\'anon_name\']}</td>\n  </tr>\n  </table>		\n  <div class=\"pformstrip\" align=\"center\"><input type=\"submit\" name=\'submit\' value=\"{$ibforums->lang[\'log_in_submit\']}\" class=\'forminput\' /></div>\n</div>\n</form>', 'ShowForm', '$message, $referer=\"\"', 1035406235, 0),
+(167, 1, 'skin_mlist', '<script language=\'Javascript\' type=\'text/javascript\'>\n<!--\nfunction PopUp(url, name, width,height,center,resize,scroll,posleft,postop) {\n	if (posleft != 0) { x = posleft }\n	if (postop  != 0) { y = postop  }\n	if (!scroll) { scroll = 1 }\n	if (!resize) { resize = 1 }\n	if ((parseInt (navigator.appVersion) >= 4 ) && (center)) {\n	  X = (screen.width  - width ) / 2;\n	  Y = (screen.height - height) / 2;\n	}\n	if (scroll != 0) { scroll = 1 }\n	var Win = window.open( url, name, \'width=\'+width+\',height=\'+height+\',top=\'+Y+\',left=\'+X+\',resizable=\'+resize+\',scrollbars=\'+scroll+\',location=no,directories=no,status=no,menubar=no,toolbar=no\');\n }\n//-->\n</script>\n<form action=\'{$ibforums->base_url}\' method=\'post\'>\n<input type=\'hidden\' name=\'act\' value=\'Members\' />\n<input type=\'hidden\' name=\'s\'   value=\'{$ibforums->session_id}\' />\n<div align=\"left\">{$links[SHOW_PAGES]}</div>\n<br />\n<div class=\'tableborder\'>\n <div class=\"maintitle\">{$ibforums->lang[\'page_title\']}</div>\n <table width=\"100%\" border=\"0\" cellspacing=\"1\" cellpadding=\"4\">\n  <tr>\n	<th class=\'pformstrip\' width=\"30%\">{$ibforums->lang[\'member_name\']}</th>\n	<th class=\'pformstrip\' align=\"center\" width=\"10%\">{$ibforums->lang[\'member_level\']}</th>\n	<th class=\'pformstrip\' align=\"center\" width=\"10%\">{$ibforums->lang[\'member_group\']}</th>\n	<th class=\'pformstrip\' align=\"center\" width=\"20%\">{$ibforums->lang[\'member_joined\']}</th>\n	<th class=\'pformstrip\' align=\"center\" width=\"10%\">{$ibforums->lang[\'member_posts\']}</th>\n	<th class=\'pformstrip\' align=\"center\">{$ibforums->lang[\'member_email\']}</th>\n	<th class=\'pformstrip\' align=\"center\">{$ibforums->lang[\'member_aol\']}</th>\n	<th class=\'pformstrip\' align=\"center\">{$ibforums->lang[\'member_icq\']}</th>\n	<th class=\'pformstrip\' width=\"5%\" align=\"center\">{$ibforums->lang[\'member_photo\']}</th>\n	\n  </tr>', 'Page_header', '$links', 1035406235, 0),
+(168, 1, 'skin_mlist', '<br />\n<div align=\"left\">{$links[SHOW_PAGES]}</div>', 'end', '$links', 1035406235, 0),
+(169, 1, 'skin_mlist', 'No results', 'no_results', '', 1035406235, 0),
+(170, 1, 'skin_mlist', '<!-- nothing here -->', 'start', '', 1035406235, 0),
+(171, 1, 'skin_mlist', '<!-- End content Table -->\n  <tr> \n    <td class=\'row3\' colspan=\"9\" align=\'center\' valign=\'middle\'>\n      <strong>{$ibforums->lang[\'photo_only\']}&nbsp;<input type=\"checkbox\" value=\"1\" name=\"photoonly\" class=\"forminput\" $checked /></strong>\n    </td>\n  </tr>\n  <tr> \n    <td class=\'pformstrip\' colspan=\"9\" align=\'center\' valign=\'middle\'>\n      <select class=\'forminput\' name=\'name_box\'>\n	 <option value=\'begins\'>{$ibforums->lang[\'ch_begins\']}</option>\n	 <option value=\'contains\'>{$ibforums->lang[\'ch_contains\']}</option>\n	 <option value=\'all\' selected=\"selected\">{$ibforums->lang[\'ch_all\']}</option>\n	 </select>&nbsp;&nbsp;<input class=\'forminput\' type=\'text\' size=\'25\' name=\'name\' value=\'{$ibforums->input[\'name\']}\' />\n    </td>\n  </tr>\n  <tr>\n   <td class=\'darkrow1\' colspan=\"9\" align=\'center\' valign=\'middle\'>\n     {$ibforums->lang[\'sorting_text\']}&nbsp;<input type=\'submit\' value=\'{$ibforums->lang[\'sort_submit\']}\' class=\'forminput\' />\n   </td>\n </tr>\n</table>\n</div>\n</form>', 'Page_end', '$checked=\"\"', 1035406235, 0),
+(172, 1, 'skin_mlist', '<!-- Entry for {$member[MEMBER_NAME]} -->\n  <tr>\n	 <td class=\'row4\'><strong><a href=\"{$ibforums->base_url}showuser={$member[\'id\']}\">{$member[\'name\']}</a></strong></td>\n	 <td class=\'row4\'>{$member[\'pips\']}</td>\n	 <td class=\'row2\' align=\"center\" width=\"20%\">{$member[\'group\']}</td>\n	 <td class=\'row4\' align=\"center\" width=\"20%\">{$member[\'joined\']}</td>\n	 <td class=\'row4\' align=\"center\" width=\"10%\">{$member[\'posts\']}</td>\n	 <td class=\'row2\' align=\"center\">{$member[\'member_email\']}</td>\n	 <td class=\'row2\' align=\"center\">{$member[\'aim_name\']}</td>\n	 <td class=\'row2\' align=\"center\">{$member[\'icq_number\']}</td>\n	 <td class=\'row2\' align=\"center\">{$member[\'camera\']}</td>\n  </tr>\n  <!-- End of Entry -->', 'show_row', '$member', 1035406235, 0),
+(173, 1, 'skin_mod', '<table cellspacing=\'0\' cellpadding=\'0\' width=\'100%\' border=\'0\'>\n<tr>\n <td align=\'left\'><span id=\'phototitle\'>$name</span></td>\n <td align=\'right\'>$links</td>\n</tr>\n</table>\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'w_v_title\']}: <a href=\'{$ibforums->base_url}showuser=$id\'>$name</a></div>\n</div>\n <table cellspacing=\'1\' width=\'100%\' cellpadding=\'6\' class=\'plainborder\'>\n <tr>\n  <th class=\'pformstrip\' width=\'30%\'>{$ibforums->lang[\'w_v_warnby\']}</th>\n  <th class=\'pformstrip\' width=\'70%\'>{$ibforums->lang[\'w_v_notes\']}</th>\n </tr>', 'warn_view_header', '$id, $name, $links', 1035406235, 0),
+(174, 1, 'skin_mod', '<tr>\n    <td class=\'row4\' valign=\'top\'><strong>$puni_name</strong></td>\n    <td class=\'row4\' valign=\'top\'>{$ibforums->lang[\'w_v_warned_on\']} <strong>$date</strong></td>\n  </tr>\n  <tr>\n    <td class=\'row1\' valign=\'middle\'><span class=\'warngood\'>{$ibforums->lang[\'w_v_minus\']}</span></td>\n    <td class=\'row1\' valign=\'top\'><span class=\'postcolor\'>$content</span></td>\n  </tr>', 'warn_view_positive_row', '$date, $content, $puni_name', 1035406235, 0),
+(175, 1, 'skin_mod', '<tr>\n    <td class=\'row4\' valign=\'top\'><strong>$puni_name</strong></td>\n    <td class=\'row4\' valign=\'top\'>{$ibforums->lang[\'w_v_warned_on\']} <strong>$date</strong></td>\n  </tr>\n  <tr>\n    <td class=\'row1\' valign=\'middle\'><span class=\'warnbad\'>{$ibforums->lang[\'w_v_add\']}</span></td>\n    <td class=\'row1\' valign=\'top\'><span class=\'postcolor\'>$content</span></td>\n  </tr>', 'warn_view_negative_row', '$date, $content, $puni_name', 1035406235, 0),
+(176, 1, 'skin_mod', '<tr>\n    <td class=\'row1\' colspan=\'2\' align=\'center\'><strong>{$ibforums->lang[\'w_v_none\']}</strong></td>\n  </tr>', 'warn_view_none', '', 1035406235, 0),
+(177, 1, 'skin_mod', '</table>', 'warn_view_footer', '', 1035406235, 0),
+(178, 1, 'skin_mod', '<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'w_done_t\']}</div>\n <div class=\'pformstrip\'>&nbsp;</div>\n <div class=\'tablepad\'>\n  {$ibforums->lang[\'w_done_te\']}\n  <ul>\n   <li><a href=\'{$ibforums->base_url}\'>{$ibforums->lang[\'w_done_home\']}</a></li>\n   <!--IBF.FORUM_TOPIC-->\n  </ul>\n </div>\n</div>', 'warn_success', '', 1035406235, 0),
+(179, 1, 'skin_mod', '<li><a href=\'{$ibforums->base_url}showforum=$fid\'>{$ibforums->lang[\'w_done_forum\']} <strong>$fname</strong></a></li>\n   <li><a href=\'{$ibforums->base_url}showtopic=$tid&amp;st=$st\'>{$ibforums->lang[\'w_done_topic\']} <strong>$tname</strong></a></li>', 'warn_success_forum', '$fid, $fname, $tid, $tname, $st=0', 1035406235, 0),
+(180, 1, 'skin_mod', '<div class=\"tableborder\">\n  <div class=\"pformstrip\">{$ibforums->lang[\'errors_found\']}</div>\n  <div class=\"tablepad\"><span class=\'postcolor\'>$data</span></div>\n</div>\n<br />', 'warn_errors', '$data', 1035406235, 0);
+INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_content`, `func_name`, `func_data`, `updated`, `can_remove`) VALUES
+(181, 1, 'skin_mod', '<form method=\'post\' action=\'{$ibforums->base_url}&amp;act=warn&amp;CODE=dowarn&amp;mid=$mid&amp;t=$tid&amp;st=$st&amp;type={$ibforums->input[\'type\']}\'>\n<input type=\'hidden\' name=\'key\' value=\'$key\'>\n<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'w_warnfor\']} <a href=\'{$ibforums->base_url}showuser=$mid\'>$name</a> ( $min &lt; $cur &gt; $max )</div>\n <div class=\'pformstrip\'>{$ibforums->lang[\'w_complete\']}</div>\n <table width=\'100%\' cellpadding=\'0\' border=\'0\' cellspacing=\'0\'>\n <tr>\n  <td class=\'pformleftw\'><strong>{$ibforums->lang[\'w_adjust_level\']}</strong></td>\n  <td class=\'pformright\'>\n    <input type=\'radio\' name=\'level\' id=\'add\' class=\'radiobutton\' value=\'add\' {$type[\'add\']} /><label for=\'add\' class=\'warnbad\'><strong>{$ibforums->lang[\'w_add\']}</strong></label>\n    <br />\n    <input type=\'radio\' name=\'level\' id=\'minus\' class=\'radiobutton\' value=\'remove\' {$type[\'minus\']} /><label for=\'minus\' class=\'warngood\'><strong>{$ibforums->lang[\'w_remove\']}</strong></label>\n </tr>', 'warn_header', '$mid, $name, $cur=0, $min = 0, $max=10, $key, $tid=\'\',$st=\'\', $type', 1035406235, 0),
+(182, 1, 'skin_mod', '<tr>\n  <td class=\'pformleftw\'><strong>{$ibforums->lang[\'w_modq\']}</strong></td>\n  <td class=\'pformright\'>\n    <input type=\'checkbox\' name=\'mod_indef\' class=\'forminput\' value=\'1\' $mod_tick> {$ibforums->lang[\'w_modq_i\']}\n    <br /><strong>{$ibforums->lang[\'w_orfor\']}</strong>\n    <input type=\'input\' name=\'mod_value\' class=\'forminput\' value=\'{$mod_array[\'timespan\']}\' size=\'5\'> <select name=\'mod_unit\' class=\'forminput\'><option value=\'d\' {$mod_array[\'days\']}>{$ibforums->lang[\'w_day\']}</option><option value=\'h\' {$mod_array[\'hours\']}>{$ibforums->lang[\'w_hour\']}</option></select>\n 	$mod_extra\n </tr>', 'warn_mod_posts', '$mod_tick, $mod_array, $mod_extra', 1035406235, 0),
+(183, 1, 'skin_mod', '<tr>\n  <td class=\'pformleftw\'><strong>{$ibforums->lang[\'w_resposts\']}</strong></td>\n  <td class=\'pformright\'>\n    <input type=\'checkbox\' name=\'post_indef\' class=\'forminput\' value=\'1\' $post_tick> {$ibforums->lang[\'w_resposts_i\']}\n    <br /><strong>{$ibforums->lang[\'w_orfor\']}</strong>\n    <input type=\'input\' name=\'post_value\' class=\'forminput\' value=\'{$post_array[\'timespan\']}\' size=\'5\'> <select name=\'post_unit\' class=\'forminput\'><option value=\'d\' {$post_array[\'days\']}>{$ibforums->lang[\'w_day\']}</option><option value=\'h\' {$post_array[\'hours\']}>{$ibforums->lang[\'w_hour\']}</option></select>\n 	$post_extra\n </tr>', 'warn_rem_posts', '$post_tick, $post_array, $post_extra', 1035406235, 0),
+(184, 1, 'skin_mod', '<tr>\n  <td class=\'pformleftw\'><strong>{$ibforums->lang[\'w_suspend\']}</strong></td>\n  <td class=\'pformright\'>\n     {$ibforums->lang[\'w_susfor\']}  <input type=\'input\' name=\'susp_value\' class=\'forminput\' value=\'{$susp_array[\'timespan\']}\' size=\'5\'> <select name=\'susp_unit\' class=\'forminput\'><option value=\'d\' {$susp_array[\'days\']}>{$ibforums->lang[\'w_day\']}</option><option value=\'h\' {$susp_array[\'hours\']}>{$ibforums->lang[\'w_hour\']}</option></select>\n 	  $susp_extra\n </tr>', 'warn_suspend', '$susp_array, $susp_extra', 1035406235, 0),
+(185, 1, 'skin_mod', '<tr>\n   <td class=\'pformleftw\' valign=\'top\'><strong>{$ibforums->lang[\'w_reason\']}</strong><br />{$ibforums->lang[\'w_reason2\']}</td>\n   <td class=\'pformright\'><textarea rows=\'6\' cols=\'70\' class=\'textinput\' name=\'reason\'>{$ibforums->input[\'reason\']}</textarea></td>\n  </tr>\n  <tr>\n  <td class=\'pformleftw\'><strong>{$ibforums->lang[\'w_c_subj\']}</strong></td>\n  <td class=\'pformright\'><input type=\'input\' name=\'subject\' class=\'forminput\' value=\'{$ibforums->input[\'subject\']}\' size=\'30\'></td>\n </tr>\n  <tr>\n   <td class=\'pformleftw\' valign=\'top\'><strong>{$ibforums->lang[\'w_contact\']}</strong><br />{$ibforums->lang[\'w_contact2\']}</td>\n   <td class=\'pformright\'>\n   	  {$ibforums->lang[\'w_c\']}&nbsp;<select name=\'contactmethod\' class=\'forminput\'><option value=\'pm\'>{$ibforums->lang[\'w_c_p\']}</option><option value=\'email\'>{$ibforums->lang[\'w_c_e\']}</option></select>\n     <br /><textarea rows=\'6\' cols=\'70\' class=\'textinput\' name=\'contact\'>{$ibforums->input[\'contact\']}</textarea>\n   </td>\n  </tr>\n  </table>\n  <div align=\'center\' class=\'pformstrip\'><input type=\'submit\' class=\'forminput\' value=\'{$ibforums->lang[\'w_submit\']}\' /></div>\n</div>\n</form>', 'warn_footer', '', 1035406235, 0),
+(186, 1, 'skin_mod', '<br /><strong>{$ibforums->lang[\'w_restricted\']}</strong>', 'warn_restricition_in_place', '', 1035406235, 0),
+(187, 1, 'skin_mod', '<div class=\'pformstrip\'>$words</div>', 'mod_exp', '$words', 1035406235, 0),
+(188, 1, 'skin_mod', '<div class=\'pformstrip\' align=\'center\'><input type=\"submit\" name=\"submit\" value=\"$action\" class=\'forminput\' /></div>\n</div>\n</form>', 'end_form', '$action', 1035406235, 0),
+(189, 1, 'skin_mod', '<table width=\'100%\' cellspacing=\'1\'>\n  <tr>\n  <td class=\'pformleftw\'><strong>{$ibforums->lang[move_from]} <b>$forum_name</b> {$ibforums->lang[to]}</strong></td>\n  <td class=\'pformright\'><select name=\'move_id\' class=\'forminput\'>$jhtml</select></td>\n  </tr>\n  <tr>\n  <td class=\'pformleftw\'><strong>{$ibforums->lang[\'leave_link\']}</strong></td>\n  <td class=\'pformright\'><select name=\'leave\' class=\'forminput\'><option value=\'y\' selected=\"selected\">{$ibforums->lang[\'yes\']}</option><option value=\'n\'>{$ibforums->lang[\'no\']}</option></select></td>\n  </tr>\n  </table>', 'move_form', '$jhtml, $forum_name', 1035406235, 0),
+(190, 1, 'skin_mod', '<script language=\'JavaScript\' type=\'text/javascript\'>\n  <!--\n  function ValidateForm() {\n	 document.REPLIER.submit.disabled = true;\n	 return true;\n  }\n  //-->\n  </script>', 'delete_js', '', 1035406235, 0),
+(191, 1, 'skin_mod', '<table width=\'100%\' cellspacing=\'1\'>\n  <tr>\n  <td class=\'pformleftw\'><strong>{$ibforums->lang[edit_f_title]}</strong></td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'50\' name=\'TopicTitle\' value=\'$title\' /></td>\n  </tr>\n  <tr>\n  <td class=\'pformleftw\'><strong>{$ibforums->lang[edit_f_desc]}</strong></td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'40\' name=\'TopicDesc\' value=\'$desc\' /></td>\n  </tr>\n  </table>', 'topictitle_fields', '$title, $desc', 1035406235, 0),
+(192, 1, 'skin_mod', '<table width=\'100%\' cellpadding=\'6\' border=\'0\' cellspacing=\'0\'>', 'poll_edit_top', '', 1035406235, 0),
+(193, 1, 'skin_mod', '<tr>\n				<td class=\'row1\'><b>{$ibforums->lang[\'pe_option\']} $id</b></td>\n                <td class=\'row1\'><input type=\'text\' size=\'60\' maxlength=\'250\' name=\'POLL_$id\' value=\'$entry\'></td>\n                </tr>', 'poll_entry', '$id, $entry', 1035406235, 0),
+(194, 1, 'skin_mod', '<tr>\n				<td class=\'row1\'><b>{$ibforums->lang[\'pe_option\']} $id</b> <em>( {$ibforums->lang[\'pe_unused\']} )</em></td>\n                <td class=\'row1\'><input type=\'text\' size=\'60\' maxlength=\'250\' name=\'POLL_$id\' value=\'\'></td>\n                </tr>', 'poll_edit_new_entry', '$id', 1035406235, 0),
+(195, 1, 'skin_mod', '<tr>\n	   <td class=\'row1\'><b>{$ibforums->lang[\'pe_question\']}</b></td>\n	   <td class=\'row1\'><input type=\'text\' size=\'60\' maxlength=\'250\' name=\'poll_question\' value=\'$poll_question\'></td>\n	   </tr>\n	   <tr>\n	   <td class=\'row1\'><b>{$ibforums->lang[\'pe_pollonly\']}</b></td>\n	   <td class=\'row1\'><select name=\'pollonly\' class=\'forminput\'><option value=\'0\'>{$ibforums->lang[\'pe_no\']}</option><option value=\'1\'>{$ibforums->lang[\'pe_yes\']}</option></select></td>\n	   </tr>\n	   </table>', 'poll_select_form', '$poll_question=\"\"', 1035406235, 0),
+(196, 1, 'skin_mod', '<div class=\'tableborder\'>\n <div class=\'maintitle\'>$posting_title</div>', 'table_top', '$posting_title', 1035406235, 0),
+(197, 1, 'skin_mod', '<div class=\'tableborder\'>\n <div class=\'maintitle\'>{$ibforums->lang[\'th_title\']}</div>\n   <table cellspacing=\'1\' width=\'100%\'>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'th_topic\']}</b></td>\n	<td class=\'pformright\'>{$data[\'th_topic\']}</td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'th_desc\']}</b></td>\n	<td class=\'pformright\'>{$data[\'th_desc\']}&nbsp;</td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'th_start_date\']}</b></td>\n	<td class=\'pformright\'>{$data[\'th_start_date\']}</td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'th_start_name\']}</b></td>\n	<td class=\'pformright\'>{$data[\'th_start_name\']}</td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'th_last_date\']}</b></td>\n	<td class=\'pformright\'>{$data[\'th_last_date\']}</td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'th_last_name\']}</b></td>\n	<td class=\'pformright\'>{$data[\'th_last_name\']}</td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'th_avg_post\']}</b></td>\n	<td class=\'pformright\'>{$data[\'th_avg_post\']}</td>\n   </tr>\n   </table>\n</div>', 'topic_history', '$data', 1035406235, 0),
+(198, 1, 'skin_mod', '<br />\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'ml_title\']}</div>\n  <table cellspacing=\'1\' width=\'100%\'>\n  <tr>\n   <td class=\'pformstrip\' width=\'30%\'><b>{$ibforums->lang[\'ml_name\']}</b></td>\n   <td class=\'pformstrip\' width=\'50%\'><b>{$ibforums->lang[\'ml_desc\']}</b></td>\n   <td class=\'pformstrip\' width=\'20%\'><b>{$ibforums->lang[\'ml_date\']}</b></td>\n  </tr>', 'mod_log_start', '', 1035406235, 0),
+(199, 1, 'skin_mod', '<tr>\n	<td class=\'pformright\' colspan=\'3\' align=\'center\'><i>{$ibforums->lang[\'ml_none\']}</i></td>\n   </tr>', 'mod_log_none', '', 1035406235, 0),
+(200, 1, 'skin_mod', '<tr>\n	<td class=\'pformright\'>{$data[\'member\']}</td>\n	<td class=\'pformright\'>{$data[\'action\']}</td>\n	<td class=\'pformright\'>{$data[\'date\']}</td>\n   </tr>', 'mod_log_row', '$data', 1035406235, 0),
+(201, 1, 'skin_mod', '</table>\n</div>', 'mod_log_end', '', 1035406235, 0),
+(202, 1, 'skin_mod', '<br />\n<div align=\'right\'>{$data}</div>\n<br />', 'forum_jump', '$data, $menu_extra=\"\"', 1035406235, 0),
+(203, 1, 'skin_mod', '<table cellspacing=\'1\' width=\'100%\'>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'mt_new_title\']}</b></td>\n	<td class=\'pformright\'><input type=\'text\' size=\'40\'  class=\'forminput\' maxlength=\'100\' name=\'title\' value=\'\' /></td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'mt_new_desc\']}</b></td>\n	<td class=\'pformright\'><input type=\'text\' size=\'40\'  class=\'forminput\' maxlength=\'100\' name=\'desc\' value=\'\' /></td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'st_forum\']}</b></td>\n	<td class=\'pformright\'><select name=\'fid\' class=\'forminput\'>$jump</select></td>\n   </tr>\n  </table>\n</div>\n<br />\n<div class=\'tableborder\'>\n <div class=\'maintitle\'>{$ibforums->lang[\'st_post\']}</div>', 'split_body', '$jump=\"\"', 1035406235, 0),
+(204, 1, 'skin_mod', '<div class=\'pformstrip\'>{$row[\'st_top_bit\']}</div>\n  <div class=\'tablepad\'>\n   {$row[\'post\']}\n   <div align=\'right\'><b>{$ibforums->lang[\'st_split\']}</b>&nbsp;&nbsp;<input type=\'checkbox\' name=\'post_{$row[\'pid\']}\' value=\'1\' /></div>\n </div>', 'split_row', '$row', 1035406235, 0),
+(205, 1, 'skin_mod', '<div class=\'pformstrip\' align=\'center\'> <input type=\"submit\" name=\"submit\" value=\"$action\" class=\'forminput\' /></div>\n</div>\n</form>', 'split_end_form', '$action', 1035406235, 0),
+(206, 1, 'skin_mod', '<table cellspacing=\'1\' width=\'100%\'>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'mt_new_title\']}</b></td>\n	<td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'50\' name=\'title\' value=\'$title\' /></td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'mt_new_desc\']}</b></td>\n	<td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'40\' name=\'desc\' value=\'$desc\' /></td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><b>{$ibforums->lang[\'mt_tid\']}</b></td>\n	<td class=\'pformright\'><input type=\'text\' size=\'50\' name=\'topic_url\' value=\'\' /></td>\n   </tr>\n  </table>', 'merge_body', '$title=\"\", $desc=\"\"', 1035406235, 0),
+(207, 1, 'skin_modcp', '<option value=\'-1\'>------------------------------</option>\n<option value=\'-1\'>{$ibforums->lang[\'mm_title\']}</option>\n<option value=\'-1\'>------------------------------</option>', 'mm_start', '', 1035406235, 0),
+(208, 1, 'skin_modcp', '<option value=\'t_{$id}\'>--  $title</option>', 'mm_entry', '$id, $title', 1035406235, 0),
+(209, 1, 'skin_modcp', '', 'mm_end', '', 1035406235, 0),
+(210, 1, 'skin_modcp', '<div class=\'tableborder\'>\n <div align=\'center\' class=\'pformstrip\'>\n  <a href=\'{$ibforums->base_url}act=modcp&amp;CODE=showforums\'>{$ibforums->lang[\'menu_forums\']}</a> &middot;\n  <a href=\'{$ibforums->base_url}act=modcp&amp;CODE=members\'>{$ibforums->lang[\'menu_users\']}</a> &middot;\n  <a href=\'{$ibforums->base_url}act=modcp&amp;CODE=ip\'>{$ibforums->lang[\'menu_ip\']}</a>\n </div>\n</div>\n<br />', 'mod_cp_start', '', 1035406235, 0),
+(211, 1, 'skin_modcp', '<form name=\'ibform\' action=\'{$ibforums->base_url}\' method=\'POST\'>\n<input type=\'hidden\' name=\'s\' value=\'{$ibforums->session_id}\'>\n<input type=\'hidden\' name=\'act\' value=\'modcp\'>\n<input type=\'hidden\' name=\'CODE\' value=\'domodposts\'>\n<input type=\'hidden\' name=\'f\' value=\'{$fid}\'>\n<input type=\'hidden\' name=\'tid\' value=\'{$tid}\'>\n<strong>{$ibforums->lang[\'cp_mod_posts_title2\']} $forumname</strong>\n<br />$pages\n\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'>$title</div>', 'modtopicview_start', '$tid,$forumname, $fid, $title', 1035406235, 0),
+(212, 1, 'skin_modcp', '<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'cp_mod_posts_title2\']} $forumname</div>\n  <table width=\'100%\' cellpadding=\'4\' cellspacing=\'1\'>\n  <tr>\n	<th class=\'pformstrip\' width=\'40%\' align=\'left\'>{$ibforums->lang[\'cp_3_title\']}</th>\n	<th class=\'pformstrip\' width=\'20%\' align=\'center\'>{$ibforums->lang[\'cp_3_replies\']}</th>\n	<th class=\'pformstrip\' width=\'20%\' align=\'center\'>{$ibforums->lang[\'cp_3_approveall\']}</th>\n	<th class=\'pformstrip\' width=\'20%\' align=\'center\'>{$ibforums->lang[\'cp_3_viewall\']}</th>\n  </tr>', 'modpost_topicstart', '$forumname, $fid', 1035406235, 0),
+(213, 1, 'skin_modcp', '<tr>\n	 <td class=\'row1\' width=\'40%\' align=\'left\'><b><a href=\'{$ibforums->base_url}act=ST&amp;f=$fid&amp;t=$tid\' target=\'_blank\'>$title</a></b></td>\n	 <td class=\'row1\' width=\'20%\' align=\'center\'>$replies</td>\n	 <td class=\'row1\' width=\'20%\' align=\'center\'><a href=\'{$ibforums->base_url}act=modcp&amp;f=$fid&amp;tid=$tid&amp;CODE=modtopicapprove\'>{$ibforums->lang[\'cp_3_approveall\']}</a></td>\n	 <td class=\'row1\' width=\'20%\' align=\'center\'><a href=\'{$ibforums->base_url}act=modcp&amp;f=$fid&amp;tid=$tid&amp;CODE=modtopicview\'>{$ibforums->lang[\'cp_3_viewall\']}</a></td>\n   </tr>', 'modpost_topicentry', '$title, $tid, $replies, $fid', 1035406235, 0),
+(214, 1, 'skin_modcp', '</table>\n</div>', 'modpost_topicend', '', 1035406235, 0),
+(215, 1, 'skin_modcp', '<form name=\'ibform\' action=\'{$ibforums->base_url}\' method=\'POST\'>\n<input type=\'hidden\' name=\'s\' value=\'{$ibforums->session_id}\'>\n<input type=\'hidden\' name=\'act\' value=\'modcp\'>\n<input type=\'hidden\' name=\'CODE\' value=\'domodtopics\'>\n<input type=\'hidden\' name=\'f\' value=\'{$fid}\'>\n<strong>{$ibforums->lang[\'cp_mod_topics_title2\']} $forumname</strong>\n<br />$pages', 'modtopics_start', '$pages,$forumname, $fid', 1035406235, 0),
+(216, 1, 'skin_modcp', '<div class=\'tableborder\'>\n  <div class=\'pformstrip\' align=\'center\'><input type=\'submit\' value=\'{$ibforums->lang[\'cp_1_go\']}\' class=\'forminput\' /></div>\n</div>\n</form>', 'modtopics_end', '', 1035406235, 0),
+(217, 1, 'skin_modcp', '<div class=\'tableborder\'>\n  <div class=\'titlemedium\'><select name=\'TID_$topic_id\' class=\'forminput\'><option value=\'approve\'>{$ibforums->lang[\'cp_1_approve\']}</option><option value=\'remove\'>{$ibforums->lang[\'cp_1_remove\']}</option><option value=\'leave\'>{$ibforums->lang[\'cp_1_leave\']}</option></select>&nbsp;&nbsp; $title</div>', 'mod_topic_title', '$title, $topic_id', 1035406235, 0),
+(218, 1, 'skin_modcp', '<table width=\'100%\' cellspacing=\'1\'>	\n   <tr>\n	   <td valign=\'top\' class=\'row1\' nowrap=\"nowrap\"><span class=\'normalname\'>{$data[\'member\'][\'name\']}</span><br /><br />{$data[\'member\'][\'avatar\']}<span class=\'postdetails\'><br />{$data[\'member\'][\'MEMBER_GROUP\']}<br />{$data[\'member\'][\'MEMBER_POSTS\']}<br />{$data[\'member\'][\'MEMBER_JOINED\']}</span></td>\n	   <td valign=\'top\' class=\'row1\' width=\'100%\'>\n		   <b>{$ibforums->lang[\'posted_on\']} {$data[\'msg\'][\'post_date\']}</b><br /><br />\n		   <span class=\'postcolor\'>\n			{$data[\'msg\'][\'post\']}\n		   </span>\n	   </td>\n	</tr>\n	</table>', 'mod_postentry', '$data', 1035406235, 0),
+(219, 1, 'skin_modcp', '<div class=\'pformstrip\' align=\'right\'><select name=\'PID_$pid\' class=\'forminput\'><option value=\'approve\'>{$ibforums->lang[\'cp_1_approve\']}</option><option value=\'remove\'>{$ibforums->lang[\'cp_1_remove\']}</option><option value=\'leave\'>{$ibforums->lang[\'cp_1_leave\']}</option></select>&nbsp;&nbsp;{$ibforums->lang[\'cp_3_postno\']}&nbsp;$pid</div>', 'mod_postentry_checkbox', '$pid', 1035406235, 0),
+(220, 1, 'skin_modcp', '</div>\n<br />', 'mod_topic_spacer', '', 1035406235, 0),
+(221, 1, 'skin_modcp', '<tr>\n  <td colspan=\'2\'>\n    <table cellpadding=\'2\' cellspacing=\'1\' border=\'0\' width=\'100%\' class=\'fancyborder\' align=\'center\'>\n     <tr>\n       <td><span class=\'pagetitle\'>{$ibforums->lang[\'cp_results\']}</span>\n       </td>\n     </tr>\n	  <tr>\n	    <td colspan=\'2\'><b>$text</b></td>\n	  </tr>\n	 </table>\n   </td>\n  </tr>', 'results', '$text', 1035406235, 0),
+(222, 1, 'skin_modcp', '<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'mpt_confirm\']}</div>\n  <div class=\'pformstrip\'>{$ibforums->lang[\'cp_check_result\']}</div>\n  <table width=\'100%\' cellspacing=\'0\'>\n   <tr>\n	<td class=\'pformleftw\'><strong>{$ibforums->lang[\'cp_total_topics\']}</strong></td>\n	<td class=\'pformright\'>$tcount</td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'><span style=\'color:red;font-weight:bold;\'>{$ibforums->lang[\'cp_total_match\']}</span></td>\n	<td class=\'pformright\'><span style=\'color:red;font-weight:bold;\'>$count</span></td>\n   </tr>\n   </table>\n   <form action=\'{$ibforums->base_url}$link\' method=\'post\'>\n   <input type=\'hidden\' name=\'key\' value=\'$key\' />\n   <div class=\'pformstrip\' align=\'center\'><input type=\'submit\' class=\'forminput\' value=\'$link_text\' /></div>\n   </form>\n</div>\n<br />', 'prune_confirm', '$tcount, $count, $link, $link_text, $key', 1035406235, 0),
+(223, 1, 'skin_modcp', '<!-- IBF.CONFIRM -->\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'cp_prune\']} {$forum[\'name\']}</div>\n  <div class=\'pformstrip\'>{$ibforums->lang[\'mpt_help\']}</div>\n  <div class=\'tablepad\'>{$ibforums->lang[\'cp_prune_text\']}</div>\n  <form name=\'ibform\' action=\'{$ibforums->base_url}\' method=\'POST\'>\n  <input type=\'hidden\' name=\'s\' value=\'{$ibforums->session_id}\'>\n  <input type=\'hidden\' name=\'act\' value=\'modcp\'>\n  <input type=\'hidden\' name=\'CODE\' value=\'prune\'>\n  <input type=\'hidden\' name=\'f\' value=\'{$forum[\'id\']}\'>\n  <input type=\'hidden\' name=\'check\' value=\'1\'>\n  <div class=\'pformstrip\'>{$ibforums->lang[\'mpt_title\']}</div>\n   <table width=\'100%\' cellspacing=\'0\'>\n   <tr>\n	<td class=\'pformleftw\'>{$ibforums->lang[\'cp_action\']}</td>\n	<td class=\'pformright\'><select name=\'df\' class=\'forminput\'>$forums</select></td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'>{$ibforums->lang[\'cp_prune_days\']}</td>\n	<td class=\'pformright\'><input type=\'text\' size=\'40\' name=\'dateline\' value=\'{$ibforums->input[\'dateline\']}\' class=\'forminput\' /></td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'>{$ibforums->lang[\'cp_prune_type\']}</td>\n	<td class=\'pformright\'>$select &nbsp; <input type=\'checkbox\' id=\'cbox\' name=\'ignore_pin\' value=\'1\' checked=\'checked\' class=\'checkbox\' />&nbsp;<label for=\'cbox\'>{$ibforums->lang[\'mps_ignorepin\']}</label></td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'>{$ibforums->lang[\'cp_prune_replies\']}</td>\n	<td class=\'pformright\'><input type=\'text\' size=\'40\' name=\'posts\' value=\'{$ibforums->input[\'posts\']}\' class=\'forminput\' /></td>\n   </tr>\n   <tr>\n	<td class=\'pformleftw\'>{$ibforums->lang[\'cp_prune_member\']}</td>\n	<td class=\'pformright\'><input type=\'text\' size=\'40\' name=\'member\' value=\'{$ibforums->input[\'member\']}\' class=\'forminput\' /></td>\n   </tr>\n   </table>\n  <div class=\'pformstrip\' align=\'center\'><input type=\'submit\' value=\'{$ibforums->lang[\'cp_prune_sub1\']}\' class=\'forminput\' /></div>\n  </form>\n</div>', 'prune_splash', '$forum, $forums, $select', 1035406235, 0),
+(224, 1, 'skin_modcp', '<form name=\'ibform\' action=\'{$ibforums->base_url}act=modcp&amp;CODE=compedit&amp;memberid={$profile[\'id\']}\' method=\'post\'>\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'cp_edit_user\']}: {$profile[\'name\']}</div>\n  <table class=\'tablebasic\'>\n  <tr>\n   <td class=\'pformleft\'>{$ibforums->lang[\'cp_remove_av\']}</td>\n   <td class=\'pformright\'><select name=\'avatar\' class=\'forminput\'><option value=\'0\'>{$ibforums->lang[\'no\']}</option><option value=\'1\'>{$ibforums->lang[\'yes\']}</option></select></td>\n  </tr>\n  <tr>\n   <td class=\'pformleft\'>{$ibforums->lang[\'cp_remove_photo\']}</td>\n   <td class=\'pformright\'><select name=\'photo\' class=\'forminput\'><option value=\'0\'>{$ibforums->lang[\'no\']}</option><option value=\'1\'>{$ibforums->lang[\'yes\']}</option></select></td>\n  </tr>\n  <tr>\n   <td class=\'pformleft\'>{$ibforums->lang[\'cp_edit_website\']}</td>\n   <td class=\'pformright\'><input type=\'text\' size=\'40\' name=\'website\' value=\'{$profile[\'website\']}\' class=\'forminput\' /></td>\n  </tr>\n  <tr>\n   <td class=\'pformleft\'>{$ibforums->lang[\'cp_edit_location\']}</td>\n   <td class=\'pformright\'><input type=\'text\' size=\'40\' name=\'location\' value=\'{$profile[\'location\']}\' class=\'forminput\' /></td>\n  </tr>\n  <tr>\n   <td class=\'pformleft\'>{$ibforums->lang[\'cp_edit_interests\']}</td>\n   <td class=\'pformright\'><textarea cols=\'50\' rows=\'3\' name=\'interests\' class=\'forminput\'>{$profile[\'interests\']}</textarea></td>\n  </tr>\n   <tr>\n   <td class=\'pformleft\'>{$ibforums->lang[\'cp_edit_signature\']}</td>\n   <td class=\'pformright\'><textarea cols=\'50\' rows=\'5\' name=\'signature\' class=\'forminput\'>{$profile[\'signature\']}</textarea></td>\n  </tr>\n  </table>\n  <div class=\'pformstrip\' align=\'center\'><input type=\'submit\' value=\'{$ibforums->lang[\'cp_find_2_submit\']}\' class=\'forminput\' /></div>\n</div>\n</form>', 'edit_user_form', '$profile', 1035406235, 0),
+(225, 1, 'skin_modcp', '<form name=\'ibform\' action=\'{$ibforums->base_url}act=modcp&amp;CODE=doedituser\' method=\'post\'>\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'cp_edit_user\']}</div>\n  <table class=\'tablebasic\' cellspacing=\"1\" cellpadding=\"3\">\n  <tr>\n   <td width=\'40%\' class=\'row1\'>{$ibforums->lang[\'cp_find_2_user\']}</td>\n   <td class=\'row1\'>$select</td>\n  </tr>\n  </table>\n  <div class=\'pformstrip\' align=\'center\'><input type=\'submit\' value=\'{$ibforums->lang[\'cp_find_2_submit\']}\' class=\'forminput\' /></div>\n</div>\n</form>', 'find_two', '$select', 1035406235, 0),
+(226, 1, 'skin_modcp', '<form name=\'ibform\' action=\'{$ibforums->base_url}act=modcp&amp;CODE=dofinduser\' method=\'post\'>\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'cp_edit_user\']}</div>\n  <table class=\'tablebasic\' cellspacing=\"1\" cellpadding=\"3\">\n  <tr>\n   <td width=\'40%\' class=\'row1\'>{$ibforums->lang[\'cp_find_user\']}</td>\n   <td class=\'row1\'><input type=\'text\' size=\'40\' name=\'name\' value=\'\' class=\'forminput\' /></td>\n  </tr>\n  </table>\n  <div class=\'pformstrip\' align=\'center\'><input type=\'submit\' value=\'{$ibforums->lang[\'cp_find_submit\']}\' class=\'forminput\' /></div>\n</div>\n</form>', 'find_user', '', 1035406235, 0),
+(227, 1, 'skin_modcp', '<form name=\'ibform\' action=\'{$ibforums->base_url}\' method=\'post\'>\n<input type=\'hidden\' name=\'s\' value=\'{$ibforums->session_id}\'>\n<input type=\'hidden\' name=\'act\' value=\'modcp\'>\n<input type=\'hidden\' name=\'CODE\' value=\'doip\'>\n<div class=\'tableborder\'>\n <div class=\'maintitle\'>{$ibforums->lang[\'menu_ip\']}</div>\n <table class=\'tablebasic\'>\n <tr>\n   <td width=\'40%\' class=\'row1\'>{$ibforums->lang[\'ip_enter\']}</td>\n   <td class=\'row1\'>\n	 <input type=\'text\' size=\'20\' maxlength=\'24\' name=\'ip\' value=\'{$ip}\' class=\'forminput\' />\n	 <select name=\'iptool\' class=\'forminput\'>\n		 <option value=\'resolve\'>{$ibforums->lang[\'ip_resolve\']}</option>\n		 <option value=\'posts\'>{$ibforums->lang[\'ip_posts\']}</option>\n		 <option value=\'members\'>{$ibforums->lang[\'ip_members\']}</option>\n	 </select>\n   </td>\n  </tr>\n  </table>\n  <div class=\'pformstrip\' align=\'center\'><input type=\'submit\' value=\'{$ibforums->lang[\'ip_submit\']}\' class=\'forminput\' /></div>\n</div>\n</form>\n<br />\n<div class=\'tableborder\'>\n <div class=\'maintitle\'>{$ibforums->lang[\'iph_title\']}</div>\n <div class=\'tablepad\' style=\'line-height:150%\'>{$ibforums->lang[\'ip_desc_text\']}<br /><br />{$ibforums->lang[\'ip_warn_text\']}</div>\n</div>', 'ip_start_form', '$ip=\"\"', 1035406235, 0),
+(228, 1, 'skin_modcp', '<div align=\'left\'>$pages</div>\n<br />\n<div class=\'tableborder\'>\n <div class=\'maintitle\'>{$ibforums->lang[\'ipm_title\']}</div>\n <table cellpadding=\'6\' class=\'tablebasic\'>\n <tr>\n  <th class=\'pformstrip\' width=\'20%\'>{$ibforums->lang[\'ipm_name\']}</th>\n  <th class=\'pformstrip\' width=\'20%\'>{$ibforums->lang[\'ipm_ip\']}</th>\n  <th class=\'pformstrip\' width=\'10%\'>{$ibforums->lang[\'ipm_posts\']}</th>\n  <th class=\'pformstrip\' width=\'20%\'>{$ibforums->lang[\'ipm_reg\']}</th>\n  <th class=\'pformstrip\' width=\'30%\'>{$ibforums->lang[\'ipm_options\']}</th>\n </tr>', 'ip_member_start', '$pages', 1035406235, 0),
+(229, 1, 'skin_modcp', '<tr>\n	  <td class=\'row2\'>{$row[\'name\']}</td>\n	  <td class=\'row2\'>{$row[\'ip_address\']}</td>\n	  <td class=\'row2\'>{$row[\'posts\']}</td>\n	  <td class=\'row2\'>{$row[\'joined\']}</td>\n	  <td class=\'row2\' align=\'center\'><a href=\'{$ibforums->base_url}showuser={$row[\'id\']}\' target=\'_blank\'>{$ibforums->lang[\'ipm_view\']}</a>\n	  | <a href=\'{$ibforums->base_url}act=modcp&amp;CODE=doedituser&amp;memberid={$row[\'id\']}\'>{$ibforums->lang[\'ipm_edit\']}</a></td>\n	 </tr>', 'ip_member_row', '$row', 1035406235, 0),
+(230, 1, 'skin_modcp', '</table>\n</div>\n<br />\n<div align=\'left\'>$pages</div>', 'ip_member_end', '$pages', 1035406235, 0),
+(231, 1, 'skin_modcp', '<tr>\n  <td class=\'pagetitle\'>{$ibforums->lang[\'cp_welcome\']}</td>\n </tr>\n <tr>\n  <td>{$ibforums->lang[\'cp_welcome_text\']}</td>\n </tr>\n <tr>\n  <td>\n    <table cellpadding=\'2\' cellspacing=\'1\' border=\'0\' width=\'75%\' class=\'fancyborder\' align=\'center\'>\n	  <tr>\n	    <td><b>{$ibforums->lang[\'cp_mod_in\']}</b></td>\n	    <td>$forum</td>\n	  </tr>\n	  <tr>\n	    <td><b>{$ibforums->lang[\'cp_topics_wait\']}</b></td>\n	    <td>$tcount</td>\n	  </tr>\n	  <tr>\n	    <td><b>{$ibforums->lang[\'cp_posts_wait\']}</b></td>\n	    <td>$pcount</td>\n	  </tr>\n	 </table>\n   </td>\n  </tr>', 'splash', '$tcount, $pcount, $forum', 1035406235, 0),
+(232, 1, 'skin_modcp', '<tr>\n                <td class=\'row1\' colspan=\'2\'>$words</td>\n                </tr>', 'mod_exp', '$words', 1035406235, 0),
+(233, 1, 'skin_modcp', '<tr>\n                <td class=\'row2\' align=\'center\' colspan=\'2\'>\n                <input type=\"submit\" name=\"submit\" value=\"$action\" class=\'forminput\'>\n                </td></tr></table>\n                </td></tr></table>\n                </form>', 'end_form', '$action', 1035406235, 0),
+(234, 1, 'skin_modcp', '<!-- Forum {$info[\'id\']} entry -->\n  <tr>\n	<td class=\'row4\' align=\'center\' width=\'5%\'>{$info[\'folder_icon\']}</td>\n	<td class=\"row4\" colspan=2><b><a href=\"{$ibforums->base_url}act=modcp&amp;CODE=showtopics&amp;f={$info[\'id\']}\">{$info[\'name\']}</a></b><br /><span class=\'desc\'>{$info[\'description\']}</span><br />{$info[\'moderator\']}</td>\n	<td class=\"row2\" align=\"center\">{$info[\'q_topics\']}</td>\n	<td class=\"row2\" align=\"center\">{$info[\'q_posts\']}</td>\n	<td class=\"row2\">{$info[\'last_post\']}<br />{$ibforums->lang[\'in\']}: {$info[\'last_topic\']}<br />{$ibforums->lang[\'by\']}: {$info[\'last_poster\']}</td>\n	<td class=\"row2\" align=\"center\">{$info[\'select_button\']}</td>        \n  </tr>\n<!-- End of Forum {$info[\'id\']} entry -->', 'forum_row', '$info', 1035406235, 0),
+(235, 1, 'skin_modcp', '<!-- Forum {$info[\'id\']} entry -->\n  <tr>\n	<td class=\'row4\' align=\'center\' width=\'5%\'>&nbsp;</td>\n	<td class=\'row4\' align=\'center\' width=\'5%\'>{$info[\'folder_icon\']}</td>\n	<td class=\"row2\"><b><a href=\"{$ibforums->base_url}act=modcp&amp;CODE=showtopics&amp;f={$info[\'id\']}\">{$info[\'name\']}</a></b><br /><span class=\'desc\'>{$info[\'description\']}</span><br />{$info[\'moderator\']}</td>\n	<td class=\"row2\" align=\"center\">{$info[\'q_topics\']}</td>\n	<td class=\"row2\" align=\"center\">{$info[\'q_posts\']}</td>\n	<td class=\"row2\">{$info[\'last_post\']}<br />{$ibforums->lang[\'in\']}: {$info[\'last_topic\']}<br />{$ibforums->lang[\'by\']}: {$info[\'last_poster\']}</td>\n	<td class=\"row2\" align=\"center\"><input type=\'radio\' name=\'f\' value=\'{$info[\'id\']}\' /></td>        \n  </tr>\n<!-- End of Forum {$info[\'id\']} entry -->', 'subforum_row', '$info', 1035406235, 0),
+(236, 1, 'skin_modcp', '<form action=\'{$ibforums->base_url}act=modcp&amp;CODE=fchoice\' method=\'post\'>\n<div class=\'tableborder\'>\n  <table class=\'tablebasic\' cellspacing=\"1\" cellpadding=\"3\">', 'forum_page_start', '', 1035406235, 0),
+(237, 1, 'skin_modcp', '<tr>\n	<td colspan=\'7\' class=\'maintitle\'>$cat_name</td>\n  </tr>\n  <tr> \n	<th class=\'titlemedium\' align=\'left\' width=\'5%\'>&nbsp;</th>\n	<th width=\"35%\" class=\'titlemedium\' colspan=\'2\'>{$ibforums->lang[\'cat_name\']}</th>\n	<th width=\"15%\" class=\'titlemedium\'>{$ibforums->lang[\'f_q_topics\']}</th>\n	<th width=\"15%\" class=\'titlemedium\'>{$ibforums->lang[\'f_q_posts\']}</th>\n	<th width=\"25%\" class=\'titlemedium\'>{$ibforums->lang[\'last_post_info\']}</th>\n	<th width=\"5%\"  class=\'titlemedium\'>{$ibforums->lang[\'f_select\']}</th>\n  </tr>', 'cat_row', '$cat_name', 1035406235, 0),
+(238, 1, 'skin_modcp', '<tr>\n   <td colspan=\'7\' class=\'row2\' align=\'right\'><b>{$ibforums->lang[\'f_w_selected\']}</b>\n   <select class=\'forminput\' name=\'fact\'>\n   <option value=\'mod_topic\'>{$ibforums->lang[\'cp_mod_topics\']}</option>\n   <option value=\'mod_post\'>{$ibforums->lang[\'cp_mod_posts\']}</option>\n   <option value=\'prune_move\'>{$ibforums->lang[\'cp_prune_posts\']}</option>\n   </select>&nbsp;<input type=\'submit\' value=\'{$ibforums->lang[\'f_go\']}\' class=\'forminput\' />\n   </td>\n  </tr>\n  </table>\n</div>\n</form>', 'forum_page_end', '', 1035406235, 0),
+(239, 1, 'skin_modcp', '<div class=\'tableborder\'>\n  <div class=\'maintitle\'>$title</div>\n  <div class=\'tablepad\'>$msg</div>\n</div>', 'mod_simple_page', '$title=\"\",$msg=\"\"', 1035406235, 0),
+(240, 1, 'skin_modcp', '{$ibforums->lang[\'ipp_found\']} $count\n<br />\n<br />\n<a target=\'_blank\' href=\'{$ibforums->base_url}act=Search&amp;CODE=show&amp;searchid=$uid&amp;search_in=posts&amp;result_type=posts\'>{$ibforums->lang[\'ipp_click\']}</a>', 'ip_post_results', '$uid=\"\",$count=\"\"', 1035406235, 0),
+(241, 1, 'skin_modcp', '<script language=\'javascript\'>\n<!--\n function checkdelete() {\n \n   isDelete = document.topic.tact.options[document.topic.tact.selectedIndex].value;\n   \n   msg = \'\';\n   \n   if (isDelete == \'delete\')\n   {\n	   msg = \"{$ibforums->lang[\'cp_js_delete\']}\";\n	   \n	   formCheck = confirm(msg);\n	   \n	   if (formCheck == true)\n	   {\n		   return true;\n	   }\n	   else\n	   {\n		   return false;\n	   }\n   }\n }\n//-->\n</script>\n<form action=\'{$ibforums->base_url}act=modcp&amp;f={$info[\'id\']}&amp;CODE=topicchoice\' method=\'post\' name=\'topic\' onsubmit=\'return checkdelete();\'>\n<div class=\'pagelinks\'>$pages</div>\n<div align=\'right\'>\n  <a href=\'{$ibforums->base_url}act=modcp&amp;fact=mod_topic&amp;CODE=fchoice&amp;f={$info[\'id\']}\'>{$ibforums->lang[\'cp_mod_topics\']}</a> &middot;\n  <a href=\'{$ibforums->base_url}act=modcp&amp;fact=mod_post&amp;CODE=fchoice&amp;f={$info[\'id\']}\'>{$ibforums->lang[\'cp_mod_posts\']}</a> &middot;\n  <a href=\'{$ibforums->base_url}act=modcp&amp;fact=prune_move&amp;CODE=fchoice&amp;f={$info[\'id\']}\'>{$ibforums->lang[\'cp_prune_posts\']}</a>\n</div>\n<br />\n<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$info[\'name\']} [ <a target=\'_blank\' href=\'{$ibforums->base_url}showforum={$info[\'id\']}\'>{$ibforums->lang[\'new_show_forum\']}</a> ]</div>\n  <table width=\'100%\' border=\'0\' cellspacing=\'1\' cellpadding=\'4\'>\n  <tr> \n	<td class=\'titlemedium\' style=\'width:5px\'>&nbsp;</td>\n	<td class=\'titlemedium\' style=\'width:5px\'>&nbsp;</td>\n	<td width=\'40%\' class=\'titlemedium\'>{$ibforums->lang[\'h_topic_title\']}</td>\n	<td width=\'15%\' align=\'center\' nowrap=\"nowrap\" class=\'titlemedium\'>{$ibforums->lang[\'h_topic_starter\']}</td>\n	<td width=\'7%\' align=\'center\' nowrap=\"nowrap\" class=\'titlemedium\'>{$ibforums->lang[\'h_replies\']}</td>\n	<td width=\'8%\' align=\'center\' nowrap=\"nowrap\" class=\'titlemedium\'>{$ibforums->lang[\'h_hits\']}</td>\n	<td width=\'25%\' nowrap=\"nowrap\" class=\'titlemedium\'>{$ibforums->lang[\'h_last_action\']}</td>\n	<td width=\'5%\' nowrap=\"nowrap\" class=\'titlemedium\'>{$ibforums->lang[\'f_select\']}</td>\n  </tr>', 'start_topics', '$pages,$info', 1035406235, 0),
+(242, 1, 'skin_modcp', '<tr> \n	<td class=\'row4\' colspan=\'8\' align=\'center\'>\n		<br />\n		 <b>{$ibforums->lang[\'fv_no_topics\']}</b>\n		<br /><br />\n	</td>\n  </tr>', 'show_no_topics', '', 1035406235, 0),
+(243, 1, 'skin_modcp', '<!-- Begin Topic Entry {$data[\'tid\']} -->\n    <tr> \n	  <td align=\'center\' class=\'row4\'>{$data[\'folder_img\']}</td>\n      <td align=\'center\' class=\'row2\'>{$data[\'topic_icon\']}</td>\n      <td class=\'row4\'>{$data[\'prefix\']} <a target=\'_blank\' href=\'{$ibforums->base_url}showtopic={$data[\'tid\']}\' title=\'{$ibforums->lang[\'topic_started_on\']} {$data[\'start_date\']}\'>{$data[\'title\']}</a><br /><span class=\'desc\'>{$data[\'description\']}</span></td>\n      <td align=\'center\' class=\'row2\'>{$data[\'starter\']}</td>\n      <td align=\'center\' class=\'row4\'>{$data[\'posts\']}</td>\n      <td align=\'center\' class=\'row2\'>{$data[\'views\']}</td>\n      <td class=\'row2\'>{$data[\'last_post\']}<br />{$data[\'last_text\']} <b>{$data[\'last_poster\']}</b></td>\n      <td align=\'center\' class=\'row2\'><input type=\'checkbox\' name=\'TID_{$data[\'real_tid\']}\' value=\'1\' /></td>\n    </tr>\n    <!-- End Topic Entry {$data[\'tid\']} -->', 'topic_row', '$data', 1035406235, 0),
+(244, 1, 'skin_modcp', '</table>\n  <div class=\'pformstrip\' align=\'center\'>\n     {$ibforums->lang[\'t_w_selected\']}\n	 <select class=\'forminput\' name=\'tact\'>\n	 <option value=\'close\'>{$ibforums->lang[\'cpt_close\']}</option>\n	 <option value=\'open\'>{$ibforums->lang[\'cpt_open\']}</option>\n	 <option value=\'pin\'>{$ibforums->lang[\'cpt_pin\']}</option>\n	 <option value=\'unpin\'>{$ibforums->lang[\'cpt_unpin\']}</option>\n	 <option value=\'move\'>{$ibforums->lang[\'cpt_move\']}</option>\n	 <option value=\'delete\'>{$ibforums->lang[\'cpt_delete\']}</option>\n	 <!--IBF.MMOD-->\n	 </select> &nbsp;<input type=\'submit\' value=\'{$ibforums->lang[\'f_go\']}\' class=\'forminput\' />\n  </div>\n</div>\n</form>', 'topics_end', '$data', 1035406235, 0),
+(245, 1, 'skin_modcp', '<form action=\'{$ibforums->base_url}act=modcp&amp;CODE=topicchoice&amp;tact=domove&amp;f=$fid\' method=\'post\'>\n<div class=\'tableborder\'>\n <div class=\'maintitle\'>{$ibforums->lang[\'cp_tmove_start\']} $forum_name</div>\n <table class=\'tablebasic\'>', 'move_checked_form_start', '$forum_name, $fid', 1035406235, 0),
+(246, 1, 'skin_modcp', '<tr>\n   <td class=\'row1\' width=\'10%\' align=\'center\'><input type=\'checkbox\' name=\'TID_$tid\' value=\'1\' checked=\"checked\" /></td>\n   <td class=\'row1\' width=\'90%\' align=\'left\'><strong>$title</strong></td>\n  </tr>', 'move_checked_form_entry', '$tid, $title', 1035406235, 0),
+(247, 1, 'skin_modcp', '</table>\n   <div align=\'center\' class=\'tablepad\'>{$ibforums->lang[\'cp_tmove_to\']}&nbsp;&nbsp;<select class=\'forminput\' name=\'df\'>$jump_html</select></div>\n   <div align=\'center\' class=\'pformstrip\'><input type=\'submit\' value=\'{$ibforums->lang[\'cp_tmove_end\']}\' class=\'forminput\' /></div>\n </div>\n</form>', 'move_checked_form_end', '$jump_html', 1035406235, 0),
+(248, 1, 'skin_msg', '<div class=\"pformstrip\">{$ibforums->lang[\'pm_preview\']}</div>\n<p>$data</p>', 'preview', '$data', 1035406235, 0),
+(249, 1, 'skin_msg', '<div class=\"pformstrip\">{$ibforums->lang[\'err_errors\']}</div>\n<span class=\'postcolor\'><p>$data<br /><br />{$ibforums->lang[\'pme_none_sent\']}</p></span>', 'pm_errors', '$data', 1035406235, 0),
+(250, 1, 'skin_msg', '<script language=\'javascript\'>\n<!--\n function goto_inbox() {\n 	opener.document.location.href = \'{$ibforums->base_url}act=Msg&amp;CODE=01\';\n 	window.close();\n }\n \n function goto_this_inbox() {\n 	window.resizeTo(\'700\',\'500\');\n 	document.location.href = \'{$ibforums->base_url}&act=Msg&CODE=01\';\n }\n \n function go_read_msg() {\n 	window.resizeTo(\'700\',\'500\');\n 	document.location.href = \'{$ibforums->base_url}&act=Msg&CODE=03&VID=in&MSID=$mid\';\n }\n \n//-->\n</script>\n<table cellspacing=\'1\' cellpadding=\'10\' width=\'100%\' height=\'100%\' align=\'center\' class=\'row1\'>\n<tr>\n   <td id=\'phototitle\' align=\'center\'>{$ibforums->lang[\'pmp_title\']}</td>\n</tr>\n<tr>\n   <td align=\'center\'>$text</td>\n</tr>\n<tr>\n   <td align=\'center\' style=\'font-size:12px;font-weight:bold\'>\n   <a href=\'javascript:go_read_msg();\'>{$ibforums->lang[\'pmp_get_last\']}</a>\n   <br /><br />\n   <a href=\'javascript:goto_inbox();\'>{$ibforums->lang[\'pmp_go_inbox\']}</a> ( <a href=\'javascript:goto_this_inbox();\'>{$ibforums->lang[\'pmp_thiswindow\']}</a> )<br /><br /><a href=\'javascript:window.close();\'>{$ibforums->lang[\'pmp_ignore\']}</a></td>\n</tr>\n</table>', 'pm_popup', '$text, $mid', 1035406235, 0),
+(251, 1, 'skin_msg', '<html>\n <head>\n  <title>Private Message Archive</title>\n </head>\n <style type=\'text/css\'>\n	 BODY { font-family: Verdana, Tahoma, Arial, sans-serif;\n			font-size: 11px;\n			color: #000;\n			margin:0px;\n			padding:0px;\n			background-color:#FFF;\n			text-align:center\n		   }\n		   \n	#ipbwrapper { text-align:left; width:95%; margin-left:auto;margin-right:auto }\n	\n	html { overflow-x: auto; } \n	\n	a:link, a:visited, a:active { text-decoration: underline; color: #000 }\n	a:hover { color: #465584; text-decoration:underline }\n	img        { vertical-align:middle; border:0px }\n	\n	.post1 { background-color: #F5F9FD }\n	.post2 { background-color: #EEF2F7 }\n	\n	/* Common elements */\n	.row1 { background-color: #F5F9FD }\n	.row2 { background-color: #DFE6EF }\n	.row3 { background-color: #EEF2F7 }\n	.row4 { background-color: #E4EAF2 }\n	\n	/* tableborders gives the white column / row lines effect */\n	.plainborder { border:1px solid #345487;background-color:#F5F9FD }\n	.tableborder { border:1px solid #345487;background-color:#FFF; padding:0; margin:0 }\n	.tablefill   { border:1px solid #345487;background-color:#F5F9FD;padding:6px;  }\n	.tablepad    { background-color:#F5F9FD;padding:6px }\n	.tablebasic  { width:100%; padding:0px 0px 0px 0px; margin:0px; border:0px }\n	\n	.pformstrip { background-color: #D1DCEB; color:#3A4F6C;font-weight:bold;padding:7px;margin-top:1px }\n	#QUOTE { font-family: Verdana, Arial; font-size: 11px; color: #465584; background-color: #FAFCFE; border: 1px solid #000; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px }\n	#CODE  { font-family: Courier, Courier New, Verdana, Arial;  font-size: 11px; color: #465584; background-color: #FAFCFE; border: 1px solid #000; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px }\n	\n	/* Main table top (dark blue gradient by default) */\n	.maintitle { vertical-align:middle;font-weight:bold; color:#FFF; background-color:D1DCEB;padding:8px 0px 8px 5px; background-image: url({$ibforums->vars[\'board_url\']}/style_images/<#IMG_DIR#>/tile_back.gif) }\n	.maintitle a:link, .maintitle  a:visited, .maintitle  a:active { text-decoration: none; color: #FFF }\n	.maintitle a:hover { text-decoration: underline }\n    \n    /* Topic View elements */\n	.signature   { font-size: 10px; color: #339; line-height:150% }\n	.postdetails { font-size: 10px }\n	.postcolor   { font-size: 12px; line-height: 160% }\n </style>\n <body>\n <div id=\'ipbwrapper\'>', 'archive_html_header', '', 1035406235, 0),
+(252, 1, 'skin_msg', '<div class=\'tableborder\'>\n <div class=\'maintitle\'><img src=\"{$ibforums->vars[\'board_url\']}/style_images/<#IMG_DIR#>/f_norm.gif\" alt=\'PM\' />&nbsp;PM: {$info[\'msg_title\']}</div>\n <div class=\'tablefill\'><div class=\'postcolor\'>{$info[\'msg_content\']}</div></div>\n <div class=\'pformstrip\'>Sent by <b>{$info[\'msg_sender\']}</b> on {$info[\'msg_date\']}</div>\n</div>\n<br />', 'archive_html_entry', '$info', 1035406235, 0),
+(253, 1, 'skin_msg', '<div class=\'tableborder\'>\n <div class=\'maintitle\'><img src=\"{$ibforums->vars[\'board_url\']}/style_images/<#IMG_DIR#>/f_moved.gif\" alt=\'PM\' />&nbsp;PM: {$info[\'msg_title\']}</div>\n <div class=\'tablefill\'><div class=\'postcolor\'>{$info[\'msg_content\']}</div></div>\n <div class=\'pformstrip\'>Sent to <b>{$info[\'msg_sender\']}</b> on {$info[\'msg_date\']}</div>\n</div>\n<br />', 'archive_html_entry_sent', '$info', 1035406235, 0),
+(254, 1, 'skin_msg', '</div>\n </body>\n</html>', 'archive_html_footer', '', 1035406235, 0),
+(255, 1, 'skin_msg', '<div class=\"pformstrip\">{$ibforums->lang[\'arc_comp_title\']}</div>\n<p>{$ibforums->lang[\'arc_complete\']}</p>', 'archive_complete', '', 1035406235, 0),
+(256, 1, 'skin_msg', '<form action=\"{$ibforums->base_url}\" method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'Msg\' />\n<input type=\'hidden\' name=\'CODE\' value=\'15\' />\n<div class=\"pformstrip\">{$ibforums->lang[\'archive_title\']}</div>\n<p>{$ibforums->lang[\'archive_text\']}</p>\n<table width=\"100%\" style=\"padding:6px\">\n<tr>\n   <td><b>{$ibforums->lang[\'arc_folders\']}</b></td>\n   <td>$jump_html</td>\n</tr>\n<tr>\n   <td><b>{$ibforums->lang[\'arc_dateline\']}</b></td>\n   <td valign=\'middle\'><select name=\'dateline\' class=\'forminput\'>\n	 <option value=\'1\'>1</option>\n	 <option value=\'7\'>7</option>\n	 <option value=\'30\' selected=\'selected\'>30</option>\n	 <option value=\'90\'>90</option>\n	 <option value=\'365\'>365</option>\n	 <option value=\'all\'>{$ibforums->lang[\'arc_alldays\']}</option>\n	 </select>&nbsp;&nbsp;{$ibforums->lang[\'arc_days\']}\n	 <select name=\'oldnew\' class=\'forminput\'>\n	  <option value=\'newer\' selected=\'selected\'>{$ibforums->lang[\'arch_new\']}</option>\n	  <option value=\'older\'>{$ibforums->lang[\'arch_old\']}</option>\n	 </select>\n   </td>\n</tr>\n<tr>\n   <td><b>{$ibforums->lang[\'arc_max\']}</b></td>\n   <td valign=\'middle\'><select name=\'number\' class=\'forminput\'><option value=\'5\'>5</option><option value=\'10\'>10</option><option value=\'20\' selected>20</option><option value=\'30\'>30</option><option value=\'40\'>40</option><option value=\'50\'>50</option></select></td>\n</tr>\n<tr>\n   <td><b>{$ibforums->lang[\'arc_delete\']}</b></td>\n   <td valign=\'middle\'><select name=\'delete\' class=\'forminput\'><option value=\'yes\'>{$ibforums->lang[\'arc_yes\']}</option><option value=\'no\' selected=\'selected\'>{$ibforums->lang[\'arc_no\']}</option></select></td>\n</tr>\n<tr>\n   <td><b>{$ibforums->lang[\'arc_type\']}</b></td>\n   <td valign=\'middle\'><select name=\'type\' class=\'forminput\'><option value=\'xls\' selected>{$ibforums->lang[\'arc_xls\']}</option><option value=\'html\'>{$ibforums->lang[\'arc_html\']}</option></select></td>\n</tr>\n</table>\n<div class=\"pformstrip\" align=\"center\"><input type=\"submit\" value=\"{$ibforums->lang[\'arc_submit\']}\" class=\'forminput\' /></div>\n</form>', 'archive_form', '$jump_html=\"\"', 1035406235, 0),
+(257, 1, 'skin_msg', '<tr>\n      <td class=\'row1\' colspan=\'5\' align=\'center\'><b>{$ibforums->lang[\'inbox_no_msg\']}</b></td>                \n      </tr>', 'No_msg_inbox', '', 1035406235, 0),
+(258, 1, 'skin_msg', '<form action=\"{$ibforums->base_url}\" method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'Msg\' />\n<input type=\'hidden\' name=\'CODE\' value=\'dofolderdelete\' />\n<div class=\"pformstrip\">{$ibforums->lang[\'mi_prune_msg\']}</div>\n<p>{$ibforums->lang[\'fd_text\']}</p>\n<div class=\"tableborder\">\n<table cellpadding=\'4\' cellspacing=\'1\' width=\"100%\">\n<tr>\n  <th class=\"titlemedium\">{$ibforums->lang[\'fd_name\']}</th>\n  <th class=\"titlemedium\">{$ibforums->lang[\'fd_count\']}</th>\n  <th class=\"titlemedium\">{$ibforums->lang[\'fd_empty\']}</th>\n</tr>', 'empty_folder_header', '', 1035406235, 0),
+(259, 1, 'skin_msg', '<tr>\n  <td class=\"row1\"><strong>$real</strong></td>\n  <td class=\"row1\" align=\"center\">$cnt</td>\n  <td class=\"row1\" align=\"center\"><input type=\"checkbox\" class=\"checkbox\" name=\"its_$id\" value=\"1\" /></td>\n</tr>', 'empty_folder_row', '$real, $id, $cnt', 1035406235, 0),
+(260, 1, 'skin_msg', '<tr>\n  <td class=\"row2\" colspan=\'3\' align=\'center\'><input type=\"checkbox\" class=\"checkbox\" name=\"save_unread\" value=\"1\" checked=\"checked\"/> <strong>{$ibforums->lang[\'fd_save_unread\']}</strong></td>\n</tr>', 'empty_folder_save_unread', '', 1035406235, 0),
+(261, 1, 'skin_msg', '</table>\n<div class=\"pformstrip\" align=\"center\"><input type=\'submit\' value=\'{$ibforums->lang[\'fd_continue\']}\' class=\'forminput\'></div>\n</div>\n</form>', 'empty_folder_footer', '', 1035406235, 0),
+(262, 1, 'skin_msg', '<form action=\"{$ibforums->base_url}\" method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'Msg\' />\n<input type=\'hidden\' name=\'CODE\' value=\'08\' />\n<div class=\"pformstrip\">{$ibforums->lang[\'prefs_current\']}</div>\n<p>{$ibforums->lang[\'prefs_text_a\']}</p>', 'prefs_header', '', 1035406235, 0),
+(263, 1, 'skin_msg', '<p><input type=\'text\' name=\'{$data[ID]}\' value=\'{$data[REAL]}\' class=\'forminput\' />{$data[EXTRA]}</p>', 'prefs_row', '$data', 1035406235, 0),
+(264, 1, 'skin_msg', '<div class=\"pformstrip\">{$ibforums->lang[\'prefs_new\']}</div>\n<p>{$ibforums->lang[\'prefs_text_b\']}</p>', 'prefs_add_dirs', '', 1035406235, 0),
+(265, 1, 'skin_msg', '<div class=\"pformstrip\" align=\"center\"><input type=\'submit\' value=\'{$ibforums->lang[\'prefs_submit\']}\' class=\'forminput\'></div>\n</form>', 'prefs_footer', '', 1035406235, 0),
+(266, 1, 'skin_msg', '<div class=\"pformstrip\">{$ibforums->lang[\'address_current\']}</div>', 'Address_header', '', 1035406235, 0),
+(267, 1, 'skin_msg', '<br />\n<div class=\"tableborder\">\n<table cellpadding=\'4\' cellspacing=\'1\' width=\"100%\">\n<tr>\n  <td class=\"titlemedium\"><b>{$ibforums->lang[\'member_name\']}</b></td>\n  <td width=\"60%\" class=\"titlemedium\"><b>{$ibforums->lang[\'enter_block\']}</b></td>\n</tr>', 'Address_table_header', '', 1035406235, 0),
+(268, 1, 'skin_msg', '<tr>\n  <td class=\'row1 align=\'left\' valign=\'middle\'><a href=\'{$ibforums->base_url}act=Profile&amp;CODE=03&amp;MID={$entry[\'contact_id\']}\'><b>{$entry[\'contact_name\']}</b></a> &nbsp; &nbsp;[ {$entry[\'contact_desc\']} ]</td>\n  <td class=\'row1 align=\'left\' valign=\'middle\'>\n	   [ <a href=\'{$ibforums->base_url}act=Msg&amp;CODE=11&amp;MID={$entry[\'contact_id\']}\'>{$ibforums->lang[\'edit\']}</a> ] :: [ <a href=\'{$ibforums->base_url}act=Msg&amp;CODE=10&amp;MID={$entry[\'contact_id\']}\'>{$ibforums->lang[\'delete\']}</a> ]\n		&nbsp;&nbsp;( {$entry[\'text\']} )\n  </td>\n</tr>', 'render_address_row', '$entry', 1035406235, 0),
+(269, 1, 'skin_msg', '<p style=\"text-align:center\">{$ibforums->lang[\'address_none\']}</p>', 'Address_none', '', 1035406235, 0),
+(270, 1, 'skin_msg', '</table>\n</div>\n<br />', 'end_address_table', '', 1035406235, 0);
+INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_content`, `func_name`, `func_data`, `updated`, `can_remove`) VALUES
+(271, 1, 'skin_msg', '<form action=\"{$ibforums->base_url}\" method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'Msg\'>\n<input type=\'hidden\' name=\'CODE\' value=\'12\'>\n<input type=\'hidden\' name=\'MID\' value=\'{$data[MEMBER][\'contact_id\']}\'>\n<div class=\"pformstrip\">{$ibforums->lang[\'member_edit\']}</div>\n<table width=\"100%\">\n<tr>\n <td valign=\'middle\' align=\'left\'><b>{$data[MEMBER][\'contact_name\']}</b></td>\n <td valign=\'middle\' align=\'left\'>{$ibforums->lang[\'enter_desc\']}<br /><input type=\'text\' name=\'mem_desc\' size=\'30\' maxlength=\'60\' value=\'{$data[MEMBER][\'contact_desc\']}\' class=\'forminput\' /></td>\n <td valign=\'middle\' align=\'left\'>{$ibforums->lang[\'allow_msg\']}<br />{$data[SELECT]}</td>\n</tr>\n</table>\n<div class=\"pformstrip\" align=\"center\"><input type=\"submit\" value=\"{$ibforums->lang[\'submit_address_edit\']}\" class=\'forminput\' /></div>\n</form>', 'address_edit', '$data', 1035406235, 0),
+(272, 1, 'skin_msg', '<form action=\"{$ibforums->base_url}\" method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'Msg\' />\n<input type=\'hidden\' name=\'CODE\' value=\'09\' />\n<div class=\"pformstrip\">{$ibforums->lang[\'member_add\']}</div>\n<table style=\"padding:6px\">\n<tr>\n <td valign=\'middle\'>{$ibforums->lang[\'enter_a_name\']}<br /><input type=\'text\' name=\'mem_name\' size=\'20\' maxlength=\'40\' value=\'$mem_to_add\' class=\'forminput\' /></td>\n <td valign=\'middle\'>{$ibforums->lang[\'enter_desc\']}<br /><input type=\'text\' name=\'mem_desc\' size=\'30\' maxlength=\'60\' value=\'\' class=\'forminput\' /></td>\n <td valign=\'middle\'>{$ibforums->lang[\'allow_msg\']}<br /><select name=\'allow_msg\' class=\'forminput\'><option value=\'yes\' selected=\"selected\">{$ibforums->lang[\'yes\']}<option value=\'no\'>{$ibforums->lang[\'no\']}</select></td>\n</tr>\n</table>\n<div class=\"pformstrip\" align=\"center\"><input type=\"submit\" value=\"{$ibforums->lang[\'submit_address\']}\" class=\'forminput\' /></div>\n</form>', 'address_add', '$mem_to_add', 1035406235, 0),
+(273, 1, 'skin_msg', '<script language=\'javascript\' type=\"text/javascript\">\n<!--\nfunction PopUp(url, name, width,height,center,resize,scroll,posleft,postop) {\nif (posleft != 0) { x = posleft }\nif (postop  != 0) { y = postop  }\nif (!scroll) { scroll = 1 }\nif (!resize) { resize = 1 }\nif ((parseInt (navigator.appVersion) >= 4 ) && (center)) {\n  X = (screen.width  - width ) / 2;\n  Y = (screen.height - height) / 2;\n}\nif (scroll != 0) { scroll = 1 }\nvar Win = window.open( url, name, \'width=\'+width+\',height=\'+height+\',top=\'+Y+\',left=\'+X+\',resizable=\'+resize+\',scrollbars=\'+scroll+\',location=no,directories=no,status=no,menubar=no,toolbar=no\');\n}\n//-->\n</script>\n<div class=\"pformstrip\">{$data[\'msg\'][\'title\']}</div>\n<div align=\"right\" style=\"padding:6px;font-weight:bold\">\n  [ <a href=\'{$ibforums->base_url}CODE=04&amp;act=Msg&amp;MSID={$data[\'msg\'][\'msg_id\']}&amp;MID={$data[\'member\'][\'id\']}&amp;fwd=1\'>{$ibforums->lang[\'vm_forward_pm\']}</a> | <a href=\'{$ibforums->base_url}CODE=04&amp;act=Msg&amp;MID={$data[\'member\'][\'id\']}&amp;MSID={$data[\'msg\'][\'msg_id\']}\'>{$ibforums->lang[\'pm_reply_link\']}</a> ]\n</div>\n<div class=\"tableborder\">\n <div class=\"titlemedium\">&nbsp;&nbsp;{$ibforums->lang[\'m_pmessage\']}</div>\n <table width=\'100%\' cellpadding=\'3\' cellspacing=\'1\'>\n  <tr>\n      <td valign=\'middle\' class=\'row4\'><span class=\'normalname\'><a href=\"{$ibforums->base_url}showuser={$data[\'member\'][\'id\']}\">{$data[\'member\'][\'name\']}</a></span></td>\n        <td class=\'row4\' valign=\'top\'>\n        \n        <!-- POSTED DATE DIV -->\n        \n        <div align=\'left\' class=\'row4\' style=\'float:left;padding-top:4px;padding-bottom:4px\'>\n        {$data[POST][\'post_icon\']}<span class=\'postdetails\'><b>{$data[\'msg\'][\'title\']}</b>, {$data[\'msg\'][\'msg_date\']}</span>\n        </div>\n        \n        <!-- DELETE  DIV -->\n        \n        <div align=\'right\'>\n          <a href=\'{$ibforums->base_url}CODE=05&amp;act=Msg&amp;MSID={$data[\'msg\'][\'msg_id\']}&amp;VID={$data[\'member\'][\'VID\']}\'><{P_DELETE}></a>\n          &nbsp;<a href=\'{$ibforums->base_url}CODE=04&amp;act=Msg&amp;MID={$data[\'member\'][\'id\']}&amp;MSID={$data[\'msg\'][\'msg_id\']}\'><{P_QUOTE}></a>\n        </div>\n      \n      </td>\n    </tr>\n    <tr>\n      <td valign=\'top\' class=\'post1\'>\n        <span class=\'postdetails\'>\n        {$data[\'member\'][\'avatar\']}\n        <br />{$data[\'member\'][\'title\']}\n        <br />{$data[\'member\'][\'member_rank_img\']}<br />\n        <br />{$data[\'member\'][\'member_group\']}\n        <br />{$data[\'member\'][\'member_posts\']}\n        <br />{$data[\'member\'][\'member_joined\']}\n        <br />\n        </span>\n        <img src=\'{$ibforums->vars[\'img_url\']}/spacer.gif\' alt=\'\' width=\'160\' height=\'1\' /><br /> \n      </td>\n      <td width=\'100%\' valign=\'top\' class=\'post1\'><span class=\'postcolor\'>{$data[\'msg\'][\'message\']}</span><span class=\"signature\">{$data[\'member\'][\'signature\']}</span></td>\n    </tr>\n    <tr>\n      <td class=\'darkrow3\' align=\'left\'>[ <a href=\'{$ibforums->base_url}CODE=02&amp;act=Msg&amp;MID={$data[\'member\'][\'id\']}\'>{$ibforums->lang[\'add_to_book\']}</a> ]</td>\n      <td class=\'darkrow3\' nowrap=\"nowrap\" align=\'left\'>\n      \n        <!-- EMAIL / WWW / MSGR -->\n      \n        <div align=\'left\' class=\'darkrow3\' style=\'float:left;\'>\n        {$data[\'member\'][\'addresscard\']}{$data[\'member\'][\'message_icon\']}{$data[\'member\'][\'email_icon\']}{$data[\'member\'][\'website_icon\']}{$data[\'member\'][\'integ_icon\']}{$data[\'member\'][\'icq_icon\']}{$data[\'member\'][\'aol_icon\']}{$data[\'member\'][\'yahoo_icon\']}{$data[\'member\'][\'msn_icon\']}\n      </div>\n        \n        <!-- UP -->\n         \n        <div align=\'right\'><a href=\'javascript:scroll(0,0);\'><img src=\'{$ibforums->vars[\'img_url\']}/p_up.gif\' alt=\'Top\' border=\'0\' /></a></div>\n      </td>\n    </tr>\n</table>\n</div>\n<div style=\"float:left;width:auto;padding:6px\">\n<form action=\"{$ibforums->base_url}\" name=\'jump\' method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'Msg\'>\n<input type=\'hidden\' name=\'CODE\' value=\'01\'>\n{$ibforums->lang[goto_folder]}:</b>&nbsp; {$data[\'jump\']}\n<input type=\'submit\' name=\'submit\' value=\'{$ibforums->lang[goto_submit]}\' class=\'forminput\' />\n</form>\n</div>\n<div align=\"right\" style=\"padding:6px;font-weight:bold\">\n  [ <a href=\'{$ibforums->base_url}CODE=04&amp;act=Msg&amp;MSID={$data[\'msg\'][\'msg_id\']}&amp;MID={$data[\'member\'][\'id\']}&amp;fwd=1\'>{$ibforums->lang[\'vm_forward_pm\']}</a> | <a href=\'{$ibforums->base_url}CODE=04&amp;act=Msg&amp;MID={$data[\'member\'][\'id\']}&amp;MSID={$data[\'msg\'][\'msg_id\']}\'>{$ibforums->lang[\'pm_reply_link\']}</a> ]\n</div>', 'Render_msg', '$data', 1035406235, 0),
+(274, 1, 'skin_msg', '<script language=\'JavaScript\' type=\"text/javascript\">\n<!--\nfunction CheckAll(fmobj) {\n	for (var i=0;i<fmobj.elements.length;i++) {\n		var e = fmobj.elements[i];\n		if ((e.name != \'allbox\') && (e.type==\'checkbox\') && (!e.disabled)) {\n			e.checked = fmobj.allbox.checked;\n		}\n	}\n}\nfunction CheckCheckAll(fmobj) {	\n	var TotalBoxes = 0;\n	var TotalOn = 0;\n	for (var i=0;i<fmobj.elements.length;i++) {\n		var e = fmobj.elements[i];\n		if ((e.name != \'allbox\') && (e.type==\'checkbox\')) {\n			TotalBoxes++;\n			if (e.checked) {\n				TotalOn++;\n			}\n		}\n	}\n	if (TotalBoxes==TotalOn) {fmobj.allbox.checked=true;}\n	else {fmobj.allbox.checked=false;}\n}\n//-->\n</script>\n<form action=\"{$ibforums->base_url}CODE=31&amp;act=Msg\" name=\'trackread\' method=\"post\">\n<div class=\'pformstrip\'>{$ibforums->lang[\'tk_read_messages\']}</div>\n<p>{$ibforums->lang[\'tk_read_desc\']}</p>\n<div class=\"tableborder\">\n<table cellpadding=\'4\' cellspacing=\'1\' align=\'center\' width=\'100%\'>\n<tr>\n  <th align=\'left\' width=\'5%\' class=\'titlemedium\'>&nbsp;</th>\n  <th align=\'left\' width=\'30%\' class=\'titlemedium\'><b>{$ibforums->lang[\'message_title\']}</b></th>\n  <th align=\'left\' width=\'30%\' class=\'titlemedium\'><b>{$ibforums->lang[\'pms_message_to\']}</b></th>\n  <th align=\'left\' width=\'20%\' class=\'titlemedium\'><b>{$ibforums->lang[\'tk_read_date\']}</b></th>\n  <th align=\'left\' width=\'5%\' class=\'titlemedium\'><input name=\"allbox\" type=\"checkbox\" value=\"Check All\" onclick=\"CheckAll(document.trackread);\" /></th>\n</tr>', 'trackread_table_header', '', 1035406235, 0),
+(275, 1, 'skin_msg', '<tr>\n  <td class=\'row2\' align=\'left\' valign=\'middle\'>{$data[\'icon\']}</td>\n  <td class=\'row2\' align=\'left\'>{$data[\'title\']}</td>\n  <td class=\'row2\' align=\'left\'><a href=\'{$ibforums->base_url}showuser={$data[\'memid\']}\'>{$data[\'to_name\']}</a></td>\n  <td class=\'row2\' align=\'left\'>{$data[\'date\']}</td>\n  <td class=\'row2\' align=\'left\'><input type=\'checkbox\' name=\'msgid_{$data[\'msg_id\']}\' value=\'yes\' class=\'forminput\' onclick=\"CheckCheckAll(document.trackread);\" /></td>\n</tr>', 'trackread_row', '$data', 1035406235, 0),
+(276, 1, 'skin_msg', '<tr>\n <td align=\'right\' class=\'titlemedium\' colspan=\'5\'><input type=\'submit\' name=\'endtrack\' value=\'{$ibforums->lang[\'tk_untrack_button\']}\' class=\'forminput\' /> {$ibforums->lang[\'selected_msg\']}</td>\n</tr>\n</table>\n</div>\n</form>\n<br />', 'trackread_end', '', 1035406235, 0),
+(277, 1, 'skin_msg', '<form action=\"{$ibforums->base_url}CODE=32&amp;act=Msg\" name=\'trackunread\' method=\"post\">\n<div class=\'pformstrip\'>{$ibforums->lang[\'tk_unread_messages\']}</div>\n<p>{$ibforums->lang[\'tk_unread_desc\']}</p>\n<div class=\"tableborder\">\n<table cellpadding=\'4\' cellspacing=\'1\' align=\'center\' width=\'100%\'>\n<tr>\n  <th align=\'left\' width=\'5%\' class=\'titlemedium\'>&nbsp;</td>\n  <th align=\'left\' width=\'30%\' class=\'titlemedium\'><b>{$ibforums->lang[\'message_title\']}</b></th>\n  <th align=\'left\' width=\'30%\' class=\'titlemedium\'><b>{$ibforums->lang[\'pms_message_to\']}</b></th>\n  <th align=\'left\' width=\'20%\' class=\'titlemedium\'><b>{$ibforums->lang[\'tk_unread_date\']}</b></th>\n  <th align=\'left\' width=\'5%\' class=\'titlemedium\'><input name=\"allbox\" type=\"checkbox\" value=\"Check All\" onclick=\"CheckAll(document.trackunread);\" /></th>\n</tr>', 'trackUNread_table_header', '', 1035406235, 0),
+(278, 1, 'skin_msg', '<tr>\n  <td class=\'row2\' align=\'left\' valign=\'middle\'>{$data[\'icon\']}</td>\n  <td class=\'row2\' align=\'left\'>{$data[\'title\']}</td>\n  <td class=\'row2\' align=\'left\'><a href=\'{$ibforums->base_url}showuser={$data[\'memid\']}\'>{$data[\'to_name\']}</a></td>\n  <td class=\'row2\' align=\'left\'>{$data[\'date\']}</td>\n  <td class=\'row2\' align=\'left\'><input type=\'checkbox\' name=\'msgid_{$data[\'msg_id\']}\' value=\'yes\' class=\'forminput\' onclick=\"CheckCheckAll(document.trackunread);\" /></td>\n</tr>', 'trackUNread_row', '$data', 1035406235, 0),
+(279, 1, 'skin_msg', '<tr>\n <td align=\'right\' class=\'titlemedium\' colspan=\'5\'><input type=\'submit\' name=\'delete\' value=\'{$ibforums->lang[\'delete_button\']}\' class=\'forminput\' /> {$ibforums->lang[\'selected_msg\']}</td>\n</tr>\n</table>\n</div>\n</form>', 'trackUNread_end', '', 1035406235, 0),
+(280, 1, 'skin_msg', '<script language=\'JavaScript\' type=\"text/javascript\">\n<!--\nfunction CheckAll(cb) {\n	var fmobj = document.mutliact;\n	for (var i=0;i<fmobj.elements.length;i++) {\n		var e = fmobj.elements[i];\n		if ((e.name != \'allbox\') && (e.type==\'checkbox\') && (!e.disabled)) {\n			e.checked = fmobj.allbox.checked;\n		}\n	}\n}\nfunction CheckCheckAll(cb) {	\n	var fmobj = document.mutliact;\n	var TotalBoxes = 0;\n	var TotalOn = 0;\n	for (var i=0;i<fmobj.elements.length;i++) {\n		var e = fmobj.elements[i];\n		if ((e.name != \'allbox\') && (e.type==\'checkbox\')) {\n			TotalBoxes++;\n			if (e.checked) {\n				TotalOn++;\n			}\n		}\n	}\n	if (TotalBoxes==TotalOn) {fmobj.allbox.checked=true;}\n	else {fmobj.allbox.checked=false;}\n}\n//-->\n</script>\n<form action=\"{$ibforums->base_url}CODE=06&amp;act=Msg&amp;saved=1\" name=\'mutliact\' method=\"post\">\n<div class=\"pformstrip\">{$ibforums->lang[\'pms_saved_title\']}</div>\n<br />\n<div class=\"tableborder\">\n<table cellpadding=\'4\' cellspacing=\'1\' align=\'center\' width=\'100%\'>\n<tr>\n  <th align=\'left\' width=\'5%\' class=\'titlemedium\'>&nbsp;</td>\n  <th align=\'left\' width=\'30%\' class=\'titlemedium\'><b>{$ibforums->lang[\'message_title\']}</b></th>\n  <th align=\'left\' width=\'30%\' class=\'titlemedium\'><b>{$ibforums->lang[\'pms_message_to\']}</b></th>\n  <th align=\'left\' width=\'20%\' class=\'titlemedium\'><b>{$ibforums->lang[\'pms_saved_date\']}</b></th>\n  <th align=\'left\' width=\'10%\' class=\'titlemedium\'><b>{$ibforums->lang[\'pms_cc_users\']}</b></th>\n  <th align=\'left\' width=\'5%\' class=\'titlemedium\'><input name=\"allbox\" type=\"checkbox\" value=\"Check All\" onclick=\"CheckAll();\" /></th>\n</tr>', 'unsent_table_header', '', 1035406235, 0),
+(281, 1, 'skin_msg', '<tr>\n  <td class=\'row2\' align=\'left\' valign=\'middle\'>{$data[\'msg\'][\'icon\']}</td>\n  <td class=\'row2\' align=\'left\'><a href=\'{$ibforums->base_url}act=Msg&amp;CODE=21&amp;MSID={$data[\'msg\'][\'msg_id\']}\'>{$data[\'msg\'][\'title\']}</a></td>\n  <td class=\'row2\' align=\'left\'><a href=\'{$ibforums->base_url}showuser={$data[\'msg\'][\'recipient_id\']}\'>{$data[\'msg\'][\'to_name\']}</a></td>\n  <td class=\'row2\' align=\'left\'>{$data[\'msg\'][\'date\']}</td>\n  <td class=\'row2\' align=\'center\'>{$data[\'msg\'][\'cc_users\']}</td>\n  <td class=\'row2\' align=\'left\'><input type=\'checkbox\' name=\'msgid_{$data[\'msg\'][\'msg_id\']}\' value=\'yes\' class=\'forminput\' /></td>\n</tr>', 'unsent_row', '$data', 1035406235, 0),
+(282, 1, 'skin_msg', '<tr>\n <td align=\'center\' nowrap class=\'titlemedium\' colspan=\'6\'><input type=\'submit\' name=\'delete\' value=\'{$ibforums->lang[\'delete_button\']}\' class=\'forminput\' /> {$ibforums->lang[\'selected_msg\']}</td>\n</tr>\n</table>\n</div>\n</form>', 'unsent_end', '', 1035406235, 0),
+(283, 1, 'skin_msg', '<!-- inbox folder -->\n<script language=\'JavaScript\' type=\"text/javascript\">\n<!--\nvar ie  = document.all  ? 1 : 0;\n//var ns4 = document.layers ? 1 : 0;\nfunction hl(cb)\n{\n   if (ie)\n   {\n	   while (cb.tagName != \"TR\")\n	   {\n		   cb = cb.parentElement;\n	   }\n   }\n   else\n   {\n	   while (cb.tagName != \"TR\")\n	   {\n		   cb = cb.parentNode;\n	   }\n   }\n   cb.className = \'hlight\';\n}\nfunction dl(cb) {\n   if (ie)\n   {\n	   while (cb.tagName != \"TR\")\n	   {\n		   cb = cb.parentElement;\n	   }\n   }\n   else\n   {\n	   while (cb.tagName != \"TR\")\n	   {\n		   cb = cb.parentNode;\n	   }\n   }\n   cb.className = \'dlight\';\n}\nfunction cca(cb) {\n   if (cb.checked)\n   {\n	   hl(cb);\n   }\n   else\n   {\n	   dl(cb);\n   }\n}\n	   \nfunction CheckAll(cb) {\n	var fmobj = document.mutliact;\n	for (var i=0;i<fmobj.elements.length;i++) {\n		var e = fmobj.elements[i];\n		if ((e.name != \'allbox\') && (e.type==\'checkbox\') && (!e.disabled)) {\n			e.checked = fmobj.allbox.checked;\n			if (fmobj.allbox.checked)\n			{\n			   hl(e);\n			}\n			else\n			{\n			   dl(e);\n			}\n		}\n	}\n}\nfunction CheckCheckAll(cb) {	\n	var fmobj = document.mutliact;\n	var TotalBoxes = 0;\n	var TotalOn = 0;\n	for (var i=0;i<fmobj.elements.length;i++) {\n		var e = fmobj.elements[i];\n		if ((e.name != \'allbox\') && (e.type==\'checkbox\')) {\n			TotalBoxes++;\n			if (e.checked) {\n				TotalOn++;\n			}\n		}\n	}\n	if (TotalBoxes==TotalOn) {fmobj.allbox.checked=true;}\n	else {fmobj.allbox.checked=false;}\n}\nfunction select_read() {	\n	var fmobj = document.mutliact;\n	for (var i=0;i<fmobj.elements.length;i++) {\n		var e = fmobj.elements[i];\n		if ((e.type==\'hidden\') && (e.value == 1) && (! isNaN(e.name) ))\n		{\n			eval(\"fmobj.msgid_\" + e.name + \".checked=true;\");\n			hl(e);\n		}\n	}\n}\nfunction unselect_all() {	\n	var fmobj = document.mutliact;\n	for (var i=0;i<fmobj.elements.length;i++) {\n		var e = fmobj.elements[i];\n		if (e.type==\'checkbox\') {\n			e.checked=false;\n			dl(e);\n		}\n	}\n}\n//-->\n</script>\n<div class=\"pformstrip\">$dirname</div>\n<table width=\"100%\" style=\"padding:6px\">\n<tr>\n <td valign=\"middle\">\n  <!-- LEFT -->\n  <table style=\"width:250px\" cellspacing=\"1\" class=\"tableborder\">\n   <tr>\n	<td class=\'row1\' align=\'left\' colspan=\'3\'>{$info[\'full_messenger\']}</td>\n   </tr>\n   <tr>\n	<td align=\'left\' valign=\'middle\' class=\'row2\' colspan=\'3\'><img src=\'{$ibforums->vars[\'img_url\']}/bar_left.gif\' border=\'0\' width=\'4\' height=\'11\' align=\'middle\' alt=\'\' /><img src=\'{$ibforums->vars[\'img_url\']}/bar.gif\' border=\'0\' width=\'{$info[\'img_width\']}\' height=\'11\' align=\'middle\' alt=\'\' /><img src=\'{$ibforums->vars[\'img_url\']}/bar_right.gif\' border=\'0\' width=\'4\' height=\'11\' align=\'middle\' alt=\'\' /></td>\n   </tr>\n   <tr>\n	 <td class=\'row1\' width=\'33%\' align=\'left\' valign=\'middle\'>0%</td>\n	 <td class=\'row1\' width=\'33%\' align=\'center\' valign=\'middle\'>50%</td>\n	 <td class=\'row1\' width=\'33%\' align=\'right\' valign=\'middle\'>100%</td>\n   </tr>\n  </table>\n </td>\n <!-- RIGHT -->\n <td align=\"right\" valign=\"bottom\" style=\"line-height:100%;\">\n  $pages<br /><br />\n  <a href=\'javascript:select_read()\'>{$ibforums->lang[\'pmpc_mark_read\']}</a> :: <a href=\'javascript:unselect_all()\'>{$ibforums->lang[\'pmpc_unmark_all\']}</a><br /><br />\n  <form action=\"{$ibforums->base_url}CODE=01&amp;act=Msg\" name=\'jump\' method=\"post\">\n  <b>{$ibforums->lang[\'goto_folder\']}: </b>&nbsp; $vdi_html <input type=\'submit\' name=\'submit\' value=\'{$ibforums->lang[\'goto_submit\']}\' class=\'forminput\' />\n  </form>\n </td>\n</tr>\n</table>\n<!-- INBOX TABLE -->\n  \n<form action=\"{$ibforums->base_url}CODE=06&amp;act=Msg\" name=\'mutliact\' method=\"post\">\n<div class=\"tableborder\">\n  <table cellpadding=\'4\' cellspacing=\'1\' width=\"100%\">\n  <tr>\n	<th width=\'5%\'  class=\'titlemedium\'>&nbsp;</th>\n	<th width=\'35%\' class=\'titlemedium\'><a href=\'{$ibforums->base_url}act=Msg&amp;CODE=01&amp;VID={$info[\'vid\']}&amp;sort=title&amp;st={$ibforums->input[\'st\']}\'><b>{$ibforums->lang[\'message_title\']}</b></a></th>\n	<th width=\'30%\' class=\'titlemedium\'><a href=\'{$ibforums->base_url}act=Msg&amp;CODE=01&amp;VID={$info[\'vid\']}&amp;sort=name&amp;st={$ibforums->input[\'st\']}\'><b>{$ibforums->lang[\'message_from\']}</b></a></th>\n	<th width=\'25%\' class=\'titlemedium\'><a href=\'{$ibforums->base_url}act=Msg&amp;CODE=01&amp;VID={$info[\'vid\']}&amp;sort={$info[\'date_order\']}&amp;st={$ibforums->input[\'st\']}\'><b>{$ibforums->lang[\'message_date\']}</b></a></th>\n	<th width=\'5%\'  class=\'titlemedium\'><input name=\"allbox\" type=\"checkbox\" value=\"Check All\" onclick=\"CheckAll();\" /></th>\n  </tr>', 'inbox_table_header', '$dirname, $info, $vdi_html=\"\", $pages=\"\"', 1035406235, 0),
+(284, 1, 'skin_msg', '<tr class=\"dlight\">\n	<td align=\"center\" valign=\'middle\'>{$data[\'msg\'][\'icon\']}</td>\n	<td><a href=\'{$ibforums->base_url}act=Msg&amp;CODE=03&amp;VID={$data[\'stat\'][\'current_id\']}&amp;MSID={$data[\'msg\'][\'msg_id\']}\'>{$data[\'msg\'][\'title\']}</a></td>\n	<td><a href=\'{$ibforums->base_url}showuser={$data[\'msg\'][\'from_id\']}\'>{$data[\'msg\'][\'from_name\']}</a> {$data[\'msg\'][\'add_to_contacts\']}</td>\n	<td>{$data[\'msg\'][\'date\']}</td>\n	<td align=\"center\"><input type=\'hidden\' name=\'{$data[\'msg\'][\'msg_id\']}\' value=\'{$data[\'msg\'][\'read_state\']}\' /><input type=\'checkbox\' name=\'msgid_{$data[\'msg\'][\'msg_id\']}\' value=\'yes\' class=\'forminput\' onclick=\"cca(this);\" /></td>\n  </tr>', 'inbox_row', '$data', 1035406235, 0),
+(285, 1, 'skin_msg', '<tr>\n   <td align=\'right\' class=\'titlemedium\' colspan=\'5\'>\n	 <input type=\'submit\' name=\'move\' value=\'{$ibforums->lang[\'move_button\']}\' class=\'forminput\' /> $vdi_html {$ibforums->lang[\'move_or_delete\']} <input type=\'submit\' name=\'delete\' value=\'{$ibforums->lang[\'delete_button\']}\' class=\'forminput\' /> {$ibforums->lang[\'selected_msg\']}\n  </td>\n</tr>\n</table>\n</div>\n</form>\n<div class=\"wrapmini\" style=\"padding:6px\"><{M_READ}>&nbsp;{$ibforums->lang[\'icon_read\']}<br /><{M_UNREAD}>&nbsp;{$ibforums->lang[\'icon_unread\']}</div>\n<div align=\"right\" style=\"padding:6px\">$pages<br /><i>$amount_info</i></div>', 'end_inbox', '$vdi_html, $amount_info=\"\", $pages=\"\"', 1035406235, 0),
+(286, 1, 'skin_msg', '<tr>\n <td colspan=\'2\' class=\'pformstrip\'>{$ibforums->lang[\'msg_options\']}</td>\n</tr>\n<tr>\n <td class=\"pformleft\">&nbsp;</td>\n <td class=\"pformright\">\n	<input type=\'checkbox\' name=\'add_sent\' value=\'yes\' checked=\"checked\" />&nbsp;<b>{$ibforums->lang[\'auto_sent_add\']}</b>\n	<br /><input type=\'checkbox\' name=\'add_tracking\' value=\'1\' />&nbsp;<b>{$ibforums->lang[\'vm_track_msg\']}</b>\n </td>\n</tr>\n<tr>\n <td class=\'pformstrip\' align=\'center\' colspan=\'2\'>\n  <input type=\"submit\" value=\"{$ibforums->lang[\'submit_send\']}\" tabindex=\"4\" accesskey=\"s\" class=\'forminput\' name=\'submit\' />\n  <input type=\"submit\" value=\"{$ibforums->lang[\'pm_pre_button\']}\" tabindex=\"5\" class=\'forminput\' name=\'preview\' />\n  <input type=\"submit\" value=\"{$ibforums->lang[\'pms_send_later\']}\" tabindex=\"6\" class=\'forminput\' name=\'save\' />\n </td>\n</tr>\n</table>\n</form>', 'send_form_footer', '', 1035406235, 0),
+(287, 1, 'skin_msg', '<script language=\'javascript\' type=\"text/javascript\">\n<!--\nfunction find_users()\n{\n  url = \"index.{$ibforums->vars[\'php_ext\']}?act=legends&CODE=finduser_one&s={$ibforums->session_id}&entry=textarea&name=carbon_copy&sep=line\";\n  window.open(url,\'FindUsers\',\'width=400,height=250,resizable=yes,scrollbars=yes\'); \n}\n//-->\n</script>\n<form action=\"{$ibforums->base_url}\" method=\"post\" name=\'REPLIER\' onsubmit=\'return ValidateForm(1)\'>\n<input type=\'hidden\' name=\'act\' value=\'Msg\' />\n<input type=\'hidden\' name=\'CODE\' value=\'04\' />\n<input type=\'hidden\' name=\'MODE\' value=\'01\' />\n<input type=\'hidden\' name=\'OID\'  value=\'{$data[\'OID\']}\' />\n<table width=\"100%\" cellspacing=\"0\">\n<tr>\n  <td colspan=\'2\' class=\'pformstrip\'>{$ibforums->lang[\'to_whom\']}</td>\n</tr>\n<tr>\n  <td class=\"pformleft\">{$ibforums->lang[\'address_list\']}</td>\n  <td class=\"pformright\">{$data[CONTACTS]}&nbsp;</td>\n</tr>  \n<tr>\n  <td class=\"pformleft\">{$ibforums->lang[\'enter_name\']}</td>\n  <td class=\"pformright\"><input type=\'text\' name=\'entered_name\' size=\'50\' value=\'{$data[N_ENTER]}\' tabindex=\"1\" class=\'forminput\' /></td>\n</tr>\n<!--IBF.MASS_PM_BOX-->\n<tr>\n  <td colspan=\'2\' class=\'pformstrip\'>{$ibforums->lang[\'enter_message\']}</td>\n</tr>\n<tr>\n  <td class=\"pformleft\">{$ibforums->lang[\'msg_title\']}</td>\n  <td class=\"pformright\"><input type=\'text\' name=\'msg_title\' size=\'40\' tabindex=\"2\" maxlength=\'40\' value=\'{$data[O_TITLE]}\' class=\'forminput\' /></td>\n</tr>', 'Send_form', '$data', 1035406235, 0),
+(288, 1, 'skin_msg', '<tr>\n<td colspan=\'2\' class=\'pformstrip\'>{$ibforums->lang[\'carbon_copy_title\']}</td>\n</tr>\n<tr>\n<td class=\"pformleft\">{$ibforums->lang[\'carbon_copy_desc\']}</td>\n<td class=\'pformright\'>\n <textarea name=\'carbon_copy\' rows=\'5\' cols=\'40\'>$names</textarea><br />\n <input type=\'button\' class=\'forminput\' name=\'findusers\' onclick=\'find_users()\' value=\'{$ibforums->lang[\'find_user_names\']}\' />\n</td>\n</tr>', 'mass_pm_box', '$names=\"\"', 1035406235, 0),
+(289, 1, 'skin_online', '<!-- Entry for {$session[\'member_id\']} -->\n              <tr>\n                <td class=\'row1\'>{$session[\'member_name\']}</td>\n                <td class=\'row1\'>{$session[\'where_line\']}</td>\n                <td class=\'row1\' align=\'center\'>{$session[\'running_time\']}</td>\n                <td class=\'row1\' align=\'center\'>{$session[\'msg_icon\']}</td>\n              </tr>\n              <!-- End of Entry -->', 'show_row', '$session', 1035406235, 0),
+(290, 1, 'skin_online', '<!-- End content Table -->\n            <tr>\n            <td colspan=\'4\' class=\'darkrow1\' align=\'center\' valign=\'middle\'>\n             <form method=\'post\' action=\'{$ibforums->base_url}act=Online&amp;CODE=listall\'>\n             <b>{$ibforums->lang[\'s_by\']}&nbsp;</b>\n             <select class=\'forminput\' name=\'sort_key\'>{$sort_key}</select>\n             <select class=\'forminput\' name=\'show_mem\'>&nbsp;{$show_mem}</select>\n             <select class=\'forminput\' name=\'sort_order\'>&nbsp;{$sort_order}</select>\n             <input type=\'submit\' value=\'{$ibforums->lang[\'s_go\']}\' class=\'forminput\'>\n             <form>\n            </td>\n            </tr>\n            </table>\n           </div>\n          <br />\n          <div align=\'left\'>$links</div>', 'Page_end', '$show_mem, $sort_order, $sort_key, $links', 1035406235, 0),
+(291, 1, 'skin_online', '<script language=\'Javascript\' type=\'text/javascript\'>\n		<!--\n		function PopUp(url, name, width,height,center,resize,scroll,posleft,postop) {\n			if (posleft != 0) { x = posleft }\n			if (postop  != 0) { y = postop  }\n		\n			if (!scroll) { scroll = 1 }\n			if (!resize) { resize = 1 }\n		\n			if ((parseInt (navigator.appVersion) >= 4 ) && (center)) {\n			  X = (screen.width  - width ) / 2;\n			  Y = (screen.height - height) / 2;\n			}\n			if (scroll != 0) { scroll = 1 }\n		\n			var Win = window.open( url, name, \'width=\'+width+\',height=\'+height+\',top=\'+Y+\',left=\'+X+\',resizable=\'+resize+\',scrollbars=\'+scroll+\',location=no,directories=no,status=no,menubar=no,toolbar=no\');\n	     }\n		//-->\n	</script>\n	\n    <div align=\'left\'>$links</div>\n    <br />\n    <div class=\"tableborder\">\n      <div class=\'maintitle\'>&nbsp;&nbsp;{$ibforums->lang[\'page_title\']}</div>\n	  <table cellpadding=\'4\' cellspacing=\'1\' border=\'0\' width=\'100%\'>\n		<tr>\n		   <th align=\'left\' width=\'30%\' class=\'titlemedium\'>{$ibforums->lang[\'member_name\']}</th>\n		   <th align=\'left\' width=\'30%\' class=\'titlemedium\'>{$ibforums->lang[\'where\']}</th>\n		   <th align=\'center\' width=\'20%\' class=\'titlemedium\'>{$ibforums->lang[\'time\']}</th>\n		   <th align=\'left\' width=\'10%\' class=\'titlemedium\'>&nbsp;</th>\n		</tr>', 'Page_header', '$links', 1035406235, 0),
+(292, 1, 'skin_poll', '<script type=\"text/javascript\">\nfunction go_gadget_show()\n{\n	window.location = \"{$ibforums->base_url}&act=ST&f=$fid&t=$tid&mode=show&st={$ibforums->input[\'start\']}\";\n}\nfunction go_gadget_vote()\n{\n	window.location = \"{$ibforums->base_url}&act=ST&f=$fid&t=$tid&st={$ibforums->input[\'start\']}\";\n}\n</script>', 'poll_javascript', '$tid,$fid', 1035406235, 0),
+(293, 1, 'skin_poll', '<input type=\'submit\' name=\'submit\' value=\'{$ibforums->lang[\'poll_add_vote\']}\' title=\"{$ibforums->lang[\'tt_poll_vote\']}\" class=\'forminput\' />', 'button_vote', '', 1035406235, 0),
+(294, 1, 'skin_poll', '<input type=\'submit\' name=\'nullvote\' value=\'{$ibforums->lang[\'poll_null_vote\']}\' title=\"{$ibforums->lang[\'tt_poll_null\']}\" class=\'forminput\' />', 'button_null_vote', '', 1035406235, 0),
+(295, 1, 'skin_poll', '<input type=\'button\' value=\'{$ibforums->lang[\'pl_show_results\']}\' class=\'forminput\' title=\"{$ibforums->lang[\'tt_poll_show\']}\" onclick=\'go_gadget_show()\' />', 'button_show_results', '', 1035406235, 0),
+(296, 1, 'skin_poll', '<input type=\'button\' name=\'viewresult\' value=\'{$ibforums->lang[\'pl_show_vote\']}\'  title=\"{$ibforums->lang[\'tt_poll_svote\']}\" class=\'forminput\' onclick=\'go_gadget_vote()\' />', 'button_show_voteable', '', 1035406235, 0),
+(297, 1, 'skin_poll', '[ <a href=\"{$ibforums->base_url}act=Mod&amp;CODE=20&amp;f=$fid&amp;t=$tid&amp;auth_key=$key\">{$ibforums->lang[\'ba_edit\']}</a> ]', 'edit_link', '$tid, $fid, $key=\"\"', 1035406235, 0),
+(298, 1, 'skin_poll', '[ <a href=\"{$ibforums->base_url}act=Mod&amp;CODE=22&amp;f=$fid&amp;t=$tid&amp;auth_key=$key\">{$ibforums->lang[\'ba_delete\']}</a> ]', 'delete_link', '$tid, $fid, $key=\"\"', 1035406235, 0),
+(299, 1, 'skin_poll', '<tr>\n    <td class=\'row1\' colspan=\'3\'><input type=\"radio\" name=\"poll_vote\" value=\"$id\" class=\"radiobutton\" />&nbsp;<strong>$answer</strong></td>\n    </tr>', 'Render_row_form', '$votes, $id, $answer', 1035406235, 0),
+(300, 1, 'skin_poll', '<!--IBF.POLL_JS-->\n<form action=\"{$ibforums->base_url}act=Poll&amp;t=$tid\" method=\"post\">\n<div align=\"right\" class=\"pformstrip\">$edit &nbsp; $delete</div>\n<div class=\"tablepad\" align=\"center\">\n<table cellpadding=\"5\" align=\"center\">\n<tr>\n <td colspan=\'3\' align=\'center\'><b>$poll_q</b></td>\n</tr>', 'poll_header', '$tid, $poll_q, $edit, $delete', 1035406235, 0),
+(301, 1, 'skin_poll', '</table>\n</div>\n<div align=\"center\" class=\"pformstrip\"><!--IBF.VOTE-->&nbsp;<!--IBF.SHOW--></div>\n</form>', 'ShowPoll_footer', '', 1035406235, 0),
+(302, 1, 'skin_poll', '<tr>\n    <td class=\'row1\'>$answer</td>\n    <td class=\'row1\'> [ <b>$votes</b> ] </td>\n    <td class=\'row1\' align=\'left\'><img src=\'{$ibforums->vars[\'img_url\']}/bar_left.gif\' border=\'0\' width=\'4\' height=\'11\' align=\'middle\' alt=\'\' /><img src=\'{$ibforums->vars[\'img_url\']}/bar.gif\' border=\'0\' width=\'$width\' height=\'11\' align=\'middle\' alt=\'\' /><img src=\'{$ibforums->vars[\'img_url\']}/bar_right.gif\' border=\'0\' width=\'4\' height=\'11\' align=\'middle\' alt=\'\' />&nbsp;[$percentage%]</td>\n    </tr>', 'Render_row_results', '$votes, $id, $answer, $percentage, $width', 1035406235, 0),
+(303, 1, 'skin_poll', '<tr>\n    <td class=\'row1\' colspan=\'3\' align=\'center\'><strong>{$ibforums->lang[\'pv_total_votes\']}: $total_votes</strong></td>\n    </tr>', 'show_total_votes', '$total_votes', 1035406235, 0),
+(304, 1, 'skin_post', '<tr>\n <td colspan=\"2\" class=\'pformstrip\'>{$ibforums->lang[\'unreg_namestuff\']}</td>\n</tr>\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'guest_name\']}</td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'40\' name=\'UserName\' value=\'$data\' class=\'textinput\' /></td>\n</tr>', 'nameField_unreg', '$data', 1035406235, 0),
+(305, 1, 'skin_post', '<tr>\n  <td colspan=\"2\" class=\'pformstrip\'>{$ibforums->lang[\'tt_poll_settings\']}</td>\n</tr>\n<tr>\n  <td class=\'pformleft\'><strong>{$ibforums->lang[\'poll_question\']}</strong></td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'250\' name=\'pollq\' value=\'{$ibforums->input[\'pollq\']}\' class=\'textinput\' /></td>\n</tr>\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'poll_choices\']}<br /><br />$extra</td>\n  <td class=\'pformright\'><textarea cols=\'60\' rows=\'12\' name=\'PollAnswers\' class=\'textinput\'>$data</textarea><!--IBF.POLL_OPTIONS--></td>\n</tr>', 'poll_box', '$data, $extra=\"\"', 1035406235, 0),
+(306, 1, 'skin_post', '<br /><input type=\'checkbox\' size=\'40\' value=\'1\' name=\'allow_disc\' class=\'forminput\' />&nbsp;{$ibforums->lang[\'poll_only\']}', 'poll_options', '', 1035406235, 0),
+(307, 1, 'skin_post', '<tr>\n  <td class=\'pformstrip\' align=\'center\' style=\'text-align:center\' colspan=\"2\">\n	<input type=\"submit\" name=\"submit\" value=\"$data\" tabindex=\'4\' class=\'forminput\' accesskey=\'s\' />&nbsp;\n  </td>\n</tr>\n</table>\n</form>\n<br />\n<br clear=\"all\" />', 'poll_end_form', '$data', 1035406235, 0),
+(308, 1, 'skin_post', '<tr>\n <td class=\'pformstrip\' colspan=\"2\">{$ibforums->lang[\'ib_code_buttons\']}</td>\n </tr>\n <tr>\n   <td class=\'pformleft\'>\n	   <input type=\'radio\' name=\'bbmode\' class=\'radiobutton\' value=\'ezmode\' onclick=\'setmode(this.value)\' />&nbsp;<b>{$ibforums->lang[\'bbcode_guided\']}</b><br />\n	   <input type=\'radio\' name=\'bbmode\' class=\'radiobutton\' value=\'normal\' onclick=\'setmode(this.value)\' checked=\"checked\" />&nbsp;<b>{$ibforums->lang[\'bbcode_normal\']}</b>\n	   <script type=\'text/javascript\' src=\'html/ibfcode.js\'></script>\n   </td>\n   <td class=\'pformright\'>\n	   <input type=\'button\' accesskey=\'b\' value=\' B \'       onclick=\'simpletag(\"B\")\' class=\'codebuttons\' name=\'B\' style=\"font-weight:bold\" onmouseover=\"hstat(\'bold\')\" />\n	   <input type=\'button\' accesskey=\'i\' value=\' I \'       onclick=\'simpletag(\"I\")\' class=\'codebuttons\' name=\'I\' style=\"font-style:italic\" onmouseover=\"hstat(\'italic\')\" />\n	   <input type=\'button\' accesskey=\'u\' value=\' U \'       onclick=\'simpletag(\"U\")\' class=\'codebuttons\' name=\'U\' style=\"text-decoration:underline\" onmouseover=\"hstat(\'under\')\" />\n	   \n	   <select name=\'ffont\' class=\'codebuttons\' onchange=\"alterfont(this.options[this.selectedIndex].value, \'FONT\')\"  onmouseover=\"hstat(\'font\')\">\n	   <option value=\'0\'>{$ibforums->lang[\'ct_font\']}</option>\n	   <option value=\'Arial\' style=\'font-family:Arial\'>{$ibforums->lang[\'ct_arial\']}</option>\n	   <option value=\'Times\' style=\'font-family:Times\'>{$ibforums->lang[\'ct_times\']}</option>\n	   <option value=\'Courier\' style=\'font-family:Courier\'>{$ibforums->lang[\'ct_courier\']}</option>\n	   <option value=\'Impact\' style=\'font-family:Impact\'>{$ibforums->lang[\'ct_impact\']}</option>\n	   <option value=\'Geneva\' style=\'font-family:Geneva\'>{$ibforums->lang[\'ct_geneva\']}</option>\n	   <option value=\'Optima\' style=\'font-family:Optima\'>Optima</option>\n	   </select><select name=\'fsize\' class=\'codebuttons\' onchange=\"alterfont(this.options[this.selectedIndex].value, \'SIZE\')\" onmouseover=\"hstat(\'size\')\">\n	   <option value=\'0\'>{$ibforums->lang[\'ct_size\']}</option>\n	   <option value=\'1\'>{$ibforums->lang[\'ct_sml\']}</option>\n	   <option value=\'7\'>{$ibforums->lang[\'ct_lrg\']}</option>\n	   <option value=\'14\'>{$ibforums->lang[\'ct_lest\']}</option>\n	   </select><select name=\'fcolor\' class=\'codebuttons\' onchange=\"alterfont(this.options[this.selectedIndex].value, \'COLOR\')\" onmouseover=\"hstat(\'color\')\">\n	   <option value=\'0\'>{$ibforums->lang[\'ct_color\']}</option>\n	   <option value=\'blue\' style=\'color:blue\'>{$ibforums->lang[\'ct_blue\']}</option>\n	   <option value=\'red\' style=\'color:red\'>{$ibforums->lang[\'ct_red\']}</option>\n	   <option value=\'purple\' style=\'color:purple\'>{$ibforums->lang[\'ct_purple\']}</option>\n	   <option value=\'orange\' style=\'color:orange\'>{$ibforums->lang[\'ct_orange\']}</option>\n	   <option value=\'yellow\' style=\'color:yellow\'>{$ibforums->lang[\'ct_yellow\']}</option>\n	   <option value=\'gray\' style=\'color:gray\'>{$ibforums->lang[\'ct_grey\']}</option>\n	   <option value=\'green\' style=\'color:green\'>{$ibforums->lang[\'ct_green\']}</option>\n	   </select>\n	   &nbsp; <a href=\'javascript:closeall();\' onmouseover=\"hstat(\'close\')\">{$ibforums->lang[\'js_close_all_tags\']}</a>\n	   <br />\n	   <input type=\'button\' accesskey=\'h\' value=\' http:// \' onclick=\'tag_url()\'            class=\'codebuttons\' name=\'url\' onmouseover=\"hstat(\'url\')\" />\n	   <input type=\'button\' accesskey=\'g\' value=\' IMG \'     onclick=\'tag_image()\'          class=\'codebuttons\' name=\'img\' onmouseover=\"hstat(\'img\')\" />\n	   <input type=\'button\' accesskey=\'e\' value=\'  @  \'     onclick=\'tag_email()\'          class=\'codebuttons\' name=\'email\' onmouseover=\"hstat(\'email\')\" />\n	   <input type=\'button\' accesskey=\'q\' value=\' QUOTE \'   onclick=\'simpletag(\"QUOTE\")\'   class=\'codebuttons\' name=\'QUOTE\' onmouseover=\"hstat(\'quote\')\" />\n	   <input type=\'button\' accesskey=\'p\' value=\' CODE \'    onclick=\'simpletag(\"CODE\")\'    class=\'codebuttons\' name=\'CODE\' onmouseover=\"hstat(\'code\')\" />\n	   <input type=\'button\' accesskey=\'l\' value=\' LIST \'     onclick=\'tag_list()\'          class=\'codebuttons\' name=\"LIST\" onmouseover=\"hstat(\'list\')\" />\n	   <!--<input type=\'button\' accesskey=\'l\' value=\' SQL \'     onclick=\'simpletag(\"SQL\")\'     class=\'codebuttons\' name=\'SQL\'>\n	   <input type=\'button\' accesskey=\'t\' value=\' HTML \'    onclick=\'simpletag(\"HTML\")\'    class=\'codebuttons\' name=\'HTML\'>-->\n	   <br />\n	   {$ibforums->lang[\'hb_open_tags\']}:&nbsp;<input type=\'text\' name=\'tagcount\' size=\'3\' maxlength=\'3\' style=\'font-size:10px;font-family:verdana,arial;border:0px;font-weight:bold;\' readonly=\"readonly\" class=\'row1\' value=\"0\" />\n	   &nbsp;<input type=\'text\' name=\'helpbox\' size=\'50\' maxlength=\'120\' style=\'width:auto;font-size:10px;font-family:verdana,arial;border:0px\' readonly=\"readonly\" class=\'row1\' value=\"{$ibforums->lang[\'hb_start\']}\" />\n	</td>\n   </tr>\n   <tr>\n     <td colspan=\"2\" class=\'pformstrip\'>{$ibforums->lang[\'post\']}</td>\n   </tr>\n   <tr>\n     <td class=\'pformleft\'>\n	   <!--SMILIE TABLE-->\n	   <br />\n	   (<a href=\'javascript:CheckLength()\'>{$ibforums->lang[\'check_length\']}</a>)\n     </td>\n     <td class=\"pformright\" valign=\'top\'><textarea cols=\'70\' rows=\'15\' name=\'Post\' tabindex=\'3\' class=\'textinput\'>$data</textarea></td>\n   </tr>', 'pm_postbox_buttons', '$data', 1035406235, 0),
+(309, 1, 'skin_post', '<tr>\n   <td class=\'pformstrip\' colspan=\"2\">{$ibforums->lang[\'ib_code_buttons\']}</td>\n </tr>\n <tr>\n   <td class=\'pformleft\'>\n	   <input type=\'radio\' class=\'radiobutton\' name=\'bbmode\' value=\'ezmode\' onclick=\'setmode(this.value)\' />&nbsp;<b>{$ibforums->lang[\'bbcode_guided\']}</b><br />\n	   <input type=\'radio\' class=\'radiobutton\' name=\'bbmode\' value=\'normal\' onclick=\'setmode(this.value)\' checked=\"checked\" />&nbsp;<b>{$ibforums->lang[\'bbcode_normal\']}</b>\n	   <script type=\'text/javascript\' src=\'html/ibfcode.js\'></script>\n   </td>\n   <td class=\'pformright\'>\n	   <input type=\'button\' accesskey=\'b\' value=\' B \'       onclick=\'simpletag(\"B\")\' class=\'codebuttons\' name=\'B\' style=\"font-weight:bold\" onmouseover=\"hstat(\'bold\')\" />\n	   <input type=\'button\' accesskey=\'i\' value=\' I \'       onclick=\'simpletag(\"I\")\' class=\'codebuttons\' name=\'I\' style=\"font-style:italic\" onmouseover=\"hstat(\'italic\')\" />\n	   <input type=\'button\' accesskey=\'u\' value=\' U \'       onclick=\'simpletag(\"U\")\' class=\'codebuttons\' name=\'U\' style=\"text-decoration:underline\" onmouseover=\"hstat(\'under\')\" />\n	   \n	   <select name=\'ffont\' class=\'codebuttons\' onchange=\"alterfont(this.options[this.selectedIndex].value, \'FONT\')\"  onmouseover=\"hstat(\'font\')\">\n	   <option value=\'0\'>{$ibforums->lang[\'ct_font\']}</option>\n	   <option value=\'Arial\' style=\'font-family:Arial\'>{$ibforums->lang[\'ct_arial\']}</option>\n	   <option value=\'Times\' style=\'font-family:Times\'>{$ibforums->lang[\'ct_times\']}</option>\n	   <option value=\'Courier\' style=\'font-family:Courier\'>{$ibforums->lang[\'ct_courier\']}</option>\n	   <option value=\'Impact\' style=\'font-family:Impact\'>{$ibforums->lang[\'ct_impact\']}</option>\n	   <option value=\'Geneva\' style=\'font-family:Geneva\'>{$ibforums->lang[\'ct_geneva\']}</option>\n	   <option value=\'Optima\' style=\'font-family:Optima\'>Optima</option>\n	   </select><select name=\'fsize\' class=\'codebuttons\' onchange=\"alterfont(this.options[this.selectedIndex].value, \'SIZE\')\" onmouseover=\"hstat(\'size\')\">\n	   <option value=\'0\'>{$ibforums->lang[\'ct_size\']}</option>\n	   <option value=\'1\'>{$ibforums->lang[\'ct_sml\']}</option>\n	   <option value=\'7\'>{$ibforums->lang[\'ct_lrg\']}</option>\n	   <option value=\'14\'>{$ibforums->lang[\'ct_lest\']}</option>\n	   </select><select name=\'fcolor\' class=\'codebuttons\' onchange=\"alterfont(this.options[this.selectedIndex].value, \'COLOR\')\" onmouseover=\"hstat(\'color\')\">\n	   <option value=\'0\'>{$ibforums->lang[\'ct_color\']}</option>\n	   <option value=\'blue\' style=\'color:blue\'>{$ibforums->lang[\'ct_blue\']}</option>\n	   <option value=\'red\' style=\'color:red\'>{$ibforums->lang[\'ct_red\']}</option>\n	   <option value=\'purple\' style=\'color:purple\'>{$ibforums->lang[\'ct_purple\']}</option>\n	   <option value=\'orange\' style=\'color:orange\'>{$ibforums->lang[\'ct_orange\']}</option>\n	   <option value=\'yellow\' style=\'color:yellow\'>{$ibforums->lang[\'ct_yellow\']}</option>\n	   <option value=\'gray\' style=\'color:gray\'>{$ibforums->lang[\'ct_grey\']}</option>\n	   <option value=\'green\' style=\'color:green\'>{$ibforums->lang[\'ct_green\']}</option>\n	   </select>\n	   &nbsp; <a href=\'javascript:closeall();\' onmouseover=\"hstat(\'close\')\">{$ibforums->lang[\'js_close_all_tags\']}</a>\n	   <br />\n	   <input type=\'button\' accesskey=\'h\' value=\' http:// \' onclick=\'tag_url()\'            class=\'codebuttons\' name=\'url\' onmouseover=\"hstat(\'url\')\" />\n	   <input type=\'button\' accesskey=\'g\' value=\' IMG \'     onclick=\'tag_image()\'          class=\'codebuttons\' name=\'img\' onmouseover=\"hstat(\'img\')\" />\n	   <input type=\'button\' accesskey=\'e\' value=\'  @  \'     onclick=\'tag_email()\'          class=\'codebuttons\' name=\'email\' onmouseover=\"hstat(\'email\')\" />\n	   <input type=\'button\' accesskey=\'q\' value=\' QUOTE \'   onclick=\'simpletag(\"QUOTE\")\'   class=\'codebuttons\' name=\'QUOTE\' onmouseover=\"hstat(\'quote\')\" />\n	   <input type=\'button\' accesskey=\'p\' value=\' CODE \'    onclick=\'simpletag(\"CODE\")\'    class=\'codebuttons\' name=\'CODE\' onmouseover=\"hstat(\'code\')\" />\n	   <input type=\'button\' accesskey=\'l\' value=\' LIST \'     onclick=\'tag_list()\'          class=\'codebuttons\' name=\"LIST\" onmouseover=\"hstat(\'list\')\" />\n	   <!--<input type=\'button\' accesskey=\'l\' value=\' SQL \'     onclick=\'simpletag(\"SQL\")\'     class=\'codebuttons\' name=\'SQL\'>\n	   <input type=\'button\' accesskey=\'t\' value=\' HTML \'    onclick=\'simpletag(\"HTML\")\'    class=\'codebuttons\' name=\'HTML\'>-->\n	   <br />\n	   {$ibforums->lang[\'hb_open_tags\']}:&nbsp;<input type=\'text\' name=\'tagcount\' size=\'3\' maxlength=\'3\' style=\'font-size:10px;font-family:verdana,arial;border:0px;font-weight:bold;\' readonly=\"readonly\" class=\'row1\' value=\"0\" />\n	   &nbsp;<input type=\'text\' name=\'helpbox\' size=\'50\' maxlength=\'120\' style=\'width:auto;font-size:10px;font-family:verdana,arial;border:0px\' readonly=\"readonly\" class=\'row1\' value=\"{$ibforums->lang[\'hb_start\']}\" />\n	</td>\n   </tr>\n   <tr>\n     <td colspan=\"2\" class=\'pformstrip\'>{$ibforums->lang[\'post\']}</td>\n   </tr>\n   <tr>\n     <td class=\'pformleft\' align=\'center\'>\n	   <!--SMILIE TABLE-->\n	   <br /><div class=\'desc\'><strong><a href=\'javascript:CheckLength()\'>{$ibforums->lang[\'check_length\']}</a> &middot; <a href=\'javascript:bbc_pop()\'>{$ibforums->lang[\'bbc_help\']}</a></strong></div>\n     </td>\n     <td class=\"pformright\" valign=\'top\'>\n     	<textarea cols=\'80\' rows=\'20\' name=\'Post\' tabindex=\'3\' class=\'textinput\'>$data</textarea></td>\n   </tr>\n   <tr>\n	<td class=\'pformleft\'><b>{$ibforums->lang[\'po_options\']}</b></td>\n	<td class=\'pformright\'>\n	 <!--IBF.EMO-->\n	 <!--IBF.SIG-->\n	 <!--IBF.TRACK-->\n	</td>\n   </tr>', 'postbox_buttons', '$data', 1035406235, 0),
+(310, 1, 'skin_post', '<input type=\'checkbox\' name=\'enableemo\' class=\'checkbox\' value=\'yes\' $checked />&nbsp;{$ibforums->lang[\'enable_emo\']}', 'get_box_enableemo', '$checked', 1035406235, 0),
+(311, 1, 'skin_post', '<br /><input type=\'checkbox\' name=\'enablesig\' class=\'checkbox\' value=\'yes\' $checked />&nbsp;{$ibforums->lang[\'enable_sig\']}', 'get_box_enablesig', '$checked', 1035406235, 0),
+(312, 1, 'skin_post', '<br /><input type=\'checkbox\' name=\'enabletrack\' class=\'checkbox\' value=\'1\' $checked />&nbsp;{$ibforums->lang[\'enable_track\']}', 'get_box_enabletrack', '$checked', 1035406235, 0),
+(313, 1, 'skin_post', '<br />{$ibforums->lang[\'already_sub\']}', 'get_box_alreadytrack', '', 1035406235, 0),
+(314, 1, 'skin_post', '<script language=\"javascript1.2\" type=\"text/javascript\">\n<!--\nvar MessageMax  = \"{$ibforums->lang[\'the_max_length\']}\";\nvar Override    = \"{$ibforums->lang[\'override\']}\";\nMessageMax      = parseInt(MessageMax);\nif ( MessageMax < 0 )\n{\n	MessageMax = 0;\n}\n	\nfunction emo_pop()\n{\n  window.open(\'index.{$ibforums->vars[\'php_ext\']}?act=legends&CODE=emoticons&s={$ibforums->session_id}\',\'Legends\',\'width=250,height=500,resizable=yes,scrollbars=yes\'); \n}\nfunction bbc_pop()\n{\n  window.open(\'index.{$ibforums->vars[\'php_ext\']}?act=legends&CODE=bbcode&s={$ibforums->session_id}\',\'Legends\',\'width=700,height=500,resizable=yes,scrollbars=yes\'); \n}	\nfunction CheckLength() {\n	MessageLength  = document.REPLIER.Post.value.length;\n	message  = \"\";\n		if (MessageMax > 0) {\n			message = \"{$ibforums->lang[\'js_post\']}: {$ibforums->lang[\'js_max_length\']} \" + MessageMax + \" {$ibforums->lang[\'js_characters\']}.\";\n		} else {\n			message = \"\";\n		}\n		alert(message + \"      {$ibforums->lang[\'js_used\']} \" + MessageLength + \" {$ibforums->lang[\'js_characters\']}.\");\n}\n	\n	function ValidateForm(isMsg) {\n		MessageLength  = document.REPLIER.Post.value.length;\n		errors = \"\";\n		\n		if (isMsg == 1)\n		{\n			if (document.REPLIER.msg_title.value.length < 2)\n			{\n				errors = \"{$ibforums->lang[\'msg_no_title\']}\";\n			}\n		}\n	\n		if (MessageLength < 2) {\n			 errors = \"{$ibforums->lang[\'js_no_message\']}\";\n		}\n		if (MessageMax !=0) {\n			if (MessageLength > MessageMax) {\n				errors = \"{$ibforums->lang[\'js_max_length\']} \" + MessageMax + \" {$ibforums->lang[\'js_characters\']}. {$ibforums->lang[\'js_current\']}: \" + MessageLength;\n			}\n		}\n		if (errors != \"\" && Override == \"\") {\n			alert(errors);\n			return false;\n		} else {\n			document.REPLIER.submit.disabled = true;\n			return true;\n		}\n	}\n	\n	// IBC Code stuff\n	var text_enter_url      = \"{$ibforums->lang[\'jscode_text_enter_url\']}\";\n	var text_enter_url_name = \"{$ibforums->lang[\'jscode_text_enter_url_name\']}\";\n	var text_enter_image    = \"{$ibforums->lang[\'jscode_text_enter_image\']}\";\n	var text_enter_email    = \"{$ibforums->lang[\'jscode_text_enter_email\']}\";\n	var text_enter_flash    = \"{$ibforums->lang[\'jscode_text_enter_flash\']}\";\n	var text_code           = \"{$ibforums->lang[\'jscode_text_code\']}\";\n	var text_quote          = \"{$ibforums->lang[\'jscode_text_quote\']}\";\n	var error_no_url        = \"{$ibforums->lang[\'jscode_error_no_url\']}\";\n	var error_no_title      = \"{$ibforums->lang[\'jscode_error_no_title\']}\";\n	var error_no_email      = \"{$ibforums->lang[\'jscode_error_no_email\']}\";\n	var error_no_width      = \"{$ibforums->lang[\'jscode_error_no_width\']}\";\n	var error_no_height     = \"{$ibforums->lang[\'jscode_error_no_height\']}\";\n	var prompt_start        = \"{$ibforums->lang[\'js_text_to_format\']}\";\n	\n	var help_bold           = \"{$ibforums->lang[\'hb_bold\']}\";\n	var help_italic         = \"{$ibforums->lang[\'hb_italic\']}\";\n	var help_under          = \"{$ibforums->lang[\'hb_under\']}\";\n	var help_font           = \"{$ibforums->lang[\'hb_font\']}\";\n	var help_size           = \"{$ibforums->lang[\'hb_size\']}\";\n	var help_color          = \"{$ibforums->lang[\'hb_color\']}\";\n	var help_close          = \"{$ibforums->lang[\'hb_close\']}\";\n	var help_url            = \"{$ibforums->lang[\'hb_url\']}\";\n	var help_img            = \"{$ibforums->lang[\'hb_img\']}\";\n	var help_email          = \"{$ibforums->lang[\'hb_email\']}\";\n	var help_quote          = \"{$ibforums->lang[\'hb_quote\']}\";\n	var help_list           = \"{$ibforums->lang[\'hb_list\']}\";\n	var help_code           = \"{$ibforums->lang[\'hb_code\']}\";\n	var help_click_close    = \"{$ibforums->lang[\'hb_click_close\']}\";\n	var list_prompt         = \"{$ibforums->lang[\'js_tag_list\']}\";\n	\n	\n	//-->\n</script>', 'get_javascript', '', 1035406235, 0),
+(315, 1, 'skin_post', '<!-- REG NAME -->', 'nameField_reg', '', 1035406235, 0),
+(316, 1, 'skin_post', '<tr>\n   <td class=\'pformstrip\' colspan=\"2\">{$ibforums->lang[\'tt_options\']}</td>\n  </tr>\n  <tr>\n    <td class=\'pformleft\'>{$ibforums->lang[\'mod_options\']}</td>\n    <td class=\'pformright\'>$jump</select></td>\n  </tr>', 'mod_options', '$jump', 1035406235, 0),
+(317, 1, 'skin_post', '<tr>\n  <td colspan=\"2\" class=\'pformstrip\'>{$ibforums->lang[\'post_to_quote\']}</td>\n</tr>\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'post_to_quote_txt\']}</td>\n  <td class=\'pformright\'><textarea cols=\'60\' rows=\'12\' wrap=\'soft\' name=\'QPost\' class=\'textinput\'>{$data[\'post\']}</textarea><input type=\'hidden\' name=\'QAuthor\' value=\'{$data[\'author_id\']}\' /><input type=\'hidden\' name=\'QAuthorN\' value=\'{$data[\'author_name\']}\' /><input type=\'hidden\' name=\'QDate\'   value=\'{$data[\'post_date\']}\' /></td>\n</tr>', 'quote_box', '$data', 1035406235, 0),
+(318, 1, 'skin_post', '<br />\n<div class=\"tableborder\">\n  <div class=\"pformstrip\">{$ibforums->lang[\'last_posts\']}</div>\n  <table cellpadding=\'6\' cellspacing=\'1\' border=\'0\' width=\'100%\'>', 'TopicSummary_top', '', 1035406235, 0);
+INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_content`, `func_name`, `func_data`, `updated`, `can_remove`) VALUES
+(319, 1, 'skin_post', '<tr>\n    <td class=\'row4\' valign=\'top\' width=\'20%\'><b>{$data[\'author\']}</b></td>\n    <td class=\'row4\' valign=\'top\' width=\'80%\'>{$ibforums->lang[\'posted_on\']} {$data[\'date\']}</td>\n  </tr>\n  <tr>\n    <td class=\'row1\' valign=\'top\' width=\'20%\'>&nbsp;</td>\n    <td class=\'row1\' valign=\'top\' width=\'80%\'><span class=\'postcolor\'>{$data[\'post\']}</span></td>\n  </tr>', 'TopicSummary_body', '$data', 1035406235, 0),
+(320, 1, 'skin_post', '</table>\n  <div class=\"pformstrip\"><a href=\"javascript:PopUp(\'index.{$ibforums->vars[\'php_ext\']}?act=ST&amp;f={$ibforums->input[\'f\']}&amp;t={$ibforums->input[\'t\']}\',\'TopicSummary\',700,450,1,1)\">{$ibforums->lang[\'review_topic\']}</a></div>\n</div>', 'TopicSummary_bottom', '', 1035406235, 0),
+(321, 1, 'skin_post', '<div class=\"tableborder\">\n  <div class=\"pformstrip\">{$ibforums->lang[\'post_preview\']}</div>\n  <div class=\"row1\" style=\"padding:6px\"><div class=\'postcolor\'>$data</div></div>\n</div>\n<br />', 'preview', '$data', 1035406235, 0),
+(322, 1, 'skin_post', '<tr> \n          <td class=\"pformstrip\" colspan=\"2\">{$ibforums->lang[\'upload_title\']}</td>\n        </tr>\n        <tr> \n          <td class=\'pformleft\'>{$ibforums->lang[\'upload_text\']} $data</td>\n          <td class=\'pformright\' width=\"100%\">\n           <table cellpadding=\'4\' cellspacing=\'0\' width=\'100%\' border=\'0\'>\n            <tr>\n             <td><input type=\'radio\' name=\'editupload\' value=\'keep\' checked></td>\n             <td width=\'100%\'><b>{$ibforums->lang[\'eu_keep\']}</b> ( $file_name )</td>\n            </tr>\n            <tr>\n             <td><input type=\'radio\' name=\'editupload\' value=\'delete\'></td>\n             <td width=\'100%\'><b>{$ibforums->lang[\'eu_delete\']}</b></td>\n            </tr>\n            <tr>\n             <td valign=\'middle\'><input type=\'radio\' name=\'editupload\' value=\'new\'></td>\n             <td><b>{$ibforums->lang[\'eu_new\']}</b><br /><input class=\'textinput\' type=\'file\' size=\'30\' name=\'FILE_UPLOAD\' onclick=\'document.REPLIER.editupload[2].checked=true;\' /></td>\n            </tr>\n           </table>\n          </td>\n        </tr>', 'edit_upload_field', '$data, $file_name=\"\"', 1035406235, 0),
+(323, 1, 'skin_post', '<tr>\n    <td colspan=\"2\" class=\'pformstrip\'>{$ibforums->lang[\'upload_title\']}</td>\n  </tr>\n  <tr>\n    <td class=\'pformleft\'>{$ibforums->lang[\'upload_text\']} $data</td>\n    <td class=\'pformright\'><input class=\'textinput\' type=\'file\' size=\'30\' name=\'FILE_UPLOAD\' /></td>\n  </tr>', 'Upload_field', '$data', 1035406235, 0),
+(324, 1, 'skin_post', '<div class=\"tableborder\">\n  <div class=\"pformstrip\">{$ibforums->lang[\'errors_found\']}</div>\n  <div class=\"tablepad\"><span class=\'postcolor\'>$data</span></div>\n</div>\n<br />', 'errors', '$data', 1035406235, 0),
+(325, 1, 'skin_post', '<tr>\n  <td class=\'pformstrip\' align=\'center\' style=\'text-align:center\' colspan=\"2\">\n	<input type=\"submit\" name=\"submit\" value=\"$data\" tabindex=\'4\' class=\'forminput\' accesskey=\'s\' />&nbsp;\n	<input type=\"submit\" name=\"preview\" value=\"{$ibforums->lang[\'button_preview\']}\" tabindex=\'5\' class=\'forminput\' />\n  </td>\n</tr>\n</table>\n</form>\n<br />\n<br clear=\"all\" />', 'EndForm', '$data', 1035406235, 0),
+(326, 1, 'skin_post', '<table class=\'tablefill\' cellpadding=\'4\' align=\'center\'>\n<tr>\n<td align=\"center\" colspan=\"{$ibforums->vars[\'emo_per_row\']}\"><b>{$ibforums->lang[\'click_smilie\']}</b></td>\n</tr>\n<!--THE SMILIES-->\n<tr>\n<td align=\"center\" colspan=\"{$ibforums->vars[\'emo_per_row\']}\"><b><a href=\'javascript:emo_pop()\'>{$ibforums->lang[\'all_emoticons\']}</a></b></td>\n</tr>\n</table>', 'smilie_table', '', 1035406235, 0),
+(327, 1, 'skin_post', '<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'post_icon\']}</td>\n  <td class=\'pformright\'>\n	<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"1\" />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon1.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"2\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon2.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"3\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon3.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"4\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon4.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"5\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon5.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"6\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon6.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"7\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon7.gif\"  align=\'middle\' alt=\'\' /><br />\n	<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"8\" />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon8.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"9\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon9.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"10\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon10.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"11\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon11.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"12\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon12.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"13\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon13.gif\"  align=\'middle\' alt=\'\' />&nbsp;&nbsp;&nbsp;<input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"14\"  />&nbsp;&nbsp;<img src=\"{$ibforums->vars[\'img_url\']}/icon14.gif\"  align=\'middle\' alt=\'\' /><br />\n    <input type=\"radio\" class=\"radiobutton\" name=\"iconid\" value=\"0\" checked=\"checked\" />&nbsp;&nbsp;[ Use None ]\n  </td>\n </tr>', 'PostIcons', '', 1035406235, 0),
+(328, 1, 'skin_post', '<script language=\'Javascript\' type=\'text/javascript\'>\n	<!--\n	function PopUp(url, name, width,height,center,resize,scroll,posleft,postop) {\n		if (posleft != 0) { x = posleft }\n		if (postop  != 0) { y = postop  }\n	\n		if (!scroll) { scroll = 1 }\n		if (!resize) { resize = 1 }\n	\n		if ((parseInt (navigator.appVersion) >= 4 ) && (center)) {\n		  X = (screen.width  - width ) / 2;\n		  Y = (screen.height - height) / 2;\n		}\n		if (scroll != 0) { scroll = 1 }\n	\n		var Win = window.open( url, name, \'width=\'+width+\',height=\'+height+\',top=\'+Y+\',left=\'+X+\',resizable=\'+resize+\',scrollbars=\'+scroll+\',location=no,directories=no,status=no,menubar=no,toolbar=no\');\n	 }\n	//-->\n</script>\n<table class=\'tableborder\' cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">\n<tr>\n <td class=\'maintitle\' colspan=\"2\">&nbsp;&nbsp;$data</td>\n</tr>', 'table_top', '$data', 1035406235, 0),
+(329, 1, 'skin_post', '<!--FORUM RULES--><br />\n<!--START TABLE-->\n<!--NAME FIELDS-->\n<!--TOPIC TITLE-->\n<!--POLL BOX-->\n<!--POST BOX-->\n<!--QUOTE BOX-->\n<!--POST ICONS-->\n<!--UPLOAD FIELD-->\n<!--MOD OPTIONS-->\n<!--END TABLE-->', 'table_structure', '', 1035406235, 0),
+(330, 1, 'skin_post', '<tr>\n  <td class=\'pformleft\'><b>{$ibforums->lang[\'edit_ops\']}</b></td>\n  <td class=\'pformright\'><input type=\'checkbox\' name=\'add_edit\' value=\'1\' $checked class=\'forminput\' />&nbsp;{$ibforums->lang[\'append_edit\']}</td>\n</tr>', 'add_edit_box', '$checked=\"\"', 1035406235, 0),
+(331, 1, 'skin_post', '<tr>\n <td colspan=\"2\" class=\'pformstrip\'>{$ibforums->lang[\'tt_topic_settings\']}</td>\n</tr>\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'topic_title\']}</td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'50\' name=\'TopicTitle\' value=\'{$data[TITLE]}\' tabindex=\'1\' class=\'forminput\' /></td>\n</tr>\n<tr>\n   <td class=\'pformleft\'>{$ibforums->lang[\'topic_desc\']}</td>\n   <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'40\' name=\'TopicDesc\' value=\'{$data[DESC]}\' tabindex=\'2\' class=\'forminput\' /></td>\n</tr>', 'topictitle_fields', '$data', 1035406235, 0),
+(332, 1, 'skin_printpage', '<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'tvo_title\']}&nbsp;$title</div>\n <div class=\'tablepad\'>\n  <b><a href=\'{$ibforums->base_url}act=Print&amp;client=printer&amp;f=$fid&amp;t=$tid\'>{$ibforums->lang[\'o_print_title\']}</a></b>\n  <br />\n  {$ibforums->lang[\'o_print_desc\']}\n  <br /><br />\n  <b><a href=\'{$ibforums->base_url}act=Print&amp;client=html&amp;f=$fid&amp;t=$tid\'>{$ibforums->lang[\'o_html_title\']}</a></b>\n  <br />\n  {$ibforums->lang[\'o_html_desc\']}\n  <br /><br />\n  <b><a href=\'{$ibforums->base_url}act=Print&amp;client=wordr&amp;f=$fid&amp;t=$tid\'>{$ibforums->lang[\'o_word_title\']}</a></b>\n  <br />\n  {$ibforums->lang[\'o_word_desc\']}\n </div>\n <div align=\'center\' class=\'pformstrip\'>&lt;&lt;<a href=\'{$ibforums->base_url}showtopic=$tid\'>{$ibforums->lang[\'back_topic\']}</a></div>\n</div>\n<br />', 'choose_form', '$fid, $tid, $title', 1035406235, 0),
+(333, 1, 'skin_printpage', '<table width=\'90%\' align=\'center\' cellpadding=\'6\' border=\'1\'>\n	<tr>\n	 <td bgcolor=\'#EEEEEE\'><font face=\'arial\' size=\'2\' color=\'#000000\'><b>{$ibforums->lang[\'by\']}: {$entry[\'author_name\']}</b> {$ibforums->lang[\'on\']} {$entry[\'post_date\']}</b></font></td>\n	</tr>\n	<tr>\n	 <td><font face=\'arial\' size=\'3\' color=\'#000000\'>{$entry[\'post\']}</font></td>\n	</tr>\n	</table>\n	<br />', 'pp_postentry', '$poster, $entry', 1035406235, 0),
+(334, 1, 'skin_printpage', '<center><font face=\'arial\' size=\'1\' color=\'#000000\'>Powered by Invision Power Board (http://www.invisionboard.com)<br />&copy; Invision Power Services (http://www.invisionpower.com)</font></center>', 'pp_end', '', 1035406235, 0),
+(335, 1, 'skin_printpage', '<html>\n    <head>\n      <title>{$ibforums->vars[\'board_name\']} [Powered by Invision Power Board]</title>\n    </head>\n    <body bgcolor=\'#FFFFFF\' alink=\'#000000\' vlink=\'#000000\' link=\'#000000\'>\n     <table width=\'90%\' border=\'0\' align=\'center\' cellpadding=\'6\'>\n      <tr>\n       <td><b><font face=\'arial\' size=\'5\' color=\'#4C77B6\'><b>{$ibforums->lang[\'title\']}</font></b>\n       	   <br /><font face=\'arial\' size=\'2\' color=\'#000000\'><b><a href=\'{$ibforums->base_url}act=ST&amp;f=$fid&amp;t=$tid\'>{$ibforums->lang[\'topic_here\']}</a></b></font>\n       </td>\n      </tr>\n      <tr>\n       <td><font face=\'arial\' size=\'2\' color=\'#000000\'><b>{$ibforums->vars[\'board_name\']} &gt; $forum_name &gt; <font color=\'red\'>$topic_title</font></b></font></td>\n      </tr>\n     </table>\n     <br />\n     <br />', 'pp_header', '$forum_name, $topic_title, $topic_starter,$fid, $tid', 1035406235, 0),
+(336, 1, 'skin_profile', '<tr>\n	<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'warn_level\']}</b></td>\n	<td align=\'left\' class=\'row1\'><a href=\"javascript:PopUp(\'{$ibforums->base_url}act=warn&amp;mid={$mid}&amp;CODE=view\',\'Pager\',\'500\',\'450\',\'0\',\'1\',\'1\',\'1\')\">{$percent}</a>%: <a href=\'{$ibforums->base_url}act=warn&amp;type=minus&amp;mid={$mid}\' title=\'{$ibforums->lang[\'tt_warn_minus\']}\'><{WARN_MINUS}></a>{$img}<a href=\'{$ibforums->base_url}act=warn&amp;type=add&amp;mid={$mid}\' title=\'{$ibforums->lang[\'tt_warn_add\']}\'><{WARN_ADD}></a>\n</td>\n  </tr>', 'warn_level', '$mid, $img, $percent', 1035406235, 0),
+(337, 1, 'skin_profile', '<tr>\n	<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'warn_level\']}</b></td>\n	<td align=\'left\' class=\'row1\'><a href=\"javascript:PopUp(\'{$ibforums->base_url}act=warn&amp;mid={$mid}&amp;CODE=view\',\'Pager\',\'500\',\'450\',\'0\',\'1\',\'1\',\'1\')\">{$percent}</a>%: {$img}</td>\n  </tr>', 'warn_level_no_mod', '$mid, $img, $percent', 1035406235, 0),
+(338, 1, 'skin_profile', '<tr>\n	<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'rating_level\']}</b></td>\n	<td align=\'left\' class=\'row1\'><a href=\'{$ibforums->base_url}act=warn&amp;type=minus&amp;mid={$mid}\' title=\'{$ibforums->lang[\'tt_warn_minus\']}\'><{WARN_MINUS}></a> &lt;&nbsp;$min ( <a href=\"javascript:PopUp(\'{$ibforums->base_url}act=warn&amp;mid={$mid}&amp;CODE=view\',\'Pager\',\'500\',\'450\',\'0\',\'1\',\'1\',\'1\')\">{$level}</a> ) $max&nbsp;&gt; <a href=\'{$ibforums->base_url}act=warn&amp;type=add&amp;mid={$mid}\' title=\'{$ibforums->lang[\'tt_warn_add\']}\'><{WARN_ADD}></a></td>\n  </tr>', 'warn_level_rating', '$mid, $level,$min=0,$max=10', 1035406235, 0),
+(339, 1, 'skin_profile', '<tr>\n	<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'rating_level\']}</b></td>\n	<td align=\'left\' class=\'row1\'>&lt;&nbsp;$min ( <a href=\"javascript:PopUp(\'{$ibforums->base_url}act=warn&amp;mid={$mid}&amp;CODE=view\',\'Pager\',\'500\',\'450\',\'0\',\'1\',\'1\',\'1\')\">{$level}</a> ) $max&nbsp;&gt;</td>\n  </tr>', 'warn_level_rating_no_mod', '$mid, $level,$min=0,$max=10', 1035406235, 0),
+(340, 1, 'skin_profile', '<img src=\"$show_photo\" border=\"0\" alt=\"User Photo\" $show_width $show_height />', 'get_photo', '$show_photo, $show_width, $show_height', 1035406235, 0),
+(341, 1, 'skin_profile', '<div id=\"photowrap\">\n <div id=\"phototitle\">$name</div>\n <div id=\"photoimg\">$photo</div>\n</div>', 'show_photo', '$name, $photo', 1035406235, 0),
+(342, 1, 'skin_profile', '<html>\n <head>\n  <title>$name</title>\n  <style type=\"text/css\">\n	 form { display:inline; }\n	 img  { vertical-align:middle }\n	 BODY { font-family: Verdana, Tahoma, Arial, sans-serif; font-size: 11px; color: #000; margin-left:5%;margin-right:5%;margin-top:5px;  }\n	 TABLE, TR, TD { font-family: Verdana, Tahoma, Arial, sans-serif; font-size: 11px; color: #000; }\n	 a:link, a:visited, a:active { text-decoration: underline; color: #000 }\n	 a:hover { color: #465584; text-decoration:underline }\n	 #profilename { font-size:28px; font-weight:bold; }\n	 #photowrap { padding:6px; }\n	 #phototitle { font-size:24px; border-bottom:1px solid black }\n	 #photoimg   { text-align:center; margin-top:15px } \n	 .plainborder { border:1px solid #345487;background-color:#F5F9FD }\n	 .tableborder { border:1px solid #345487;background-color:#FFF }\n	 .tablefill   { border:1px solid #345487;background-color:#F5F9FD;padding:6px }\n	 .tablepad    { background-color:#F5F9FD;padding:6px }\n	 .tablebasic  { width:100%; padding:0px 0px 0px 0px; margin:0px; border:0px }\n	 .row1 { background-color: #F5F9FD }\n	 .row2 { background-color: #DFE6EF }\n	 .row3 { background-color: #EEF2F7 }\n	 .row4 { background-color: #E4EAF2 }\n  </style>\n  <script language=\'javascript\' type=\"text/javascript\">\n  <!--\n   function redirect_to(where, closewin)\n   {\n	  document.location= \'$ibforums->base_url\' + where;\n	  \n	  if (closewin == 1)\n	  {\n		  self.close();\n	  }\n   }\n  //-->\n  </script>\n </head>\n<body>\n<table width=\"100%\" height=\"100%\">\n<tr>\n <td valign=\"middle\" align=\"center\" width=\"400\">\n	<div id=\"phototitle\">$name</div>\n	<br />\n	<table class=\"tablebasic\" cellspacing=\"6\">\n	<tr>\n	 <td valign=\"middle\" class=\"row1\">$photo</td>\n	 <td width=\"100%\" class=\"row1\" valign=\"bottom\">\n	   <table class=\"tablebasic\" cellpadding=\"5\">\n		 <tr>\n		   <td nowrap=\"nowrap\">{$ibforums->lang[\'email\']}</td>\n		   <td width=\"100%\">{$info[\'email\']}</td>\n		 </tr>\n		 <tr>\n		  <td nowrap=\"nowrap\">{$ibforums->lang[\'integ_msg\']}</td>\n		  <td width=\"100%\">{$info[\'integ_msg\']}</td>\n	     </tr>\n		 <tr>\n		   <td nowrap=\"nowrap\">{$ibforums->lang[\'aim\']}</td>\n		   <td width=\"100%\">{$info[\'aim_name\']}</td>\n		 </tr>\n		 <tr>\n		   <td nowrap=\"nowrap\">{$ibforums->lang[\'icq\']}</td>\n		   <td width=\"100%\">{$info[\'icq_number\']}</td>\n		 </tr>\n		 <tr>\n		   <td nowrap=\"nowrap\">{$ibforums->lang[\'yahoo\']}</td>\n		   <td width=\"100%\">{$info[\'yahoo\']}</td>\n		 </tr>\n		 <tr>\n		   <td nowrap=\"nowrap\">{$ibforums->lang[\'msn\']}</td>\n		   <td width=\"100%\">{$info[\'msn_name\']}</td>\n		 </tr>\n		 <tr>\n		   <td nowrap=\"nowrap\">{$ibforums->lang[\'pm\']}</b></td>\n		   <td><a href=\'javascript:redirect_to(\"&act=Msg&;CODE=4&MID={$info[\'mid\']}\", 1);\'>{$ibforums->lang[\'click_here\']}</a></td>\n		 </tr>\n		</td>\n	   </tr>\n	  </table>\n	 </td>\n	</tr>\n	</table>\n  </td>\n </tr>\n</table>\n</body>\n</html>', 'show_card_download', '$name, $photo, $info', 1035406235, 0),
+(343, 1, 'skin_profile', '<script language=\'javascript\' type=\"text/javascript\">\n<!--\n function redirect_to(where, closewin)\n {\n 	opener.location= \'$ibforums->base_url\' + where;\n 	\n 	if (closewin == 1)\n 	{\n 		self.close();\n 	}\n }\n//-->\n</script>\n<div id=\"photowrap\">\n <div id=\"phototitle\">$name</div>\n <br />\n <table class=\"tablebasic\" cellspacing=\"6\">\n <tr>\n  <td valign=\"middle\" class=\"row1\">$photo</td>\n  <td width=\"100%\" class=\"row1\" valign=\"bottom\">\n    <table class=\"tablebasic\" cellpadding=\"5\">\n      <tr>\n        <td nowrap=\"nowrap\">{$ibforums->lang[\'email\']}</td>\n		<td width=\"100%\">{$info[\'email\']}</td>\n	  </tr>\n	  <tr>\n		<td nowrap=\"nowrap\">{$ibforums->lang[\'integ_msg\']}</td>\n		<td width=\"100%\">{$info[\'integ_msg\']}</td>\n	  </tr>\n	  <tr>\n		<td nowrap=\"nowrap\">{$ibforums->lang[\'aim\']}</td>\n		<td width=\"100%\">{$info[\'aim_name\']}</td>\n	  </tr>\n	  <tr>\n		<td nowrap=\"nowrap\">{$ibforums->lang[\'icq\']}</td>\n		<td width=\"100%\">{$info[\'icq_number\']}</td>\n	  </tr>\n	  <tr>\n		<td nowrap=\"nowrap\">{$ibforums->lang[\'yahoo\']}</td>\n		<td width=\"100%\">{$info[\'yahoo\']}</td>\n	  </tr>\n	  <tr>\n		<td nowrap=\"nowrap\">{$ibforums->lang[\'msn\']}</td>\n		<td width=\"100%\">{$info[\'msn_name\']}</td>\n	  </tr>\n	  <tr>\n		<td nowrap=\"nowrap\">{$ibforums->lang[\'pm\']}</b></td>\n		<td><a href=\'javascript:redirect_to(\"&amp;act=Msg&amp;CODE=4&amp;MID={$info[\'mid\']}\", 1);\'>{$ibforums->lang[\'click_here\']}</a></td>\n	  </tr>\n     </td>\n    </tr>\n   </table>\n  </td>\n </tr>\n </table>\n</div>\n<div align=\"center\">\n  <a href=\"{$ibforums->base_url}act=Profile&amp;CODE=showcard&amp;MID={$info[\'mid\']}&amp;download=1\">{$ibforums->lang[\'ac_download\']}</a>\n  &middot; <a href=\"javascript:self.close();\">{$ibforums->lang[\'ac_close\']}</a>\n</div>', 'show_card', '$name, $photo, $info', 1035406235, 0),
+(344, 1, 'skin_profile', '&middot; <a href=\'{$info[\'base_url\']}act=UserCP&amp;CODE=22\'>{$ibforums->lang[\'edit_my_sig\']}</a> &middot;\n<a href=\'{$info[\'base_url\']}act=UserCP&amp;CODE=24\'>{$ibforums->lang[\'edit_avatar\']}</a> &middot;\n<a href=\'{$info[\'base_url\']}act=UserCP&amp;CODE=01\'>{$ibforums->lang[\'edit_profile\']}</a>', 'user_edit', '$info', 1035406235, 0),
+(345, 1, 'skin_profile', '<script language=\'Javascript\' type=\'text/javascript\'>\n	<!--\n	function PopUp(url, name, width,height,center,resize,scroll,posleft,postop) {\n		if (posleft != 0) { x = posleft }\n		if (postop  != 0) { y = postop  }\n	\n		if (!scroll) { scroll = 1 }\n		if (!resize) { resize = 1 }\n	\n		if ((parseInt (navigator.appVersion) >= 4 ) && (center)) {\n		  X = (screen.width  - width ) / 2;\n		  Y = (screen.height - height) / 2;\n		}\n		if (scroll != 0) { scroll = 1 }\n	\n		var Win = window.open( url, name, \'width=\'+width+\',height=\'+height+\',top=\'+Y+\',left=\'+X+\',resizable=\'+resize+\',scrollbars=\'+scroll+\',location=no,directories=no,status=no,menubar=no,toolbar=no\');\n	 }\n	//-->\n</script>\n<table class=\"tablebasic\" cellspacing=\"0\" cellpadding=\"2\">\n<tr>\n <td>{$info[\'photo\']}</td>\n <td width=\"100%\" valign=\"bottom\">\n   <div id=\"profilename\">{$info[\'name\']}</div>\n   <div>\n	 <a href=\'{$info[\'base_url\']}act=Search&amp;CODE=getalluser&amp;mid={$info[\'mid\']}\'>{$ibforums->lang[\'find_posts\']}</a> &middot;\n	 <a href=\'{$info[\'base_url\']}act=Msg&amp;CODE=02&amp;MID={$info[\'mid\']}\'>{$ibforums->lang[\'add_to_contact\']}</a>\n	 <!--MEM OPTIONS-->\n   </div>\n </td>\n</tr>\n</table>\n<br />\n<table cellpadding=\'0\' align=\'center\' cellspacing=\'2\' border=\'0\' width=\"100%\">\n  <tr>\n	<td width=\'50%\' valign=\'top\' class=\"plainborder\">\n	 <table cellspacing=\"1\" cellpadding=\'6\' width=\'100%\'>\n	  <tr>\n		<td align=\'center\' colspan=\'2\' class=\'maintitle\'>{$ibforums->lang[\'active_stats\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" width=\'30%\' valign=\'top\'><b>{$ibforums->lang[\'total_posts\']}</b></td>\n		<td align=\'left\' width=\'70%\' class=\'row1\'><b>{$info[\'posts\']}</b><br />( {$info[\'total_pct\']}% {$ibforums->lang[\'total_percent\']} )</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'posts_per_day\']}</b></td>\n		<td align=\'left\' class=\'row1\'><b>{$info[\'posts_day\']}</b></td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'joined\']}</b></td>\n		<td align=\'left\' class=\'row1\'><b>{$info[\'joined\']}</b></td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'fav_forum\']}</b></td>\n		<td align=\'left\' class=\'row1\'><a href=\'{$info[\'base_url\']}act=SF&amp;f={$info[\'fav_id\']}\'>{$info[\'fav_forum\']}</a><br />{$info[\'fav_posts\']} {$ibforums->lang[\'fav_posts\']}<br />( {$info[\'percent\']}% {$ibforums->lang[\'fav_percent\']} )</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'user_local_time\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'local_time\']}</td>\n	  </tr>\n	  </table>\n	</td>\n	\n	<!-- Communication -->\n	\n   <td width=\'50%\' valign=\'top\' class=\"plainborder\">\n	 <table cellspacing=\"1\" cellpadding=\'6\' width=\'100%\'>\n	  <tr>\n		<td align=\'center\' colspan=\'2\' class=\'maintitle\'>{$ibforums->lang[\'communicate\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" width=\'30%\' valign=\'top\'><b>{$ibforums->lang[\'email\']}</b></td>\n		<td align=\'left\' width=\'70%\' class=\'row1\'>{$info[\'email\']}</td>\n	  </tr>\n	   <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'integ_msg\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'integ_msg\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'aim\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'aim_name\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'icq\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'icq_number\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'yahoo\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'yahoo\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'msn\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'msn_name\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'pm\']}</b></td>\n		<td align=\'left\' class=\'row1\'><a href=\'{$info[\'base_url\']}act=Msg&amp;CODE=4&amp;MID={$info[\'mid\']}\'>{$ibforums->lang[\'click_here\']}</a></td>\n	  </tr>\n	  </table>\n	</td>\n	\n	<!-- END CONTENT ROW 1 -->\n	<!-- information -->\n	\n  </tr>\n  <tr>\n	<td width=\'50%\' valign=\'top\' class=\"plainborder\">\n	 <table cellspacing=\"1\" cellpadding=\'6\' width=\'100%\'>\n	  <tr>\n		<td align=\'center\' colspan=\'2\' class=\'maintitle\'>{$ibforums->lang[\'info\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" width=\'30%\' valign=\'top\'><b>{$ibforums->lang[\'homepage\']}</b></td>\n		<td align=\'left\' width=\'70%\' class=\'row1\'>{$info[\'homepage\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'birthday\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'birthday\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'location\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'location\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'interests\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'interests\']}</td>\n	  </tr>\n	  <!--{CUSTOM.FIELDS}-->\n	  </table>\n	</td>\n	\n	<!-- Profile -->\n	\n   <td width=\'50%\' valign=\'top\' class=\"plainborder\">\n	 <table cellspacing=\"1\" cellpadding=\'6\' width=\'100%\'>\n	  <tr>\n		<td align=\'center\' colspan=\'2\' class=\'maintitle\'>{$ibforums->lang[\'post_detail\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" width=\'30%\' valign=\'top\'><b>{$ibforums->lang[\'mgroup\']}</b></td>\n		<td align=\'left\' width=\'70%\'  class=\'row1\'>{$info[\'group_title\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'mtitle\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'member_title\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'avatar\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'avatar\']}</td>\n	  </tr>\n	  <tr>\n		<td class=\"row3\" valign=\'top\'><b>{$ibforums->lang[\'siggie\']}</b></td>\n		<td align=\'left\' class=\'row1\'>{$info[\'signature\']}</td>\n	  </tr>\n	  <!--{WARN_LEVEL}-->\n	  </table>\n	</td>\n	</tr>\n</table>\n<div class=\'tableborder\'>\n <div class=\'pformstrip\' align=\'center\'>&lt;( <a href=\'javascript:history.go(-1)\'>{$ibforums->lang[\'back\']}</a> )</div>\n</div>', 'show_profile', '$info', 1035406235, 0),
+(346, 1, 'skin_profile', '<tr>\n              <td class=\"row3\" valign=\'top\'><b>$title</b></td>\n              <td align=\'left\' class=\'row1\'>$value</td>\n            </tr>', 'custom_field', '$title, $value=\"\"', 1035406235, 0),
+(347, 1, 'skin_register', '<html>\n      <head>\n       <title>{$ibforums->lang[\'cpf_title\']}</title>\n       <!--<link rel=\'stylesheet\' href=\'style_sheets/stylesheet_<{css_id}>.css\' type=\'text/css\'>-->\n      </head>\n     <body bgcolor=\'white\'>\n     <table cellpadding=\'0\' cellspacing=\'4\' border=\'0\' width=\'95%\' align=\'center\'>\n     <tr>\n        <td valign=\'middle\' align=\'left\'>\n        	<span class=\'pagetitle\'>{$ibforums->vars[\'board_name\']}: {$ibforums->lang[\'cpf_title\']}</span>\n        	<br /><br />\n        	<b><span style=\'font-size:12px\'>{$ibforums->lang[\'cpf_perm_parent\']}</span></b>\n        	<br /><br />\n        	{$ibforums->lang[\'cpf_fax\']} {$ibforums->vars[\'coppa_fax\']}\n        	<br /><br />\n        	{$ibforums->lang[\'cpf_address\']}\n        	<br />\n        	{$ibforums->vars[\'coppa_address\']}\n        \n        </td>\n     </tr>\n     </table>\n     <br />\n     <table cellpadding=\'4\' cellspacing=\'2\' border=\'1\' width=\'95%\' align=\'center\'>\n      <tr>\n		<td width=\'40%\'>{$ibforums->lang[\'user_name\']}</td>\n		<td>&nbsp;</td>\n		</tr>\n		<tr>\n		<td width=\'40%\'>{$ibforums->lang[\'pass_word\']}</td>\n		<td>&nbsp;</td>\n		</tr>\n		<tr>\n		<td width=\'40%\'>{$ibforums->lang[\'email_address\']}</td>\n		<td>&nbsp;</td>\n	  </tr>\n     </table>\n     <br />\n     <table cellpadding=\'0\' cellspacing=\'4\' border=\'0\' width=\'95%\' align=\'center\'>\n     <tr>\n        <td valign=\'middle\' align=\'left\'>\n        	<b><span style=\'font-size:12px\'>{$ibforums->lang[\'cpf_sign\']}</span></b>\n        </td>\n     </tr>\n     </table>\n     <br />\n     <table cellpadding=\'10\' cellspacing=\'2\' border=\'1\' width=\'95%\' align=\'center\'>\n      <tr>\n		<td width=\'40%\'>{$ibforums->lang[\'cpf_name\']}</td>\n		<td>&nbsp;</td>\n		</tr>\n		<tr>\n		<td width=\'40%\'>{$ibforums->lang[\'cpf_relation\']}</td>\n		<td>&nbsp;</td>\n		</tr>\n		<tr>\n		<td width=\'40%\'>{$ibforums->lang[\'cpf_signature\']}</td>\n		<td>&nbsp;</td>\n	    </tr>\n	    <tr>\n		<td width=\'40%\'>{$ibforums->lang[\'cpf_email\']}</td>\n		<td>&nbsp;</td>\n		</tr>\n		<tr>\n		<td width=\'40%\'>{$ibforums->lang[\'cpf_phone\']}</td>\n		<td>&nbsp;</td>\n		</tr>\n		<tr>\n		<td width=\'40%\'>{$ibforums->lang[\'cpf_date\']}</td>\n		<td>&nbsp;</td>\n		</tr>\n     </table>\n    </body>\n  </html>', 'coppa_form', '', 1035406235, 0),
+(348, 1, 'skin_register', '<div class=\'tableborder\'>\n  <div class=\'maintitle\'>{$ibforums->lang[\'cp2_title\']}</div>\n   <table cellpadding=\'3\' cellspacing=\'1\' border=\'0\' width=\'100%\'>\n   <tr>\n   <td class=\'row1\' align=\'left\'>\n	   {$ibforums->lang[\'cp2_text\']}\n	   <br /><br />\n	   <center><span style=\'font-weight:bold;font-size:12px\'>\n		&lt;&lt; <a href=\'{$ibforums->base_url}\'>{$ibforums->lang[\'cp2_cancel\']}</a>\n	   - <a href=\'{$ibforums->base_url}act=Reg&amp;coppa_pass=1&amp;coppa_user=1\'>{$ibforums->lang[\'cp2_continue\']}</a> &gt;&gt;\n	   </span></center>\n   </td>\n   </tr>\n   <tr>\n   <td valign=\'left\' class=\'titlemedium\'>{$ibforums->lang[\'coppa_form\']}</td>\n   </tr>\n   <tr>\n	<td class=\'row1\' align=\'left\'>{$ibforums->lang[\'coppa_form_text\']} <a href=\'mailto:{$ibforums->vars[\'email_in\']}\'>{$ibforums->vars[\'email_in\']}</a></td>\n   </tr>\n   </table>\n</div>', 'coppa_two', '', 1035406235, 0),
+(349, 1, 'skin_register', '<div class=\"tableborder\">\n  <div class=\"maintitle\"><{CAT_IMG}>&nbsp;{$ibforums->lang[\'registration_form\']}</div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'coppa_info\']}</div>\n  <div class=\"tablepad\"  align=\"center\">\n	<span class=\"postcolor\">\n	  <strong>\n	  {$ibforums->lang[\'coppa_link\']}\n	  <br /><br />\n	  &lt; <a href=\'{$ibforums->base_url}act=Reg&amp;coppa_pass=1\'>{$ibforums->lang[\'coppa_date_before\']} $coppadate</a>\n	  - <a href=\'{$ibforums->base_url}act=Reg&amp;CODE=coppa_two\'>{$ibforums->lang[\'coppa_date_after\']} $coppadate</a> &gt;\n	  </strong>\n	</span>\n  </div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'coppa_form\']}</div>\n  <div class=\"tablepad\">{$ibforums->lang[\'coppa_form_text\']} <a href=\'mailto:{$ibforums->vars[\'email_in\']}\'>{$ibforums->vars[\'email_in\']}</a></div>\n</div>', 'coppa_start', '$coppadate', 1035406235, 0),
+(350, 1, 'skin_register', '<form action=\"{$ibforums->base_url}\" method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'Reg\' />\n<input type=\'hidden\' name=\'CODE\' value=\'11\' />\n<div class=\"tableborder\">\n  <div class=\"maintitle\"><{CAT_IMG}>&nbsp;{$ibforums->lang[\'lost_pass_form\']}</div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'lp_header\']}</div>\n  <div class=\"tablepad\"><span style=\"line-height:140%\">{$ibforums->lang[\'lp_text\']}</span></div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'complete_form\']}</div>\n  <table class=\"tablebasic\">\n  <tr>\n   <td class=\"pformleft\"><strong>{$ibforums->lang[\'lp_user_name\']}</strong></td>\n   <td class=\"pformright\"><input type=\'text\' size=\'32\' maxlength=\'32\' name=\'member_name\' class=\'forminput\' /></td>\n  </tr>\n  </table>\n</div>\n<!--{REG.ANTISPAM}-->\n<br />\n<div class=\"tableborder\">\n   <div class=\"pformstrip\" align=\"center\"><input type=\"submit\" value=\"{$ibforums->lang[\'lp_send\']}\" class=\'forminput\' /></div>\n</div>\n</form>', 'lost_pass_form', '$lasid=\"\"', 1035406235, 0),
+(351, 1, 'skin_register', '<div class=\"tableborder\">\n  <div class=\"maintitle\"><!-- --></div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'registration_process\']}</div>\n  <div class=\"tablepad\">{$ibforums->lang[\'thank_you\']} {$member[\'name\']}. {$ibforums->lang[\'auth_text\']} {$member[\'email\']}</div>\n</div>', 'show_authorise', '$member', 1035406235, 0),
+(352, 1, 'skin_register', '<div class=\"tableborder\">\n  <div class=\"maintitle\"><{CAT_IMG}>&nbsp;{$ibforums->lang[\'rv_title\']}</div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'rv_process\']}</div>\n  <div class=\"tablepad\">{$ibforums->lang[\'rv_done\']}</div>\n</div>', 'show_revalidated', '', 1035406235, 0),
+(353, 1, 'skin_register', '<div class=\"tableborder\">\n  <div class=\"maintitle\"><{CAT_IMG}>&nbsp;{$ibforums->lang[\'lpf_title\']}</div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'registration_process\']}</div>\n  <div class=\"tablepad\">{$ibforums->lang[\'lpass_text\']}</div>\n</div>', 'show_lostpasswait', '$member', 1035406235, 0),
+(354, 1, 'skin_register', '<div class=\"tableborder\">\n  <div class=\"maintitle\"><!-- --></div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'registration_process\']}</div>\n  <div class=\"tablepad\">{$ibforums->lang[\'thank_you\']} {$member[\'name\']}. {$ibforums->lang[\'preview_reg_text\']}</div>\n</div>', 'show_preview', '$member', 1035406235, 0),
+(355, 1, 'skin_register', '<form action=\"{$ibforums->base_url}\" method=\"post\" name=\'REG\'>\n<input type=\'hidden\' name=\'act\' value=\'Reg\' />\n<input type=\'hidden\' name=\'CODE\' value=\'reval2\' />\n<div>{$ibforums->lang[\'rv_ins\']}</div>\n<br />\n<div class=\"tableborder\">\n  <div class=\"maintitle\"><{CAT_IMG}>&nbsp;{$ibforums->lang[\'rv_title\']}</div>\n  <table class=\"tablebasic\">\n   <tr>\n	<td class=\"pformleft\"><strong>{$ibforums->lang[\'rv_name\']}</strong></td>\n	<td class=\"pformright\"><input type=\'text\' size=\'32\' maxlength=\'64\' name=\'username\' value=\'$name\' class=\'forminput\' /></td>\n   </tr>\n  </table>\n  <div class=\"pformstrip\" align=\"center\"><input type=\"submit\" value=\"{$ibforums->lang[\'rv_go\']}\" class=\'forminput\' /></div>\n</div>\n</form>', 'show_revalidate_form', '$name=\"\"', 1035406235, 0),
+(356, 1, 'skin_register', '<script language=\'javascript\' type=\"text/javascript\">\n<!--\nfunction Validate() {\n	// Check for Empty fields\n	if (document.REG.uid.value == \"\" || document.REG.aid.value == \"\") {\n		alert (\"{$ibforums->lang[\'js_blanks\']}\");\n		return false;\n	}\n}\n//-->\n</script>\n<form action=\"{$ibforums->base_url}\" method=\"post\" name=\'REG\' onsubmit=\'return Validate()\'>\n<input type=\'hidden\' name=\'act\' value=\'Reg\' />\n<input type=\'hidden\' name=\'CODE\' value=\'03\' />\n<input type=\'hidden\' name=\'type\' value=\'lostpass\' />\n<div class=\"tableborder\">\n  <div class=\"maintitle\"><{CAT_IMG}>&nbsp;{$ibforums->lang[\'dumb_header\']}</div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'lpf_title\']}</div>\n   <!--IBF.INPUT_TYPE-->\n   <tr>\n	<td class=\"pformleft\"><strong>{$ibforums->lang[\'lpf_pass1\']}</strong><br><em>{$ibforums->lang[\'lpf_pass11\']}</em></td>\n	<td class=\"pformright\"><input type=\'password\' size=\'32\' maxlength=\'32\' name=\'pass1\' class=\'forminput\' /></td>\n   </tr>\n   <tr>\n	<td class=\"pformleft\"><strong>{$ibforums->lang[\'lpf_pass2\']}</strong><br><em>{$ibforums->lang[\'lpf_pass22\']}</em></td>\n	<td class=\"pformright\"><input type=\'password\' size=\'32\' maxlength=\'32\' name=\'pass2\' class=\'forminput\' /></td>\n   </tr>\n  </table>\n \n  <div class=\"pformstrip\" align=\"center\"><input type=\"submit\" value=\"{$ibforums->lang[\'dumb_submit\']}\" class=\'forminput\' /></div>\n</div>\n</form>', 'show_lostpass_form', '', 1035406235, 0),
+(357, 1, 'skin_register', '<div class=\"tablepad\">{$ibforums->lang[\'dumb_text\']}</div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'complete_form\']}</div>\n  <table class=\"tablebasic\">\n   <tr>\n	<td class=\"pformleft\"><strong>{$ibforums->lang[\'user_id\']}</strong></td>\n	<td class=\"pformright\"><input type=\'text\' size=\'32\' maxlength=\'32\' name=\'uid\' class=\'forminput\' /></td>\n   </tr>\n   <tr>\n	<td class=\"pformleft\"><strong>{$ibforums->lang[\'val_key\']}</strong></td>\n	<td class=\"pformright\"><input type=\'text\' size=\'32\' maxlength=\'50\' name=\'aid\' class=\'forminput\' /></td>\n   </tr>', 'show_lostpass_form_manual', '', 1035406235, 0),
+(358, 1, 'skin_register', '<input type=\'hidden\' name=\'uid\' value=\'$uid\'  />\n  <input type=\'hidden\' name=\'aid\' value=\'$aid\'  />\n  <table class=\"tablebasic\">', 'show_lostpass_form_auto', '$aid,$uid', 1035406235, 0),
+(359, 1, 'skin_register', '<script language=\'javascript\' type=\"text/javascript\">\n<!--\nfunction Validate() {\n	// Check for Empty fields\n	if (document.REG.uid.value == \"\" || document.REG.aid.value == \"\") {\n		alert (\"{$ibforums->lang[\'js_blanks\']}\");\n		return false;\n	}\n}\n//-->\n</script>\n<form action=\"{$ibforums->base_url}\" method=\"post\" name=\'REG\' onsubmit=\'return Validate()\'>\n<input type=\'hidden\' name=\'act\' value=\'Reg\' />\n<input type=\'hidden\' name=\'CODE\' value=\'03\' />\n<input type=\'hidden\' name=\'type\' value=\'$type\' />\n<div class=\"tableborder\">\n  <div class=\"titlemedium\">{$ibforums->lang[\'dumb_header\']}</div>\n  <div class=\"tablepad\">{$ibforums->lang[\'dumb_text\']}</div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'complete_form\']}</div>\n  <table class=\"tablebasic\">\n   <tr>\n	<td class=\"pformleft\">{$ibforums->lang[\'user_id\']}</td>\n	<td class=\"pformright\"><input type=\'text\' size=\'32\' maxlength=\'32\' name=\'uid\' class=\'forminput\' /></td>\n   </tr>\n   <tr>\n	<td class=\"pformleft\">{$ibforums->lang[\'val_key\']}</td>\n	<td class=\"pformright\"><input type=\'text\' size=\'32\' maxlength=\'50\' name=\'aid\' class=\'forminput\' /></td>\n   </tr>\n  </table>\n  <div class=\"pformstrip\" align=\"center\"><input type=\"submit\" value=\"{$ibforums->lang[\'dumb_submit\']}\" class=\'forminput\' /></div>\n</div>\n</form>', 'show_dumb_form', '$type=\"reg\"', 1035406235, 0),
+(360, 1, 'skin_register', '<script language=\'javascript\' type=\"text/javascript\">\n<!--\nfunction Validate() {\n	// Check for Empty fields\n	if (document.REG.UserName.value == \"\" || document.REG.PassWord.value == \"\" || document.REG.PassWord_Check.value == \"\" || document.REG.EmailAddress.value == \"\") {\n		alert (\"{$ibforums->lang[\'js_blanks\']}\");\n		return false;\n	}\n\n	// Have we checked the checkbox?\n\n	if (document.REG.agree.checked == true) {\n		return true;\n	} else {\n		alert (\"{$ibforums->lang[\'js_no_check\']}\");\n		return false;\n	}\n}\n//-->\n</script>\n<form action=\"{$ibforums->vars[\'board_url\']}/index.{$ibforums->vars[\'php_ext\']}\" method=\"post\" name=\'REG\' onsubmit=\'return Validate()\'>\n<input type=\'hidden\' name=\'act\' value=\'Reg\' />\n<input type=\'hidden\' name=\'CODE\' value=\'02\' />\n<input type=\'hidden\' name=\'coppa_user\' value=\'{$data[\'coppa_user\']}\' />\n<b>{$ibforums->lang[\'reg_header\']}</b><br /><br />{$data[\'TEXT\']}\n<br />\n<br />\n<div class=\"tableborder\">\n  <div class=\"maintitle\"><{CAT_IMG}>&nbsp;{$ibforums->lang[\'registration_form\']}</div>\n  <div class=\"pformstrip\">{$ibforums->lang[\'complete_form\']}</div>\n  <table class=\"tablebasic\">\n  <tr>\n    <td class=\"pformleft\">{$ibforums->lang[\'user_name\']}</td>\n    <td class=\"pformright\"><input type=\'text\' size=\'32\' maxlength=\'64\' value=\'{$ibforums->input[\'UserName\']}\' name=\'UserName\' class=\'forminput\' /></td>\n  </tr>\n  <tr>\n    <td class=\"pformleft\">{$ibforums->lang[\'pass_word\']}</td>\n    <td class=\"pformright\"><input type=\'password\' size=\'32\' maxlength=\'32\' value=\'{$ibforums->input[\'PassWord\']}\' name=\'PassWord\' class=\'forminput\' /></td>\n  </tr>\n  <tr>\n    <td class=\"pformleft\">{$ibforums->lang[\'re_enter_pass\']}</td>\n    <td class=\"pformright\"><input type=\'password\' size=\'32\' maxlength=\'32\' value=\'{$ibforums->input[\'PassWord_Check\']}\'  name=\'PassWord_Check\' class=\'forminput\' /></td>\n  </tr>\n  <tr>\n    <td class=\"pformleft\">{$ibforums->lang[\'email_address\']}</td>\n    <td class=\"pformright\"><input type=\'text\' size=\'32\' maxlength=\'50\' value=\'{$ibforums->input[\'EmailAddress\']}\'  name=\'EmailAddress\' class=\'forminput\' /></td>\n  </tr>\n  <tr>\n    <td class=\"pformleft\">{$ibforums->lang[\'email_address_two\']}</td>\n    <td class=\"pformright\"><input type=\'text\' size=\'32\' maxlength=\'50\'  value=\'{$ibforums->input[\'EmailAddress_two\']}\' name=\'EmailAddress_two\' class=\'forminput\' /></td>\n  </tr>\n  <!--{REQUIRED.FIELDS}-->\n  <!--{OPTIONAL.FIELDS}-->\n  <!--IBF.MODULES.EXTRA-->\n  </table>\n</div>\n<br />\n<!--{REG.ANTISPAM}-->\n<br />\n<div class=\"tableborder\">\n  <div class=\"pformstrip\">{$ibforums->lang[\'terms_service\']}</div>\n  <div class=\"tablepad\" align=\"center\">\n   <strong>{$ibforums->lang[\'terms_service_text\']}</strong>\n   <br />\n   <br />\n   <textarea cols=\'75\' rows=\'9\' readonly=\"readonly\" name=\'Post\' class=\'textinput\'>{$data[RULES]}</textarea>\n   <br /><br /><b>{$ibforums->lang[\'agree_submit\']}</b>&nbsp;<input type=\'checkbox\' name=\'agree\' value=\'1\' />\n  </div>\n  <div class=\"pformstrip\" align=\"center\"><input type=\"submit\" value=\"{$ibforums->lang[\'submit_form\']}\" class=\'forminput\' /></div>\n</div>\n</form>', 'ShowForm', '$data', 1035406235, 0),
+(361, 1, 'skin_register', '<div class=\"tableborder\">\n  <div class=\"pformstrip\">{$ibforums->lang[\'errors_found\']}</div>\n  <div class=\"tablepad\"><span class=\'postcolor\'>$data</span></div>\n</div>\n<br />', 'errors', '$data', 1035406235, 0),
+(362, 1, 'skin_register', '<br />\n<div class=\"tableborder\">\n  <div class=\"pformstrip\">{$ibforums->lang[\'las_title\']}</div>\n  <table class=\"tablebasic\">\n	 <td class=\'row1\' width=\'40%\'>{$ibforums->lang[\'las_numbers\']}</td>\n	 <td class=\'row1\'>\n	   <input type=\'hidden\' name=\'regid\' value=\'$regid\' />\n	   <img src=\'{$ibforums->base_url}act=Reg&amp;CODE=image&amp;rc={$regid}&amp;p=1\' border=\'0\' alt=\'Code Bit\' />\n	   &nbsp;<img src=\'{$ibforums->base_url}act=Reg&amp;CODE=image&amp;rc={$regid}&amp;p=2\' border=\'0\' alt=\'Code Bit\' />\n	   &nbsp;<img src=\'{$ibforums->base_url}act=Reg&amp;CODE=image&amp;rc={$regid}&amp;p=3\' border=\'0\' alt=\'Code Bit\' />\n	   &nbsp;<img src=\'{$ibforums->base_url}act=Reg&amp;CODE=image&amp;rc={$regid}&amp;p=4\' border=\'0\' alt=\'Code Bit\' />\n	   &nbsp;<img src=\'{$ibforums->base_url}act=Reg&amp;CODE=image&amp;rc={$regid}&amp;p=5\' border=\'0\' alt=\'Code Bit\' />\n	   &nbsp;<img src=\'{$ibforums->base_url}act=Reg&amp;CODE=image&amp;rc={$regid}&amp;p=6\' border=\'0\' alt=\'Code Bit\' />\n	 </td>\n	 </tr>\n	 <tr>\n	 <td class=\'row1\' width=\'40%\'>{$ibforums->lang[\'las_text\']}</td>\n	 <td class=\'row1\'><input type=\'text\' size=\'32\' maxlength=\'32\' name=\'reg_code\' class=\'forminput\' /></td>\n	 </tr>\n  </table>\n</div>', 'bot_antispam', '$regid', 1035406235, 0),
+(363, 1, 'skin_register', '<br />\n<div class=\"tableborder\">\n  <div class=\"pformstrip\">{$ibforums->lang[\'las_title\']}</div>\n  <table class=\"tablebasic\">\n   <tr>\n	 <td class=\'row1\' width=\'40%\'>{$ibforums->lang[\'las_numbers\']}</td>\n	 <td class=\'row1\'>\n	   <input type=\'hidden\' name=\'regid\' value=\'$regid\' />\n	   <img src=\'{$ibforums->base_url}act=Reg&amp;CODE=image&amp;rc={$regid}\' border=\'0\' alt=\'Loading Image\' />\n	 </td>\n	 </tr>\n	 <tr>\n	 <td class=\'row1\' width=\'40%\'>{$ibforums->lang[\'las_text\']}</td>\n	 <td class=\'row1\'><input type=\'text\' size=\'32\' maxlength=\'32\' name=\'reg_code\' class=\'forminput\' /></td>\n	 </tr>\n  </table>\n</div>', 'bot_antispam_gd', '$regid', 1035406235, 0),
+(364, 1, 'skin_register', '<form method=\"post\" action=\"$action\">\n$hidden\n<div class=\"tableborder\">\n  <div class=\"maintitle\">$title</div>\n  <table class=\"tablebasic\">\n  $content\n  </table>\n  <div class=\"pformstrip\" align=\"center\"><input type=\"submit\" class=\'forminput\' /></div>\n</div>\n</form>', 'tmpl_form', '$action, $hidden, $title, $content', 1035406235, 0),
+(365, 1, 'skin_register', '<tr>\n  <td colspan=\'2\' class=\'pformstrip\'>{$ibforums->lang[\'cf_optional\']}</td>\n</tr>', 'optional_title', '', 1035406235, 0),
+(366, 1, 'skin_register', '<tr>\n  <td class=\'pformleft\' valign=\'top\'><b>$title</b><br />$desc</td>\n  <td class=\'pformright\'>$content</td>\n</tr>', 'field_entry', '$title, $desc=\"\", $content', 1035406235, 0),
+(367, 1, 'skin_register', '<input type=\'text\' size=\'30\' name=\'$name\' value=\'$value\' class=\'forminput\' />', 'field_textinput', '$name, $value=\"\"', 1035406235, 0),
+(368, 1, 'skin_register', '<select name=\'$name\' class=\'forminput\'>$options</select>', 'field_dropdown', '$name, $options', 1035406235, 0),
+(369, 1, 'skin_register', '<textarea cols=\'60\' rows=\'5\' name=\'$name\' class=\'forminput\'>$value</textarea>', 'field_textarea', '$name, $value', 1035406235, 0),
+(370, 1, 'skin_search', '<!-- Begin Topic Entry {$Data[\'tid\']} -->\n    <tr> \n	  <td align=\'center\' class=\'row4\'>{$Data[\'folder_img\']}</td>\n      <td align=\'center\' width=\'3%\' class=\'row2\'>{$Data[\'topic_icon\']}</td>\n      <td class=\'row4\'>\n	  <table width=\'100%\' border=\'0\' cellspacing=\'0\' cellpadding=\'0\'>\n		  <tr> \n			<td valign=\'middle\'>{$Data[\'go_new_post\']}</td>\n            <td width=\'100%\'>{$Data[\'prefix\']} <a href=\'{$ibforums->base_url}showtopic={$Data[\'tid\']}&amp;hl={$Data[\'keywords\']}\'>{$Data[\'title\']}</a>  {$Data[PAGES]}</td>\n          </tr>\n        </table>\n        <span class=\'desc\'>{$Data[\'description\']}</span></td>\n      <td class=\'row4\' width=\'20%\' align=\'center\'><a href=\"{$ibforums->base_url}showforum={$Data[\'forum_id\']}\">{$Data[\'forum_name\']}</a></td>\n      <td align=\'center\' class=\'row2\'>{$Data[\'starter\']}</td>\n      <td align=\'center\' class=\'row4\'>{$Data[\'posts\']}</td>\n      <td align=\'center\' class=\'row2\'>{$Data[\'views\']}</td>\n      <td class=\'row2\'>{$Data[\'last_post\']}<br /><a href=\'{$ibforums->base_url}showtopic={$Data[\'tid\']}&amp;view=getlastpost\'>{$Data[\'last_text\']}</a> <b>{$Data[\'last_poster\']}</b></td>\n    </tr>\n    <!-- End Topic Entry {$Data[\'tid\']} -->', 'RenderRow', '$Data', 1035406235, 0),
+(371, 1, 'skin_search', '<br />\n<div class=\"tableborder\">\n  <div class=\"maintitle\">{$Data[\'folder_img\']}&nbsp;{$Data[\'prefix\']} <a href=\'{$ibforums->base_url}showtopic={$Data[\'tid\']}&amp;hl={$Data[\'keywords\']}\' class=\'linkthru\'>{$Data[\'title\']}</a></span></b>  {$Data[PAGES]}</div>\n  <table class=\"tablebasic\" cellpadding=\"6\" cellspacing=\"1\" width=\'100%\'>\n  <tr>\n	<td width=\'150\' align=\'left\' class=\'row4\'><span class=\'normalname\'>{$Data[\'author_name\']}</span></td>\n	<td class=\'row4\' width=\"100%\"><strong>{$ibforums->lang[\'rp_postedon\']} {$Data[\'post_date\']}</strong></td>\n  </tr>\n  <tr>\n	<td class=\'post1\' align=\'left\'>\n	  <img src=\'{$ibforums->vars[\'img_url\']}/spacer.gif\' alt=\'\' width=\'150\' height=\'15\' />\n	  <br />\n	  <span class=\'postdetails\'>{$ibforums->lang[\'rp_replies\']} <b>{$Data[\'posts\']}</b><br />{$ibforums->lang[\'rp_hits\']} <b>{$Data[\'views\']}</b></span>\n	</td>\n	<td class=\'post1\' align=\'left\' width=\"100%\">{$Data[\'post\']}</td>\n  </tr>\n   <tr>\n	<td class=\'row4\'>&nbsp;</td>\n	<td class=\'row4\'>{$ibforums->lang[\'rp_forum\']} <a href=\"{$ibforums->base_url}showforum={$Data[\'forum_id\']}\">{$Data[\'forum_name\']}</a>&nbsp;&nbsp;&middot;&nbsp;&nbsp;{$ibforums->lang[\'rp_post\']} <a href=\'{$ibforums->base_url}act=ST&amp;f={$Data[\'forum_id\']}&amp;t={$Data[\'tid\']}&amp;hl={$Data[\'keywords\']}&amp;view=findpost&amp;p={$Data[\'pid\']}\' class=\'linkthru\'>#{$Data[\'pid\']}</a></td>\n  </tr>\n  </table>\n</div>', 'RenderPostRow', '$Data', 1035406235, 0),
+(372, 1, 'skin_search', '<div>{$Data[SHOW_PAGES]}</div>', 'start_as_post', '$Data', 1035406235, 0),
+(373, 1, 'skin_search', '<br />\n<div>{$Data[SHOW_PAGES]}</div>\n<div align=\'left\' class=\"wrapmini\">\n	<{B_NEW}>&nbsp;&nbsp;{$ibforums->lang[\'pm_open_new\']}\n	<br /><{B_NORM}>&nbsp;&nbsp;{$ibforums->lang[\'pm_open_no\']}\n	<br /><{B_HOT}>&nbsp;&nbsp;{$ibforums->lang[\'pm_hot_new\']}\n	<br /><{B_HOT_NN}>&nbsp;&nbsp;{$ibforums->lang[\'pm_hot_no\']}\n</div>\n<div align=\'left\' class=\"wrapmini\">\n	<{B_POLL}>&nbsp;&nbsp;{$ibforums->lang[\'pm_poll\']}\n	<br /><{B_POLL_NN}>&nbsp;&nbsp;{$ibforums->lang[\'pm_poll_no\']}\n	<br /><{B_LOCKED}>&nbsp;&nbsp;{$ibforums->lang[\'pm_locked\']}\n	<br /><{B_MOVED}>&nbsp;&nbsp;{$ibforums->lang[\'pm_moved\']}\n</div>', 'end_as_post', '$Data', 1035406235, 0),
+(374, 1, 'skin_search', '</table>\n<div class=\"titlemedium\">&nbsp;</div>\n</div>\n<br />\n<div>{$Data[SHOW_PAGES]}</div>\n<br />\n<div align=\'left\' class=\"wrapmini\">\n	<{B_NEW}>&nbsp;&nbsp;{$ibforums->lang[\'pm_open_new\']}\n	<br /><{B_NORM}>&nbsp;&nbsp;{$ibforums->lang[\'pm_open_no\']}\n	<br /><{B_HOT}>&nbsp;&nbsp;{$ibforums->lang[\'pm_hot_new\']}\n	<br /><{B_HOT_NN}>&nbsp;&nbsp;{$ibforums->lang[\'pm_hot_no\']}\n</div>\n<div align=\'left\' class=\"wrapmini\">\n	<{B_POLL}>&nbsp;&nbsp;{$ibforums->lang[\'pm_poll\']}\n	<br /><{B_POLL_NN}>&nbsp;&nbsp;{$ibforums->lang[\'pm_poll_no\']}\n	<br /><{B_LOCKED}>&nbsp;&nbsp;{$ibforums->lang[\'pm_locked\']}\n	<br /><{B_MOVED}>&nbsp;&nbsp;{$ibforums->lang[\'pm_moved\']}\n</div>\n<br />\n<br clear=\"all\" />', 'end', '$Data', 1035406235, 0);
+INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_content`, `func_name`, `func_data`, `updated`, `can_remove`) VALUES
+(375, 1, 'skin_search', '<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'be_link\']}</div>\n <table width=\'100%\' cellpadding=\'0\' cellspacing=\'1\'>\n <tr>\n  <th width=\'30%\' class=\'pformstrip\'>{$ibforums->lang[\'be_use\']}</th>\n  <th width=\'70%\' class=\'pformstrip\'>{$ibforums->lang[\'be_means\']}</th>\n </tr>\n <tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'be_u1\']}</td>\n  <td class=\'pformleft\'>{$ibforums->lang[\'be_m1\']}</td>\n </tr>\n <tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'be_u2\']}</td>\n  <td class=\'pformleft\'>{$ibforums->lang[\'be_m2\']}</td>\n </tr>\n <tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'be_u3\']}</td>\n  <td class=\'pformleft\'>{$ibforums->lang[\'be_m3\']}</td>\n </tr>\n <tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'be_u4\']}</td>\n  <td class=\'pformleft\'>{$ibforums->lang[\'be_m4\']}</td>\n </tr>\n <tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'be_u5\']}</td>\n  <td class=\'pformleft\'>{$ibforums->lang[\'be_m5\']}</td>\n </tr>\n </table>\n</div>', 'boolean_explain_page', '', 1035406235, 0),
+(376, 1, 'skin_search', '&#091; <a href=\'#\' title=\'{$ibforums->lang[\'be_ttip\']}\' onclick=\'win_pop()\'>{$ibforums->lang[\'be_link\']}</a> &#093;', 'boolean_explain_link', '', 1035406235, 0),
+(377, 1, 'skin_search', '<script type=\"text/javascript\">\n<!--\nfunction go_gadget_advanced()\n{\n	window.location = \"{$ibforums->js_base_url}act=Search&mode=adv&f={$ibforums->input[\'f\']}\";\n}\nfunction win_pop()\n{\n    window.open(\'{$ibforums->js_base_url}act=Search&CODE=explain\',\'WIN\',\'width=400,height=300,resizable=yes,scrollbars=yes\'); \n}\n-->\n</script>\n<form action=\"{$ibforums->base_url}act=Search&amp;CODE=simpleresults&amp;mode=simple\" method=\"post\" name=\'sForm\'>\n$hidden_fields\n<div class=\"tableborder\">\n  <div class=\"maintitle\"  align=\'center\'>{$ibforums->lang[\'search_options\']}</div>\n  <div class=\"pformstrip\" align=\"center\">{$ibforums->lang[\'key_search\']}</div>\n  <div class=\"tablepad\" align=\"center\">\n    <input type=\'text\' maxlength=\'100\' size=\'40\' id=\"keywords\" name=\'keywords\' class=\'forminput\' />\n	<br />\n	<label for=\"keywords\">{$ibforums->lang[\'keysearch_text\']}</label> <!--IBF.BOOLEAN_EXPLAIN-->\n  </div>\n  <div class=\"pformstrip\" align=\"center\">{$ibforums->lang[\'search_where\']}</div>\n   <div class=\"tablepad\" align=\"center\">\n    $forums\n    <br /><br />\n    <strong>{$ibforums->lang[\'sf_show_me\']}</strong>\n      <input type=\"radio\" name=\"sortby\" value=\"relevant\" id=\"sortby_one\" checked=\"checked\" class=\"radiobutton\" />\n      <label for=\"sortby_one\">{$ibforums->lang[\'sf_most_r_f\']}</label>\n      &nbsp;\n      <input type=\"radio\" name=\"sortby\" value=\"date\" id=\"sortby_two\" class=\"radiobutton\" />\n      <label for=\"sortby_two\">{$ibforums->lang[\'sf_most_date\']}</label>\n   </div>\n  <div class=\"pformstrip\" align=\"center\">\n    <input type=\'submit\' value=\'{$ibforums->lang[\'do_search\']}\' class=\'forminput\' />\n    &nbsp;\n    <input type=\'button\' value=\'{$ibforums->lang[\'so_more_opts\']}\' onclick=\"go_gadget_advanced()\" class=\'forminput\' />\n  </div>\n</div>\n</form>', 'simple_form', '$forums', 1035406235, 0),
+(378, 1, 'skin_search', '<div class=\"plainborder\">\n  <div class=\"maintitle\"><{CAT_IMG}>&nbsp;{$ibforums->lang[\'search_results\']}</div>\n  <div class=\"pformstrip\">\n	<div class=\"pagelinks\">{$ibforums->lang[\'g_searched_for\']} <strong>{$data[\'keyword\']}</strong></div>\n	<div align=\"right\">\n	   {$ibforums->lang[\'g_results\']} <strong>{$data[\'start\']} - {$data[\'end\']}</strong> {$ibforums->lang[\'g_of_about\']} <strong>{$data[\'matches\']}</strong>.\n	   {$ibforums->lang[\'g_search_took\']} <strong>{$data[\'ex_time\']}</strong> {$ibforums->lang[\'g_seconds\']}\n	</div>\n  </div>\n  <br />', 'result_simple_header', '$data', 1035406235, 0),
+(379, 1, 'skin_search', '<div class=\"pformstrip\" align=\"left\">{$ibforums->lang[\'search_pages\']} &nbsp;  &nbsp; &nbsp;<span class=\"googlepagelinks\">{$data[\'links\']}</span></div>\n</div>', 'result_simple_footer', '$data', 1035406235, 0),
+(380, 1, 'skin_search', '<div class=\"{$data[\'css_class\']}\">\n  <span class=\"googlish\"><a href=\'{$ibforums->base_url}act=ST&amp;t={$data[\'tid\']}&amp;f={$data[\'id\']}&amp;view=findpost&amp;p={$data[\'pid\']}\'>{$data[\'title\']}</span></a>\n  <br />\n  {$data[\'post\']}\n  <br />\n  <span class=\'googlesmall\'>\n  {$ibforums->lang[\'location_g\']}: <a href=\'{$ibforums->base_url}act=idx\'>{$ibforums->lang[\'g_b_home\']}</a>\n  &gt; <a href=\'{$ibforums->base_url}act=SC&amp;c={$data[\'cat_id\']}\'>{$data[\'cat_name\']}</a>\n  &gt; <a href=\'{$ibforums->base_url}act=SF&amp;f={$data[\'id\']}\'>{$data[\'name\']}</a>\n  </span>\n  <br />\n  <span class=\"googlebottom\"><strong>{$ibforums->lang[\'g_relevance\']}: {$data[\'relevance\']}% &middot; Author: {$data[\'author_name\']} &middot; Posted on: {$data[\'post_date\']}</strong></span>\n  <span class=\"googlesmall\"> - <a href=\'{$ibforums->base_url}act=ST&amp;t={$data[\'tid\']}&amp;f={$data[\'id\']}&amp;view=findpost&amp;p={$data[\'pid\']}\' target=\'_blank\'>{$ibforums->lang[\'g_new_window\']}</a></span>\n  </div>\n  <br />', 'result_simple_entry', '$data', 1035406235, 0),
+(381, 1, 'skin_search', '<script type=\"text/javascript\">\n<!--\nfunction go_gadget_simple()\n{\n	window.location = \"{$ibforums->js_base_url}act=Search&mode=simple&f={$ibforums->input[\'f\']}\";\n}\nfunction win_pop()\n{\n    window.open(\'{$ibforums->js_base_url}act=Search&CODE=explain\',\'WIN\',\'width=400,height=300,resizable=yes,scrollbars=yes\'); \n}\n-->\n</script>\n<form action=\"{$ibforums->base_url}act=Search&amp;CODE=01\" method=\"post\" name=\'sForm\'>\n$hidden_fields\n<div class=\"tableborder\">\n<table cellpadding=\'4\' cellspacing=\'0\' border=\'0\' width=\'100%\'>\n<tr>\n	<td colspan=\'2\' class=\"maintitle\"  align=\'center\'>{$ibforums->lang[\'keywords_title\']}</td>\n</tr>\n<tr>\n	<td class=\'pformstrip\' width=\'50%\'>{$ibforums->lang[\'key_search\']}</td>\n	<td class=\'pformstrip\' width=\'50%\'>{$ibforums->lang[\'mem_search\']}</td>\n</tr>\n<tr>\n	<td class=\'row1\' valign=\'top\'>\n	  <input type=\'text\' maxlength=\'100\' size=\'40\' name=\'keywords\' id=\"keywords\" class=\'forminput\' />\n	  <br /><br />\n	  <label for=\"keywords\">{$ibforums->lang[\'keysearch_text\']}</label> <!--IBF.BOOLEAN_EXPLAIN-->\n	</td>\n	<td class=\'row1\' valign=\'top\'>\n	<table width=\'100%\' cellpadding=\'4\' cellspacing=\'0\' border=\'0\' align=\'center\'>\n	<tr>\n	 <td><input type=\'text\' maxlength=\'100\' size=\'50\' name=\'namesearch\' class=\'forminput\' /></td>\n	</tr>\n	<tr>\n	<td width=\'40%\'><input type=\'checkbox\' name=\'exactname\' id=\'matchexact\' value=\'1\' class=\"checkbox\" /><label for=\"matchexact\">{$ibforums->lang[\'match_name_ex\']}</label></td>\n   </tr>\n</table>\n</td>\n</tr>\n</table>\n</div>\n<br />\n<div class=\"tableborder\">\n<table cellpadding=\'4\' cellspacing=\'0\' border=\'0\' width=\'100%\'>         \n<tr>\n	<td colspan=\'2\' class=\"maintitle\"  align=\'center\'>{$ibforums->lang[\'search_options\']}</td>\n</tr>\n<tr>\n	<td class=\'pformstrip\' width=\'50%\' valign=\'middle\'>{$ibforums->lang[\'search_where\']}</td>\n	<td class=\'pformstrip\' width=\'50%\' valign=\'middle\'>{$ibforums->lang[\'search_refine\']}</td>\n</tr>\n<tr>\n	<td class=\'row1\' valign=\'middle\'>\n	  $forums\n	  <br />\n	  <input type=\'checkbox\' name=\'searchsubs\' value=\'1\' id=\"searchsubs\" checked=\"checked\" />&nbsp;<label for=\"searchsubs\">{$ibforums->lang[\'search_in_subs\']}</label>\n	</td>\n	<td class=\'row1\' valign=\'top\'>\n		<table cellspacing=\'4\' cellpadding=\'0\' width=\'100%\' align=\'center\' border=\'0\'>\n		<tr>\n		 <td valign=\'top\'>\n		   <fieldset class=\"search\">\n		     <legend><strong>{$ibforums->lang[\'search_from\']}</strong></legend>\n			 <select name=\'prune\' class=\'forminput\'>\n			 <option value=\'1\'>{$ibforums->lang[\'today\']}</option>\n			 <option value=\'7\'>{$ibforums->lang[\'this_week\']}</option>\n			 <option value=\'30\' selected=\"selected\">{$ibforums->lang[\'this_month\']}</option>\n			 <option value=\'60\'>{$ibforums->lang[\'this_60\']}</option>\n			 <option value=\'90\'>{$ibforums->lang[\'this_90\']}</option>\n			 <option value=\'180\'>{$ibforums->lang[\'this_180\']}</option>\n			 <option value=\'365\'>{$ibforums->lang[\'this_year\']}</option>\n			 <option value=\'0\'>{$ibforums->lang[\'ever\']}</option>\n			 </select>\n			 <br />\n			 <input type=\'radio\' name=\'prune_type\' id=\"prune_older\" value=\'older\' class=\'radiobutton\' />&nbsp;<label for=\"prune_older\">{$ibforums->lang[\'older\']}</label>\n			 <br />\n			 <input type=\'radio\' name=\'prune_type\' id=\"prune_newer\" value=\'newer\' class=\'radiobutton\' checked=\"checked\" />&nbsp;<label for=\"prune_newer\">{$ibforums->lang[\'newer\']}</label>\n		  </fieldset>\n		</td>\n		<td valign=\'top\'>\n		  <fieldset class=\"search\">\n		     <legend><strong>{$ibforums->lang[\'sort_results\']}</strong></legend>\n			 <select name=\'sort_key\' class=\'forminput\'>\n			 <option value=\'last_post\'>{$ibforums->lang[\'last_date\']}</option>\n			 <option value=\'posts\'>{$ibforums->lang[\'number_topics\']}</option>\n			 <option value=\'starter_name\'>{$ibforums->lang[\'poster_name\']}</option>\n			 <option value=\'forum_id\'>{$ibforums->lang[\'forum_name\']}</option>\n			 </select>\n			 <br /><input type=\'radio\' name=\'sort_order\' id=\"sort_desc\" class=\"radiobutton\" value=\'desc\' checked=\"checked\" /><label for=\"sort_desc\">{$ibforums->lang[\'descending\']}</label>\n			 <br /><input type=\'radio\' name=\'sort_order\' id=\"sort_asc\" class=\"radiobutton\" value=\'asc\' /><label for=\"sort_asc\">{$ibforums->lang[\'ascending\']}</label>\n		  </fieldset>\n		</td>\n		</tr>\n		<tr>\n		 <td nowrap=\"nowrap\">\n		   <fieldset class=\"search\">\n		     <legend><strong>{$ibforums->lang[\'search_where\']}</strong></legend>\n			 <input type=\'radio\' name=\'search_in\' class=\"radiobutton\" id=\"search_in_posts\" value=\'posts\' checked=\"checked\" /><label for=\"search_in_posts\">{$ibforums->lang[\'in_posts\']}</label>\n			 <br />\n			 <input type=\'radio\' name=\'search_in\' class=\"radiobutton\" id=\"search_in_titles\" value=\'titles\' /><label for=\"search_in_titles\">{$ibforums->lang[\'in_topics\']}</label>\n		   </fieldset>\n		 </td>\n		 <td>\n		    <fieldset class=\"search\">\n		     <legend><strong>{$ibforums->lang[\'result_type\']}</strong></legend>\n		     <input type=\'radio\' name=\'result_type\' class=\"radiobutton\" value=\'topics\' id=\"result_topics\" checked=\"checked\" /><label for=\"result_topics\">{$ibforums->lang[\'results_topics\']}</label>\n		     <br />\n		     <input type=\'radio\' name=\'result_type\' class=\"radiobutton\" value=\'posts\' id=\"result_posts\" /><label for=\"result_posts\">{$ibforums->lang[\'results_post\']}</label>\n		   </fieldset>\n		 </td>\n		</tr>\n		</table>\n	</td>\n</tr>\n<tr>\n	<td class=\'pformstrip\' colspan=\'2\' align=\'center\'><input type=\'submit\' value=\'{$ibforums->lang[\'do_search\']}\' class=\'forminput\' /><!--IBF.SIMPLE_BUTTON--></td>\n</tr>\n</table>\n</div>\n</form>', 'Form', '$forums', 1035406235, 0),
+(382, 1, 'skin_search', '&nbsp;<input type=\'button\' value=\'{$ibforums->lang[\'so_less_opts\']}\' onclick=\"go_gadget_simple()\" class=\'forminput\' />', 'form_simple_button', '', 1035406235, 0),
+(383, 1, 'skin_search', '<script language=\'Javascript\' type=\"text/javascript\">\n<!--\nfunction checkvalues() {\n   f = document.dateline;\n   if (f.st_day.value < f.end_day.value) {\n	   alert(\"{$ibforums->lang[\'active_js_error\']}\");\n	   return false;\n   }\n   if (f.st_day.value == f.end_day.value) {\n	   alert(\"{$ibforums->lang[\'active_js_error\']}\");\n	   return false;\n   }\n}\n-->\n</script>\n<br />\n<form action=\'{$ibforums->base_url}act=Search&amp;CODE=getactive\' method=\'post\' name=\'dateline\' onsubmit=\'return checkvalues();\'>\n<div class=\"pagelinks\">{$data[\'SHOW_PAGES\']}</div>\n<div align=\"right\" style=\"width:35%;text-align:center;margin-right:0;margin-left:auto\">\n <fieldset class=\"search\">\n   <legend><strong>{$ibforums->lang[\'active_st_text\']}</strong></legend>\n   <label for=\'st_day\'>{$ibforums->lang[\'active_mid_text\']}</label>&nbsp;\n   <select name=\'st_day\' id=\'st_day\' class=\'forminput\'>\n	<option value=\'s1\'>{$ibforums->lang[\'active_yesterday\']}</option>\n	<option value=\'s2\'>2 {$ibforums->lang[\'active_days\']}</option>\n	<option value=\'s3\'>3 {$ibforums->lang[\'active_days\']}</option>\n	<option value=\'s4\'>4 {$ibforums->lang[\'active_days\']}</option>\n	<option value=\'s5\'>5 {$ibforums->lang[\'active_days\']}</option>\n	<option value=\'s6\'>6 {$ibforums->lang[\'active_days\']}</option>\n	<option value=\'s7\'>{$ibforums->lang[\'active_week\']}</option>\n	<option value=\'s30\'>{$ibforums->lang[\'active_month\']}</option>\n   </select>\n   &nbsp;\n   <label for=\'end_day\'>{$ibforums->lang[\'active_end_text\']}</label>&nbsp;\n   <select name=\'end_day\' id=\'end_day\' class=\'forminput\'>\n	<option value=\'e0\'>{$ibforums->lang[\'active_today\']}</option>\n	<option value=\'e1\'>{$ibforums->lang[\'active_yesterday\']}</option>\n	<option value=\'e2\'>2 {$ibforums->lang[\'active_days\']}</option>\n	<option value=\'e3\'>3 {$ibforums->lang[\'active_days\']}</option>\n	<option value=\'e4\'>4 {$ibforums->lang[\'active_days\']}</option>\n	<option value=\'e5\'>5 {$ibforums->lang[\'active_days\']}</option>\n	<option value=\'e6\'>6 {$ibforums->lang[\'active_days\']}</option>\n	<option value=\'e7\'>{$ibforums->lang[\'active_week\']}</option>\n   </select>\n   &nbsp;\n   <input type=\'submit\' value=\'&gt;&gt;\' title=\"{$ibforums->lang[\'active_label\']}\" class=\'forminput\'>\n </fieldset>\n</div>\n</form>\n<br />\n<div class=\"tableborder\">\n  <div class=\"maintitle\"><{CAT_IMG}>{$ibforums->lang[\'active_topics\']}</div>\n  <table class=\"tablebasic\" cellspacing=\"1\" cellpadding=\"4\">\n	<tr>\n	   <td class=\'titlemedium\' colspan=\'2\' >&nbsp;</td>\n	   <th align=\'left\' class=\'titlemedium\'>{$ibforums->lang[\'h_topic_title\']}</th>\n	   <th align=\'center\' class=\'titlemedium\'>{$ibforums->lang[\'h_forum_name\']}</th>\n	   <th align=\'center\' class=\'titlemedium\'>{$ibforums->lang[\'h_topic_starter\']}</th>\n	   <th align=\'center\' class=\'titlemedium\'>{$ibforums->lang[\'h_replies\']}</th>\n	   <th align=\'center\' class=\'titlemedium\'>{$ibforums->lang[\'h_hits\']}</th>\n	   <th class=\'titlemedium\'>{$ibforums->lang[\'h_last_action\']}</th>\n	</tr>', 'active_start', '$data', 1035406235, 0),
+(384, 1, 'skin_search', '<div>{$Data[SHOW_PAGES]}</div>\n<br />\n<div class=\"tableborder\">\n<div class=\"maintitle\"><{CAT_IMG}>&nbsp;{$ibforums->lang[\'your_results\']} &middot; <a style=\"text-decoration:underline\" href=\"{$ibforums->base_url}act=Login&amp;CODE=05\">{$ibforums->lang[\'mark_search_as_read\']}</a></div>\n<table class=\"tablebasic\" cellpadding=\"2\" cellspacing=\"1\" width=\'100%\'>\n  <tr>\n	 <td class=\'titlemedium\' colspan=\'2\'>&nbsp;</td>\n	 <td align=\'left\' class=\'titlemedium\'>{$ibforums->lang[\'h_topic_title\']}</td>\n	 <td align=\'center\' class=\'titlemedium\'>{$ibforums->lang[\'h_forum_name\']}</td>\n	 <td align=\'center\' class=\'titlemedium\'>{$ibforums->lang[\'h_topic_starter\']}</td>\n	 <td align=\'center\' class=\'titlemedium\'>{$ibforums->lang[\'h_replies\']}</td>\n	 <td align=\'center\' class=\'titlemedium\'>{$ibforums->lang[\'h_hits\']}</td>\n	 <td class=\'titlemedium\'>{$ibforums->lang[\'h_last_action\']}</td>\n  </tr>', 'start', '$Data', 1035406235, 0),
+(385, 1, 'skin_search', '<tr><td colspan=\'8\' class=\'row1\' align=\'center\'><strong>{$ibforums->lang[\'active_no_topics\']}</strong></td></tr>', 'active_none', '', 1035406235, 0),
+(386, 1, 'skin_stats', '<script language=\'javascript\'>\n<!--\n function bog_off()\n {\n 	var tid = \'$tid\';\n 	var fid = \'$fid\';\n 	\n 	opener.location= \'$ibforums->base_url\' + \'showtopic=\' + tid;\n 	self.close();\n }\n //-->\n </script>\n<div class=\"tableborder\">\n  <div class=\"titlemedium\" align=\"center\">{$ibforums->lang[\'who_farted\']} $title</div>\n  <table cellpadding=\'5\' cellspacing=\'1\' border=\'0\' width=\'100%\'>\n  <tr>\n	 <td width=\'70%\' align=\'left\'   class=\'pformstrip\'   valign=\'middle\'>{$ibforums->lang[\'who_poster\']}</td>\n	 <td width=\'30%\' align=\'center\' class=\'pformstrip\' valign=\'middle\'>{$ibforums->lang[\'who_posts\']}</td>\n  </tr>', 'who_header', '$fid, $tid, $title', 1035406235, 0),
+(387, 1, 'skin_stats', '<tr>\n	  <td align=\'left\' class=\'row1\' valign=\'middle\'>{$row[\'author_name\']}</td>\n	  <td align=\'center\' class=\'row1\' valign=\'middle\'>{$row[\'pcount\']}</td>\n   </tr>', 'who_row', '$row', 1035406235, 0),
+(388, 1, 'skin_stats', '<a href=\'{$ibforums->base_url}showuser=$id\' target=\'_blank\'>$name</a>', 'who_name_link', '$id, $name', 1035406235, 0),
+(389, 1, 'skin_stats', '</table>\n  <div class=\'titlemedium\' align=\'center\'><a href=\'javascript:bog_off();\'>{$ibforums->lang[\'who_go\']}</a></div>\n</div>', 'who_end', '', 1035406235, 0),
+(390, 1, 'skin_stats', '<table cellpadding=\'0\' cellspacing=\'0\' border=\'0\' width=\'<{tbl_width}>\' align=\'center\'>\n      <tr>\n         <td valign=\'middle\' align=\'left\'><span class=\'pagetitle\'>{$title}</td>\n      </tr>\n     </table>', 'page_title', '$title', 1035406235, 0),
+(391, 1, 'skin_stats', '<div class=\"tableborder\">\n <div class=\"maintitle\"><{CAT_IMG}>&nbsp;$group</div>\n <table cellpadding=\'4\' cellspacing=\'1\' width=\"100%\">\n  <tr>\n	 <td width=\'30%\' align=\'left\'   class=\'pformstrip\' valign=\'middle\'>{$ibforums->lang[\'leader_name\']}</td>\n	 <td width=\'40%\' align=\'center\' class=\'pformstrip\' valign=\'middle\'>{$ibforums->lang[\'leader_forums\']}</td>\n	 <td align=\'center\' width=\'25%\' class=\'pformstrip\' valign=\'middle\'>{$ibforums->lang[\'leader_location\']}</td>\n	 <td align=\'center\' width=\'5%\'  class=\'pformstrip\' valign=\'middle\'>&nbsp;</td>\n  </tr>', 'group_strip', '$group', 1035406235, 0),
+(392, 1, 'skin_stats', '<tr>\n	 <td align=\'left\'   class=\'row1\' valign=\'middle\'><a href=\'{$ibforums->base_url}showuser={$info[\'id\']}\'>{$info[\'name\']}</a></td>\n	 <td align=\'center\' class=\'row1\' valign=\'middle\'>$forums</td>\n	 <td align=\'center\' class=\'row1\' valign=\'middle\'>{$info[\'location\']}</td>\n	 <td align=\'center\' class=\'row1\' valign=\'middle\'>{$info[\'msg_icon\']}</td>\n  </tr>', 'leader_row', '$info, $forums', 1035406235, 0),
+(393, 1, 'skin_stats', '<form method=\"post\" onsubmit=\"if(document.jmenu$id.f.value == -1){return false;}\" action=\"{$ibforums->base_url}act=SF\" name=\"jmenu$id\">\n<select class=\'forminput\' name=\"f\" onchange=\"if(this.options[this.selectedIndex].value != -1){ document.jmenu$id.submit() }\" style=\'width:95%\'>\n<option value=\"-1\">$count_string</option>\n<option value=\"-1\">--------------------------------------------------------</option>', 'leader_row_forum_start', '$id, $count_string', 1035406235, 0),
+(394, 1, 'skin_stats', '<option value=\'$id\'>$name</option>', 'leader_row_forum_entry', '$id, $name', 1035406235, 0),
+(395, 1, 'skin_stats', '</select></form>', 'leader_row_forum_end', '', 1035406235, 0),
+(396, 1, 'skin_stats', '</table>\n</div>\n<br />', 'close_strip', '', 1035406235, 0),
+(397, 1, 'skin_stats', '<div class=\'tableborder\'>\n <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'todays_posters\']}</div>\n <table cellpadding=\'5\' cellspacing=\'1\' border=\'0\' width=\'100%\'>\n <tr>\n	<th width=\'30%\' align=\'left\' class=\'pformstrip\'   valign=\'middle\'>{$ibforums->lang[\'member\']}</th>\n	<th width=\'20%\' align=\'center\' class=\'pformstrip\' valign=\'middle\'>{$ibforums->lang[\'member_joined\']}</th>\n	<th align=\'center\' width=\'15%\' class=\'pformstrip\' valign=\'middle\'>{$ibforums->lang[\'member_posts\']}</th>\n	<th align=\'center\' width=\'15%\' class=\'pformstrip\' valign=\'middle\'>{$ibforums->lang[\'member_today\']}</th>\n	<th align=\'center\' width=\'20%\' class=\'pformstrip\' valign=\'middle\'>{$ibforums->lang[\'member_percent\']}</th>\n </tr>', 'top_poster_header', '', 1035406235, 0),
+(398, 1, 'skin_stats', '<tr>\n	  <td align=\'left\' class=\'row1\' valign=\'middle\'><a href=\'{$ibforums->base_url}showuser={$info[\'id\']}\'>{$info[\'name\']}</a></td>\n	  <td align=\'center\' class=\'row1\' valign=\'middle\'>{$info[\'joined\']}</td>\n	  <td align=\'center\' class=\'row1\' valign=\'middle\'>{$info[\'posts\']}</td>\n	  <td align=\'center\' class=\'row1\' valign=\'middle\'>{$info[\'tpost\']}</td>\n	  <td align=\'center\' class=\'row1\' valign=\'middle\'>{$info[\'today_pct\']}%</td>\n   </tr>', 'top_poster_row', '$info', 1035406235, 0),
+(399, 1, 'skin_stats', '</table>\n  <div class=\'pformstrip\' align=\'center\'>{$ibforums->lang[\'total_today\']} $info</div>\n</div>', 'top_poster_footer', '$info', 1035406235, 0),
+(400, 1, 'skin_stats', '<tr>\n	  <td colspan=\'5\' align=\'center\' class=\'row1\' valign=\'middle\'>{$ibforums->lang[\'no_info\']}</td>\n   </tr>', 'top_poster_no_info', '', 1035406235, 0),
+(401, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'sc_complete\']}</div>\n<p>\n{$ibforums->lang[\'sc_upgrade_explain\']}\n<br /><br />$desc_string\n<br /><br /><b>{$ibforums->lang[\'gw_nochex\']}</b>\n</p>\n<form action=\'https://www.nochex.com/nochex.dll/checkout\' method=\'post\'>\n<input type=\"hidden\" name=\"email\" value=\"$nochex_email\" />\n<input type=\"hidden\" name=\"amount\" value=\"$to_pay\" />\n<input type=\"hidden\" name=\"ordernumber\" value=\"{$new_sub_id}x{$member_id}x$cur_tran_id\" />\n<input type=\"hidden\" name=\"returnurl\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=paydone&type=nochex\">\n<br /><br />\n<center>\n<input type=\"image\" src=\"http://www.nochex.com/web/images/payme4.gif\" border=\"0\" name=\"submit\" alt=\"Pay with NOCHEX now\"></center>\n</form>', 'do_nochex_upgrade_screen', '$ccode, $member_id, $new_sub_id, $to_pay, $nochex_email, $sub_title, $cur_tran_id, $desc_string=\"\"', 1035406235, 0),
+(402, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'sc_complete\']}</div>\n<p>\n{$ibforums->lang[\'sc_upgrade_explain\']}\n<br /><br />$desc_string\n<br /><br /><b>{$ibforums->lang[\'gw_nochex\']}</b>\n</p>\n<form action=\'https://www.nochex.com/nochex.dll/checkout\' method=\'post\'>\n<input type=\"hidden\" name=\"email\" value=\"$nochex_email\" />\n<input type=\"hidden\" name=\"amount\" value=\"$to_pay\" />\n<input type=\"hidden\" name=\"ordernumber\" value=\"{$new_sub_id}x{$member_id}x0\" />\n<input type=\"hidden\" name=\"returnurl\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=paydone&type=nochex\">\n<br /><br />\n<center>\n<input type=\"image\" src=\"http://www.nochex.com/web/images/payme4.gif\" border=\"0\" name=\"submit\" alt=\"Pay with NOCHEX now\"></center>\n</form>', 'do_nochex_normal_screen', '$ccode, $member_id, $new_sub_id, $to_pay, $nochex_email, $sub_title, $desc_string=\"\"', 1035406235, 0),
+(403, 1, 'skin_subscriptions', '<h2>{$ibforums->lang[\'man_title\']}</h2>\n<br />\n<table cellpadding=\'0\' cellspacing=\'1\' border=\'0\' width=\'245\' align=\'center\' bgcolor=\'#000000\'>\n<tr>\n <td>\n  <table cellpadding=\'4\'  cellspacing=\'1\' border=\'0\' width=\'100%\' align=\'center\'>\n  <tr>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$ibforums->lang[\'man_mem\']}</td>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$ibforums->member[\'name\']}</td>\n  </tr>\n  <tr>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$ibforums->lang[\'man_mem_id\']}</td>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$ibforums->member[\'id\']}</td>\n  </tr>\n  <tr>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$ibforums->lang[\'man_email\']}</td>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$ibforums->member[\'email\']}</td>\n  </tr>\n  <tr>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$ibforums->lang[\'man_trans_id\']}</td>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$id}</td>\n  </tr>\n  <tr>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$ibforums->lang[\'man_sub\']}</td>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$sub[\'sub_title\']} $extra</td>\n  </tr>\n  <tr>\n   <td width=\'50%\' bgcolor=\'#FFFFFFF\'>{$ibforums->lang[\'man_pay\']}</td>\n   <td width=\'50%\' bgcolor=\'#FFFFFF\'>{$paid}</td>\n  </tr>\n </table>\n</td>\n</tr>\n</table>', 'show_ticket', '$sub, $id, $paid, $extra=\"\"', 1035406235, 0),
+(404, 1, 'skin_subscriptions', '<script type=\"text/javascript\">\n<!--\nfunction pop_ticket()\n{\n	window.open(\'{$ibforums->js_base_url}act=module&module=subscription&type=manual&CODE=custom&mode=ticket&tickid=0&upgrade=0&sid=$new_sub_id\',\'TICKET\',\'width=250,height=350,resizable=yes,scrollbars=yes\');\n}\n//-->\n</script>\n<div class=\"pformstrip\">{$ibforums->lang[\'sc_complete\']}</div>\n<p>\n$desc_string\n<br /><br />\n{$ibforums->lang[\'post_manual\']}\n<br /><br />\n{$ibforums->lang[\'post_manual_more\']}\n</p>\n<br /><br />\n<center>\n<input type=\"button\" value=\"{$ibforums->lang[\'gw_manual\']}\" onclick=\"pop_ticket()\" />\n</center>', 'do_manual_normal_screen', '$new_sub_id, $desc_string=\"\"', 1035406235, 0),
+(405, 1, 'skin_subscriptions', '<script type=\"text/javascript\">\n<!--\nfunction pop_ticket()\n{\n	window.open(\'{$ibforums->js_base_url}act=module&module=subscription&type=manual&CODE=custom&mode=ticket&tickid={$cur_id}&upgrade=1&sid=$new_sub_id\',\'TICKET\',\'width=250,height=350,resizable=yes,scrollbars=yes\');\n}\n//-->\n</script>\n<div class=\"pformstrip\">{$ibforums->lang[\'sc_upgrade_title\']}</div>\n<p>\n$desc_string\n<br /><br />\n{$ibforums->lang[\'post_manual\']}\n<br /><br />\n{$ibforums->lang[\'post_manual_more\']}\n</p>\n<br /><br />\n<center>\n<input type=\"button\" value=\"{$ibforums->lang[\'gw_manual\']}\" onclick=\"pop_ticket()\" />\n</center>', 'do_manual_upgrade_screen', '$new_sub_id, $cur_id, $desc_string=\"\"', 1035406235, 0),
+(406, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'sc_complete\']}</div>\n<p>\n{$ibforums->lang[\'sc_upgrade_explain\']}\n<br /><br />$desc_string\n<br /><br /><b>{$ibforums->lang[\'gw_paypal\']}</b>\n</p>\n<form action=\'https://www.paypal.com/cgi-bin/webscr\' method=\'post\'>\n<input type=\"hidden\" name=\"cmd\" value=\"_xclick-subscriptions\" />\n<input type=\"hidden\" name=\"business\" value=\"$paypal_email\" />\n<input type=\"hidden\" name=\"item_name\" value=\"$sub_title\" />\n<input type=\"hidden\" name=\"item_number\" value=\"$new_sub_id\" />\n<input type=\"hidden\" name=\"no_shipping\" value=\"1\" />\n<input type=\"hidden\" name=\"src\" value=\"1\" />\n<input type=\"hidden\" name=\"a3\" value=\"$cost\" />\n<input type=\"hidden\" name=\"p3\" value=\"$length\" />\n<input type=\"hidden\" name=\"t3\" value=\"$unit\" />\n<input type=\"hidden\" name=\"custom\" value=\"$member_id\" />\n<input type=\"hidden\" name=\"notify_url\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=incoming&type=paypal\" />\n<input type=\"hidden\" name=\"currency_code\" value=\"$ccode\">\n<input type=\"hidden\" name=\"return\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=paydone&type=paypal\">\n<input type=\"hidden\" name=\"cancel_return\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=paydone&type=paypal\">\n<br /><br />\n<center>\n<input type=\"image\" src=\"https://www.paypal.com/images/x-click-but6.gif\" border=\"0\" name=\"submit\" alt=\"Make payments with PayPal - it\'s fast, free and secure!\"></center>\n</form>', 'do_paypal_normal_recurring_screen', '$ccode, $member_id, $new_sub_id, $unit, $length, $cost, $paypal_email, $sub_title, $desc_string=\"\"', 1035406235, 0),
+(407, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'sc_complete\']}</div>\n<p>\n{$ibforums->lang[\'sc_upgrade_explain\']}\n<br /><br />$desc_string\n<br /><br /><b>{$ibforums->lang[\'gw_paypal\']}</b>\n</p>\n<form action=\'https://www.paypal.com/cgi-bin/webscr\' method=\'post\'>\n<input type=\"hidden\" name=\"cmd\" value=\"_xclick-subscriptions\" />\n<input type=\"hidden\" name=\"business\" value=\"$paypal_email\" />\n<input type=\"hidden\" name=\"item_name\" value=\"$sub_title\" />\n<input type=\"hidden\" name=\"item_number\" value=\"$new_sub_id\" />\n<input type=\"hidden\" name=\"no_shipping\" value=\"1\" />\n<input type=\"hidden\" name=\"src\" value=\"1\" />\n<input type=\"hidden\" name=\"a1\" value=\"$to_pay\" />\n<input type=\"hidden\" name=\"p1\" value=\"$time_left_to_run\" />\n<input type=\"hidden\" name=\"t1\" value=\"$time_left_unit\" />\n<input type=\"hidden\" name=\"a3\" value=\"$cost\" />\n<input type=\"hidden\" name=\"p3\" value=\"$length\" />\n<input type=\"hidden\" name=\"t3\" value=\"$unit\" />\n<input type=\"hidden\" name=\"invoice\" value=\"{$cur_tran_id}x{$new_sub_id}x{$member_id}\" />\n<input type=\"hidden\" name=\"custom\" value=\"$member_id\" />\n<input type=\"hidden\" name=\"memo\" value=\"upgrade\" />\n<input type=\"hidden\" name=\"notify_url\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=incoming&type=paypal\" />\n<input type=\"hidden\" name=\"currency_code\" value=\"$ccode\">\n<input type=\"hidden\" name=\"return\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=paydone&type=paypal\">\n<input type=\"hidden\" name=\"cancel_return\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=paydone&type=paypal\">\n<br /><br />\n<center>\n<input type=\"image\" src=\"https://www.paypal.com/images/x-click-but6.gif\" border=\"0\" name=\"submit\" alt=\"Make payments with PayPal - it\'s fast, free and secure!\"></center>\n</form>', 'do_paypal_upgrade_recurring_screen', '$ccode, $member_id, $new_sub_id, $to_pay, $time_left_to_run, $time_left_unit, $unit, $length, $cost, $paypal_email, $sub_title, $cur_tran_id, $desc_string=\"\"', 1035406235, 0),
+(408, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'sc_complete\']}</div>\n<p>\n{$ibforums->lang[\'sc_upgrade_explain\']}\n<br /><br />$desc_string\n<br /><br /><b>{$ibforums->lang[\'gw_paypal\']}</b>\n</p>\n<form action=\'https://www.paypal.com/cgi-bin/webscr\' method=\'post\'>\n<input type=\"hidden\" name=\"cmd\" value=\"_xclick\" />\n<input type=\"hidden\" name=\"business\" value=\"$paypal_email\" />\n<input type=\"hidden\" name=\"amount\" value=\"$to_pay\">\n<input type=\"hidden\" name=\"item_name\" value=\"$sub_title\" />\n<input type=\"hidden\" name=\"item_number\" value=\"$new_sub_id\" />\n<input type=\"hidden\" name=\"no_shipping\" value=\"1\" />\n<input type=\"hidden\" name=\"custom\" value=\"$member_id\" />\n<input type=\"hidden\" name=\"notify_url\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=incoming&type=paypal\" />\n<input type=\"hidden\" name=\"currency_code\" value=\"$ccode\">\n<input type=\"hidden\" name=\"return\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=paydone&type=paypal\">\n<input type=\"hidden\" name=\"cancel_return\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=paydone&type=paypal\">\n<br /><br />\n<center>\n<input type=\"image\" src=\"https://www.paypal.com/images/x-click-but6.gif\" border=\"0\" name=\"submit\" alt=\"Make payments with PayPal - it\'s fast, free and secure!\"></center>\n</form>', 'do_paypal_normal_screen', '$ccode, $member_id, $new_sub_id, $to_pay, $paypal_email, $sub_title, $desc_string=\"\"', 1035406235, 0),
+(409, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'sc_complete\']}</div>\n<p>\n{$ibforums->lang[\'sc_upgrade_explain\']}\n<br /><br />$desc_string\n<br /><br /><b>{$ibforums->lang[\'gw_paypal\']}</b>\n</p>\n<form action=\'https://www.paypal.com/cgi-bin/webscr\' method=\'post\'>\n<input type=\"hidden\" name=\"cmd\" value=\"_xclick\" />\n<input type=\"hidden\" name=\"business\" value=\"$paypal_email\" />\n<input type=\"hidden\" name=\"amount\" value=\"$to_pay\">\n<input type=\"hidden\" name=\"item_name\" value=\"$sub_title\" />\n<input type=\"hidden\" name=\"item_number\" value=\"$new_sub_id\" />\n<input type=\"hidden\" name=\"no_shipping\" value=\"1\" />\n<input type=\"hidden\" name=\"invoice\" value=\"{$cur_tran_id}x{$new_sub_id}x{$member_id}\" />\n<input type=\"hidden\" name=\"custom\" value=\"$member_id\" />\n<input type=\"hidden\" name=\"memo\" value=\"upgrade\" />\n<input type=\"hidden\" name=\"notify_url\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=incoming&type=paypal\" />\n<input type=\"hidden\" name=\"currency_code\" value=\"$ccode\">\n<input type=\"hidden\" name=\"return\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=paydone&type=paypal\">\n<input type=\"hidden\" name=\"cancel_return\" value=\"{$ibforums->base_url}act=module&module=subscription&CODE=paydone&type=paypal\">\n<br /><br />\n<center>\n<input type=\"image\" src=\"https://www.paypal.com/images/x-click-but6.gif\" border=\"0\" name=\"submit\" alt=\"Make payments with PayPal - it\'s fast, free and secure!\"></center>\n</form>', 'do_paypal_upgrade_screen', '$ccode, $member_id, $new_sub_id, $to_pay, $paypal_email, $sub_title, $cur_tran_id, $desc_string=\"\"', 1035406235, 0),
+(410, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'sc_upgrade_title\']}</div>\n<p>{$ibforums->lang[\'sc_upgrade_explain\']}\n<br /><br />{$ibforums->lang[\'sc_upgrade_string\']}\n</p>', 'sub_two_upgrade_summary', '', 1035406235, 0),
+(411, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'sc_normal_title\']}</div>\n<p>{$ibforums->lang[\'sc_upgrade_explain\']}\n<br /><br />{$ibforums->lang[\'sc_normal_string\']}\n</p>', 'sub_two_normal_summary', '', 1035406235, 0),
+(412, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'sc_available_methods\']}</div>\n<form action=\'{$ibforums->base_url}act=module&amp;module=subscription&amp;upgrade=$upgrade&amp;CODE=paymentscreen&amp;curid=$curid&amp;sub=$sub_chosen&amp;currency=$currency\' method=\'post\'>             \n<div class=\"tableborder\">\n  <table cellpadding=\'4\' cellspacing=\'1\' width=\"100%\">\n  <tr>\n	<th width=\'5%\'  class=\'titlemedium\' align=\"center\">&nbsp;</th>\n	<th width=\'95%\' class=\'titlemedium\'>{$ibforums->lang[\'sc_method\']}</th>\n  </tr>', 'sub_two_methods_top', '$sub_chosen, $upgrade=\"\", $curid=\"\", $currency=\"\"', 1035406235, 0),
+(413, 1, 'skin_subscriptions', '<tr>\n <td class=\"row3\" align=\"center\"><input type=\'radio\' name=\'methodid\' value=\"$mid\" /></td>\n <td class=\"row3\"><b>$name</b><br /><i>$desc</i></td>\n</tr>', 'sub_two_methods_row', '$mid, $name, $desc=\"\"', 1035406235, 0),
+(414, 1, 'skin_subscriptions', '</table>\n</div>', 'sub_two_methods_bottom', '', 1035406235, 0),
+(415, 1, 'skin_subscriptions', '<br />\n<div class=\'tableborder\'>\n <div class=\'pformstrip\' align=\"center\"><input type=\'submit\' value=\'{$ibforums->lang[\'s_continue_button2\']}\' class=\'forminput\' /></div>\n</div>\n</form>', 'sub_two_methods_continue_button', '', 1035406235, 0),
+(416, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'s_current_subs\']}</div>\n<p>{$ibforums->lang[\'s_current_explain\']}</p>             \n<div class=\"tableborder\">\n  <table cellpadding=\'4\' cellspacing=\'1\' width=\"100%\">\n  <tr>\n	<th width=\'5%\'  class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_transid\']}</th>\n	<th width=\'35%\' class=\'titlemedium\'>{$ibforums->lang[\'s_detail\']}</th>\n	<th width=\'20%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_started\']}</th>\n	<th width=\'20%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_end\']}</th>\n	<th width=\'10%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_paid\']}</th>\n	<th width=\'10%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_status\']}</th>\n   </tr>', 'sub_choose_current_top', '', 1035406235, 0),
+(417, 1, 'skin_subscriptions', '<tr>\n <td class=\"row3\" align=\"center\">$id</td>\n <td class=\"row3\"><b>$name</b></td>\n <td class=\"row3\" align=\"center\">$start</td>\n <td class=\"row3\" align=\"center\">$end</td>\n <td class=\"row3\" align=\"center\">{$paid}</td>\n <td class=\"row3\" align=\"center\">$state</td>\n</tr>', 'sub_choose_current_row', '$id, $name, $start, $end, $paid, $state', 1035406235, 0),
+(418, 1, 'skin_subscriptions', '</table>\n</div>', 'sub_choose_current_bottom', '', 1035406235, 0),
+(419, 1, 'skin_subscriptions', '<p>{$ibforums->lang[\'s_current_bottom\']}</p>', 'sub_page_bottom', '', 1035406235, 0),
+(420, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'s_dead_subs\']}</div>\n<p>{$ibforums->lang[\'s_dead_explain\']}</p>             \n<div class=\"tableborder\">\n  <table cellpadding=\'4\' cellspacing=\'1\' width=\"100%\">\n  <tr>\n	<th width=\'5%\'  class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_transid\']}</th>\n	<th width=\'35%\' class=\'titlemedium\'>{$ibforums->lang[\'s_detail\']}</th>\n	<th width=\'20%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_started\']}</th>\n	<th width=\'20%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_end\']}</th>\n	<th width=\'10%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_paid\']}</th>\n	<th width=\'10%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_status\']}</th>\n   </tr>', 'sub_choose_dead_top', '', 1035406235, 0),
+(421, 1, 'skin_subscriptions', '<tr>\n <td class=\"row3\" align=\"center\">$id</td>\n <td class=\"row3\"><b>$name</b></td>\n <td class=\"row3\" align=\"center\">$start</td>\n <td class=\"row3\" align=\"center\">$end</td>\n <td class=\"row3\" align=\"center\">{$paid}</td>\n <td class=\"row3\" align=\"center\">$state</td>\n</tr>', 'sub_choose_dead_row', '$id, $name, $start, $end, $paid, $state', 1035406235, 0),
+(422, 1, 'skin_subscriptions', '</table>\n</div>\n<br />', 'sub_choose_dead_bottom', '', 1035406235, 0),
+(423, 1, 'skin_subscriptions', '<br />\n<div class=\"pformstrip\">{$ibforums->lang[\'s_upgrade_subs\']}</div>\n<p>{$ibforums->lang[\'s_upgrade_explain\']}</p>\n<br /> \n<form action=\'{$ibforums->base_url}act=module&amp;module=subscription&amp;upgrade=1&amp;CODE=paymentmethod&amp;curid=$cur_id&amp;currency=$currency\' method=\'post\'>             \n<div class=\"tableborder\">\n  <table cellpadding=\'4\' cellspacing=\'1\' width=\"100%\">\n  <tr>\n	<th width=\'5%\'  class=\'titlemedium\'>&nbsp;</th>\n	<th width=\'55%\' class=\'titlemedium\'>{$ibforums->lang[\'s_detail\']}</th>\n	<th width=\'20%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_end\']}</th>\n	<th width=\'20%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_balance_cost\']}</th>\n   </tr>', 'sub_choose_upgrade_top', '$cur_id=\"\", $currency=\"\"', 1035406235, 0),
+(424, 1, 'skin_subscriptions', '<tr>\n <td class=\"row3\" align=\"center\"><input type=\'radio\' name=\'sub\' value=\"$id\" /></td>\n <td class=\"row3\"><b>$name</b><br /><i>$desc</i></td>\n <td class=\"row3\" align=\"center\">$duration</td>\n <td class=\"row3\" align=\"center\">{$cost}</td>\n</tr>', 'sub_choose_upgrade_row', '$id, $name, $desc, $cost, $duration', 1035406235, 0),
+(425, 1, 'skin_subscriptions', '</table>\n</div>\n<div class=\'tableborder\'>\n <div class=\'pformstrip\' align=\"center\"><input type=\'submit\' value=\'{$ibforums->lang[\'s_continue_button\']}\' class=\'forminput\' /></div>\n</div>\n</form>', 'sub_choose_upgrade_bottom', '', 1035406235, 0),
+(426, 1, 'skin_subscriptions', '<div class=\"pformstrip\">{$ibforums->lang[\'s_available_subs\']}</div>\n<p>{$ibforums->lang[\'s_explain\']}</p>\n<br />\n<form action=\'{$ibforums->base_url}act=module&amp;module=subscription&amp;CODE=paymentmethod&amp;currency=$currency\' method=\'post\'>             \n<div class=\"tableborder\">\n  <table cellpadding=\'4\' cellspacing=\'1\' width=\"100%\">\n  <tr>\n	<th width=\'5%\'  class=\'titlemedium\'>&nbsp;</th>\n	<th width=\'55%\' class=\'titlemedium\'>{$ibforums->lang[\'s_detail\']}</th>\n	<th width=\'20%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_duration\']}</th>\n	<th width=\'20%\' class=\'titlemedium\' align=\"center\">{$ibforums->lang[\'s_cost\']}</th>\n   </tr>', 'sub_choose_new_top', '$currency', 1035406235, 0),
+(427, 1, 'skin_subscriptions', '<tr>\n <td class=\"row3\" align=\"center\"><input type=\'radio\' name=\'sub\' value=\"$id\" /></td>\n <td class=\"row3\"><b>$name</b><br /><i>$desc</i></td>\n <td class=\"row3\" align=\"center\">$duration</td>\n <td class=\"row3\" align=\"center\">{$cost}</td>\n</tr>', 'sub_choose_new_row', '$id, $name, $desc, $cost, $duration', 1035406235, 0),
+(428, 1, 'skin_subscriptions', '</table>\n</div>\n<div class=\'tableborder\'>\n <div class=\'pformstrip\' align=\"center\"><input type=\'submit\' value=\'{$ibforums->lang[\'s_continue_button\']}\' class=\'forminput\' /></div>\n</div>\n</form>', 'sub_choose_new_bottom', '', 1035406235, 0),
+(429, 1, 'skin_subscriptions', '<div align=\'right\'><form action=\"$url\" method=\"post\">{$ibforums->lang[\'cc_currency_in\']} $select <input type=\'submit\' value=\'{$ibforums->lang[\'cc_change\']}\' class=\'forminput\' /></form></div>', 'sub_currency_change_form', '$select, $url', 1035406235, 0),
+(430, 1, 'skin_subscriptions', '<select name=\'currency\' class=\'forminput\'>', 'sub_currency_change_top', '', 1035406235, 0),
+(431, 1, 'skin_subscriptions', '<option value=\'$id\' $default>$id $name</option>', 'sub_currency_change_row', '$id, $name, $default=\"\"', 1035406235, 0),
+(432, 1, 'skin_subscriptions', '</select>', 'sub_currency_change_bottom', '', 1035406235, 0),
+(433, 1, 'skin_topic', '{$ibforums->lang[\'tt_warn\']} (<a href=\"javascript:PopUp(\'{$ibforums->base_url}act=warn&amp;mid={$id}&amp;CODE=view\',\'Pager\',\'500\',\'450\',\'0\',\'1\',\'1\',\'1\')\">{$percent}</a>%)', 'warn_level_warn', '$id, $percent', 1035406235, 0),
+(434, 1, 'skin_topic', '&lt;&nbsp;$min ( <a href=\"javascript:PopUp(\'{$ibforums->base_url}act=warn&amp;mid={$id}&amp;CODE=view\',\'Pager\',\'500\',\'450\',\'0\',\'1\',\'1\',\'1\')\">{$level}</a> ) $max&nbsp;&gt;', 'warn_level_rating', '$id, $level,$min=0,$max=10', 1035406235, 0),
+(435, 1, 'skin_topic', '<a href=\'{$ibforums->base_url}act=report&amp;f={$data[\'forum_id\']}&amp;t={$data[\'topic_id\']}&amp;p={$data[\'pid\']}&amp;st={$ibforums->input[\'st\']}\'><{P_REPORT}></a>', 'report_link', '$data', 1035406235, 0),
+(436, 1, 'skin_topic', '<span class=\'desc\'>{$ibforums->lang[\'ip\']}: $data</span>', 'ip_show', '$data', 1035406235, 0),
+(437, 1, 'skin_topic', '( <a href=\'{$ibforums->base_url}act=ST&amp;f=$fid&amp;t=$tid&amp;view=getnewpost\'>{$ibforums->lang[\'go_new_post\']}</a> )', 'golastpost_link', '$fid, $tid', 1035406235, 0),
+(438, 1, 'skin_topic', '<br />\n<form action=\'{$ibforums->base_url}act=mmod&amp;t=$tid\' method=\'post\'>\n<input type=\'hidden\' name=\'check\' value=\'1\'>\n<select name=\'mm_id\' class=\'forminput\'>\n<option value=\'-1\'>{$ibforums->lang[\'mm_title\']}</option>', 'mm_start', '$tid', 1035406235, 0),
+(439, 1, 'skin_topic', '<option value=\'$id\'>$name</option>', 'mm_entry', '$id, $name', 1035406235, 0),
+(440, 1, 'skin_topic', '</select>&nbsp;<input type=\'submit\' value=\'{$ibforums->lang[\'mm_submit\']}\' class=\'forminput\' /></form>', 'mm_end', '', 1035406235, 0),
+(441, 1, 'skin_topic', '<div align=\'left\' style=\'float:left;width:auto\'>\n	<form method=\'POST\' style=\'display:inline\' name=\'modform\' action=\'{$ibforums->base_url}\'>\n	<input type=\'hidden\' name=\'t\' value=\'$tid\' />\n	<input type=\'hidden\' name=\'f\' value=\'$fid\' />\n	<input type=\'hidden\' name=\'st\' value=\'{$ibforums->input[\'st\']}\' />\n	<input type=\'hidden\' name=\'auth_key\' value=\'$key\' />\n	<input type=\'hidden\' name=\'act\' value=\'Mod\' />\n	<select name=\'CODE\' class=\'forminput\' style=\"font-weight:bold;color:red\">\n	<option value=\'-1\' style=\'color:black\'>{$ibforums->lang[\'moderation_ops\']}</option>\n	$data\n	</select>&nbsp;<input type=\'submit\' value=\'{$ibforums->lang[\'jmp_go\']}\' class=\'forminput\' /></form>\n  </div>', 'Mod_Panel', '$data, $fid, $tid, $key=\"\"', 1035406235, 0),
+(442, 1, 'skin_topic', '<option value=\'$id\'>$text</option>', 'mod_wrapper', '$id=\"\", $text=\"\"', 1035406235, 0),
+(443, 1, 'skin_topic', '<script type=\"text/javascript\">\n	<!--\n	function emo_pop()\n	{\n	  window.open(\'index.{$ibforums->vars[\'php_ext\']}?act=legends&amp;CODE=emoticons&amp;s={$ibforums->session_id}\',\'Legends\',\'width=250,height=500,resizable=yes,scrollbars=yes\'); \n	}\n	//-->\n	</script>\n	<br />\n	<div align=\'left\' id=\'qr_open\' style=\"display:$show;position:relative;\">\n	   <form name=\'REPLIER\' action=\"{$ibforums->base_url}\" method=\'post\'>\n	   <input type=\'hidden\' name=\'act\' value=\'Post\' />\n	   <input type=\'hidden\' name=\'CODE\' value=\'03\' />\n	   <input type=\'hidden\' name=\'f\' value=\'$fid\' />\n	   <input type=\'hidden\' name=\'t\' value=\'$tid\' />\n	   <input type=\'hidden\' name=\'st\' value=\'{$ibforums->input[\'st\']}\' />\n	   <input type=\'hidden\' name=\'enabletrack\' value=\'{$ibforums->member[\'auto_track\']}\' />\n	   <input type=\'hidden\' name=\'auth_key\' value=\'$key\' />\n	   <!-- TITLE DIV -->\n	   <div class=\"tableborder\">\n	     <div class=\'maintitle\'><{CAT_IMG}>&nbsp;{$ibforums->lang[\'qr_title\']}</div>\n		 <div class=\"tablepad\" align=\"center\">\n			 <textarea cols=\'70\' rows=\'8\' name=\'Post\' class=\'textinput\' tabindex=\"1\"></textarea>\n			 <br /><br />\n			 <a href=\'javascript:emo_pop();\'>{$ibforums->lang[\'show_emo\']}</a> &#124;\n			 <input type=\'checkbox\' name=\'enableemo\' value=\'yes\' class=\"checkbox\" checked=\"checked\" />&nbsp;{$ibforums->lang[\'qr_add_smilie\']} &#124;\n			 <input type=\'checkbox\' name=\'enablesig\' value=\'yes\' class=\"checkbox\" checked=\"checked\" />&nbsp;{$ibforums->lang[\'qr_add_sig\']}\n			 <br /><br />\n			 <input type=\'submit\' name=\'submit\' value=\'{$ibforums->lang[\'qr_submit\']}\' class=\'forminput\' tabindex=\"2\" accesskey=\"s\" />&nbsp;\n			 <input type=\'submit\' name=\'preview\' value=\'{$ibforums->lang[\'qr_more_opts\']}\' class=\'forminput\' />\n			 &nbsp;&nbsp; <input type=\'button\' name=\'qrc\' onclick=\"ShowHide(\'qr_open\',\'qr_closed\');\" value=\'{$ibforums->lang[\'qr_closeit\']}\' class=\'forminput\' />\n		 </div>\n	  </div>\n	   </form>\n	</div>', 'quick_reply_box_open', '$fid=\"\",$tid=\"\",$show=\"hide\", $key=\"\"', 1035406235, 0),
+(444, 1, 'skin_topic', '<!-- DEFAULT DIV -->\n	<a href=\"javascript:ShowHide(\'qr_open\',\'qr_closed\');\" title=\"{$ibforums->lang[\'qr_open\']}\" accesskey=\"f\"><{T_QREPLY}></a>', 'quick_reply_box_closed', '', 1035406235, 0),
+(445, 1, 'skin_topic', '<a href=\"{$ibforums->base_url}act=Post&amp;CODE=14&amp;f=$fid&amp;t=$tid\">{$ibforums->lang[\'new_poll_link\']}</a> &#124;&nbsp;', 'start_poll_link', '$fid, $tid', 1035406235, 0);
+INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_content`, `func_name`, `func_data`, `updated`, `can_remove`) VALUES
+(446, 1, 'skin_topic', '<script language=\'javascript\' type=\'text/javascript\'>\n    <!--\n    \n    function link_to_post(pid)\n    {\n    	temp = prompt( \"{$ibforums->lang[\'tt_prompt\']}\", \"{$ibforums->base_url}showtopic={$ibforums->input[\'t\']}&view=findpost&p=\" + pid );\n    	return false;\n    }\n    \n    function delete_post(theURL) {\n       if (confirm(\'{$ibforums->lang[\'js_del_1\']}\')) {\n          window.location.href=theURL;\n       }\n       else {\n          alert (\'{$ibforums->lang[\'js_del_2\']}\');\n       } \n    }\n    \n    function PopUp(url, name, width,height,center,resize,scroll,posleft,postop) {\n    if (posleft != 0) { x = posleft }\n    if (postop  != 0) { y = postop  }\n    if (!scroll) { scroll = 1 }\n    if (!resize) { resize = 1 }\n    if ((parseInt (navigator.appVersion) >= 4 ) && (center)) {\n      X = (screen.width  - width ) / 2;\n      Y = (screen.height - height) / 2;\n    }\n    if (scroll != 0) { scroll = 1 }\n    var Win = window.open( url, name, \'width=\'+width+\',height=\'+height+\',top=\'+Y+\',left=\'+X+\',resizable=\'+resize+\',scrollbars=\'+scroll+\',location=no,directories=no,status=no,menubar=no,toolbar=no\');\n	}\n	\n	function ShowHide(id1, id2) {\n	  if (id1 != \'\') expMenu(id1);\n	  if (id2 != \'\') expMenu(id2);\n	}\n	\n	function expMenu(id) {\n	  var itm = null;\n	  if (document.getElementById) {\n		itm = document.getElementById(id);\n	  } else if (document.all){\n		itm = document.all[id];\n	  } else if (document.layers){\n		itm = document.layers[id];\n	  }\n	\n	  if (!itm) {\n	   // do nothing\n	  }\n	  else if (itm.style) {\n		if (itm.style.display == \"none\") { itm.style.display = \"\"; }\n		else { itm.style.display = \"none\"; }\n	  }\n	  else { itm.visibility = \"show\"; }\n	}\n    //-->\n    </script>\n    \n<a name=\'top\'></a>\n<!--IBF.FORUM_RULES-->\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n<tr>\n <td align=\'left\' width=\"20%\" nowrap=\"nowrap\">{$data[\'TOPIC\'][\'SHOW_PAGES\']}&nbsp;{$data[\'TOPIC\'][\'go_new\']}</td>\n <td align=\'right\' width=\"80%\">{$data[TOPIC][REPLY_BUTTON]}<a href=\'{$ibforums->base_url}act=Post&amp;CODE=00&amp;f={$data[FORUM][\'id\']}\' title=\'{$ibforums->lang[\'start_new_topic\']}\'><{A_POST}></a>{$data[TOPIC][POLL_BUTTON]}</td>\n</tr>\n</table>\n<br />\n<div class=\"tableborder\">\n    <div class=\'maintitle\'><{CAT_IMG}>&nbsp;<b>{$data[\'TOPIC\'][\'title\']}</b>{$data[\'TOPIC\'][\'description\']}</div>\n	<!--{IBF.POLL}-->\n	<div align=\'right\' class=\'postlinksbar\'>\n	  <strong><!--{IBF.START_NEW_POLL}--><a href=\'{$ibforums->base_url}act=Track&amp;f={$data[\'FORUM\'][\'id\']}&amp;t={$data[\'TOPIC\'][\'tid\']}\'>{$ibforums->lang[\'track_topic\']}</a> |\n	  <a href=\'{$ibforums->base_url}act=Forward&amp;f={$data[\'FORUM\'][\'id\']}&amp;t={$data[\'TOPIC\'][\'tid\']}\'>{$ibforums->lang[\'forward\']}</a> |\n	  <a href=\'{$ibforums->base_url}act=Print&amp;client=printer&amp;f={$data[\'FORUM\'][\'id\']}&amp;t={$data[\'TOPIC\'][\'tid\']}\'>{$ibforums->lang[\'print\']}</a></strong>\n	</div>', 'PageTop', '$data', 1035406235, 0),
+(447, 1, 'skin_topic', '<!--Begin Msg Number {$post[\'pid\']}-->\n    <table width=\'100%\' border=\'0\' cellspacing=\'1\' cellpadding=\'3\'>\n    <tr>\n      <td valign=\'middle\' class=\'row4\' width=\"1%\"><a name=\'entry{$post[\'pid\']}\'></a><span class=\'{$post[\'name_css\']}\'>{$author[\'name\']}</span></td>\n        <td class=\'row4\' valign=\'top\' width=\"99%\">\n        \n        <!-- POSTED DATE DIV -->\n        \n        <div align=\'left\' class=\'row4\' style=\'float:left;padding-top:4px;padding-bottom:4px\'>\n        {$post[\'post_icon\']}<span class=\'postdetails\'><b><a title=\"{$ibforums->lang[\'tt_link\']}\" href=\"#\" onclick=\"link_to_post({$post[\'pid\']}); return false;\" style=\"text-decoration:underline\">{$ibforums->lang[\'posted_on\']}</a></b> {$post[\'post_date\']}</span>\n        </div>\n        \n        <!-- REPORT / DELETE / EDIT / QUOTE DIV -->\n        \n        <div align=\'right\'>\n        {$post[\'report_link\']}{$post[\'delete_button\']}{$post[\'edit_button\']}<a href=\'{$ibforums->base_url}act=Post&amp;CODE=06&amp;f={$ibforums->input[f]}&amp;t={$ibforums->input[t]}&amp;p={$post[\'pid\']}\'><{P_QUOTE}></a>\n      </div>\n      \n      </td>\n    </tr>\n    <tr>\n      <td valign=\'top\' class=\'{$post[\'post_css\']}\'>\n        <span class=\'postdetails\'>{$author[\'avatar\']}<br /><br />\n        {$author[\'title\']}<br />\n        {$author[\'member_rank_img\']}<br /><br />\n        {$author[\'member_group\']}<br />\n        {$author[\'member_posts\']}<br />\n        {$author[\'member_number\']}<br />\n        {$author[\'member_joined\']}<br /><br />\n        {$author[\'warn_text\']} {$author[\'warn_minus\']}{$author[\'warn_img\']}{$author[\'warn_add\']}</span><br />\n        <!--$ author[field_1]-->\n        <img src=\'{$ibforums->vars[\'img_url\']}/spacer.gif\' alt=\'\' width=\'160\' height=\'1\' /><br /> \n      </td>\n      <td width=\'100%\' valign=\'top\' class=\'{$post[\'post_css\']}\'>\n        <!-- THE POST {$post[\'pid\']} -->\n        <div class=\'postcolor\'>{$post[\'post\']} {$post[\'attachment\']}</div>\n        {$post[\'signature\']}\n        <!-- THE POST -->\n      </td>\n    </tr>\n    <tr>\n      <td class=\'darkrow3\' align=\'left\'><b>{$post[\'ip_address\']}</b></td>\n      <td class=\'darkrow3\' nowrap=\"nowrap\" align=\'left\'>\n      \n        <!-- PM / EMAIL / WWW / MSGR -->\n      \n        <div align=\'left\' class=\'darkrow3\' style=\'float:left;width:auto\'>\n        {$author[\'addresscard\']}{$author[\'message_icon\']}{$author[\'email_icon\']}{$author[\'website_icon\']}{$author[\'integ_icon\']}{$author[\'icq_icon\']}{$author[\'aol_icon\']}{$author[\'yahoo_icon\']}{$author[\'msn_icon\']}\n        </div>\n        \n        <!-- REPORT / UP -->\n         \n        <div align=\'right\'>\n         <a href=\'javascript:scroll(0,0);\'><img src=\'{$ibforums->vars[\'img_url\']}/p_up.gif\' alt=\'Top\' border=\'0\' /></a>\n        </div>\n      </td>\n    </tr>\n    </table>\n    <div class=\'darkrow1\' style=\'height:5px\'><!-- --></div>', 'RenderRow', '$post, $author', 1035406235, 0),
+(448, 1, 'skin_topic', '<!--IBF.TOPIC_ACTIVE-->\n      <div class=\"activeuserstrip\" align=\"center\">&laquo; <a href=\'{$ibforums->base_url}showtopic={$data[TOPIC][\'tid\']}&amp;view=old\'>{$ibforums->lang[\'t_old\']}</a> &#0124; <strong><a href=\'{$ibforums->base_url}showforum={$data[\'FORUM\'][\'id\']}\'>{$data[\'FORUM\'][\'name\']}</a></strong> &#0124; <a href=\'{$ibforums->base_url}showtopic={$data[TOPIC][\'tid\']}&amp;view=new\'>{$ibforums->lang[\'t_new\']}</a> &raquo;</div>\n</div>\n \n<br />\n<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\n<tr>\n <td align=\'left\' width=\"20%\" nowrap=\"nowrap\"><!--IBF.TOPIC_OPTIONS_CLOSED-->{$data[TOPIC][SHOW_PAGES]}</td>\n <td align=\'right\' width=\"80%\">{$data[TOPIC][REPLY_BUTTON]}<!--IBF.QUICK_REPLY_CLOSED--><a href=\'{$ibforums->base_url}act=Post&amp;CODE=00&amp;f={$data[FORUM][\'id\']}\' title=\'{$ibforums->lang[\'start_new_topic\']}\'><{A_POST}></a>{$data[TOPIC][POLL_BUTTON]}</td>\n</tr>\n</table>\n<!--IBF.QUICK_REPLY_OPEN-->\n<!--IBF.TOPIC_OPTIONS_OPEN-->\n<br />\n<!--IBF.MOD_PANEL-->\n<div align=\'right\'>{$data[FORUM][\'JUMP\']}</div>\n<!--IBF.MULTIMOD-->\n<br />', 'TableFooter', '$data', 1035406235, 0),
+(449, 1, 'skin_topic', '<div id=\'topic_open\' style=\'display:none;z-index:2;\'>\n    <div class=\"tableborder\">\n	  <div class=\'maintitle\'><{CAT_IMG}>&nbsp;<a href=\"javascript:ShowHide(\'topic_open\',\'topic_closed\')\">{$ibforums->lang[\'to_close\']}</a></div>\n	  <div class=\'tablepad\'>\n	   <b><a href=\'{$ibforums->base_url}act=Track&amp;f={$fid}&amp;t={$tid}\'>{$ibforums->lang[\'tt_title\']}</a></b>\n	   <br />\n	   <span class=\'desc\'>{$ibforums->lang[\'tt_desc\']}</span>\n	   <br /><br />\n	   <b><a href=\'{$ibforums->base_url}act=Track&amp;f={$fid}&amp;type=forum\'>{$ibforums->lang[\'ft_title\']}</a></b>\n	   <br />\n	   <span class=\'desc\'>{$ibforums->lang[\'ft_desc\']}</span>\n	   <br /><br />\n	   <b><a href=\'{$ibforums->base_url}act=Print&amp;client=choose&amp;f={$fid}&amp;t={$tid}\'>{$ibforums->lang[\'av_title\']}</a></b>\n	   <br />\n	   <span class=\'desc\'>{$ibforums->lang[\'av_desc\']}</span>\n	 </div>\n   </div>\n</div>', 'topic_opts_open', '$fid, $tid', 1035406235, 0),
+(450, 1, 'skin_topic', '<a href=\"javascript:ShowHide(\'topic_open\',\'topic_closed\')\" title=\"{$ibforums->lang[\'to_open\']}\"><{T_OPTS}></a>', 'topic_opts_closed', '', 1035406235, 0),
+(451, 1, 'skin_topic', '<div class=\"activeuserstrip\">{$ibforums->lang[\'active_users_title\']} ({$ibforums->lang[\'active_users_detail\']})</div>\n	  <div class=\'row2\' style=\'padding:6px\'>{$ibforums->lang[\'active_users_members\']} {$active[\'names\']}</div>', 'topic_active_users', '$active=array()', 1035406235, 0),
+(452, 1, 'skin_topic', '<br />\n<br />\n<strong><span class=\'edit\'>{$ibforums->lang[\'pic_attach\']}</span></strong>\n<br />\n<img src=\'{$ibforums->vars[\'upload_url\']}/$file_name\' class=\'attach\' alt=\'{$ibforums->lang[\'pic_attach\']}\' />', 'Show_attachments_img', '$file_name', 1035406235, 0),
+(453, 1, 'skin_topic', '<br />\n<br />\n<strong><span class=\'edit\'>{$ibforums->lang[\'pic_attach_thumb\']}</span></strong>\n<br />\n<a href=\'{$ibforums->base_url}act=Attach&amp;type=post&amp;id=$aid\' title=\'{$ibforums->lang[\'pic_attach_thumb\']}\' target=\'_blank\'><img src=\'{$ibforums->vars[\'upload_url\']}/$file_name\' width=\'$width\' height=\'$height\' class=\'attach\' alt=\'{$ibforums->lang[\'pic_attach\']}\' /></a>', 'Show_attachments_img_thumb', '$file_name, $width, $height, $aid', 1035406235, 0),
+(454, 1, 'skin_topic', '<br />\n<br />\n<strong><span class=\'edit\'>{$ibforums->lang[\'attached_file\']} ( {$ibforums->lang[\'attach_hits\']}: {$data[\'hits\']} )</span></strong>\n<br />\n<a href=\'{$ibforums->base_url}act=Attach&amp;type=post&amp;id={$data[\'pid\']}\' title=\'{$ibforums->lang[\'attach_dl\']}\' target=\'_blank\'><img src=\'{$ibforums->vars[\'mime_img\']}/{$data[\'image\']}\' border=\'0\' alt=\'{$ibforums->lang[\'attached_file\']}\' /></a>\n&nbsp;<a href=\'{$ibforums->base_url}act=Attach&amp;type=post&amp;id={$data[\'pid\']}\' title=\'{$ibforums->lang[\'attach_dl\']}\' target=\'_blank\'>{$data[\'name\']}</a>', 'Show_attachments', '$data', 1035406235, 0),
+(455, 1, 'skin_ucp', '<script language=\"javascript\" type=\"text/javascript\">\n<!--\n	var url_input      = \"$url_photo\";\n	var remove_pressed = 0;\n	\n	function clear_it()\n	{\n		if ( document.bob.url_photo.value != \"\" )\n		{\n			url_input = document.bob.url_photo.value;\n		}\n      \n		document.bob.url_photo.value = \"\";\n	}\n   \n	function restore_it()\n	{\n		if (url_input != \"\")\n		{\n			document.bob.url_photo.value = url_input;\n		}\n	}\n   \n	function checkform()\n	{\n   		if ( remove_pressed != 1 )\n   		{\n   			return true;\n   		}\n   		else\n   		{\n   			fcheck = confirm(\"{$ibforums->lang[\'pp_confirm\']}\");\n   			if ( fcheck == true )\n   			{\n   				return true;\n   			}\n   			else\n   			{\n   				return false;\n   			}\n   		}\n	}\n//-->\n</script>\n<form action=\"{$ibforums->base_url}auth_key=$key\" enctype=\'multipart/form-data\' method=\"post\" name=\"bob\" onsubmit=\"return checkform();\">\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'dophoto\' />\n<div class=\"pformstrip\">{$ibforums->lang[\'pph_title\']}</div>\n<p>{$ibforums->lang[\'pph_desc\']}<br />{$ibforums->lang[\'pph_max\']}</p>\n<div class=\"pformstrip\">{$ibforums->lang[\'pph_current\']}</div>\n<div align=\"center\">\n <p>$cur_photo<br />$cur_type $show_size</p>\n</div>\n<div class=\"pformstrip\">{$ibforums->lang[\'pph_change\']}</div>\n<table class=\'tablebasic\' cellpadding=\'4\'>\n<tr>\n <td class=\'pformleft\'>{$ibforums->lang[\'pph_url\']}</td>\n <td class=\'pformright\'><input type=\'text\' onfocus=\"restore_it()\" name=\'url_photo\' value=\'$url_photo\' size=\'40\' class=\'forminput\' />&nbsp;&nbsp;(<a href=\'javascript:restore_it()\'>{$ibforums->lang[\'pp_restore\']}</a>)</td>\n</tr>\n<!--IPB.UPLOAD-->\n<!--IPB.SIZE-->\n</table>\n<div align=\"center\" class=\"pformstrip\">\n  <input type=\"submit\" name=\'submit\' value=\"{$ibforums->lang[\'pph_submit\']}\" class=\'forminput\' />\n  &nbsp;&nbsp;&nbsp;&nbsp;<input type=\"submit\" onclick=\"remove_pressed=1;\" name=\'remove\' value=\"{$ibforums->lang[\'pph_remove\']}\" class=\'forminput\' />\n</div>\n</form>', 'photo_page', '$cur_photo, $cur_type, $url_photo, $show_size, $key=\"\"', 1035406235, 0),
+(456, 1, 'skin_ucp', '<tr>\n <td class=\'pformleft\'>&nbsp;</td>\n <td class=\'pformright\'><strong>{$ibforums->lang[\'pph_autosize\']}</strong><br />({$ibforums->lang[\'pph_as_desc\']})</td>\n</tr>', 'photo_page_autosize', '', 1035406235, 0),
+(457, 1, 'skin_ucp', '<tr>\n <td class=\'pformleft\'>&nbsp;</td>\n <td class=\'pformright\'><strong>{$ibforums->lang[\'width\']}</strong>&nbsp;<input type=\'text\' size=\'3\' name=\'man_width\' />&nbsp;&nbsp;<strong>{$ibforums->lang[\'height\']}</strong>&nbsp;<input type=\'text\' size=\'3\' name=\'man_height\' /></td>\n</tr>', 'photo_page_mansize', '', 1035406235, 0),
+(458, 1, 'skin_ucp', '<tr>\n <td class=\'pformleft\'>{$ibforums->lang[\'pph_upload\']}</td>\n <td class=\'pformright\'><input type=\'hidden\' name=\'MAX_FILE_SIZE\' value=\'$max_filesize\' /><input type=\'file\' name=\'upload_photo\' value=\'\' size=\'40\' class=\'forminput\' onclick=\"clear_it()\"/></td>\n</tr>', 'photo_page_upload', '$max_filesize', 1035406235, 0),
+(459, 1, 'skin_ucp', '<script language=\'Javascript\' type=\"text/javascript\">\n   var msg = \"$msg\";\n   if ( msg != \"\")\n   {\n	   alert(msg);\n   }\n</script>\n<form action=\"{$ibforums->base_url}\" method=\"post\" name=\'form1\'>\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'09\' />\n<div class=\"pformstrip\">{$ibforums->lang[\'change_email_title\']}</div>\n<p>$txt</p>\n<table width=\"100%\" style=\"padding:6px\">\n<tr>\n  <td width=\'40%\'><strong>{$ibforums->lang[\'ce_new_email\']}</strong></td>\n  <td align=\'left\'><input type=\'text\' name=\'in_email_1\' value=\'\' class=\'forminput\' /></td>\n</tr>\n<tr>\n  <td><strong>{$ibforums->lang[\'ce_new_email2\']}</strong></td>\n  <td align=\'left\'><input type=\'text\' name=\'in_email_2\' value=\'\' class=\'forminput\' /></td>\n</tr>\n<tr>\n  <td><strong>{$ibforums->lang[\'ec_passy\']}</strong></td>\n  <td align=\'left\'><input type=\'password\' name=\'password\' value=\'\' class=\'forminput\' /></td>\n</tr>\n</table>\n<!--ANTIBOT-->\n<div align=\"center\" class=\"pformstrip\"><input type=\"submit\" name=\'change_email\' value=\"{$ibforums->lang[\'account_email_submit\']}\" class=\'forminput\' /></div>\n</form>', 'email_change', '$txt=\"\", $msg=\"\"', 1035406235, 0),
+(460, 1, 'skin_ucp', '<div class=\"pformstrip\">{$ibforums->lang[\'ras_title\']}</div>\n<table width=\"100%\" style=\"padding:6px\">\n<tr>\n  <td width=\'40%\'>{$ibforums->lang[\'ras_numbers\']}</td>\n  <td>\n	 <input type=\'hidden\' name=\'regid\' value=\'$regid\' />\n	 <img src=\'{$ibforums->base_url}act=UserCP&amp;CODE=show_image&amp;rc={$regid}&amp;p=1\' border=\'0\' alt=\'Code Bit\' />\n	 &nbsp;<img src=\'{$ibforums->base_url}act=UserCP&amp;CODE=show_image&amp;rc={$regid}&amp;p=2\' border=\'0\' alt=\'Code Bit\' />\n	 &nbsp;<img src=\'{$ibforums->base_url}act=UserCP&amp;CODE=show_image&amp;rc={$regid}&amp;p=3\' border=\'0\' alt=\'Code Bit\' />\n	 &nbsp;<img src=\'{$ibforums->base_url}act=UserCP&amp;CODE=show_image&amp;rc={$regid}&amp;p=4\' border=\'0\' alt=\'Code Bit\' />\n	 &nbsp;<img src=\'{$ibforums->base_url}act=UserCP&amp;CODE=show_image&amp;rc={$regid}&amp;p=5\' border=\'0\' alt=\'Code Bit\' />\n	 &nbsp;<img src=\'{$ibforums->base_url}act=UserCP&amp;CODE=show_image&amp;rc={$regid}&amp;p=6\' border=\'0\' alt=\'Code Bit\' />\n  </td>\n</tr>\n<tr>\n  <td width=\'40%\'>{$ibforums->lang[\'ras_text\']}</td>\n  <td><input type=\'text\' size=\'32\' maxlength=\'32\' name=\'reg_code\' class=\'forminput\' /></td>\n</tr>\n</table>', 'email_change_img', '$regid=\"\"', 1035406235, 0),
+(461, 1, 'skin_ucp', '<div class=\"pformstrip\">{$ibforums->lang[\'ras_title\']}</div>\n<table width=\"100%\" style=\"padding:6px\">\n<tr>\n  <td width=\'40%\'>{$ibforums->lang[\'ras_numbers\']}</td>\n  <td>\n	 <input type=\'hidden\' name=\'regid\' value=\'$regid\' />\n	 <img src=\'{$ibforums->base_url}act=UserCP&amp;CODE=show_image&amp;rc={$regid}\' border=\'0\' alt=\'Code Bit\' />\n  </td>\n</tr>\n<tr>\n  <td width=\'40%\'>{$ibforums->lang[\'ras_text\']}</td>\n  <td><input type=\'text\' size=\'32\' maxlength=\'32\' name=\'reg_code\' class=\'forminput\' /></td>\n</tr>\n</table>', 'email_change_gd', '$regid=\"\"', 1035406235, 0),
+(462, 1, 'skin_ucp', '<form action=\"{$ibforums->base_url}\" method=\"post\" name=\'form1\'>\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'29\' />\n<div class=\"pformstrip\">{$ibforums->lang[\'account_pass_title\']}</div>\n<p>{$ibforums->lang[\'pass_change_text\']}</p>\n<table width=\"100%\" style=\"padding:6px\">\n<tr>\n  <td><b>{$ibforums->lang[\'account_pass_old\']}</b></td>\n  <td><input type=\'password\' name=\'current_pass\' value=\'\' class=\'forminput\' /></td>\n</tr>\n<tr>\n  <td><b>{$ibforums->lang[\'account_pass_new\']}</b></td>\n  <td><input type=\'password\' name=\'new_pass_1\' value=\'\' class=\'forminput\' /></td>\n</tr>\n<tr>\n  <td><b>{$ibforums->lang[\'account_pass_new2\']}</b></td>\n  <td><input type=\'password\' name=\'new_pass_2\' value=\'\' class=\'forminput\' /></td>\n</tr>\n</table>\n<div align=\"center\" class=\"pformstrip\"><input type=\"submit\" name=\'s_pass\' value=\"{$ibforums->lang[\'account_pass_submit\']}\" class=\'forminput\' /></div>\n</form>', 'pass_change', '', 1035406235, 0),
+(463, 1, 'skin_ucp', '<script langauge=\'javascript\' type=\"text/javascript\">\n<!--\nvar url_input      = \"{$data[\'current_url_avatar\']}\";\nvar remove_pressed = 0;\n\nfunction select_url() {\n  restore_it();\n}\nfunction select_upload() {\n  \n  try\n  {\n	  if ( document.creator.url_avatar.value != \"\" ) {\n		  url_input = document.creator.url_avatar.value;\n	  }\n	\n	  document.creator.url_avatar.value = \"\";\n  }\n  catch(nourl)\n  {\n  	  return true;\n  }\n}\n\nfunction restore_it()\n{\n	if (url_input != \"\")\n	{\n		document.creator.url_avatar.value = url_input;\n	}\n}\nfunction checkform()\n{\n	if ( remove_pressed != 1 )\n	{\n		return true;\n	}\n	else\n	{\n		fcheck = confirm(\"{$ibforums->lang[\'av_confirm\']}\");\n		if ( fcheck == true )\n		{\n			return true;\n		}\n		else\n		{\n			return false;\n		}\n	}\n}\n  \n//-->\n</script>\n<!--IBF.LIMITS_AVATAR-->\n<div class=\"pformstrip\">{$ibforums->lang[\'av_current\']}</div>\n<div class=\"tablepad\" align=\"center\">{$data[\'current_avatar_image\']}<br />{$data[\'current_avatar_type\']} {$data[\'current_avatar_dims\']}</div>\n<div class=\"pformstrip\">{$ibforums->lang[\'avatar_pre_title\']}</div>\n<form action=\'{$ibforums->base_url}act=UserCP&amp;CODE=getgallery\' method=\'post\'>\n<table class=\'tablebasic\' cellpadding=\'4\'>\n<tr>\n <td class=\'pformleft\'>{$ibforums->lang[\'av_go_gal\']}</td>\n <td class=\'pformright\'>{$data[\'avatar_galleries\']}&nbsp;&nbsp;<input type=\"submit\" value=\"{$ibforums->lang[\'av_go_go\']}\" name=\"submit\" class=\"forminput\" /></td>\n</tr>\n</table>\n</form>\n<form action=\'{$ibforums->base_url}auth_key=$key\' method=\'post\' $formextra name=\'creator\' onsubmit=\"return checkform();\">\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'25\' />\n$hidden_field\n<!--IBF.EXTERNAL_TITLE-->\n<!--IBF.URL_AVATAR-->\n<!--IBF.UPLOAD_AVATAR-->\n<!--IPB.SIZE-->\n<div align=\"center\" class=\"pformstrip\">\n  <input type=\"submit\" name=\"submit\" value=\"{$ibforums->lang[\'av_update\']}\" class=\'forminput\' />\n  &nbsp;&nbsp;&nbsp;<input type=\"submit\" name=\"remove\" onclick=\"remove_pressed=1;\" value=\"{$ibforums->lang[\'av_remove\']}\" class=\'forminput\' />\n</div>\n</form>', 'avatar_main', '$data, $formextra=\"\", $hidden_field=\"\", $key=\"\"', 1035406235, 0),
+(464, 1, 'skin_ucp', '<div class=\"pformstrip\">{$ibforums->lang[\'av_gallery_title\']} $title</div>\n<form action=\'{$ibforums->base_url}act=UserCP&amp;CODE=getgallery\' method=\'post\'>\n<div id=\"padandcenter\"><strong>{$ibforums->lang[\'av_gall_jump\']}</strong>&nbsp;$av_gals&nbsp;&nbsp;<input type=\"submit\" value=\"{$ibforums->lang[\'av_go_go\']}\" name=\"submit\" class=\"forminput\" /></div>\n</form>\n<form action=\'{$ibforums->base_url}auth_key=$key\' method=\'post\'>\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'setinternalavatar\' />\n<input type=\'hidden\' name=\'current_folder\' value=\'$current_folder\' />\n<table class=\'tablebasic\' cellpadding=\'4\'>', 'avatar_gallery_start_table', '$title=\"\", $av_gals=\"\", $current_folder, $key=\"\"', 1035406235, 0),
+(465, 1, 'skin_ucp', '</table>\n<div align=\"center\" class=\"pformstrip\">\n  <input type=\"submit\" name=\"submit\" value=\"{$ibforums->lang[\'av_gall_submit\']}\" class=\'forminput\' />\n  &nbsp;&nbsp;&nbsp;<input type=\"button\" name=\"remove\" onclick=\"self.location=\'{$ibforums->base_url}act=UserCP&amp;CODE=24\';\" value=\"{$ibforums->lang[\'av_gall_cancel\']}\" class=\'forminput\' />\n</div>\n</form>', 'avatar_gallery_end_table', '', 1035406235, 0),
+(466, 1, 'skin_ucp', '<tr>', 'avatar_gallery_start_row', '', 1035406235, 0),
+(467, 1, 'skin_ucp', '</tr>', 'avatar_gallery_end_row', '', 1035406235, 0),
+(468, 1, 'skin_ucp', '<td align=\"center\"><img src=\"html/avatars{$img}\" border=\"0\" alt=\"txt\"><br /><input type=\"radio\" class=\"radiobutton\" name=\"avatar\" value=\"$form\" id=\"$form\" />&nbsp;<strong><label for=\"$form\">$txt</label></strong></td>', 'avatar_gallery_cell_row', '$img, $txt, $form', 1035406235, 0),
+(469, 1, 'skin_ucp', '<td>&nbsp;</td>', 'avatar_gallery_blank_row', '', 1035406235, 0),
+(470, 1, 'skin_ucp', '<table class=\'tablebasic\' cellpadding=\'4\'>\n<tr>\n <td class=\'pformleft\'>&nbsp;</td>\n <td class=\'pformright\'><strong>{$ibforums->lang[\'av_autosize\']}</strong><br />({$ibforums->lang[\'av_as_desc\']})</td>\n</tr>\n</table>', 'avatar_autosize', '', 1035406235, 0),
+(471, 1, 'skin_ucp', '<table class=\'tablebasic\' cellpadding=\'4\'>\n<tr>\n <td class=\'pformleft\'>&nbsp;</td>\n <td class=\'pformright\'><strong>{$ibforums->lang[\'width\']}</strong>&nbsp;<input type=\'text\' size=\'3\' name=\'man_width\' />&nbsp;&nbsp;<strong>{$ibforums->lang[\'height\']}</strong>&nbsp;<input type=\'text\' size=\'3\' name=\'man_height\' /></td>\n</tr>\n</table>', 'avatar_mansize', '', 1035406235, 0),
+(472, 1, 'skin_ucp', '<div class=\"pformstrip\">{$ibforums->lang[\'avatar_url_title\']}</div>', 'avatar_external_title', '', 1035406235, 0),
+(473, 1, 'skin_ucp', '<div class=\"pformstrip\">{$ibforums->lang[\'av_settings\']}</div>\n<p>{$ibforums->lang[\'av_text_url\']} {$ibforums->lang[\'av_text_upload\']}<br />{$ibforums->lang[\'av_allowed_files\']}</p>', 'avatar_limits', '', 1035406235, 0),
+(474, 1, 'skin_ucp', '<table class=\'tablebasic\' cellpadding=\'4\'>\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'av_upload\']}</td>\n  <td class=\'pformright\'><input type=\'file\' size=\'30\' name=\'upload_avatar\' class=\'forminput\' onfocus=\'select_upload()\' onclick=\'select_upload()\' /></td>\n</tr>\n</table>', 'avatar_upload_field', '', 1035406235, 0),
+(475, 1, 'skin_ucp', '<table class=\'tablebasic\' cellpadding=\'4\'>\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'av_url\']}</td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'80\' name=\'url_avatar\' value=\'$avatar\' class=\'forminput\' onfocus=\'select_url()\' />&nbsp;&nbsp;(<a href=\'javascript:restore_it()\'>{$ibforums->lang[\'pp_restore\']}</a>)</td>\n</tr>\n</table>', 'avatar_url_field', '$avatar', 1035406235, 0),
+(476, 1, 'skin_ucp', '<script language=\"javascript1.2\" type=\"text/javascript\">\n<!--\nvar MessageMax  = \"{$ibforums->lang[\'the_max_length\']}\";\nvar Override    = \"{$ibforums->lang[\'override\']}\";\nfunction CheckLength() {\n    MessageLength  = document.REPLIER.Post.value.length;\n    message  = \"\";\n        if (MessageMax > 0) {\n            message = \"{$ibforums->lang[\'js_max_length\']} \" + MessageMax + \" {$ibforums->lang[\'js_characters\']}.\";\n        } else {\n            message = \"\";\n        }\n        alert(message + \" {$ibforums->lang[\'js_used\']} \" + MessageLength + \" {$ibforums->lang[\'js_characters\']}.\");\n}\nfunction ValidateForm() {\n    MessageLength  = document.REPLIER.Post.value.length;\n    errors = \"\";\n    if (MessageMax !=0) {\n        if (MessageLength > MessageMax) {\n            errors = \"{$ibforums->lang[\'js_max_length\']} \" + MessageMax + \" {$ibforums->lang[\'js_characters\']}. {$ibforums->lang[\'js_current\']}: \" + MessageLength;\n        }\n    }\n    if (errors != \"\" && Override == \"\") {\n        alert(errors);\n        return false;\n    } else {\n        document.REPLIER.submit.disabled = true;\n        return true;\n    }\n}\n\n// IBC Code stuff\n	var text_enter_url      = \"{$ibforums->lang[\'jscode_text_enter_url\']}\";\n	var text_enter_url_name = \"{$ibforums->lang[\'jscode_text_enter_url_name\']}\";\n	var text_enter_image    = \"{$ibforums->lang[\'jscode_text_enter_image\']}\";\n	var text_enter_email    = \"{$ibforums->lang[\'jscode_text_enter_email\']}\";\n	var text_enter_flash    = \"{$ibforums->lang[\'jscode_text_enter_flash\']}\";\n	var text_code           = \"{$ibforums->lang[\'jscode_text_code\']}\";\n	var text_quote          = \"{$ibforums->lang[\'jscode_text_quote\']}\";\n	var error_no_url        = \"{$ibforums->lang[\'jscode_error_no_url\']}\";\n	var error_no_title      = \"{$ibforums->lang[\'jscode_error_no_title\']}\";\n	var error_no_email      = \"{$ibforums->lang[\'jscode_error_no_email\']}\";\n	var error_no_width      = \"{$ibforums->lang[\'jscode_error_no_width\']}\";\n	var error_no_height     = \"{$ibforums->lang[\'jscode_error_no_height\']}\";\n	var prompt_start        = \"{$ibforums->lang[\'js_text_to_format\']}\";\n	\n	var help_bold           = \"{$ibforums->lang[\'hb_bold\']}\";\n	var help_italic         = \"{$ibforums->lang[\'hb_italic\']}\";\n	var help_under          = \"{$ibforums->lang[\'hb_under\']}\";\n	var help_font           = \"{$ibforums->lang[\'hb_font\']}\";\n	var help_size           = \"{$ibforums->lang[\'hb_size\']}\";\n	var help_color          = \"{$ibforums->lang[\'hb_color\']}\";\n	var help_close          = \"{$ibforums->lang[\'hb_close\']}\";\n	var help_url            = \"{$ibforums->lang[\'hb_url\']}\";\n	var help_img            = \"{$ibforums->lang[\'hb_img\']}\";\n	var help_email          = \"{$ibforums->lang[\'hb_email\']}\";\n	var help_quote          = \"{$ibforums->lang[\'hb_quote\']}\";\n	var help_list           = \"{$ibforums->lang[\'hb_list\']}\";\n	var help_code           = \"{$ibforums->lang[\'hb_code\']}\";\n	var help_click_close    = \"{$ibforums->lang[\'hb_click_close\']}\";\n	var list_prompt         = \"{$ibforums->lang[\'js_tag_list\']}\";\n//-->\n</script>\n<form action=\"{$ibforums->base_url}\" method=\"post\" name=\'REPLIER\'>\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'23\' />\n<input type=\'hidden\' name=\'key\' value=\'$key\' />\n<div class=\'pformstrip\'>{$ibforums->lang[\'cp_current_sig\']}</div>\n<div class=\'signature\' style=\"width:75%;margin-right:auto;margin-left:auto;padding:6px\">$sig</div>\n<div class=\'pformstrip\'>{$ibforums->lang[\'cp_edit_sig\']}</div>\n<table width=\"100%\">\n<tr> \n  <td class=\"pformleft\">\n	<input type=\'radio\' name=\'bbmode\' value=\'ezmode\' onclick=\'setmode(this.value)\' />&nbsp;<b>{$ibforums->lang[\'bbcode_guided\']}</b><br />\n	<input type=\'radio\' name=\'bbmode\' value=\'normal\' onclick=\'setmode(this.value)\' checked=\"checked\" />&nbsp;<b>{$ibforums->lang[\'bbcode_normal\']}</b>\n    <script language=\'javascript\' type=\"text/javascript\" src=\'html/ibfcode.js\'></script>\n  </td>\n  <td class=\"pformright\" valign=\"top\">\n	<input type=\'button\' accesskey=\'b\' value=\' B \'       onclick=\'simpletag(\"B\")\' class=\'codebuttons\' name=\'B\' style=\"font-weight:bold\" onmouseover=\"hstat(\'bold\')\" />\n	<input type=\'button\' accesskey=\'i\' value=\' I \'       onclick=\'simpletag(\"I\")\' class=\'codebuttons\' name=\'I\' style=\"font-style:italic\" onmouseover=\"hstat(\'italic\')\" />\n	<input type=\'button\' accesskey=\'u\' value=\' U \'       onclick=\'simpletag(\"U\")\' class=\'codebuttons\' name=\'U\' style=\"text-decoration:underline\" onmouseover=\"hstat(\'under\')\" />\n	\n	<select name=\'ffont\' class=\'codebuttons\' onchange=\"alterfont(this.options[this.selectedIndex].value, \'FONT\')\"  onmouseover=\"hstat(\'font\')\">\n	<option value=\'0\'>{$ibforums->lang[\'ct_font\']}</option>\n	<option value=\'Arial\' style=\'font-family:Arial\'>{$ibforums->lang[\'ct_arial\']}</option>\n	<option value=\'Times\' style=\'font-family:Times\'>{$ibforums->lang[\'ct_times\']}</option>\n	<option value=\'Courier\' style=\'font-family:Courier\'>{$ibforums->lang[\'ct_courier\']}</option>\n	<option value=\'Impact\' style=\'font-family:Impact\'>{$ibforums->lang[\'ct_impact\']}</option>\n	<option value=\'Geneva\' style=\'font-family:Geneva\'>{$ibforums->lang[\'ct_geneva\']}</option>\n	<option value=\'Optima\' style=\'font-family:Optima\'>Optima</option>\n	</select><select name=\'fsize\' class=\'codebuttons\' onchange=\"alterfont(this.options[this.selectedIndex].value, \'SIZE\')\" onmouseover=\"hstat(\'size\')\">\n	<option value=\'0\'>{$ibforums->lang[\'ct_size\']}</option>\n	<option value=\'1\'>{$ibforums->lang[\'ct_sml\']}</option>\n	<option value=\'7\'>{$ibforums->lang[\'ct_lrg\']}</option>\n	<option value=\'14\'>{$ibforums->lang[\'ct_lest\']}</option>\n	</select><select name=\'fcolor\' class=\'codebuttons\' onchange=\"alterfont(this.options[this.selectedIndex].value, \'COLOR\')\" onmouseover=\"hstat(\'color\')\">\n	<option value=\'0\'>{$ibforums->lang[\'ct_color\']}</option>\n	<option value=\'blue\' style=\'color:blue\'>{$ibforums->lang[\'ct_blue\']}</option>\n	<option value=\'red\' style=\'color:red\'>{$ibforums->lang[\'ct_red\']}</option>\n	<option value=\'purple\' style=\'color:purple\'>{$ibforums->lang[\'ct_purple\']}</option>\n	<option value=\'orange\' style=\'color:orange\'>{$ibforums->lang[\'ct_orange\']}</option>\n	<option value=\'yellow\' style=\'color:yellow\'>{$ibforums->lang[\'ct_yellow\']}</option>\n	<option value=\'gray\' style=\'color:gray\'>{$ibforums->lang[\'ct_grey\']}</option>\n	<option value=\'green\' style=\'color:green\'>{$ibforums->lang[\'ct_green\']}</option>\n	</select>\n	&nbsp; <a href=\'javascript:closeall();\' onmouseover=\"hstat(\'close\')\">{$ibforums->lang[\'js_close_all_tags\']}</a>\n	<br />\n	<input type=\'button\' accesskey=\'h\' value=\' http:// \' onclick=\'tag_url()\'            class=\'codebuttons\' name=\'url\' onmouseover=\"hstat(\'url\')\">\n	<input type=\'button\' accesskey=\'g\' value=\' IMG \'     onclick=\'tag_image()\'          class=\'codebuttons\' name=\'img\' onmouseover=\"hstat(\'img\')\">\n	<input type=\'button\' accesskey=\'e\' value=\'  @  \'     onclick=\'tag_email()\'          class=\'codebuttons\' name=\'email\' onmouseover=\"hstat(\'email\')\">\n	<input type=\'button\' accesskey=\'q\' value=\' QUOTE \'   onclick=\'simpletag(\"QUOTE\")\'   class=\'codebuttons\' name=\'QUOTE\' onmouseover=\"hstat(\'quote\')\">\n	<input type=\'button\' accesskey=\'p\' value=\' CODE \'    onclick=\'simpletag(\"CODE\")\'    class=\'codebuttons\' name=\'CODE\' onmouseover=\"hstat(\'code\')\">\n	<input type=\'hidden\' accesskey=\'l\' value=\' LIST \'     onclick=\'tag_list()\'          class=\'codebuttons\' name=\"LIST\" onmouseover=\"hstat(\'list\')\">\n	<!--<input type=\'button\' accesskey=\'l\' value=\' SQL \'     onclick=\'simpletag(\"SQL\")\'     class=\'codebuttons\' name=\'SQL\'>\n	<input type=\'button\' accesskey=\'t\' value=\' HTML \'    onclick=\'simpletag(\"HTML\")\'    class=\'codebuttons\' name=\'HTML\'>-->\n	<br />\n	<input type=\'text\' name=\'helpbox\' size=\'50\' maxlength=\'120\' style=\'width:450px;font-size:10px;font-family:verdana,arial;border:0px;font-weight:bold;\' readonly=\"readonly\" class=\'row1\' value=\"{$ibforums->lang[\'hb_start\']}\" />\n	<br />\n	<b>{$ibforums->lang[\'hb_open_tags\']}:</b>&nbsp;<input type=\'text\' name=\'tagcount\' size=\'3\' maxlength=\'3\' style=\'font-size:10px;font-family:verdana,arial;border:0px;font-weight:bold;\' readonly=\"readonly\" class=\'row1\' value=\"0\" />\n  </td>\n</tr>\n</table>\n<div align=\"center\"><p><textarea cols=\'60\' rows=\'12\' name=\'Post\' tabindex=\'3\' class=\'textinput\'>$t_sig</textarea><br />(<a href=\'javascript:CheckLength()\'>{$ibforums->lang[\'check_length\']}</a>)</p></div>\n<div class=\'pformstrip\' align=\"center\"><input type=\'submit\' value=\'{$ibforums->lang[\'cp_submit_sig\']}\' class=\"forminput\" /></div>\n</form>', 'signature', '$sig, $t_sig, $key', 1035406235, 0),
+(477, 1, 'skin_ucp', '<script language=\"javascript\" type=\'text/javascript\'>\n<!--\nvar LocationMax  = \"{$ibforums->vars[\'max_location_length\']}\";\nvar InterestMax  = \"{$ibforums->vars[\'max_interest_length\']}\";\nfunction CheckLength(Type) {\n    LocationLength  = document.theForm.Location.value.length;\n    InterestLength  = document.theForm.Interests.value.length;\n    message  = \"\";\n    if (Type == \"location\") {\n        if (LocationMax !=0) {\n            message = \"{$ibforums->lang[\'js_location\']}: {$ibforums->lang[\'js_max\']} \" + LocationMax + \" {$ibforums->lang[\'js_characters\']}.\";\n        } else {\n            message = \"\";\n        }\n        alert(message + \"  {$ibforums->lang[\'js_used\']} \" + LocationLength + \" {$ibforums->lang[\'js_so_far\']}.\");\n    }\n    if (Type == \"interest\") {\n        if (InterestMax !=0) {\n            message = \"{$ibforums->lang[\'js_interests\']}: {$ibforums->lang[\'js_max\']} \" + InterestMax + \" {$ibforums->lang[\'js_characters\']}.\";\n        } else {\n            message = \"\";\n        }\n        alert(message + \"  {$ibforums->lang[\'js_used\']} \" + InterestLength + \" {$ibforums->lang[\'js_so_far\']}.\");\n    }\n    \n}\nfunction ValidateProfile() {\n    LocationLength  = document.theForm.Location.value.length;\n    InterestLength  = document.theForm.Interests.value.length;\n    errors = \"\";\n    if (LocationMax !=0) {\n        if (LocationLength > LocationMax) {\n            errors = \"{$ibforums->lang[\'js_location\']}:  {$ibforums->lang[\'js_max\']} \" + LocationMax + \" {$ibforums->lang[\'js_characters\']}.  {$ibforums->lang[\'js_used\']}: \" + LocationLength;\n        }\n    }\n    if (InterestMax !=0) {\n        if (InterestLength > InterestMax) {\n            errors = errors + \"  {$ibforums->lang[\'js_interests\']}:  {$ibforums->lang[\'js_max\']} \" + InterestMax + \" {$ibforums->lang[\'js_characters\']}.  {$ibforums->lang[\'js_used\']}: \" + InterestLength;\n        }\n    } \n    \n    if (errors != \"\") {\n        alert(errors);\n        return false;\n    } else {\n        return true;\n    }\n}\n//-->\n</script>\n<form action=\"{$ibforums->base_url}auth_key={$Profile[\'key\']}\" method=\"post\" name=\'theForm\' onsubmit=\'return ValidateProfile()\'>\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'21\' />\n<!--{REQUIRED.FIELDS}-->\n<div class=\'pformstrip\'>{$ibforums->lang[\'profile_title\']}</div>\n<table width=\'100%\'>\n<!--{MEMBERTITLE}-->\n<!--{BIRTHDAY}-->\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'website\']}</td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'1200\' name=\'WebSite\' value=\'{$Profile[\'website\']}\' class=\'forminput\' /></td>\n</tr>  \n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'icq\']}</td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'20\' name=\'ICQNumber\' value=\'{$Profile[\'icq_number\']}\' class=\'forminput\' /></td>\n</tr>\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'aol\']}</td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'30\' name=\'AOLName\' value=\'{$Profile[\'aim_name\']}\' class=\'forminput\' /></td>\n</tr>\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'yahoo\']}</td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'30\' name=\'YahooName\' value=\'{$Profile[\'yahoo\']}\' class=\'forminput\' /></td>\n</tr>\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'msn\']}</td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'30\' name=\'MSNName\' value=\'{$Profile[\'msnname\']}\' class=\'forminput\' /></td>\n</tr>\n<tr>\n  <td class=\'pformleft\'><a href=\'http://www.integritymessenger.com/\' target=\'_blank\'>{$ibforums->lang[\'integ_msg\']}</a></td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'30\' name=\'integ_msg\' value=\'{$Profile[\'integ_msg\']}\' class=\'forminput\' /></td>\n</tr>\n<tr>\n  <td class=\'pformleft\'>{$ibforums->lang[\'location\']}<br />(<a href=\'javascript:CheckLength(\"location\");\'>{$ibforums->lang[\'check_length\']}</a>)</td>\n  <td class=\'pformright\'><input type=\'text\' size=\'40\' name=\'Location\' value=\'{$Profile[\'location\']}\' class=\'forminput\' /></td>\n</tr>\n<tr>\n  <td class=\'pformleft\' valign=\'top\'>{$ibforums->lang[\'interests\']}<br />(<a href=\'javascript:CheckLength(\"interest\");\'>{$ibforums->lang[\'check_length\']}</a>)</td>\n  <td class=\'pformright\'><textarea cols=\'60\' rows=\'10\' wrap=\'soft\' name=\'Interests\' class=\'forminput\'>{$Profile[\'interests\']}</textarea></td>\n</tr>\n<!--{OPTIONAL.FIELDS}-->\n<tr>\n  <td class=\'pformstrip\' align=\'center\' colspan=\'2\'><input type=\"submit\" value=\"{$ibforums->lang[\'submit_profile\']}\" class=\'forminput\' /></td>\n</tr>\n</table>\n</form>', 'personal_panel', '$Profile', 1035406235, 0),
+(478, 1, 'skin_ucp', '<tr>\n  <td class=\'pformleft\'><b>{$ibforums->lang[\'birthday\']}</b></td>\n  <td class=\'pformright\'>\n  <select name=\'day\' class=\'forminput\'>{$day}</select> \n  <select name=\'month\' class=\'forminput\'>{$month}</select> \n  <select name=\'year\' class=\'forminput\'>{$year}</select>\n  </td>\n  </tr>', 'birthday', '$day,$month,$year', 1035406235, 0),
+(479, 1, 'skin_ucp', '<tr>\n   <td class=\'pformleft\'><b>{$ibforums->lang[\'member_title\']}</b></td>\n   <td class=\'pformright\'><input type=\'text\' size=\'40\' maxlength=\'120\' name=\'member_title\' value=\'$title\' class=\'forminput\'></td>\n   </tr>', 'member_title', '$title', 1035406235, 0),
+(480, 1, 'skin_ucp', '<div class=\'pformstrip\'>{$ibforums->lang[\'cf_required\']}</div>\n <table width=\'100%\'>', 'required_title', '', 1035406235, 0),
+(481, 1, 'skin_ucp', '</table>', 'required_end', '', 1035406235, 0),
+(482, 1, 'skin_ucp', '<tr>\n  <td class=\'pformleft\' valign=\'top\'><b>$title</b><br />$desc</td>\n  <td class=\'pformright\'>$content</td>\n  </tr>', 'field_entry', '$title, $desc=\"\", $content', 1035406235, 0),
+(483, 1, 'skin_ucp', '<input type=\'text\' size=\'50\' name=\'$name\' value=\'$value\' class=\'forminput\' />', 'field_textinput', '$name, $value=\"\"', 1035406235, 0),
+(484, 1, 'skin_ucp', '<select name=\'$name\' class=\'forminput\'>$options</select>', 'field_dropdown', '$name, $options', 1035406235, 0),
+(485, 1, 'skin_ucp', '<textarea cols=\'60\' rows=\'5\' wrap=\'soft\' name=\'$name\' class=\'forminput\'>$value</textarea>', 'field_textarea', '$name, $value', 1035406235, 0),
+(486, 1, 'skin_ucp', '<!--\nTABLE TO FIX IE/6 ISSUE\nThe one where 23% margin + 100% table = 123% in IE6 o_O\n-->\n<table cellspacing=\"0\" cellpadding=\"0\" width=\'100%\'>\n<tr>\n <td id=\"ucpmenu\" valign=\"top\">\n    <div class=\'maintitle\'>{$ibforums->lang[\'tt_menu\']}</div>\n     <!--IBF.TSLLINKS-->\n	 <!-- Messenger -->\n	 <div class=\'pformstrip\'>{$ibforums->lang[\'m_messenger\']}</div>\n	 <p>\n	 &middot; <a href=\'{$base_url}act=Msg&amp;CODE=04\'><strong>{$ibforums->lang[\'mess_new\']}</strong></a><br />\n	 &middot; <a href=\'{$base_url}act=Msg&amp;CODE=01\'><strong>{$ibforums->lang[\'mess_inbox\']}</strong></a><br />\n	 <!--IBF.FOLDER_LINKS-->\n	 &middot; <a href=\'{$base_url}act=Msg&amp;CODE=delete\'>{$ibforums->lang[\'mi_prune_msg\']}</a><br />\n	  &middot; <a href=\'{$base_url}act=Msg&amp;CODE=07\'>{$ibforums->lang[\'mess_folders\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=Msg&amp;CODE=02\'>{$ibforums->lang[\'mess_contact\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=Msg&amp;CODE=14\'>{$ibforums->lang[\'mess_archive\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=Msg&amp;CODE=20\'>{$ibforums->lang[\'mess_saved\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=Msg&amp;CODE=30\'>{$ibforums->lang[\'mess_tracker\']}</a><br />\n	 </p>\n	 <!-- End Messenger -->\n	 <!-- Topic Tracker -->\n	 <div class=\'pformstrip\'>{$ibforums->lang[\'m_tracker\']}</div>\n	 <p>\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=26\'>{$ibforums->lang[\'m_view_subs\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=50\'>{$ibforums->lang[\'m_view_forum\']}</a><br />\n	 </p>\n	 <!-- Profile -->\n	 <div class=\'pformstrip\'>{$ibforums->lang[\'m_personal\']}</div>\n	 <p>\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=01\'>{$ibforums->lang[\'m_contact_info\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=22\'>{$ibforums->lang[\'m_sig_info\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=24\'>{$ibforums->lang[\'m_avatar_info\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=photo\'>{$ibforums->lang[\'m_change_photo\']}</a><br />\n	 </p>\n	 <!-- Options -->\n	 <div class=\'pformstrip\'>{$ibforums->lang[\'m_options\']}</div>\n	 <p>\n	 <!--IBF.OPTION_LINKS-->\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=02\'>{$ibforums->lang[\'m_email_opt\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=04\'>{$ibforums->lang[\'m_board_opt\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=06\'>{$ibforums->lang[\'m_skin_lang\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=08\'>{$ibforums->lang[\'m_email_change\']}</a><br />\n	 &middot; <a href=\'{$base_url}act=UserCP&amp;CODE=28\'>{$ibforums->lang[\'m_passy_opt\']}</a>\n	 </p>\n </td>\n <td style=\'padding:2px\'><!-- --></td>\n<!-- Start main CP area -->\n <td id=\"ucpcontent\" valign=\"top\">\n  <div class=\'maintitle\'>{$ibforums->lang[\'welcome\']}</div>', 'Menu_bar', '$base_url', 1035406235, 0),
+(487, 1, 'skin_ucp', '<!-- Top Site List -->\n	 <div class=\'pformstrip\'>{$ibforums->lang[\'m_top_list\']}</div>\n	 <p>\n	 &middot; <a href=\'{$ibforums->base_url}act=module&module=toplist\'><strong>{$ibforums->lang[\'tsl_home\']}</strong></a><br />\n	 &middot; <a href=\'{$ibforums->base_url}act=module&module=toplist&amp;CODE=01\'><strong>{$ibforums->lang[\'tsl_your_sites\']}</strong></a><br />\n	 </p>', 'tsl_links', '', 1035406235, 0),
+(488, 1, 'skin_ucp', '&middot; <a href=\'$url\'>$name</a><br />', 'menu_bar_new_link', '$url, $name', 1035406235, 0),
+(489, 1, 'skin_ucp', '&nbsp; &#039;-- <a href=\'{$ibforums->base_url}act=Msg&amp;CODE=01&amp;VID=$id\'>$real</a><br />', 'menu_bar_msg_folder_link', '$id, $real', 1035406235, 0),
+(490, 1, 'skin_ucp', '</td>\n</tr>\n</table>\n<!-- end main CP area -->\n<br clear=\"all\" />', 'CP_end', '', 1035406235, 0),
+(491, 1, 'skin_ucp', '<div class=\'pformstrip\'>{$ibforums->lang[\'stats_header\']}</div>\n	  <table width=\'100%\' border=\"0\" cellspacing=\"0\" cellpadding=\"4\">\n		<tr> \n		  <td width=\"40%\">{$ibforums->lang[\'email_address\']}</td>\n		  <td width=\"60%\">{$member[MEMBER_EMAIL]}</td>\n		</tr>\n		<tr> \n		  <td width=\"40%\">{$ibforums->lang[\'number_posts\']}</td>\n		  <td width=\"60%\">{$member[MEMBER_POSTS]}</td>\n		</tr>\n		<tr> \n		  <td width=\"40%\">{$ibforums->lang[\'registered\']}</td>\n		  <td width=\"60%\">{$member[DATE_REGISTERED]}</td>\n		</tr>\n		<tr> \n		  <td width=\"40%\">{$ibforums->lang[\'daily_average\']}</td>\n		  <td width=\"60%\">{$member[DAILY_AVERAGE]}</td>\n		</tr>\n	  </table>\n	  <!-- MSG -->\n	  <div class=\'pformstrip\'>{$ibforums->lang[\'messenger_summary\']}</div>\n	  <table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"4\">\n		<tr> \n		  <td width=\"40%\">{$ibforums->lang[\'total_messages\']}</td>\n		  <td width=\"60%\">{$member[\'total_messages\']} {$member[\'full_percent\']}</td>\n		</tr>\n		<tr> \n		  <td width=\"40%\">{$ibforums->lang[\'messages_left\']}</td>\n		  <td width=\"60%\">{$member[\'space_free\']} {$member[\'full_messenger\']}</td>\n		</tr>\n	  </table>\n	  <!-- END MSG -->\n	  <div class=\'pformstrip\'>{$ibforums->lang[\'note_pad\']}</div>\n	  <div align=\'center\'>\n	  <p>\n		<form name=\'notepad\' action=\"{$ibforums->base_url}\" method=\"post\">\n		<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n		<input type=\'hidden\' name=\'s\' value=\'{$ibforums->session_id}\' />\n		<input type=\'hidden\' name=\'CODE\' value=\'20\' />\n        <textarea cols=\'65\' rows=\'{$member[\'SIZE\']}\' name=\'notes\' class=\'forminput\'>{$member[\'NOTES\']}</textarea>\n        <br />\n	    {$ibforums->lang[\'ta_size\']}&nbsp;<select name=\'ta_size\' class=\'forminput\'>{$member[\'SIZE_CHOICE\']}</select>\n        <input type=\'submit\' value=\'{$ibforums->lang[\'submit_notepad\']}\' class=\'forminput\' />\n        </form>\n      </p>\n     </div>', 'splash', '$member', 1035406235, 0),
+(492, 1, 'skin_ucp', '<div class=\"pformstrip\">{$ibforums->lang[\'dead_section_title\']}</div>\n<p>\n{$ibforums->lang[\'dead_section_text\']}\n</p>', 'dead_section', '', 1035406235, 0),
+(493, 1, 'skin_ucp', '<form action=\"{$ibforums->base_url}auth_key=$key\" method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'05\' />\n<div class=\"pformstrip\">{$ibforums->lang[\'settings_time\']}</div>\n<p>\n{$ibforums->lang[\'settings_time_txt\']}&nbsp;$time\n<br />\n$time_select\n<br /><br />\n<input type=\'checkbox\' class=\'forminput\' name=\'DST\' value=\'1\' $dst_check /> &nbsp;{$ibforums->lang[\'dst_box\']}\n</p>', 'settings_header', '$Profile, $time_select, $time, $dst_check, $key=\"\"', 1035406235, 0),
+(494, 1, 'skin_ucp', '<script language=\'Javascript\' type=\"text/javascript\">\n  <!--\n	function do_preview() {\n		\n		var f = document.prefs.u_skin;\n		\n		if (f.options[f.selectedIndex].value == -1) {\n			return false;\n		}\n		\n		window.open( \"$ibforums->js_base_url\" + \'skinid=\'+f.options[f.selectedIndex].value, \'Preview\', \'width=800,height=600,top=0,left=0,resizable=1,scrollbars=1,location=no,directories=no,status=no,menubar=no,toolbar=no\');\n		\n	}\n  -->\n</script>\n<form action=\"{$ibforums->base_url}auth_key=$key\" method=\"post\" name=\'prefs\'>\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'07\' />\n<div class=\"pformstrip\">{$ibforums->lang[\'settings_title\']}</div>                \n<table width=\"100%\">\n<tr>\n  <td width=\"50%\">{$ibforums->lang[\'settings_lang_txt\']}</td>\n  <td align=\'left\'>$lang_select</td>\n</tr>\n</table>', 'skin_lang_header', '$lang_select, $key=\"\"', 1035406235, 0),
+(495, 1, 'skin_ucp', '<div class=\"pformstrip\">{$ibforums->lang[\'settings_skin\']}</div>                \n<table width=\"100%\">\n<tr>\n  <td width=\"50%\">{$ibforums->lang[\'settings_skin_txt\']}</td>\n  <td align=\'left\'>$skin &nbsp;&nbsp; <input type=\'button\' value=\'{$ibforums->lang[\'cp_skin_preview\']}\' class=\'forminput\' onclick=\'do_preview()\' /></td>\n</tr>\n</table>', 'settings_skin', '$skin', 1035406235, 0),
+(496, 1, 'skin_ucp', '<div class=\"pformstrip\" align=\"center\"><input type=\'submit\' name=\'submit\' value=\'{$ibforums->lang[\'settings_submit\']}\' class=\'forminput\' /></div>\n</form>', 'skin_lang_end', '', 1035406235, 0),
+(497, 1, 'skin_ucp', '<div class=\'pformstrip\'>{$ibforums->lang[\'settings_display\']}</div>\n<table width=\"100%\" cellpadding=\"4\">\n<tr>\n  <td width=\'70%\'>{$ibforums->lang[\'settings_viewsig\']}</td>\n  <td align=\'left\'>{$data[SIG]}</td>\n</tr>\n<tr>\n  <td>{$ibforums->lang[\'settings_viewimg\']}</td>\n  <td align=\'left\'>{$data[IMG]}</td>\n</tr>\n<tr>\n  <td>{$ibforums->lang[\'settings_viewava\']}</td>\n  <td align=\'left\'>{$data[AVA]}</td>\n</tr>\n<tr>\n  <td>{$ibforums->lang[\'settings_dopopup\']}</td>\n  <td align=\'left\'>{$data[POP]}</td>\n</tr>\n<!--<tr>\n  <td>{$ibforums->lang[\'hide_session_txt\']}<br/ ><span class=\'desc\'>{$ibforums->lang[\'hs_exp\']}</span></td>\n  <td align=\'left\'>{$data[SESS]}</td>\n</tr>-->\n<tr>\n  <td>{$ibforums->lang[\'open_qr\']}<br/ ></td>\n  <td align=\'left\'>{$data[QR]}</td>\n</tr>\n<tr>\n  <td>{$ibforums->lang[\'pp_number_posts\']}</td>\n  <td align=\'left\'><select name=\'postpage\' class=\'forminput\'>{$data[\'PPS\']}</select></td>\n</tr>\n<tr>\n  <td>{$ibforums->lang[\'pp_number_topics\']}</td>\n  <td align=\'left\'><select name=\'topicpage\' class=\'forminput\'>{$data[\'TPS\']}</select></td>\n</tr>\n</table>\n&nbsp;<span class=\'desc\'>{$ibforums->lang[\'need_cookie_yum_yum\']}</span>\n<div class=\"pformstrip\" align=\'center\'><input type=\'submit\' name=\'submit\' value=\'{$ibforums->lang[\'settings_submit\']}\' class=\'forminput\' /></div>\n</form>', 'settings_end', '$data', 1035406235, 0);
+INSERT INTO `ibf_skin_templates` (`suid`, `set_id`, `group_name`, `section_content`, `func_name`, `func_data`, `updated`, `can_remove`) VALUES
+(498, 1, 'skin_ucp', '<form action=\"{$ibforums->base_url}auth_key={$Profile[\'key\']}\" method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'03\' />\n<div class=\"pformstrip\">{$ibforums->lang[\'privacy_settings\']}</div>\n<br />\n<table width=\"100%\">\n<tr>\n  <td align=\'right\' valign=\'top\'><input type=\'checkbox\' name=\'hide_email\' value=\'1\' {$Profile[\'hide_email\']} /></td>\n  <td align=\'left\' width=\'100%\'>{$ibforums->lang[\'hide_email\']}</td>\n</tr>  \n<tr>\n  <td align=\'right\' valign=\'top\'><input type=\'checkbox\' name=\'admin_send\' value=\'1\' {$Profile[\'allow_admin_mails\']} /></td>\n  <td align=\'left\'  width=\'100%\'>{$ibforums->lang[\'admin_send\']}</td>\n</tr>\n</table>\n<br />\n<div class=\"pformstrip\">{$ibforums->lang[\'board_prefs\']}</div>\n<br />\n<table width=\"100%\">\n<tr>\n  <td align=\'right\' valign=\'top\'><input type=\'checkbox\' name=\'send_full_msg\' value=\'1\' {$Profile[\'email_full\']} /></td>\n  <td align=\'left\'  width=\'100%\'>{$ibforums->lang[\'send_full_msg\']}</td>\n</tr>\n<tr>\n  <td align=\'right\' valign=\'top\'><input type=\'checkbox\' name=\'pm_reminder\' value=\'1\' {$Profile[\'email_pm\']} /></td>\n  <td align=\'left\'  width=\'100%\'>{$ibforums->lang[\'pm_reminder\']}</td>\n</tr>\n<tr>\n  <td align=\'right\' valign=\'top\'><input type=\'checkbox\' name=\'auto_track\' value=\'1\' {$Profile[\'auto_track\']} /></td>\n  <td align=\'left\'  width=\'100%\'>{$ibforums->lang[\'auto_track\']}</td>\n</tr>\n</table>\n<br />\n<div class=\"pformstrip\" align=\"center\"><input type=\"submit\" value=\"{$ibforums->lang[\'submit_email\']}\" class=\'forminput\' /></div>\n</form>', 'email', '$Profile', 1035406235, 0),
+(499, 1, 'skin_ucp', '<div class=\'pformstrip\'>{$ibforums->lang[\'forum_subs_header\']}</div>\n<br />\n<div class=\'tableborder\'>\n  <table cellpadding=\'4\' cellspacing=\'1\' align=\'center\' width=\'100%\'>\n  <tr>\n    <td class=\'titlemedium\' align=\'left\' width=\'5%\'>&nbsp;</td>\n    <th class=\'titlemedium\' align=\'left\' width=\'50%\'>{$ibforums->lang[\'ft_forum\']}</th>\n    <th class=\'titlemedium\' align=\'center\' width=\'5%\'>{$ibforums->lang[\'ft_topics\']}</th>\n    <th class=\'titlemedium\' align=\'center\' width=\'5%\'>{$ibforums->lang[\'ft_posts\']}</th>\n    <th class=\'titlemedium\' align=\'center\' width=\'35%\'>{$ibforums->lang[\'ft_last_post\']}</th>\n  </tr>', 'forum_subs_header', '', 1035406235, 0),
+(500, 1, 'skin_ucp', '<tr>\n	 <td class=\'row1\' align=\'center\' width=\'5%\'>{$data[\'folder_icon\']}</td>\n	 <td class=\'row1\' align=\'left\'>\n		 <b><a href=\'{$ibforums->base_url}act=SF&amp;f={$data[\'id\']}\'>{$data[\'name\']}</a></b>\n		 <br /><span class=\'desc\'>{$data[\'description\']}</span>\n		 <br /><br /><b>[ <a href=\'{$ibforums->base_url}act=UserCP&amp;CODE=51&amp;f={$data[\'id\']}\'>{$ibforums->lang[\'ft_unsub\']}</a> ]</b>\n	 </td>\n	 <td class=\'row1\' align=\'center\'>{$data[\'topics\']}</td>\n	 <td class=\'row1\' align=\'center\'>{$data[\'posts\']}</td>\n	 <td class=\'row1\' align=\'left\'>{$data[\'last_post\']}<br />{$ibforums->lang[\'in\']} {$data[\'last_topic\']}<br />{$ibforums->lang[\'by\']} {$data[\'last_poster\']}</td>\n   </tr>', 'forum_subs_row', '$data', 1035406235, 0),
+(501, 1, 'skin_ucp', '<tr>\n	  <td class=\'row1\' align=\'center\' colspan=\'5\'>{$ibforums->lang[\'forum_subs_none\']}</td>\n	</tr>', 'forum_subs_none', '', 1035406235, 0),
+(502, 1, 'skin_ucp', '<tr>\n <td align=\'right\' class=\'titlemedium\' valign=\'middle\' colspan=\'5\'><a href=\'{$ibforums->base_url}act=UserCP&amp;CODE=51&amp;f=all\'>{$ibforums->lang[\'ft_unsub_all\']}</a></td>\n</tr>\n</table>\n</div>', 'forum_subs_end', '', 1035406235, 0),
+(503, 1, 'skin_ucp', '<!-- inbox folder -->\n  <script language=\'JavaScript\' type=\'text/javascript\'>\n  <!--\n  function CheckAll(cb) {\n	  var fmobj = document.mutliact;\n	  for (var i=0;i<fmobj.elements.length;i++) {\n		  var e = fmobj.elements[i];\n		  if ((e.name != \'allbox\') && (e.type==\'checkbox\') && (!e.disabled)) {\n			  e.checked = fmobj.allbox.checked;\n		  }\n	  }\n  }\n  function CheckCheckAll(cb) {	\n	  var fmobj = document.mutliact;\n	  var TotalBoxes = 0;\n	  var TotalOn = 0;\n	  for (var i=0;i<fmobj.elements.length;i++) {\n		  var e = fmobj.elements[i];\n		  if ((e.name != \'allbox\') && (e.type==\'checkbox\')) {\n			  TotalBoxes++;\n			  if (e.checked) {\n				  TotalOn++;\n			  }\n		  }\n	  }\n	  if (TotalBoxes==TotalOn) {fmobj.allbox.checked=true;}\n	  else {fmobj.allbox.checked=false;}\n  }\n  //-->\n  </script>\n<div class=\'pformstrip\'>{$ibforums->lang[\'subs_header\']}</div>\n<form action=\"{$ibforums->base_url}\" name=\'mutliact\' method=\"post\">\n<input type=\'hidden\' name=\'act\' value=\'UserCP\' />\n<input type=\'hidden\' name=\'CODE\' value=\'27\' />\n<br />\n<div align=\"center\" class=\"tableborder\">\n<table width=\"100%\" cellspacing=\"1\" cellpadding=\"4\">\n<tr>\n  <td class=\'titlemedium\' align=\'left\' width=\'5%\'>&nbsp;</td>\n  <th class=\'titlemedium\' align=\'left\' width=\'55%\'>{$ibforums->lang[\'subs_topic\']}</th>\n  <th class=\'titlemedium\' align=\'center\' width=\'5%\'>{$ibforums->lang[\'subs_replies\']}</th>\n  <th class=\'titlemedium\' align=\'center\' width=\'5%\'>{$ibforums->lang[\'subs_view\']}</th>\n  <th class=\'titlemedium\' align=\'left\' width=\'25%\'>{$ibforums->lang[\'subs_last_post\']}</th>\n  <td align=\'center\' width=\'5%\' class=\'titlemedium\'><input name=\"allbox\" type=\"checkbox\" value=\"Check All\" onClick=\"CheckAll();\"></td>\n</tr>', 'subs_header', '', 1035406235, 0),
+(504, 1, 'skin_ucp', '<tr>\n  <td class=\'row3\' align=\'center\' width=\'5%\'>{$data[\'folder_icon\']}</td>\n  <td class=\'row3\' align=\'left\'><a href=\'{$ibforums->base_url}act=ST&amp;f={$data[\'forum_id\']}&amp;t={$data[\'tid\']}\'>{$data[\'title\']}</a> ( <a href=\'{$ibforums->base_url}act=ST&amp;f={$data[\'forum_id\']}&amp;t={$data[\'tid\']}\' target=\'_blank\'>{$ibforums->lang[\'new_window\']}</a> )<br /><span class=\'desc\'>{$data[\'description\']}{$ibforums->lang[\'subs_start\']} {$data[\'start_date\']}</span></td>\n  <td class=\'row3\' align=\'center\'>{$data[\'posts\']}</td>\n  <td class=\'row3\' align=\'center\'>{$data[\'views\']}</td>\n  <td class=\'row3\' align=\'left\'>{$data[\'last_post_date\']}<br />{$ibforums->lang[\'subs_by\']} {$data[\'last_poster\']}</td>\n  <td class=\'row2\' align=\'center\'><input type=\'checkbox\' name=\'id-{$data[\'trid\']}\' value=\'yes\' class=\'forminput\' /></td>\n</tr>', 'subs_row', '$data', 1035406235, 0),
+(505, 1, 'skin_ucp', '<tr>\n                   <td class=\'row3\' align=\'center\' colspan=\'6\'>{$ibforums->lang[\'subs_none\']}</td>\n                 </tr>', 'subs_none', '', 1035406235, 0),
+(506, 1, 'skin_ucp', '<tr>\n                   <td colspan=\'6\' class=\'darkrow3\' align=\'left\'><b>$fname</b></td>\n                 </tr>', 'subs_forum_row', '$fid, $fname', 1035406235, 0),
+(507, 1, 'skin_ucp', '<tr>\n <td align=\'center\' class=\'titlemedium\' valign=\'middle\' colspan=\'6\'><input type=\'submit\' class=\'forminput\' value=\'{$ibforums->lang[\'subs_delete\']}\'>&nbsp;&nbsp;{$ibforums->lang[\'with_selected\']}</td>\n</tr>\n</table>\n</div>\n</form>\n<div align=\"right\" style=\"padding:5px\"><i>$text</i></div>\n<div align=\"right\" style=\"padding:5px\">\n 	<form action=\'{$ibforums->base_url}act=UserCP&amp;CODE=26\' method=\'post\'>\n 	{$ibforums->lang[\'show_topics_from\']} <select class=\'forminput\' name=\'datecut\'>$days</select>\n 	<input type=\'submit\' class=\'forminput\' value=\'{$ibforums->lang[\'jmp_go\']}\'>\n 	</form>\n</div>', 'subs_end', '$text=\"\", $days=\"\"', 1035406235, 0),
+(508, 1, 'skin_ucp', '<div align=\'right\'>{$data}</div>', 'forum_jump', '$data, $menu_extra=\"\"', 1035406235, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_spider_logs`
+--
+
+CREATE TABLE `ibf_spider_logs` (
+  `sid` int(10) NOT NULL,
+  `bot` varchar(255) NOT NULL DEFAULT '',
+  `query_string` text NOT NULL,
+  `entry_date` int(10) NOT NULL DEFAULT 0,
+  `ip_address` varchar(16) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_stats`
+--
+
+CREATE TABLE `ibf_stats` (
+  `TOTAL_REPLIES` int(10) NOT NULL DEFAULT 0,
+  `TOTAL_TOPICS` int(10) NOT NULL DEFAULT 0,
+  `LAST_MEM_NAME` varchar(32) DEFAULT NULL,
+  `LAST_MEM_ID` mediumint(8) NOT NULL DEFAULT 0,
+  `MOST_DATE` int(10) DEFAULT NULL,
+  `MOST_COUNT` int(10) DEFAULT 0,
+  `MEM_COUNT` mediumint(8) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_subscriptions`
+--
+
+CREATE TABLE `ibf_subscriptions` (
+  `sub_id` smallint(5) NOT NULL,
+  `sub_title` varchar(250) NOT NULL DEFAULT '',
+  `sub_desc` text DEFAULT NULL,
+  `sub_new_group` mediumint(8) NOT NULL DEFAULT 0,
+  `sub_length` smallint(5) NOT NULL DEFAULT 1,
+  `sub_unit` varchar(2) NOT NULL DEFAULT 'm',
+  `sub_cost` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `sub_run_module` varchar(250) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_subscription_currency`
+--
+
+CREATE TABLE `ibf_subscription_currency` (
+  `subcurrency_code` varchar(10) NOT NULL,
+  `subcurrency_desc` varchar(250) NOT NULL DEFAULT '',
+  `subcurrency_exchange` decimal(10,8) NOT NULL,
+  `subcurrency_default` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_subscription_currency`
+--
+
+INSERT INTO `ibf_subscription_currency` (`subcurrency_code`, `subcurrency_desc`, `subcurrency_exchange`, `subcurrency_default`) VALUES
+('CAD', 'Canada Dollars', '1.37080000', 0),
+('EUR', 'Euro', '0.90151700', 0),
+('GBP', 'United Kingdom Pounds', '0.63077600', 0),
+('USD', 'United States Dollars', '1.00000000', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_subscription_extra`
+--
+
+CREATE TABLE `ibf_subscription_extra` (
+  `subextra_id` smallint(5) NOT NULL,
+  `subextra_sub_id` smallint(5) NOT NULL DEFAULT 0,
+  `subextra_method_id` smallint(5) NOT NULL DEFAULT 0,
+  `subextra_product_id` varchar(250) NOT NULL DEFAULT '0',
+  `subextra_can_upgrade` tinyint(1) NOT NULL DEFAULT 0,
+  `subextra_recurring` tinyint(1) NOT NULL DEFAULT 0,
+  `subextra_custom_1` text DEFAULT NULL,
+  `subextra_custom_2` text DEFAULT NULL,
+  `subextra_custom_3` text DEFAULT NULL,
+  `subextra_custom_4` text DEFAULT NULL,
+  `subextra_custom_5` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_subscription_logs`
+--
+
+CREATE TABLE `ibf_subscription_logs` (
+  `sublog_id` int(10) NOT NULL,
+  `sublog_date` int(10) NOT NULL DEFAULT 0,
+  `sublog_member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `sublog_transid` int(10) NOT NULL DEFAULT 0,
+  `sublog_ipaddress` varchar(16) NOT NULL DEFAULT '',
+  `sublog_data` text DEFAULT NULL,
+  `sublog_postdata` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_subscription_methods`
+--
+
+CREATE TABLE `ibf_subscription_methods` (
+  `submethod_id` smallint(5) NOT NULL,
+  `submethod_title` varchar(250) NOT NULL DEFAULT '',
+  `submethod_name` varchar(20) NOT NULL DEFAULT '',
+  `submethod_email` varchar(250) NOT NULL DEFAULT '',
+  `submethod_sid` text DEFAULT NULL,
+  `submethod_custom_1` text DEFAULT NULL,
+  `submethod_custom_2` text DEFAULT NULL,
+  `submethod_custom_3` text DEFAULT NULL,
+  `submethod_custom_4` text DEFAULT NULL,
+  `submethod_custom_5` text DEFAULT NULL,
+  `submethod_is_cc` tinyint(1) NOT NULL DEFAULT 0,
+  `submethod_is_auto` tinyint(1) NOT NULL DEFAULT 0,
+  `submethod_desc` text DEFAULT NULL,
+  `submethod_logo` text DEFAULT NULL,
+  `submethod_active` tinyint(1) NOT NULL DEFAULT 0,
+  `submethod_use_currency` varchar(10) NOT NULL DEFAULT 'USD'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_subscription_methods`
+--
+
+INSERT INTO `ibf_subscription_methods` (`submethod_id`, `submethod_title`, `submethod_name`, `submethod_email`, `submethod_sid`, `submethod_custom_1`, `submethod_custom_2`, `submethod_custom_3`, `submethod_custom_4`, `submethod_custom_5`, `submethod_is_cc`, `submethod_is_auto`, `submethod_desc`, `submethod_logo`, `submethod_active`, `submethod_use_currency`) VALUES
+(1, 'PayPal', 'paypal', '', '', '', '', '', '', '', 0, 1, 'All major credit cards accepted. See <a href=\"https://www.paypal.com/affil/pal=9DJEWQQKVB6WL\" target=\"_blank\">PayPal</a> for more information.', '', 1, 'USD'),
+(2, 'NOCHEX', 'nochex', '', '', '', '', '', '', '', 0, 1, 'UK debit and credit cards, such as Switch, Solo and VISA Delta. All prices will be convereted into GBP (UK Pounds) upon ordering.', NULL, 1, 'GBP'),
+(3, 'Post Service', 'manual', '', '', '', '', '', '', '', 0, 0, 'You can use this method if you wish to send us a check, postal order or international money order.', NULL, 1, 'USD'),
+(4, '2CheckOut', '2checkout', '', '', '', '', '', '', '', 1, 1, 'All major credit cards accepted. See <a href=\'http://www.2checkout.com/cgi-bin/aff.2c?affid=28376\' target=\'_blank\'>2CheckOut</a> for more information.', NULL, 1, 'USD');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_subscription_trans`
+--
+
+CREATE TABLE `ibf_subscription_trans` (
+  `subtrans_id` int(10) NOT NULL,
+  `subtrans_sub_id` smallint(5) NOT NULL DEFAULT 0,
+  `subtrans_member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `subtrans_old_group` smallint(5) NOT NULL DEFAULT 0,
+  `subtrans_paid` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `subtrans_cumulative` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `subtrans_method` varchar(20) NOT NULL DEFAULT '',
+  `subtrans_start_date` int(11) NOT NULL DEFAULT 0,
+  `subtrans_end_date` int(11) NOT NULL DEFAULT 0,
+  `subtrans_state` varchar(200) NOT NULL DEFAULT '',
+  `subtrans_trxid` varchar(200) NOT NULL DEFAULT '',
+  `subtrans_subscrid` varchar(200) NOT NULL DEFAULT '',
+  `subtrans_currency` varchar(10) NOT NULL DEFAULT 'USD'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_templates`
+--
+
+CREATE TABLE `ibf_templates` (
+  `tmid` int(10) NOT NULL,
+  `template` mediumtext DEFAULT NULL,
+  `name` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_templates`
+--
+
+INSERT INTO `ibf_templates` (`tmid`, `template`, `name`) VALUES
+(1, '<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head> \r\n<title><% TITLE %></title> \r\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\" /> \r\n<meta name=\"referrer\" content=\"no-referrer-when-downgrade\">\r\n<% GENERATOR %> \r\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/fav/apple-touch-icon.png\">\r\n<link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/fav/favicon-32x32.png\">\r\n<link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/fav/favicon-16x16.png\">\r\n<link rel=\"manifest\" href=\"/fav/site.webmanifest\">\r\n<link\r\n  rel=\"stylesheet\"\r\n  href=\"https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css\"\r\n/>\r\n<% CSS %> \r\n<script src=\"https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.0.0/tinymce.min.js\"></script>\r\n<script src=\"https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js\"></script>\r\n<% JAVASCRIPT %> \r\n</head> \r\n<body>\r\n<div id=\"ipbwrapper\">\r\n<% BOARD HEADER %> \r\n<% NAVIGATION %> \r\n<% BOARD %> \r\n<% STATS %> \r\n<div align=\'center\'><% LOFI %></div> \r\n<% COPYRIGHT %>\r\n</div>\r\n<script>\r\nFancybox.bind(\"[data-fancybox]\", {\r\n  Background: \"#0f1729\", // Matches your site theme\r\n});\r\n</script>\r\n</body> \r\n\r\n</html>', 'Invision Board Standard');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_titles`
+--
+
+CREATE TABLE `ibf_titles` (
+  `id` smallint(5) NOT NULL,
+  `posts` int(10) DEFAULT NULL,
+  `title` varchar(128) DEFAULT NULL,
+  `pips` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_titles`
+--
+
+INSERT INTO `ibf_titles` (`id`, `posts`, `title`, `pips`) VALUES
+(1, 0, 'Newbie', '1'),
+(2, 10, 'Member', '2'),
+(4, 30, 'Advanced Member', '3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_tmpl_names`
+--
+
+CREATE TABLE `ibf_tmpl_names` (
+  `skid` int(10) NOT NULL,
+  `skname` varchar(60) NOT NULL DEFAULT 'Invision Board',
+  `author` varchar(250) DEFAULT '',
+  `email` varchar(250) DEFAULT '',
+  `url` varchar(250) DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_tmpl_names`
+--
+
+INSERT INTO `ibf_tmpl_names` (`skid`, `skname`, `author`, `email`, `url`) VALUES
+(1, 'Invision Power Board Template Set', 'Invision Power Board', 'skins@invisionboard.com', 'http://www.invisionboard.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_topics`
+--
+
+CREATE TABLE `ibf_topics` (
+  `tid` int(10) NOT NULL,
+  `title` varchar(250) NOT NULL DEFAULT '',
+  `description` varchar(70) DEFAULT NULL,
+  `state` varchar(8) DEFAULT NULL,
+  `posts` int(10) DEFAULT NULL,
+  `starter_id` mediumint(8) NOT NULL DEFAULT 0,
+  `start_date` int(10) DEFAULT NULL,
+  `last_poster_id` mediumint(8) NOT NULL DEFAULT 0,
+  `last_post` int(10) DEFAULT NULL,
+  `icon_id` tinyint(2) DEFAULT NULL,
+  `starter_name` varchar(32) DEFAULT NULL,
+  `last_poster_name` varchar(32) DEFAULT NULL,
+  `poll_state` varchar(8) DEFAULT NULL,
+  `last_vote` int(10) DEFAULT NULL,
+  `views` int(10) DEFAULT NULL,
+  `forum_id` smallint(5) NOT NULL DEFAULT 0,
+  `approved` tinyint(1) DEFAULT NULL,
+  `author_mode` tinyint(1) DEFAULT NULL,
+  `pinned` tinyint(1) DEFAULT NULL,
+  `moved_to` varchar(64) DEFAULT NULL,
+  `rating` text DEFAULT NULL,
+  `total_votes` int(5) NOT NULL DEFAULT 0,
+  `firstpost` int(10) NOT NULL DEFAULT 0,
+  `rating_total` int(11) NOT NULL DEFAULT 0,
+  `rating_total_voters` int(11) NOT NULL DEFAULT 0,
+  `rating_voters` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ibf_topics`
+--
+
+INSERT INTO `ibf_topics` (`tid`, `title`, `description`, `state`, `posts`, `starter_id`, `start_date`, `last_poster_id`, `last_post`, `icon_id`, `starter_name`, `last_poster_name`, `poll_state`, `last_vote`, `views`, `forum_id`, `approved`, `author_mode`, `pinned`, `moved_to`, `rating`, `total_votes`, `firstpost`, `rating_total`, `rating_total_voters`, `rating_voters`) VALUES
+(2, 'Super important topic', 'Please read', 'open', 1, 1, 1777735872, 1, 1778105306, 13, 'MadRomas', 'MadRomas', '0', 0, 111, 1, 1, 1, 1, NULL, NULL, 0, 0, 1, 1, ',1,');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_topic_mmod`
+--
+
+CREATE TABLE `ibf_topic_mmod` (
+  `mm_id` smallint(5) NOT NULL,
+  `mm_title` varchar(250) NOT NULL DEFAULT '',
+  `mm_enabled` tinyint(1) NOT NULL DEFAULT 0,
+  `topic_state` varchar(10) NOT NULL DEFAULT 'leave',
+  `topic_pin` varchar(10) NOT NULL DEFAULT 'leave',
+  `topic_move` smallint(5) NOT NULL DEFAULT 0,
+  `topic_move_link` tinyint(1) NOT NULL DEFAULT 0,
+  `topic_title_st` varchar(250) NOT NULL DEFAULT '',
+  `topic_title_end` varchar(250) NOT NULL DEFAULT '',
+  `topic_reply` tinyint(1) NOT NULL DEFAULT 0,
+  `topic_reply_content` text NOT NULL,
+  `topic_reply_postcount` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_tracker`
+--
+
+CREATE TABLE `ibf_tracker` (
+  `trid` mediumint(8) NOT NULL,
+  `member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `topic_id` bigint(20) NOT NULL DEFAULT 0,
+  `start_date` int(10) DEFAULT NULL,
+  `last_sent` int(10) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_validating`
+--
+
+CREATE TABLE `ibf_validating` (
+  `vid` varchar(32) NOT NULL DEFAULT '',
+  `member_id` mediumint(8) NOT NULL DEFAULT 0,
+  `real_group` smallint(3) NOT NULL DEFAULT 0,
+  `temp_group` smallint(3) NOT NULL DEFAULT 0,
+  `entry_date` int(10) NOT NULL DEFAULT 0,
+  `coppa_user` tinyint(1) NOT NULL DEFAULT 0,
+  `lost_pass` tinyint(1) NOT NULL DEFAULT 0,
+  `new_reg` tinyint(1) NOT NULL DEFAULT 0,
+  `email_chg` tinyint(1) NOT NULL DEFAULT 0,
+  `ip_address` varchar(16) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_voters`
+--
+
+CREATE TABLE `ibf_voters` (
+  `vid` int(10) NOT NULL,
+  `ip_address` varchar(16) NOT NULL DEFAULT '',
+  `vote_date` int(10) NOT NULL DEFAULT 0,
+  `tid` int(10) NOT NULL DEFAULT 0,
+  `member_id` varchar(32) DEFAULT NULL,
+  `forum_id` smallint(5) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ibf_warn_logs`
+--
+
+CREATE TABLE `ibf_warn_logs` (
+  `wlog_id` int(10) NOT NULL,
+  `wlog_mid` mediumint(8) NOT NULL DEFAULT 0,
+  `wlog_notes` text NOT NULL,
+  `wlog_contact` varchar(250) NOT NULL DEFAULT 'none',
+  `wlog_contact_content` text NOT NULL,
+  `wlog_date` int(10) NOT NULL DEFAULT 0,
+  `wlog_type` varchar(6) NOT NULL DEFAULT 'pos',
+  `wlog_addedby` mediumint(8) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+--
+-- Indexes for table `ibf_admin_logs`
+--
+ALTER TABLE `ibf_admin_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_admin_sessions`
+--
+ALTER TABLE `ibf_admin_sessions`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `ibf_badwords`
+--
+ALTER TABLE `ibf_badwords`
+  ADD PRIMARY KEY (`wid`);
+
+--
+-- Indexes for table `ibf_cache_store`
+--
+ALTER TABLE `ibf_cache_store`
+  ADD PRIMARY KEY (`cs_key`);
+
+--
+-- Indexes for table `ibf_calendar_events`
+--
+ALTER TABLE `ibf_calendar_events`
+  ADD PRIMARY KEY (`eventid`),
+  ADD KEY `unix_stamp` (`unix_stamp`);
+
+--
+-- Indexes for table `ibf_categories`
+--
+ALTER TABLE `ibf_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `ibf_contacts`
+--
+ALTER TABLE `ibf_contacts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_css`
+--
+ALTER TABLE `ibf_css`
+  ADD PRIMARY KEY (`cssid`);
+
+--
+-- Indexes for table `ibf_email_logs`
+--
+ALTER TABLE `ibf_email_logs`
+  ADD PRIMARY KEY (`email_id`),
+  ADD KEY `from_member_id` (`from_member_id`),
+  ADD KEY `email_date` (`email_date`);
+
+--
+-- Indexes for table `ibf_emoticons`
+--
+ALTER TABLE `ibf_emoticons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_faq`
+--
+ALTER TABLE `ibf_faq`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_files`
+--
+ALTER TABLE `ibf_files`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_files_cats`
+--
+ALTER TABLE `ibf_files_cats`
+  ADD PRIMARY KEY (`cid`);
+
+--
+-- Indexes for table `ibf_files_downloads`
+--
+ALTER TABLE `ibf_files_downloads`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `file_id` (`file_id`);
+
+--
+-- Indexes for table `ibf_forums`
+--
+ALTER TABLE `ibf_forums`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `category` (`category`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `ibf_forum_perms`
+--
+ALTER TABLE `ibf_forum_perms`
+  ADD PRIMARY KEY (`perm_id`);
+
+--
+-- Indexes for table `ibf_forum_tracker`
+--
+ALTER TABLE `ibf_forum_tracker`
+  ADD PRIMARY KEY (`frid`);
+
+--
+-- Indexes for table `ibf_groups`
+--
+ALTER TABLE `ibf_groups`
+  ADD PRIMARY KEY (`g_id`);
+
+--
+-- Indexes for table `ibf_languages`
+--
+ALTER TABLE `ibf_languages`
+  ADD PRIMARY KEY (`lid`);
+
+--
+-- Indexes for table `ibf_macro`
+--
+ALTER TABLE `ibf_macro`
+  ADD PRIMARY KEY (`macro_id`),
+  ADD KEY `macro_set` (`macro_set`);
+
+--
+-- Indexes for table `ibf_macro_name`
+--
+ALTER TABLE `ibf_macro_name`
+  ADD PRIMARY KEY (`set_id`);
+
+--
+-- Indexes for table `ibf_members`
+--
+ALTER TABLE `ibf_members`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `name` (`name`),
+  ADD KEY `mgroup` (`mgroup`),
+  ADD KEY `bday_day` (`bday_day`),
+  ADD KEY `bday_month` (`bday_month`);
+
+--
+-- Indexes for table `ibf_member_extra`
+--
+ALTER TABLE `ibf_member_extra`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_messages`
+--
+ALTER TABLE `ibf_messages`
+  ADD PRIMARY KEY (`msg_id`),
+  ADD KEY `member_id` (`member_id`),
+  ADD KEY `vid` (`vid`);
+
+--
+-- Indexes for table `ibf_moderators`
+--
+ALTER TABLE `ibf_moderators`
+  ADD PRIMARY KEY (`mid`),
+  ADD KEY `forum_id` (`forum_id`),
+  ADD KEY `group_id` (`group_id`),
+  ADD KEY `member_id` (`member_id`);
+
+--
+-- Indexes for table `ibf_moderator_logs`
+--
+ALTER TABLE `ibf_moderator_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_pfields_content`
+--
+ALTER TABLE `ibf_pfields_content`
+  ADD PRIMARY KEY (`member_id`);
+
+--
+-- Indexes for table `ibf_pfields_data`
+--
+ALTER TABLE `ibf_pfields_data`
+  ADD PRIMARY KEY (`fid`);
+
+--
+-- Indexes for table `ibf_polls`
+--
+ALTER TABLE `ibf_polls`
+  ADD PRIMARY KEY (`pid`);
+
+--
+-- Indexes for table `ibf_posts`
+--
+ALTER TABLE `ibf_posts`
+  ADD PRIMARY KEY (`pid`),
+  ADD KEY `topic_id` (`topic_id`,`author_id`),
+  ADD KEY `author_id` (`author_id`),
+  ADD KEY `forum_id` (`forum_id`,`post_date`);
+ALTER TABLE `ibf_posts` ADD FULLTEXT KEY `post` (`post`);
+
+--
+-- Indexes for table `ibf_reg_antispam`
+--
+ALTER TABLE `ibf_reg_antispam`
+  ADD PRIMARY KEY (`regid`);
+
+--
+-- Indexes for table `ibf_reputation`
+--
+ALTER TABLE `ibf_reputation`
+  ADD PRIMARY KEY (`msg_id`),
+  ADD KEY `member_id` (`member_id`);
+
+--
+-- Indexes for table `ibf_reput_ranks`
+--
+ALTER TABLE `ibf_reput_ranks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_sessions`
+--
+ALTER TABLE `ibf_sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `in_topic` (`in_topic`),
+  ADD KEY `in_forum` (`in_forum`);
+
+--
+-- Indexes for table `ibf_skins`
+--
+ALTER TABLE `ibf_skins`
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `tmpl_id` (`tmpl_id`),
+  ADD KEY `css_id` (`css_id`);
+
+--
+-- Indexes for table `ibf_skin_templates`
+--
+ALTER TABLE `ibf_skin_templates`
+  ADD PRIMARY KEY (`suid`);
+
+--
+-- Indexes for table `ibf_spider_logs`
+--
+ALTER TABLE `ibf_spider_logs`
+  ADD PRIMARY KEY (`sid`);
+
+--
+-- Indexes for table `ibf_subscriptions`
+--
+ALTER TABLE `ibf_subscriptions`
+  ADD PRIMARY KEY (`sub_id`);
+
+--
+-- Indexes for table `ibf_subscription_currency`
+--
+ALTER TABLE `ibf_subscription_currency`
+  ADD PRIMARY KEY (`subcurrency_code`);
+
+--
+-- Indexes for table `ibf_subscription_extra`
+--
+ALTER TABLE `ibf_subscription_extra`
+  ADD PRIMARY KEY (`subextra_id`);
+
+--
+-- Indexes for table `ibf_subscription_logs`
+--
+ALTER TABLE `ibf_subscription_logs`
+  ADD PRIMARY KEY (`sublog_id`);
+
+--
+-- Indexes for table `ibf_subscription_methods`
+--
+ALTER TABLE `ibf_subscription_methods`
+  ADD PRIMARY KEY (`submethod_id`);
+
+--
+-- Indexes for table `ibf_subscription_trans`
+--
+ALTER TABLE `ibf_subscription_trans`
+  ADD PRIMARY KEY (`subtrans_id`);
+
+--
+-- Indexes for table `ibf_templates`
+--
+ALTER TABLE `ibf_templates`
+  ADD PRIMARY KEY (`tmid`);
+
+--
+-- Indexes for table `ibf_titles`
+--
+ALTER TABLE `ibf_titles`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `ibf_tmpl_names`
+--
+ALTER TABLE `ibf_tmpl_names`
+  ADD PRIMARY KEY (`skid`);
+
+--
+-- Indexes for table `ibf_topics`
+--
+ALTER TABLE `ibf_topics`
+  ADD PRIMARY KEY (`tid`),
+  ADD KEY `last_post` (`last_post`),
+  ADD KEY `forum_id` (`forum_id`,`approved`,`pinned`);
+ALTER TABLE `ibf_topics` ADD FULLTEXT KEY `title` (`title`);
+
+--
+-- Indexes for table `ibf_topic_mmod`
+--
+ALTER TABLE `ibf_topic_mmod`
+  ADD PRIMARY KEY (`mm_id`);
+
+--
+-- Indexes for table `ibf_tracker`
+--
+ALTER TABLE `ibf_tracker`
+  ADD PRIMARY KEY (`trid`);
+
+--
+-- Indexes for table `ibf_validating`
+--
+ALTER TABLE `ibf_validating`
+  ADD PRIMARY KEY (`vid`),
+  ADD KEY `new_reg` (`new_reg`);
+
+--
+-- Indexes for table `ibf_voters`
+--
+ALTER TABLE `ibf_voters`
+  ADD PRIMARY KEY (`vid`);
+
+--
+-- Indexes for table `ibf_warn_logs`
+--
+ALTER TABLE `ibf_warn_logs`
+  ADD PRIMARY KEY (`wlog_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `ibf_admin_logs`
+--
+ALTER TABLE `ibf_admin_logs`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+
+--
+-- AUTO_INCREMENT for table `ibf_badwords`
+--
+ALTER TABLE `ibf_badwords`
+  MODIFY `wid` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `ibf_calendar_events`
+--
+ALTER TABLE `ibf_calendar_events`
+  MODIFY `eventid` mediumint(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_contacts`
+--
+ALTER TABLE `ibf_contacts`
+  MODIFY `id` mediumint(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_css`
+--
+ALTER TABLE `ibf_css`
+  MODIFY `cssid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_email_logs`
+--
+ALTER TABLE `ibf_email_logs`
+  MODIFY `email_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_emoticons`
+--
+ALTER TABLE `ibf_emoticons`
+  MODIFY `id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `ibf_faq`
+--
+ALTER TABLE `ibf_faq`
+  MODIFY `id` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `ibf_files`
+--
+ALTER TABLE `ibf_files`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_files_cats`
+--
+ALTER TABLE `ibf_files_cats`
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_files_downloads`
+--
+ALTER TABLE `ibf_files_downloads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_forum_perms`
+--
+ALTER TABLE `ibf_forum_perms`
+  MODIFY `perm_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `ibf_forum_tracker`
+--
+ALTER TABLE `ibf_forum_tracker`
+  MODIFY `frid` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_groups`
+--
+ALTER TABLE `ibf_groups`
+  MODIFY `g_id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `ibf_languages`
+--
+ALTER TABLE `ibf_languages`
+  MODIFY `lid` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_macro`
+--
+ALTER TABLE `ibf_macro`
+  MODIFY `macro_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT for table `ibf_messages`
+--
+ALTER TABLE `ibf_messages`
+  MODIFY `msg_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_moderators`
+--
+ALTER TABLE `ibf_moderators`
+  MODIFY `mid` mediumint(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_moderator_logs`
+--
+ALTER TABLE `ibf_moderator_logs`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `ibf_pfields_data`
+--
+ALTER TABLE `ibf_pfields_data`
+  MODIFY `fid` smallint(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_polls`
+--
+ALTER TABLE `ibf_polls`
+  MODIFY `pid` mediumint(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_posts`
+--
+ALTER TABLE `ibf_posts`
+  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `ibf_reputation`
+--
+ALTER TABLE `ibf_reputation`
+  MODIFY `msg_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_reput_ranks`
+--
+ALTER TABLE `ibf_reput_ranks`
+  MODIFY `id` smallint(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_skins`
+--
+ALTER TABLE `ibf_skins`
+  MODIFY `uid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_skin_templates`
+--
+ALTER TABLE `ibf_skin_templates`
+  MODIFY `suid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=509;
+
+--
+-- AUTO_INCREMENT for table `ibf_spider_logs`
+--
+ALTER TABLE `ibf_spider_logs`
+  MODIFY `sid` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_subscriptions`
+--
+ALTER TABLE `ibf_subscriptions`
+  MODIFY `sub_id` smallint(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_subscription_extra`
+--
+ALTER TABLE `ibf_subscription_extra`
+  MODIFY `subextra_id` smallint(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_subscription_logs`
+--
+ALTER TABLE `ibf_subscription_logs`
+  MODIFY `sublog_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_subscription_methods`
+--
+ALTER TABLE `ibf_subscription_methods`
+  MODIFY `submethod_id` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `ibf_subscription_trans`
+--
+ALTER TABLE `ibf_subscription_trans`
+  MODIFY `subtrans_id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_templates`
+--
+ALTER TABLE `ibf_templates`
+  MODIFY `tmid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_titles`
+--
+ALTER TABLE `ibf_titles`
+  MODIFY `id` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `ibf_tmpl_names`
+--
+ALTER TABLE `ibf_tmpl_names`
+  MODIFY `skid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ibf_topics`
+--
+ALTER TABLE `ibf_topics`
+  MODIFY `tid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `ibf_topic_mmod`
+--
+ALTER TABLE `ibf_topic_mmod`
+  MODIFY `mm_id` smallint(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_tracker`
+--
+ALTER TABLE `ibf_tracker`
+  MODIFY `trid` mediumint(8) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_voters`
+--
+ALTER TABLE `ibf_voters`
+  MODIFY `vid` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ibf_warn_logs`
+--
+ALTER TABLE `ibf_warn_logs`
+  MODIFY `wlog_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
