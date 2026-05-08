@@ -1213,7 +1213,7 @@ return $forum_data['last_post'] > $rtime ? "<{C_ON".$sub_cat_img."}>" : "<{C_OFF
 					$extra = " AND s.hidden=0";
 					$skin_set = 1;
 				}
-				else if ( $ibforums->member['skin'] != "" and intval($ibforums->member['skin']) >= 0 )
+				else if ( ($ibforums->member['skin'] ?? "") != "" && intval($ibforums->member['skin']) >= 0 )
 				{
 					$id = $ibforums->member['skin'];
 					
@@ -1371,7 +1371,7 @@ return $forum_data['last_post'] > $rtime ? "<{C_ON".$sub_cat_img."}>" : "<{C_OFF
 			$r += ($ibforums->vars['time_adjust'] * 60);
 		}
 		
-		if ($ibforums->member['dst_in_use'])
+		if ($ibforums->member['dst_in_use'] ?? 0 )
 		{
 			$r += 3600;
 		}
