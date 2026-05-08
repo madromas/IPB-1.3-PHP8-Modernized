@@ -80,6 +80,12 @@ class Topics {
         
         $this->parser = new post_parser(1);
         
+        if($ibforums->input['CODE'] == "00")
+		{
+			$this->ratingpro();
+			exit;
+		}
+
         //-------------------------------------
         // Check the input
         //-------------------------------------
@@ -90,6 +96,8 @@ class Topics {
 		{
 			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
 		}
+
+
 		
 		
         //-------------------------------------
@@ -99,7 +107,7 @@ class Topics {
         
         if ( !isset($ibforums->topic_cache['tid']) || ! $ibforums->topic_cache['tid'] )
         {
-			$DB->query("SELECT t.*, f.topic_mm_id, f.name as forum_name, f.quick_reply, f.id as forum_id, f.read_perms, f.reply_perms, f.parent_id, f.use_html,
+			$DB->query("SELECT t.*, f.topic_mm_id, f.rating, f.name as forum_name, f.quick_reply, f.id as forum_id, f.read_perms, f.reply_perms, f.parent_id, f.use_html,
 							   f.start_perms, f.allow_poll, f.password, f.posts as forum_posts, f.topics as forum_topics, f.upload_perms,
 							   f.show_rules, f.rules_text, f.rules_title,
 							   c.name as cat_name, c.id as cat_id
@@ -197,6 +205,15 @@ else
         	}
         }
         
+        $DB->query("SELECT rating from ibf_forums where id=".$this->forum['id']);
+		$dummy = $DB->fetch_row();
+		$rating = $dummy['rating'];
+		if($rating)
+		{
+			$rating_data = $this->rating();
+    $this->rating_html = $this->html->rate($rating_data);
+		}
+
         //--------------------------------------------------------------------
         // Are we looking for an older / newer topic?
         //--------------------------------------------------------------------
@@ -864,7 +881,15 @@ if ( isset($row['author_id']) && $row['author_id'] > 0 ) {
 // --- END ASSIGNMENT ---
 
 			$row['post_css'] = $post_count % 2 ? 'post1' : 'post2';
-			
+
+			if ( ($post_count == 0) AND ($ibforums->input['st'] == 0) AND ($this->rating_html) )
+{
+    $row['topic_rating_box'] = $this->rating_html;
+}
+else
+{
+    $row['topic_rating_box'] = "";
+}
 			
 			//--------------------------------------------------------------
 			
@@ -1094,6 +1119,7 @@ $row['topic_starter_id'] = $this->topic['starter_id'];
 			$post_count++;
 				
 		}
+
 		
 		//-------------------------------------
 		// Print the footer
@@ -2265,6 +2291,71 @@ if (($this->topic['firstpost'] ?? '0') == '0' and $key == 'UNPIN_FIRST') return 
 		exit();
 				
 	}
+
+function rating()
+	{
+		global $ibforums;
+
+		$data['title'] = $this->topic['title'];
+		$data['forum'] = $this->forum['id'];
+		$data['topic'] = $this->topic['tid'];
+		
+		// Set score display
+		$score = intval($this->topic['rating_total']);
+
+if ($score == 0) 
+{
+    $data['rating'] = "<span style='color:gray; font-weight:bold;'>0</span>";
+} 
+else 
+{
+    $class   = ($score > 0) ? "rating-positive" : "rating-negative";
+    // abs() ensures that -5 becomes 5, and we remove the + for positive numbers
+    $display = abs($score); 
+    $data['rating'] = "<span class='{$class}'>{$display}</span>";
+}
+
+		if ($ibforums->member['id'] AND !str_contains($this->topic['rating_voters'] ?? '', ",".$ibforums->member['id'].","))
+		{
+			$data['status']  = $ibforums->lang['rating_cannot'];
+			// Up/Down Buttons
+			$data['choices'] = "<button name='rating' value='1' class='forminput' style='color:green;font-weight:bold;'> + </button> ";
+			$data['choices'] .= "<button name='rating' value='-1' class='forminput' style='color:red;font-weight:bold;'> - </button>";
+		}
+		else if(!$ibforums->member['id'])
+		{
+			$data['status'] = $ibforums->lang['rating_guests'];
+		}
+		else
+		{
+			$data['status'] = $ibforums->lang['rating_already'];
+		}
+
+		return $data;
+	}
+
+	function ratingpro()
+	{
+		global $ibforums, $std, $DB;
+
+		$tid = intval($ibforums->input['t']);
+		// Force vote to be either 1 or -1
+		$vote = ($ibforums->input['rating'] == -1) ? -1 : 1;
+
+		$DB->query("SELECT rating_voters FROM ibf_topics WHERE tid=$tid");
+		$this->topic = $DB->fetch_row();
+
+		$voters = $this->topic['rating_voters'] ?: ",";
+
+		if ($ibforums->member['id'] AND !str_contains($voters, ",".$ibforums->member['id'].","))
+		{
+			$new_voters = $voters . $ibforums->member['id'] . ",";
+			$DB->query("UPDATE ibf_topics SET rating_total=rating_total+($vote), rating_total_voters=rating_total_voters+1, rating_voters='$new_voters' WHERE tid=$tid");
+		}
+		
+		$std->boink_it($ibforums->vars['board_url']."/index.".$ibforums->vars['php_ext']."?act=ST&f=".$ibforums->input['f']."&t=".$tid);
+	}
+	
 }
 
 ?>
