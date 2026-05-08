@@ -7,6 +7,9 @@
 error_reporting(E_ERROR | E_PARSE);
 define('IN_INSTALL', 1);
 
+if (file_exists('install.lock')) {
+    die("<html><head><style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background:#f0f2f5;}.card{background:#fff;padding:40px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.1);}</style></head><body><div class='card'><h2>Installer Locked</h2><p>The <b>install.lock</b> file was found in your root directory. Installation is disabled for security.</p><p>Delete the file manually if you need to re-install.</p></div></body></html>");
+}
 class InstallerUI {
     function header($title) {
         echo "<html><head><title>$title</title>
@@ -148,6 +151,7 @@ if ($step == 'process') {
     $config_output .= "?>";
 
     if (file_put_contents('conf_global.php', $config_output)) {
+        @touch("install.lock");
         echo "<p>✅ Config generated with <b>mysqli</b> driver.</p>";
         echo "<p style='color:green;'><strong>Installation Complete! Delete sm_install.php and database.sql now.</strong></p>";
         echo "<a href='index.php'><input type='submit' value='Go to Board'></a>";
