@@ -1641,7 +1641,7 @@ return $forum_data['last_post'] > $rtime ? "<{C_ON".$sub_cat_img."}>" : "<{C_OFF
 		// Have we enabled URL / Upload avatars?
 		//---------------------------------------
 	 
-		$this_dims = explode( "x", $avatar_dims );
+		$this_dims = explode( "x", $avatar_dims ?? "" );
 		if (!$this_dims[0]) $this_dims[0] = $davatar_dims[0];
 		if (!$this_dims[1]) $this_dims[1] = $davatar_dims[1];
 			

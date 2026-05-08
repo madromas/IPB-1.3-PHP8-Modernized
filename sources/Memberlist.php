@@ -129,7 +129,7 @@ class Memberlist {
     	// Fix up the search box
     	//------------------------------------------
     	
-    	$ibforums->input['name'] = $std->clean_value(trim(urldecode(stripslashes($ibforums->input['name']))));
+    	$ibforums->input['name'] = $std->clean_value(trim(urldecode(stripslashes($ibforums->input['name'] ?? ''))));
     	
     	if ($ibforums->input['name'] == "")
     	{
