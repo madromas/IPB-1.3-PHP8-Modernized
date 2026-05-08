@@ -1,16 +1,12 @@
 <?php
 
 error_reporting(E_ALL);
-
-// Display errors on the screen
 ini_set('display_errors', 1);
-
-// Display errors that occur during PHP's startup sequence
 ini_set('display_startup_errors', 1);
 
 /*
 +--------------------------------------------------------------------------
-|   Invision Power Board v1.3.1 PDR 1
+|   Invision Power Board v1.3.1 Final
 |   ========================================
 |   by Matthew Mecham
 |   (c) 2001 - 2003 Invision Power Services
