@@ -10,7 +10,7 @@ ini_set('display_startup_errors', 1);
 
 /*
 +--------------------------------------------------------------------------
-|   Invision Power Board v2.0.0 PDR 1
+|   Invision Power Board v1.3.1 PDR 1
 |   ========================================
 |   by Matthew Mecham
 |   (c) 2001 - 2003 Invision Power Services
@@ -23,7 +23,7 @@ ini_set('display_startup_errors', 1);
 |   Licence Info: http://www.invisionboard.com/?license
 +---------------------------------------------------------------------------
 |
-|   > LO-FI VERSION!
+|   > LO-FI VERSION! v2.0
 |   > Script written by Matt Mecham
 |   > Date started: 11th March 2004
 |   > Interesting fact: Wrote this while listening to the Stereophonic's
@@ -37,7 +37,7 @@ ini_set('display_startup_errors', 1);
 // USER CONFIGURABLE ELEMENTS
 //-----------------------------------------------
 
-// Root path    exempl: _www.sitename.ru/forum/lofiversion
+// Root path    exempl: _www.sitename.com/forum/lofiversion
 
 define( 'ROOT_PATH', "../" );
 define( 'LOFI_NAME', 'lofiversion');
