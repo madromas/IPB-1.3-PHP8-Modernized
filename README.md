@@ -1,6 +1,6 @@
 # IPB-1.3-PHP8-Modernized
 
-A modernized distribution of **Invision Power Board 1.3**, fully patched for **PHP 8.x** and **MariaDB** compatibility. This project preserves the classic, lightweight "pre-bloat" UI of the early 2000s while ensuring it runs securely and efficiently on modern server stacks.
+A modernized distribution of **Invision Power Board 1.3**, fully patched for **PHP 8.4** and **MariaDB** compatibility. This project preserves the classic, lightweight "pre-bloat" UI of the early 2000s while ensuring it runs securely and efficiently on modern server stacks.
 
 <img width="700" alt="download" src="https://github.com/user-attachments/assets/5f1cf69b-a6d6-46d7-8685-9e45c9093a2a" />
 
@@ -22,6 +22,10 @@ A modernized distribution of **Invision Power Board 1.3**, fully patched for **P
 *   **TinyMCE Integration**: Replaced the legacy posting interface with a modernized TinyMCE editor for a better rich-text experience.
 *   **HTML Purifier**: Integrated a modernized standalone security engine to protect against XSS and fix broken HTML tags.
 *   **Security Patches**: Fixed legacy issues with search result insertions and anti-spam image generation.
+*   **OP (Original Poster) Identification**: Implemented a specialized "Author" badge in the topic view (postbit). 
+*   **Real-time User Presence**: Integrated a dynamic Online/Offline status indicator for every user profile in the forum view.
+*   **Lofi Version 2.0**: Completely overhauled the legacy text-only lofiversion.
+*   **Forum Icon Customization**: Developed a modular system to override standard folder icons with custom GIFs assigned via the Admin CP.
 
 ## 📦 Installation
 
