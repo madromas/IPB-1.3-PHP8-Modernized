@@ -306,7 +306,7 @@ class Moderate {
     $this->nav[] = "<a href='{$this->base_url}&act=modcp'>{$ibforums->lang['cp_modcp_home']}</a>";
 }
 		
-		if (! $this->page_title )
+		if ( ! isset($this->page_title) || ! $this->page_title )
 		{
 			$this->page_title = $ibforums->lang['cp_modcp_ptitle'];
 		}
@@ -1429,14 +1429,14 @@ if ( isset($this->children[ $forum['id'] ]) && is_array($this->children[ $forum[
 		
 		$forum['q_posts'] = 0;
 			
-		if ( $this->queued_posts[ $forum['id'] ] )
-		{
+        if ( isset($this->queued_posts[ $forum['id'] ]) && $this->queued_posts[ $forum['id'] ] )		
+        {
 			$forum['q_posts'] = "<span class='highlight'>".$this->queued_posts[ $forum['id'] ]."</span>";
 		}
 		
 		$forum['q_topics'] = 0;
 		
-		if ( $this->queued_topics[ $forum['id'] ] )
+		if ( isset($this->queued_topics[ $forum['id'] ]) && $this->queued_topics[ $forum['id'] ] )
 		{
 			$forum['q_topics'] = "<span class='highlight'>".$this->queued_topics[ $forum['id'] ]."</span>";
 		}
@@ -2812,12 +2812,12 @@ if ( isset($this->children[ $forum['id'] ]) && is_array($this->children[ $forum[
 	
 		$this->output .= $this->html->mod_simple_page($ibforums->lang['cp_error'],$error);
 		
-		if ( count($this->nav) < 1 )
+		if ( ! isset($this->nav) || ! is_array($this->nav) || count($this->nav) < 1 )
 		{
 			$this->nav[] = "<a href='{$this->base_url}&act=modcp'>{$ibforums->lang['cp_modcp_home']}</a>";
 		}
 		
-		if (! $this->page_title )
+		if ( ! isset($this->page_title) || ! $this->page_title )
 		{
 			$this->page_title = $ibforums->lang['cp_modcp_ptitle'];
 		}
