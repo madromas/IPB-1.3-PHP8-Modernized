@@ -65,6 +65,10 @@ class post_parser {
             $txt = preg_replace_callback("#\[html\](.+?)\[/html\]#s", function($m) { return $this->regex_html_tag($m[1]); }, $txt);
         }
 
+$txt = preg_replace('/(?<!<a href=")<img([^>]+)src=["\'](uploads\/[^"\']+)["\']([^>]*)>(?!<\/a>)/i', '<a data-fancybox href="$2" target="_blank"><img$1src="$2"$3></a>', $txt);
+        
+        $txt = str_replace('href="uploads/', 'href="'.$ibforums->vars['board_url'].'/uploads/', $txt);
+        $txt = str_replace('src="uploads/', 'src="'.$ibforums->vars['board_url'].'/uploads/', $txt);
 
         // If content starts with HTML tags, filter and return immediately
         $html_pattern = $ibforums->vars['html_detection_regex'] ?: '^<(p|div|span|ul|ol|table|br|iframe)';
@@ -89,12 +93,6 @@ class post_parser {
      */
     function post_db_parse($t="", $use_html=0) {
         global $ibforums;
-
-$t = preg_replace('/(?<!<a href=")<img([^>]+)src=["\'](uploads\/[^"\']+)["\']([^>]*)>(?!<\/a>)/i', '<a data-fancybox href="$2" target="_blank"><img$1src="$2"$3></a>', $t);
-
-// Then apply the base URL fix we discussed for lofiversion compatibility
-$t = str_replace('href="uploads/', 'href="'.$ibforums->vars['board_url'].'/uploads/', $t);
-$t = str_replace('src="uploads/', 'src="'.$ibforums->vars['board_url'].'/uploads/', $t);
         
         return $this->bad_words($t); 
     }
