@@ -1393,6 +1393,11 @@ $row['topic_starter_id'] = $this->topic['starter_id'];
 		global $ibforums, $std, $DB;
 	
 		$member['avatar'] = $std->get_avatar( $member['avatar'], $ibforums->member['view_avs'], $member['avatar_size'] );
+
+if ( $member['avatar'] AND $member['id'] )
+{
+    $member['avatar'] = "<a href='{$this->base_url}showuser={$member['id']}'>{$member['avatar']}</a>";
+}
 		
 		$pips = 0;
 		
@@ -1432,7 +1437,10 @@ $row['topic_starter_id'] = $this->topic['starter_id'];
 			}
 		}
 							   
-		$member['member_joined'] = $ibforums->lang['m_joined'].' '.$std->get_date( $member['joined'], 'JOINED' );
+
+		$days_since_join = floor( (time() - $member['joined']) / 86400 );
+
+$member['member_joined'] .= " ({$days_since_join} days)";
 		
 		$member['profile']="<a href='{$this->base_url}showuser={$member['id']}'>{$ibforums->lang['link_profile']}</a>";
 		
