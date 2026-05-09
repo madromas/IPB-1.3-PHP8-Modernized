@@ -52,6 +52,82 @@ class FUNC {
 		
 	}
 	
+     //-------------------------------------------
+	// Hack. Convert php to html (class FUNC)
+	//-------------------------------------------
+	function do_php_to_html($buffer) {
+		global $ibforums;
+
+		if (isset($ibforums->vars) && is_array($ibforums->vars) && $ibforums->vars['php_to_html'] == 1)
+		{
+			$forum_url = str_replace("/","\/",$ibforums->vars['board_url']);
+			$forum_url = str_replace(":","\:",$forum_url);
+			$forum_url = str_replace(".","\.",$forum_url);
+			$s_search = array("'(\?|\&amp;|\&)s=[0-9a-zA-Z]{32}(?:\&amp;|\&)'i",
+					  "'(?:\&amp;|\&)s=[0-9a-zA-Z]{32}'i",
+					  "'\?s=[0-9a-zA-Z]{32}'i");
+			$s_replace = array("\\1",
+					   "",
+					   "");
+			$search = array("'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=idx(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=idx'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=home(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=home'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=portal(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=portal'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showforum=([0-9]{1,5})(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showforum=([0-9]{1,5})'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=SF(?:\&amp;|\&)f=([0-9]{1,5})(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=SF(?:\&amp;|\&)f=([0-9]{1,5})'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showtopic=([0-9]{1,5})(?:\&amp;|\&)st=([0-9]{1,5})(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showtopic=([0-9]{1,5})(?:\&amp;|\&)st=([0-9]{1,5})'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showtopic=([0-9]{1,5})(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showtopic=([0-9]{1,5})'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=ST(?:\&amp;|\&)f=([0-9]{1,5})(?:\&amp;|\&)t=([0-9]{1,5})(?:\&amp;|\&)st=([0-9]{1,5})(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=ST(?:\&amp;|\&)f=([0-9]{1,5})(?:\&amp;|\&)t=([0-9]{1,5})(?:\&amp;|\&)st=([0-9]{1,5})'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=ST(?:\&amp;|\&)f=([0-9]{1,5})(?:\&amp;|\&)t=([0-9]{1,5})(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=ST(?:\&amp;|\&)f=([0-9]{1,5})(?:\&amp;|\&)t=([0-9]{1,5})'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=SC(?:\&amp;|\&)c=([0-9]{1,5})(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=SC(?:\&amp;|\&)c=([0-9]{1,5})'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?c=([0-9]{1,5})(?:\&amp;|\&)(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?c=([0-9]{1,5})'i",
+							"'".$forum_url."\/index\.php\?s='i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=(\S*?)'i",
+							"'".$forum_url."\/index\.php\?(\S*?)'i",
+   							"'".$forum_url."\/index\.php'i");
+			$replace = array($ibforums->vars['board_url']."/main.html?\\1",
+							$ibforums->vars['board_url']."/main.html",
+							$ibforums->vars['board_url']."/index.html?\\1",
+							$ibforums->vars['board_url']."/index.html",
+							$ibforums->vars['board_url']."/index.html?\\1",
+							$ibforums->vars['board_url']."/index.html",
+							$ibforums->vars['board_url']."/forum\\1.html?\\2",
+							$ibforums->vars['board_url']."/forum\\1.html",
+							$ibforums->vars['board_url']."/forum\\1.html?\\2",
+							$ibforums->vars['board_url']."/forum\\1.html",
+							$ibforums->vars['board_url']."/topic\\1s\\2.html?\\3",
+							$ibforums->vars['board_url']."/topic\\1s\\2.html",
+							$ibforums->vars['board_url']."/topic\\1.html?\\2",
+							$ibforums->vars['board_url']."/topic\\1.html",
+							$ibforums->vars['board_url']."/topic\\2s\\3.html\\4",
+							$ibforums->vars['board_url']."/topic\\2s\\3.html",
+							$ibforums->vars['board_url']."/topic\\2.html?\\3",
+							$ibforums->vars['board_url']."/topic\\2.html",
+							$ibforums->vars['board_url']."/cat\\1.html?\\2",
+							$ibforums->vars['board_url']."/cat\\1.html",
+							$ibforums->vars['board_url']."/cat\\1.html?\\2",
+							$ibforums->vars['board_url']."/cat\\1.html",
+							$ibforums->vars['board_url']."/index.html",
+							$ibforums->vars['board_url']."/index.html?act=\\1",
+							$ibforums->vars['board_url']."/index.html?\\1",
+							$ibforums->vars['board_url']."/index.html");
+			$buffer = preg_replace($s_search,$s_replace,$buffer);
+			$buffer = preg_replace($search,$replace,$buffer);
+		}
+		return $buffer;
+	}
+
+
 	/*-------------------------------------------------------------------------*/
 	// expire_subscription
 	// ------------------
@@ -673,6 +749,8 @@ class FUNC {
 	function boink_it($url)
 {
     global $ibforums;
+
+    $url = $this->do_php_to_html($url);
     
     // Ensure &amp;s are taken care of
     $url = str_replace( "&amp;", "&", $url );
@@ -1877,6 +1955,81 @@ class display {
     }
 
     //-------------------------------------------
+	// Hack. Convert php to html (class display)
+	//-------------------------------------------
+	function do_php_to_html($buffer) {
+		global $ibforums;
+
+		if (isset($ibforums->vars) && is_array($ibforums->vars) && $ibforums->vars['php_to_html'] == 1)
+		{
+			$forum_url = str_replace("/","\/",$ibforums->vars['board_url']);
+			$forum_url = str_replace(":","\:",$forum_url);
+			$forum_url = str_replace(".","\.",$forum_url);
+			$s_search = array("'(\?|\&amp;|\&)s=[0-9a-zA-Z]{32}(?:\&amp;|\&)'i",
+					  "'(?:\&amp;|\&)s=[0-9a-zA-Z]{32}'i",
+					  "'\?s=[0-9a-zA-Z]{32}'i");
+			$s_replace = array("\\1",
+					   "",
+					   "");
+			$search = array("'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=idx(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=idx([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=home(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=home([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=portal(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=portal([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showforum=([0-9]{1,5})(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showforum=([0-9]{1,5})([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=SF(?:\&amp;|\&)f=([0-9]{1,5})(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=SF(?:\&amp;|\&)f=([0-9]{1,5})([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showtopic=([0-9]{1,5})(?:\&amp;|\&)st=([0-9]{1,5})(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showtopic=([0-9]{1,5})(?:\&amp;|\&)st=([0-9]{1,5})([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showtopic=([0-9]{1,5})(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?showtopic=([0-9]{1,5})([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=ST(?:\&amp;|\&)f=([0-9]{1,5})(?:\&amp;|\&)t=([0-9]{1,5})(?:\&amp;|\&)st=([0-9]{1,5})(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=ST(?:\&amp;|\&)f=([0-9]{1,5})(?:\&amp;|\&)t=([0-9]{1,5})(?:\&amp;|\&)st=([0-9]{1,5})([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=ST(?:\&amp;|\&)f=([0-9]{1,5})(?:\&amp;|\&)t=([0-9]{1,5})(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=ST(?:\&amp;|\&)f=([0-9]{1,5})(?:\&amp;|\&)t=([0-9]{1,5})([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=SC(?:\&amp;|\&)c=([0-9]{1,5})(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=SC(?:\&amp;|\&)c=([0-9]{1,5})([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?c=([0-9]{1,5})(?:\&amp;|\&)(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?c=([0-9]{1,5})([\"\'])'i",
+							"'".$forum_url."\/index\.php\?s=([\"\'])'i",
+							"'".$forum_url."\/index\.php([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(?:s=(?:\&amp;|\&))*?act=(\S*?)([\"\'])'i",
+							"'".$forum_url."\/index\.php\?(\S*?)([\"\'])'i");
+			$replace = array($ibforums->vars['board_url']."/main.html?\\1\\2",
+							$ibforums->vars['board_url']."/main.html\\1",
+							$ibforums->vars['board_url']."/index.html?\\1\\2",
+							$ibforums->vars['board_url']."/index.html\\1",
+							$ibforums->vars['board_url']."/index.html?\\1\\2",
+							$ibforums->vars['board_url']."/index.html\\1",
+							$ibforums->vars['board_url']."/forum\\1.html?\\2\\3",
+							$ibforums->vars['board_url']."/forum\\1.html\\2",
+							$ibforums->vars['board_url']."/forum\\1.html?\\2\\3",
+							$ibforums->vars['board_url']."/forum\\1.html\\2",
+							$ibforums->vars['board_url']."/topic\\1s\\2.html?\\3\\4",
+							$ibforums->vars['board_url']."/topic\\1s\\2.html\\3",
+							$ibforums->vars['board_url']."/topic\\1.html?\\2\\3",
+							$ibforums->vars['board_url']."/topic\\1.html\\2",
+							$ibforums->vars['board_url']."/topic\\2s\\3.html\\4\\5",
+							$ibforums->vars['board_url']."/topic\\2s\\3.html\\4",
+							$ibforums->vars['board_url']."/topic\\2.html?\\3\\4",
+							$ibforums->vars['board_url']."/topic\\2.html\\3",
+							$ibforums->vars['board_url']."/cat\\1.html?\\2\\3",
+							$ibforums->vars['board_url']."/cat\\1.html\\2",
+							$ibforums->vars['board_url']."/cat\\1.html?\\2\\3",
+							$ibforums->vars['board_url']."/cat\\1.html\\2",
+							$ibforums->vars['board_url']."/index.html\\1",
+							$ibforums->vars['board_url']."/index.html?\\1",
+							$ibforums->vars['board_url']."/index.html?act=\\1\\2",
+							$ibforums->vars['board_url']."/index.html?\\1\\2");
+			$buffer = preg_replace($s_search,$s_replace,$buffer);
+			$buffer = preg_replace($search,$replace,$buffer);
+		}
+		return $buffer;
+	}
+
+    //-------------------------------------------
     // LoFi url part function
     // Song * http://forum.sysman.ru/index.php?showtopic=13658
     //-------------------------------------------
@@ -2229,6 +2382,8 @@ class display {
         	ob_start('ob_gzhandler');
         	print $buffer;
         }
+
+        $ibforums->skin['template'] = $this->do_php_to_html($ibforums->skin['template']);
         
         $this->do_headers();
 		
@@ -2336,6 +2491,8 @@ class display {
         	print $buffer;
         }
         
+        $htm = $this->do_php_to_html($htm);
+
         $this->do_headers();
         
     	echo ($htm);
@@ -2387,6 +2544,8 @@ class display {
         	ob_start('ob_gzhandler');
         	print $buffer;
         }
+
+        $html = $this->do_php_to_html($html);
         
         $this->do_headers();
         
