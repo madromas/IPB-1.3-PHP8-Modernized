@@ -1890,6 +1890,20 @@ CREATE TABLE `ibf_validating` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ibf_awards`
+--
+
+CREATE TABLE `ibf_awards` (
+  `id` SMALLINT NOT NULL AUTO_INCREMENT,
+  `mid` BIGINT(10) NOT NULL,
+  `awardtitle` VARCHAR(100) NOT NULL,
+  `awardimg` VARCHAR(100) NOT NULL,
+  `cid` VARCHAR(50) NOT NULL,
+  `description` TEXT NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
 -- Table structure for table `ibf_voters`
 --
 
