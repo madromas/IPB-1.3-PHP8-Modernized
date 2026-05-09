@@ -512,7 +512,28 @@ $info['posts'] = $member['posts'] ? $member['posts'] : 0;
     	{
     		$info['birthday'] = $ibforums->lang['no_info'];
     	}
-    	
+
+        //BEGIN AWARDS BY GUILLEEEE
+
+if (isset($member['id']) && $member['id'] > 0)
+{
+    // Use the global $DB object to fetch the award count
+    $DB->query("SELECT id FROM ibf_awards WHERE mid='" . intval($member['id']) . "'");
+    $nawards = $DB->get_num_rows();
+    
+    if ($nawards > 0)
+    {
+        // Removed the PopUp JS and switched to a standard board link
+        // This ensures it opens in the same window with your MadWay theme
+        $info['award'] = "<a href='{$ibforums->base_url}act=awards&mid={$member['id']}'>" . ($ibforums->lang['click_here'] ?? 'Awards') . " <i>($nawards)</i></a>";
+    }
+    else
+    {
+        // Standard fallback for members with no awards
+        $info['award'] = $ibforums->lang['no_award'] ?? 'None';
+    }
+}
+//END AWARDS
     	
     	if (!$member['hide_email']) {
 			$info['email'] = "<a href='{$this->base_url}act=Mail&amp;CODE=00&amp;MID={$member['id']}'>{$ibforums->lang['click_here']}</a>";

@@ -807,18 +807,31 @@ function do_news()
         }
         
         elseif ( $ibforums->vars['portal_newsforum'] == 0 )
+{
+    $expert_setting = $ibforums->vars['portal_newsforum_expert'] ?? "";
+
+    if ( $expert_setting == "" )
+    {
+        $forumid = "t.forum_id=1";
+    }
+    else
+    {       
+        $forums = explode(",", $expert_setting);
+        $requested_forum = intval($ibforums->input['news']);
+
+        if( $requested_forum && in_array($requested_forum, $forums) )
         {
-            if ( ($ibforums->vars['portal_newsforum_expert'] ?? "") == "" )
-            {
-                $forumid = "t.forum_id=1";
-            }
-            else
-            {        
-                $forums = explode(",", $ibforums->vars['portal_newsforum_expert']);
-                $forumid = "t.forum_id=". join (" OR t.forum_id=", $forums);
-                $special = 1;
-            }
+            $forumid = "t.forum_id=" . $requested_forum;
         }
+        else
+        {
+            // Use IN() for cleaner SQL and map to intval for security
+            $clean_ids = implode(',', array_map('intval', $forums));
+            $forumid = "t.forum_id IN ($clean_ids)";
+            $special = 1;
+        }
+    }
+}
 
         else 
         {

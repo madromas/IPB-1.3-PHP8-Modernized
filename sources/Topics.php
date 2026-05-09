@@ -1453,6 +1453,28 @@ $member['member_joined'] .= " ({$days_since_join} days)";
 		$member['profile_icon'] = "<a href='{$this->base_url}showuser={$member['id']}'><{P_PROFILE}></a>";
 		
 		$member['message_icon'] = "<a href='{$this->base_url}act=Msg&amp;CODE=04&amp;MID={$member['id']}'><{P_MSG}></a>";
+
+		
+// --- AWARDS DISPLAY LOGIC ---
+$member['award'] = "";
+
+if (intval($member['id']) > 0) {
+    // 1. Get the count and the images
+    $DB->query("SELECT awardimg, awardtitle FROM ibf_awards WHERE mid='" . intval($member['id']) . "'");
+    $nawards = $DB->get_num_rows();
+    
+    if ($nawards > 0) {
+        // 2. Start the Popup Link using the language string and count
+        $member['award'] = "<a href='{$ibforums->base_url}act=awards&mid={$member['id']}'>" . $ibforums->lang['member_award'] . " ($nawards)</a>";
+        
+        // 3. Display the actual icons below the text link
+        while ($aw = $DB->fetch_row()) {
+            $member['award'] .= "<img src='{$ibforums->vars['board_url']}/html/awards/{$aw['awardimg']}' title='{$aw['awardtitle']}' alt='Award' border='0' style='margin-top:2px; margin-right:2px; display:none' /> ";
+        }
+    }
+}
+// --- END AWARDS ---
+
 		
 		if (!$member['hide_email'])
 		{
