@@ -244,6 +244,27 @@ EOF;
 function show_profile($info) {
 global $ibforums, $INFO;
 return <<<EOF
+
+<script language='Javascript' type='text/javascript'>
+		<!--
+		function PopUp(url, name, width,height,center,resize,scroll,posleft,postop) {
+			if (posleft != 0) { x = posleft }
+			if (postop  != 0) { y = postop  }
+		
+			if (!scroll) { scroll = 1 }
+			if (!resize) { resize = 1 }
+		
+			if ((parseInt (navigator.appVersion) >= 4 ) && (center)) {
+			  X = (screen.width  - width ) / 2;
+			  Y = (screen.height - height) / 2;
+			}
+			if (scroll != 0) { scroll = 1 }
+		
+			var Win = window.open( url, name, 'width='+width+',height='+height+',top='+Y+',left='+X+',resizable='+resize+',scrollbars='+scroll+',location=no,directories=no,status=no,menubar=no,toolbar=no');
+	     }
+		//-->
+	</script>
+
 <script language='Javascript' type='text/javascript'>
 	<!--
 	function PopUp(url, name, width,height,center,resize,scroll,posleft,postop) {
@@ -397,6 +418,10 @@ return <<<EOF
 	  <tr>
 		<td class="row3" valign='top'><b>{$ibforums->lang['siggie']}</b></td>
 		<td align='left' class='row1'>{$info['signature']}</td>
+	  </tr>
+	   <tr>
+		<td class="row3" valign='top'><b>{$ibforums->lang['award']}</b></td>
+		<td align='left' class='row1'>{$info['award']}</td>
 	  </tr>
 	   <tr>
         <td class="row3" valign='top'><b>{$ibforums->lang['rep_name']}:</b></td>

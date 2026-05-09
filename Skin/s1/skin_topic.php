@@ -345,6 +345,7 @@ return <<<EOF
         {$author['member_posts']}<br />
          <span style="display:none">{$author['member_number']}<br /></span>
         {$author['member_joined']}<br />
+        {$author['award']}<br />
         {$author['rep']} {$post['rep_options']}<br />
         {$author['files']}<br />
         {$author['downloads']}<br /><br />
