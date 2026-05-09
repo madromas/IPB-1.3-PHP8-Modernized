@@ -2334,8 +2334,8 @@ else
 		{
 			$data['status']  = $ibforums->lang['rating_cannot'];
 			// Up/Down Buttons
-			$data['choices'] = "<button name='rating' value='1' class='forminput' style='color:green;font-weight:bold;'> + </button> ";
-			$data['choices'] .= "<button name='rating' value='-1' class='forminput' style='color:red;font-weight:bold;'> - </button>";
+			$data['choices'] = "<button name='rating' value='1' class='forminput' style='color:green;font-weight:bold;cursor:pointer;'> + </button> ";
+			$data['choices'] .= "<button name='rating' value='-1' class='forminput' style='color:red;font-weight:bold;cursor:pointer;'> - </button>";
 		}
 		else if(!$ibforums->member['id'])
 		{
