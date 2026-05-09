@@ -143,7 +143,7 @@ class Moderate {
         	
         if ($pass == 0)
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_permission') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_permission') );
         }
         
         //-------------------------------------
@@ -2103,7 +2103,7 @@ if ( isset($this->children[ $forum['id'] ]) && is_array($this->children[ $forum[
 		
 		if ( $ibforums->input['key'] != $std->return_md5_check() )
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'del_post') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'del_post') );
 		}
 		
 		//-----------------------------------------------
@@ -2640,7 +2640,7 @@ if ( isset($this->children[ $forum['id'] ]) && is_array($this->children[ $forum[
 		
 		if ( $ibforums->input['key'] != $std->return_md5_check() )
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'del_post') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'del_post') );
 		}
 		
 		//-----------------------------------------------

@@ -54,7 +54,11 @@ class Portal {
                   // 'read' topics
                    if ( $read = $std->my_getcookie('topicsread') )
         {
-                   $this->read_array = unserialize(stripslashes($read));
+                  $this->read_array = @unserialize(stripslashes($read ?? ''));
+
+if ($this->read_array === false && $read !== serialize(false)) {
+    $this->read_array = array();
+}
         }
 
         // gather information

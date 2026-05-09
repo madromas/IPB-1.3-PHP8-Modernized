@@ -564,7 +564,7 @@ class Forums {
         	}
         	else
         	{
-        		$std->Error( array( LEVEL => 1, MSG => 'no_permission') );
+        		$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_permission') );
         	}
         }
         

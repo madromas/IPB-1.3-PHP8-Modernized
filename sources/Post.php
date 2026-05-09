@@ -130,7 +130,7 @@ class Post {
         	$ibforums->input['t'] = intval($ibforums->input['t']);
         	if (! $ibforums->input['t'] )
         	{
-        		$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+        		$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         	}
         }
         
@@ -139,14 +139,14 @@ class Post {
         	$ibforums->input['p'] = intval($ibforums->input['p']);
         	if (! $ibforums->input['p'] )
         	{
-        		$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+        		$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         	}
         }
         
         $ibforums->input['f'] = intval($ibforums->input['f']);
         if (! $ibforums->input['f'] )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         }
         
         $ibforums->input['st'] = $ibforums->input['st'] ?intval($ibforums->input['st']) : 0;
@@ -166,7 +166,7 @@ class Post {
         
         if ( $std->check_perms($this->forum['read_perms']) != TRUE )
         {
-			$std->Error( array( LEVEL => 1, MSG => 'no_view_topic') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_view_topic') );
         }
         
         // Can we upload stuff?
@@ -180,7 +180,7 @@ class Post {
         
         if ( ! $this->forum['status'] )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'forum_read_only') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'forum_read_only') );
         }
         
         //--------------------------------------
@@ -212,7 +212,7 @@ class Post {
 		
 		if ($pass == 0)
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_view_topic') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_view_topic') );
 		}
 		
 		//--------------------------------------
@@ -236,7 +236,7 @@ class Post {
         
         if (!$this->forum['id'])
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         }
         
         $this->base_url = $ibforums->base_url;
@@ -293,7 +293,7 @@ class Post {
         	{
         		if ( $ibforums->member['restrict_post'] == 1 )
         		{
-        			$std->Error( array( LEVEL => 1, MSG => 'posting_off') );
+        			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'posting_off') );
         		}
         		
         		$post_arr = $std->hdl_ban_line( $ibforums->member['restrict_post'] );
@@ -331,7 +331,7 @@ class Post {
         }
        else if ( isset($ibforums->is_bot) && $ibforums->is_bot == 1 )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'posting_off') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'posting_off') );
         }
         
         
@@ -364,7 +364,7 @@ class Post {
         
         if (! isset($this->obj['action_codes'][ $ibforums->input['CODE'] ]) )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         }
         
         // Require and run our associated library file for this action.
@@ -698,13 +698,13 @@ else
 		{
 			if ( ! $_POST['preview'] )
 			{
-				$std->Error( array( LEVEL => 1, MSG => 'no_post') );
+				$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_post') );
 			}
 		}
 		
 		if (strlen( $_POST['Post'] ) > ($ibforums->vars['max_post_length']*1024))
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'post_too_long') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'post_too_long') );
 		}
 		
 		// 1. Handle the purification OUTSIDE the array
@@ -808,7 +808,7 @@ $FILE_TYPE = $_FILES['FILE_UPLOAD']['type'] ?? '';
 		
 		if ($FILE_SIZE > ($ibforums->member['g_attach_max']*1024))
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'upload_to_big') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'upload_to_big') );
 		}
 		
 		//-------------------------------------------------

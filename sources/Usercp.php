@@ -729,7 +729,7 @@ class UserCP {
 			
 			if ($email_check['id'])
 			{
-				$std->Error( array( LEVEL => 1, MSG => 'email_exists' ) );
+				$std->Error( array( 'LEVEL' => 1, 'MSG' => 'email_exists' ) );
 			}
 		}
 		

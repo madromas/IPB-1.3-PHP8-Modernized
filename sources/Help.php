@@ -116,7 +116,7 @@ class Help {
  		$id = $ibforums->input['HID'];
  		
  		if (! preg_match( "/^(\d+)$/" , $id ) ) {
- 			$std->Error( array( LEVEL => 1, MSG => 'no_help_file') );
+ 			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_help_file') );
  		}
  		
  		$DB->query("SELECT id, title, text from ibf_faq WHERE ID='$id'");
@@ -136,7 +136,7 @@ class Help {
  		global $ibforums, $DB, $std;
  		
  		if (empty( $ibforums->input['search_q'] ) ) {
- 			$std->Error( array( LEVEL => 1, MSG => 'no_help_file') );
+ 			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_help_file') );
  		}
  		
  		$search_string = strtolower( str_replace( "*" , "%", $ibforums->input['search_q'] ) );

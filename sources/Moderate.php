@@ -142,7 +142,7 @@ class Moderate {
         
         if (!$this->forum['id'])
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         }
         
         $this->base_url = $ibforums->base_url;

@@ -219,7 +219,7 @@ class Login {
  		
  		if(! $ibforums->member['id'])
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_guests') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_guests') );
 		}
 		
 		$DB->query("UPDATE ibf_members SET last_visit='".time()."', last_activity='".time()."' WHERE id='".$ibforums->member['id']."'");
@@ -237,14 +237,14 @@ class Login {
         
         if ($ibforums->input['f'] == "")
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'missing_files' ) );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files' ) );
         }
         
         $DB->query("SELECT id, name, subwrap, parent_id FROM ibf_forums WHERE id=".$ibforums->input['f']);
         
         if ( ! $f = $DB->fetch_row() )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'missing_files' ) );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files' ) );
         }
         
         //--------------------------------------	
@@ -314,7 +314,7 @@ class Login {
 				$ip = preg_replace( "/\*/", '.*' , $ip );
 				if (preg_match( "/$ip/", $ibforums->input['IP_ADDRESS'] ))
 				{
-					$std->Error( array( LEVEL => 1, MSG => 'you_are_banned' ) );
+					$std->Error( array( 'LEVEL' => 1, 'MSG' => 'you_are_banned' ) );
 				}
 			}
 		}
@@ -381,12 +381,12 @@ class Login {
 		
 		if (strlen($len_u) > 32)
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'username_long' ) );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'username_long' ) );
 		}
 		
 		if (strlen($len_p) > 32)
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'pass_too_long' ) );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'pass_too_long' ) );
 		}
 		
 		$username    = strtolower(str_replace( '|', '&#124;', $ibforums->input['UserName']) );

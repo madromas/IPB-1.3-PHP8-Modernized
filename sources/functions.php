@@ -28,6 +28,8 @@
 
 class FUNC {
 
+	public $perm_id_array;
+
 	var $time_formats  = array();
 	var $time_options  = array();
 	var $offset        = "";
@@ -457,7 +459,11 @@ class FUNC {
 			
 			if ( $fread = $this->my_getcookie('forum_read') )
 			{
-				$farray = unserialize(stripslashes($fread));
+				$farray = @unserialize(stripslashes($fread ?? ''));
+
+                   if ($farray === false && $fread !== serialize(false)) {
+                    $farray = array();
+                }
 				
 				if ( is_array($farray) and count($farray) > 0 )
 				{
@@ -2584,6 +2590,7 @@ class session {
     function authorise()
     {
         global $DB, $INFO, $ibforums, $std, $_SERVER;
+
         
         //-------------------------------------------------
         // Before we go any lets check the load settings..

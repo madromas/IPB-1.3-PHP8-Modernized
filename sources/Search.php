@@ -57,7 +57,7 @@ class Search {
     	
     	if (! $ibforums->vars['allow_search'])
     	{
-    		$std->Error( array( LEVEL => 1, MSG => 'search_off') );
+    		$std->Error( array( 'LEVEL' => 1, 'MSG' => 'search_off') );
     	}
     	
     	if ($ibforums->member['g_use_search'] != 1)
@@ -135,7 +135,7 @@ class Search {
     	
     	if (! isset($ibforums->member['g_use_search']) )
     	{
-    		$std->Error( array( LEVEL => 1, MSG => 'cant_use_feature') );
+    		$std->Error( array( 'LEVEL' => 1, 'MSG' => 'cant_use_feature') );
     	}
     	
     	switch($ibforums->input['CODE']) {
