@@ -1253,7 +1253,7 @@ class Search {
 		$topic_string = str_replace(  " "   , "", $topic_string );
 		$topic_string = preg_replace( "/,$/", "", $topic_string );
 			
-		$url_words = urlencode(trim($keywords));
+		$url_words = urlencode(trim($keywords ?? ''));
 			
 		$links = $std->build_pagelinks( array( 'TOTAL_POSS'  => $max_hits,
 											   'PER_PAGE'    => 25,
