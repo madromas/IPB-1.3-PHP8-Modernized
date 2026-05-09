@@ -441,140 +441,53 @@ EOF;
 
 
 function signature($sig, $t_sig, $key) {
-global $ibforums;
-return <<<EOF
-<script language="javascript1.2" type="text/javascript">
-<!--
+    global $ibforums;
+    
+    return <<<EOF
+<!-- TinyMCE Initialization -->
+<script type="text/javascript">
+    tinymce.init({
+        selector: '#sig-editor',
+        menubar: false,
+        plugins: 'link image lists emoticons',
+        toolbar: 'bold italic color | link image emoticons',
+        height: 250,
+    });
 
-var MessageMax  = "{$ibforums->lang['the_max_length']}";
-var Override    = "{$ibforums->lang['override']}";
-
-function CheckLength() {
-    MessageLength  = document.REPLIER.Post.value.length;
-    message  = "";
-
-        if (MessageMax > 0) {
-            message = "{$ibforums->lang['js_max_length']} " + MessageMax + " {$ibforums->lang['js_characters']}.";
-        } else {
-            message = "";
+    function ValidateForm() {
+        // Ensure TinyMCE saves content back to the textarea before submitting
+        tinymce.triggerSave();
+        
+        var MessageMax = parseInt("{$ibforums->lang['the_max_length']}");
+        var content = document.getElementById('sig-editor').value;
+        
+        if (MessageMax != 0 && content.length > MessageMax) {
+            alert("{$ibforums->lang['js_max_length']} " + MessageMax);
+            return false;
         }
-        alert(message + " {$ibforums->lang['js_used']} " + MessageLength + " {$ibforums->lang['js_characters']}.");
-}
-
-function ValidateForm() {
-    MessageLength  = document.REPLIER.Post.value.length;
-    errors = "";
-
-    if (MessageMax !=0) {
-        if (MessageLength > MessageMax) {
-            errors = "{$ibforums->lang['js_max_length']} " + MessageMax + " {$ibforums->lang['js_characters']}. {$ibforums->lang['js_current']}: " + MessageLength;
-        }
-    }
-    if (errors != "" && Override == "") {
-        alert(errors);
-        return false;
-    } else {
-        document.REPLIER.submit.disabled = true;
+        
         return true;
     }
-}
-
-
-
-// IBC Code stuff
-	var text_enter_url      = "{$ibforums->lang['jscode_text_enter_url']}";
-	var text_enter_url_name = "{$ibforums->lang['jscode_text_enter_url_name']}";
-	var text_enter_image    = "{$ibforums->lang['jscode_text_enter_image']}";
-	var text_enter_email    = "{$ibforums->lang['jscode_text_enter_email']}";
-	var text_enter_flash    = "{$ibforums->lang['jscode_text_enter_flash']}";
-	var text_code           = "{$ibforums->lang['jscode_text_code']}";
-	var text_quote          = "{$ibforums->lang['jscode_text_quote']}";
-	var error_no_url        = "{$ibforums->lang['jscode_error_no_url']}";
-	var error_no_title      = "{$ibforums->lang['jscode_error_no_title']}";
-	var error_no_email      = "{$ibforums->lang['jscode_error_no_email']}";
-	var error_no_width      = "{$ibforums->lang['jscode_error_no_width']}";
-	var error_no_height     = "{$ibforums->lang['jscode_error_no_height']}";
-	var prompt_start        = "{$ibforums->lang['js_text_to_format']}";
-	
-	var help_bold           = "{$ibforums->lang['hb_bold']}";
-	var help_italic         = "{$ibforums->lang['hb_italic']}";
-	var help_under          = "{$ibforums->lang['hb_under']}";
-	var help_font           = "{$ibforums->lang['hb_font']}";
-	var help_size           = "{$ibforums->lang['hb_size']}";
-	var help_color          = "{$ibforums->lang['hb_color']}";
-	var help_close          = "{$ibforums->lang['hb_close']}";
-	var help_url            = "{$ibforums->lang['hb_url']}";
-	var help_img            = "{$ibforums->lang['hb_img']}";
-	var help_email          = "{$ibforums->lang['hb_email']}";
-	var help_quote          = "{$ibforums->lang['hb_quote']}";
-	var help_list           = "{$ibforums->lang['hb_list']}";
-	var help_code           = "{$ibforums->lang['hb_code']}";
-	var help_click_close    = "{$ibforums->lang['hb_click_close']}";
-	var list_prompt         = "{$ibforums->lang['js_tag_list']}";
-//-->
 </script>
 
-<form action="{$ibforums->base_url}" method="post" name='REPLIER'>
-<input type='hidden' name='act' value='UserCP' />
-<input type='hidden' name='CODE' value='23' />
-<input type='hidden' name='key' value='$key' />
-<div class='pformstrip'>{$ibforums->lang['cp_current_sig']}</div>
-<div class='signature' style="width:75%;margin-right:auto;margin-left:auto;padding:6px">$sig</div>
-<div class='pformstrip'>{$ibforums->lang['cp_edit_sig']}</div>
-<table width="100%">
-<tr> 
-  <td class="pformleft">
-	<input type='radio' name='bbmode' value='ezmode' onclick='setmode(this.value)' />&nbsp;<b>{$ibforums->lang['bbcode_guided']}</b><br />
-	<input type='radio' name='bbmode' value='normal' onclick='setmode(this.value)' checked="checked" />&nbsp;<b>{$ibforums->lang['bbcode_normal']}</b>
-    <script language='javascript' type="text/javascript" src='html/ibfcode.js'></script>
-  </td>
-  <td class="pformright" valign="top">
-	<input type='button' accesskey='b' value=' B '       onclick='simpletag("B")' class='codebuttons' name='B' style="font-weight:bold" onmouseover="hstat('bold')" />
-	<input type='button' accesskey='i' value=' I '       onclick='simpletag("I")' class='codebuttons' name='I' style="font-style:italic" onmouseover="hstat('italic')" />
-	<input type='button' accesskey='u' value=' U '       onclick='simpletag("U")' class='codebuttons' name='U' style="text-decoration:underline" onmouseover="hstat('under')" />
-	
-	<select name='ffont' class='codebuttons' onchange="alterfont(this.options[this.selectedIndex].value, 'FONT')"  onmouseover="hstat('font')">
-	<option value='0'>{$ibforums->lang['ct_font']}</option>
-	<option value='Arial' style='font-family:Arial'>{$ibforums->lang['ct_arial']}</option>
-	<option value='Times' style='font-family:Times'>{$ibforums->lang['ct_times']}</option>
-	<option value='Courier' style='font-family:Courier'>{$ibforums->lang['ct_courier']}</option>
-	<option value='Impact' style='font-family:Impact'>{$ibforums->lang['ct_impact']}</option>
-	<option value='Geneva' style='font-family:Geneva'>{$ibforums->lang['ct_geneva']}</option>
-	<option value='Optima' style='font-family:Optima'>Optima</option>
-	</select><select name='fsize' class='codebuttons' onchange="alterfont(this.options[this.selectedIndex].value, 'SIZE')" onmouseover="hstat('size')">
-	<option value='0'>{$ibforums->lang['ct_size']}</option>
-	<option value='1'>{$ibforums->lang['ct_sml']}</option>
-	<option value='7'>{$ibforums->lang['ct_lrg']}</option>
-	<option value='14'>{$ibforums->lang['ct_lest']}</option>
-	</select><select name='fcolor' class='codebuttons' onchange="alterfont(this.options[this.selectedIndex].value, 'COLOR')" onmouseover="hstat('color')">
-	<option value='0'>{$ibforums->lang['ct_color']}</option>
-	<option value='blue' style='color:blue'>{$ibforums->lang['ct_blue']}</option>
-	<option value='red' style='color:red'>{$ibforums->lang['ct_red']}</option>
-	<option value='purple' style='color:purple'>{$ibforums->lang['ct_purple']}</option>
-	<option value='orange' style='color:orange'>{$ibforums->lang['ct_orange']}</option>
-	<option value='yellow' style='color:yellow'>{$ibforums->lang['ct_yellow']}</option>
-	<option value='gray' style='color:gray'>{$ibforums->lang['ct_grey']}</option>
-	<option value='green' style='color:green'>{$ibforums->lang['ct_green']}</option>
-	</select>
-	&nbsp; <a href='javascript:closeall();' onmouseover="hstat('close')">{$ibforums->lang['js_close_all_tags']}</a>
-	<br />
-	<input type='button' accesskey='h' value=' http:// ' onclick='tag_url()'            class='codebuttons' name='url' onmouseover="hstat('url')">
-	<input type='button' accesskey='g' value=' IMG '     onclick='tag_image()'          class='codebuttons' name='img' onmouseover="hstat('img')">
-	<input type='button' accesskey='e' value='  @  '     onclick='tag_email()'          class='codebuttons' name='email' onmouseover="hstat('email')">
-	<input type='button' accesskey='q' value=' QUOTE '   onclick='simpletag("QUOTE")'   class='codebuttons' name='QUOTE' onmouseover="hstat('quote')">
-	<input type='button' accesskey='p' value=' CODE '    onclick='simpletag("CODE")'    class='codebuttons' name='CODE' onmouseover="hstat('code')">
-	<input type='hidden' accesskey='l' value=' LIST '     onclick='tag_list()'          class='codebuttons' name="LIST" onmouseover="hstat('list')">
-	<!--<input type='button' accesskey='l' value=' SQL '     onclick='simpletag("SQL")'     class='codebuttons' name='SQL'>
-	<input type='button' accesskey='t' value=' HTML '    onclick='simpletag("HTML")'    class='codebuttons' name='HTML'>-->
-	<br />
-	<input type='text' name='helpbox' size='50' maxlength='120' style='width:450px;font-size:10px;font-family:verdana,arial;border:0px;font-weight:bold;' readonly="readonly" class='row1' value="{$ibforums->lang['hb_start']}" />
-	<br />
-	<b>{$ibforums->lang['hb_open_tags']}:</b>&nbsp;<input type='text' name='tagcount' size='3' maxlength='3' style='font-size:10px;font-family:verdana,arial;border:0px;font-weight:bold;' readonly="readonly" class='row1' value="0" />
-  </td>
-</tr>
-</table>
-<div align="center"><p><textarea cols='60' rows='12' name='Post' tabindex='3' class='textinput'>$t_sig</textarea><br />(<a href='javascript:CheckLength()'>{$ibforums->lang['check_length']}</a>)</p></div>
-<div class='pformstrip' align="center"><input type='submit' value='{$ibforums->lang['cp_submit_sig']}' class="forminput" /></div>
+<form action="{$ibforums->base_url}" method="post" name='REPLIER' onsubmit="return ValidateForm()">
+    <input type='hidden' name='act' value='UserCP' />
+    <input type='hidden' name='CODE' value='23' />
+    <input type='hidden' name='key' value='$key' />
+
+    <div class='pformstrip'>{$ibforums->lang['cp_current_sig']}</div>
+    <div class='signature-preview' style="margin:20px; padding:15px; border:1px solid #334155; border-radius:4px;">
+        $sig
+    </div>
+
+    <div class='pformstrip'>{$ibforums->lang['cp_edit_sig']}</div>
+    <div style="padding:15px;">
+        <textarea id='sig-editor' name='Post' tabindex='1' class='textinput'>$t_sig</textarea>
+    </div>
+
+    <div class='pformstrip' style="text-align:center; padding:10px;">
+        <input type='submit' value='{$ibforums->lang['cp_submit_sig']}' class="forminput" />
+    </div>
 </form>
 EOF;
 }
