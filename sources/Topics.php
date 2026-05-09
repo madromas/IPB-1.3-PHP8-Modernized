@@ -2312,7 +2312,7 @@ function rating()
 
 if ($score == 0) 
 {
-    $data['rating'] = "<span style='color:gray; font-weight:bold;'>0</span>";
+    $data['rating'] = "<span class='rating-neutral'>0</span>";
 } 
 else 
 {
