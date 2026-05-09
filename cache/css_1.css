@@ -257,7 +257,7 @@ option.sub { font-weight:bold;color:#555 }
 
 /* Topic View elements */
 
-.signature   { font-size: 12px; color: #339; line-height:150% }
+.signature   { font-size: 12px; color: #339; line-height:1px; }
 
 .postdetails { font-size: 12px }
 
