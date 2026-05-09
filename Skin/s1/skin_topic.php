@@ -246,27 +246,27 @@ return <<<EOF
     <div id="share-menu-id" class="share-menu" style="display: none;">
         
         <!-- Facebook -->
-    <a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}" title="Facebook">
+    <a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}">
         <i class="fab fa-facebook"></i> Facebook
     </a>
 
     <!-- X (Twitter) -->
-    <a rel="nofollow" target="_blank" href="https://twitter.com/intent/tweet?url={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}&text={$data['TOPIC']['title']}" title="X">
+    <a rel="nofollow" target="_blank" href="https://twitter.com/intent/tweet?url={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}&text={$data['TOPIC']['title']}">
         <i class="fab fa-x-twitter"></i> X / Twitter
     </a>
 
     <!-- Reddit -->
-    <a rel="nofollow" target="_blank" href="https://www.reddit.com/submit?url={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}&title={$data['TOPIC']['title']}" title="Reddit">
+    <a rel="nofollow" target="_blank" href="https://www.reddit.com/submit?url={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}&title={$data['TOPIC']['title']}">
         <i class="fab fa-reddit"></i> Reddit
     </a>
 
     <!-- LinkedIn -->
-    <a rel="nofollow" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}" title="LinkedIn">
+    <a rel="nofollow" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}">
         <i class="fab fa-linkedin"></i> LinkedIn
     </a>
     
     <!-- WhatsApp (Great for mobile users) -->
-    <a rel="nofollow" target="_blank" href="https://api.whatsapp.com/send?text={$data['TOPIC']['title']}%20{$ibforums->base_url}showtopic={$data['TOPIC']['tid']}" title="WhatsApp">
+    <a rel="nofollow" target="_blank" href="https://api.whatsapp.com/send?text={$data['TOPIC']['title']}%20{$ibforums->base_url}showtopic={$data['TOPIC']['tid']}">
         <i class="fab fa-whatsapp"></i> WhatsApp
     </a>
 
