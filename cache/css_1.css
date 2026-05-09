@@ -104,14 +104,14 @@ img.attach { border:2px outset #EEF2F7;padding:2px;}
 
 .post-author {
     display: inline-block;
-    margin-left: 2px;
+    margin-left: 5px;
     padding: 0 .3rem;
     font-size: 12px;
     font-weight: 600;
     color: #143876 !important;
     background-color: transparent;
     border: 1px solid #5f86c9 !important;
-    border-radius: 4px;
+    border-radius: 10px;
     backdrop-filter: blur(8px);
 }
 
@@ -621,3 +621,62 @@ pre[class*="language-"] code {
 }
 
 /* Mod tags */
+
+
+/* Share btn */
+.share-btn {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none !important;
+    font-size: 18px;
+    font-weight: 600 !important;
+    color: #fff !important;
+    background: #7899d4;
+    border: 1px solid #3b7ac9;
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
+    margin-top: -3px;
+}
+
+.share-btn {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 16px 16px;
+    background-image: url(/html/static/icon-share.svg);
+}
+.maintitle .share-menu
+ {
+    display: none;
+    position: absolute;
+    top: 36px;
+    right: 0;
+    min-width: 180px;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    z-index: 9999;
+    overflow: hidden;
+    text-align: left;
+}
+.maintitle .share-menu a
+ {
+    display: block;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #333;
+    text-decoration: none;
+    background: #fff;
+    white-space: nowrap;
+    text-shadow:none;
+}
+.maintitle .share-menu a:hover {
+    background: #E4EAF2;
+}
+
+/* Share btn */
