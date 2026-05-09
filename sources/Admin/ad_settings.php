@@ -179,7 +179,7 @@ class ad_settings {
 				$this->url();
 				break;
 			case 'dourl':
-				$this->save_config( array ( 'number_format', 'html_dir','safe_mode_skins', 'board_name','board_url','home_name','home_url', 'disable_gzip', 'html_url','upload_url', 'upload_dir', 'print_headers', 'header_redirect', 'debug_level', 'sql_debug' ) );
+				$this->save_config( array ( 'number_format', 'html_dir','safe_mode_skins', 'board_name','board_url','home_name','home_url', 'disable_gzip', 'html_url','upload_url', 'upload_dir', 'print_headers', 'header_redirect', 'php_to_html', 'debug_level', 'sql_debug' ) );
 				break;
 			//-------------------------
 			case 'pm':
@@ -2212,6 +2212,15 @@ class ad_settings {
 										  						 	  ),
 										  						 $INFO['header_redirect']  )
 								 )      );
+
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Allow the conversion of PHP links to HTML?</b><br>It is necessary for indexing the forum by search robots (it only works in Apache with a properly configured one .htaccess)" ,
+						  $SKIN->form_dropdown( 'php_to_html',
+  						 array(
+					 		0 => array( '0', 'No' ),
+					 		1 => array( '1' , 'Yes' ),
+					 	  ),
+  						 $INFO['php_to_html']  )
+					 )      );
 		
 		//-----------------------------------------------------------------------------------------------------------						 
 		
