@@ -73,7 +73,7 @@ class Printable {
         
         if ($ibforums->input['t'] < 0 or $ibforums->input['f'] < 0)
         {
-            $std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+            $std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         }
         
         //-------------------------------------
@@ -104,7 +104,7 @@ class Printable {
         
         if (!$this->forum['id'])
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         }
         
         //-------------------------------------
@@ -113,7 +113,7 @@ class Printable {
         
         if (!$this->topic['tid'])
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         }
         
         
@@ -127,14 +127,14 @@ class Printable {
         
         if ( (!$this->topic['pin_state']) and (!$ibforums->member['g_other_topics']) )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_view_topic') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_view_topic') );
         }
         
         $bad_entry = $this->check_access();
         
         if ($bad_entry == 1)
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_view_topic') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_view_topic') );
         }
         
         //------------------------------------------------------------

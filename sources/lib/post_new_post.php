@@ -45,12 +45,12 @@ class post_functions extends Post {
 		
 		if (! $ibforums->member['g_post_new_topics'])
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_starting') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_starting') );
 		}
 		
 		if ( $std->check_perms($class->forum['start_perms']) == FALSE )
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_starting') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_starting') );
 		}
 
 	}

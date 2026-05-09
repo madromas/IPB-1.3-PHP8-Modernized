@@ -56,19 +56,19 @@ class post_functions extends Post {
 		
 		if (! $ibforums->member['g_post_polls'])
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_start_polls') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_start_polls') );
 		}
 		
 		if ( ! $class->forum['allow_poll'] )
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_start_polls') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_start_polls') );
 		}
 			
 		$this->m_group = $ibforums->perm_id;
 		
 		if ( $std->check_perms($class->forum['start_perms']) != TRUE )
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_start_polls') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_start_polls') );
 		}
 
 	}

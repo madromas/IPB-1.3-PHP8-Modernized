@@ -338,6 +338,8 @@ class click_site {
         	ob_start('ob_gzhandler');
         	print $buffer;
         }
+
+        $this->template = $print->do_php_to_html($this->template);
         
         $print->do_headers();
         

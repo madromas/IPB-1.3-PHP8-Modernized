@@ -1160,6 +1160,52 @@ class usercp_functions {
 			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'del_post' ) );
 		}
 		
+
+      function filesize_url($url) {
+    $url = rawurldecode($url);
+    $url = rawurlencode($url);
+    $url = str_replace("%3A", ":", $url);
+    $url = str_replace("%2F", "/", $url);
+
+    // Using a timeout is safer for external URLs
+    $data = @file_get_contents($url);
+    
+    if ($data) {
+        // Get image info from the downloaded string
+        $info = @getimagesizefromstring($data);
+        $height = $info[1]; // Index 1 is height
+
+        return array(
+            'size'   => strlen($data),
+            'height' => $height
+        );
+    }
+    return array('size' => 0, 'height' => 0);
+}
+
+// Configuration
+$max_kb_limit = 30720; // 30 KB
+$max_height   = 150;   // Your height limit
+
+$cnt = preg_match_all("/http:\/\/.+?\.(gif|jpg|png|jpeg)/", $HTTP_POST_VARS['Post'], $matches);
+
+for ($i = 0; $i < $cnt; $i++) {
+    $img_data = filesize_url($matches[0][$i]);
+    $summ += $img_data['size'];
+
+    // 'Too fucking tall man!'
+    if ($img_data['height'] > $max_height) {
+        $std->Error( array( 'LEVEL' => 1, 'MSG' => 'sig_too_tall' ) );
+        exit;
+    }
+}
+
+// This triggers your lang entry for the 30KB limit
+if ( $summ > $max_kb_limit ) {
+    $std->Error( array( 'LEVEL' => 1, 'MSG' => 'sig_too_big_img' ) );
+    exit;
+}
+
 		//----------------------------------
 		// Check for valid IB CODE
 		//----------------------------------

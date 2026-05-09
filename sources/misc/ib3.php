@@ -202,12 +202,12 @@ EOF;
 		
 		if (strlen($ibforums->input['UserName']) > 32)
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'username_long' ) );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'username_long' ) );
 		}
 		
 		if (strlen($ibforums->input['PassWord']) > 32)
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'pass_too_long' ) );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'pass_too_long' ) );
 		}
 		
 		$username    = strtolower($ibforums->input['UserName']);
@@ -334,7 +334,7 @@ EOF;
 		
 		if(! $ibforums->member['id'])
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_guests') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_guests') );
 		}
 		
 		// Update the DB

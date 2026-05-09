@@ -65,7 +65,7 @@ class Forward {
         
         if ($ibforums->input['t'] < 0 or $ibforums->input['f'] < 0)
         {
-            $std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+            $std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         }
         
         //-------------------------------------
@@ -94,7 +94,7 @@ class Forward {
         
         if (!$this->forum['id'])
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         }
         
         //-------------------------------------
@@ -103,7 +103,7 @@ class Forward {
         
         if (!$this->topic['tid'])
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
         }
         
         $this->base_url    = $ibforums->base_url;
@@ -117,14 +117,14 @@ class Forward {
         
         if (! $ibforums->member['id'] )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_guests') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_guests') );
         }
         
         $bad_entry = $this->check_access();
         
         if ($bad_entry == 1)
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_view_topic') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_view_topic') );
         }      
         
 		// What to do?

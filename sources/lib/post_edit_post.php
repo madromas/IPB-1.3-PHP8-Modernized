@@ -53,7 +53,7 @@ class post_functions extends Post {
 		
 		if (! $this->topic['tid'])
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
 		}
 		
 		//-------------------------------------------------

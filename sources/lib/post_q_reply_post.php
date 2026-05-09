@@ -50,7 +50,7 @@ class post_functions extends Post {
 		
 		if (! $this->topic['tid'])
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
 		}
 		
 		//-------------------------------------------------
@@ -60,14 +60,14 @@ class post_functions extends Post {
 		
 		if ($this->topic['poll_state'] == 'closed' and $ibforums->member['g_is_supadmin'] != 1)
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_replies') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_replies') );
 		}
 		
 		if ($this->topic['starter_id'] == $ibforums->member['id'])
 		{
 			if (! $ibforums->member['g_reply_own_topics'])
 			{
-				$std->Error( array( LEVEL => 1, MSG => 'no_replies') );
+				$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_replies') );
 			}
 		}
 		
@@ -75,13 +75,13 @@ class post_functions extends Post {
 		{
 			if (! $ibforums->member['g_reply_other_topics'])
 			{
-				$std->Error( array( LEVEL => 1, MSG => 'no_replies') );
+				$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_replies') );
 			}
 		}
 		
 		if ( $std->check_perms($class->forum['reply_perms']) == FALSE )
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_replies') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_replies') );
 		}
 		
 		// Is the topic locked?
@@ -90,7 +90,7 @@ class post_functions extends Post {
 		{
 			if ($ibforums->member['g_post_closed'] != 1)
 			{
-				$std->Error( array( LEVEL => 1, MSG => 'locked_topic') );
+				$std->Error( array( 'LEVEL' => 1, 'MSG' => 'locked_topic') );
 			}
 		}
 

@@ -126,12 +126,12 @@ class  warn {
         	
         if ($pass == 0)
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_permission') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_permission') );
         }
         
         if ( ! $ibforums->vars['warn_on'] )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_permission') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_permission') );
         }
         
         //-------------------------------------
@@ -142,7 +142,7 @@ class  warn {
         
         if ( $mid < 1 )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_such_user') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_such_user') );
         }
         
         $DB->query("SELECT m.*, g.* FROM ibf_members m
@@ -153,7 +153,7 @@ class  warn {
         
         if ( ! $this->warn_member['id'] )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_such_user') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_such_user') );
         }
         
         
@@ -165,7 +165,7 @@ class  warn {
 			
 			if ( stristr( $ibforums->vars['warn_protected'], ','.$this->warn_member['mgroup'].',' ) )
 			{
-				$std->Error( array( LEVEL => 1, MSG => 'protected_user') );
+				$std->Error( array( 'LEVEL' => 1, 'MSG' => 'protected_user') );
 			}
 			
 			//-------------------------------------
@@ -180,7 +180,7 @@ class  warn {
 				
 				if ( $DB->get_num_rows() >= $this->times_a_day )
 				{
-					$std->Error( array( LEVEL => 1, MSG => 'warned_already') );
+					$std->Error( array( 'LEVEL' => 1, 'MSG' => 'warned_already') );
 				}
 			}
         }
@@ -235,7 +235,7 @@ class  warn {
 		
 		if ( stristr( $ibforums->vars['warn_protected'], ','.$this->warn_member['mgroup'].',' ) )
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'protected_user') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'protected_user') );
 		}
 		
 		$perpage = 50;
@@ -319,7 +319,7 @@ class  warn {
 		
 		if ( $this->type == 'member' )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_permission') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_permission') );
         }
         
         $err = "";
@@ -593,7 +593,7 @@ class  warn {
 		
 		if ( $this->type == 'member' )
         {
-        	$std->Error( array( LEVEL => 1, MSG => 'no_permission') );
+        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_permission') );
         }
 		
 		$key = $std->return_md5_check();

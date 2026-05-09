@@ -50,7 +50,7 @@ class Poll {
 		
 		if (! $ibforums->member['g_vote_polls'])
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'no_reply_polls') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_reply_polls') );
 		}
 		
 		// Did we choose a choice?
@@ -59,7 +59,7 @@ class Poll {
 		{
 			if (! isset($ibforums->input['poll_vote']) )
 			{
-				$std->Error( array( LEVEL => 1, MSG => 'no_vote') );
+				$std->Error( array( 'LEVEL' => 1, 'MSG' => 'no_vote') );
 			}
 		}
 
@@ -67,7 +67,7 @@ class Poll {
 		
        	$ibforums->input[t] = $std->is_number($ibforums->input[t]);
 		if (! $ibforums->input[t] ) {
-			$std->Error( array( LEVEL => 1, MSG => 'missing_files') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'missing_files') );
 		}
    
    		// Load the topic and poll
@@ -78,12 +78,12 @@ class Poll {
    		
    		if (! $this->topic['tid'] )
    		{
-   			$std->Error( array( LEVEL => 1, MSG => 'poll_none_found') );
+   			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'poll_none_found') );
    		}
 
    		if ($this->topic['state'] != 'open')
    		{
-   			$std->Error( array( LEVEL => 1, MSG => 'locked_topic') );
+   			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'locked_topic') );
    		}
 		// Have we voted before?
 		
@@ -91,7 +91,7 @@ class Poll {
 		
 		if ( $DB->get_num_rows() )
 		{
-			$std->Error( array( LEVEL => 1, MSG => 'poll_you_voted') );
+			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'poll_you_voted') );
 		}
 		
 		// If we're here, lets add the vote
