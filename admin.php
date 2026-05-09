@@ -123,6 +123,8 @@ class Debug {
     }
 }
 
+#[AllowDynamicProperties]
+
 class info {
 
 	var $vars       = "";

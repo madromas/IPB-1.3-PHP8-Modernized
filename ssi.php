@@ -70,6 +70,8 @@ $allow_syndication = 1;  // To turn off, use $allow_syndication = 0;
 // NO USER EDITABLE SECTIONS BELOW
 //-----------------------------------------------
 
+#[AllowDynamicProperties]
+
 class info {
 
 	var $input      = array();

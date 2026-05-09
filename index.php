@@ -84,6 +84,8 @@ class Debug {
     }
 }
 
+#[AllowDynamicProperties]
+
 class info {
 
 	var $member     = array();
