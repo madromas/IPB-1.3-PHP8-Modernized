@@ -340,36 +340,31 @@ class Printable {
 			
 			$row['signature'] = "";
 			
-			if ($poster['signature'] and $ibforums->member['view_sigs'])
+			if (isset($poster['signature']) && $poster['signature'] && $ibforums->member['view_sigs'])
 			{
 				if ($row['use_sig'] == 1)
 				{
-					if ( $info['signature'] )
-{
-    if ( $ibforums->vars['sig_allow_html'] == 1 )
-    {
-        // Decode entities so <strong> appears as HTML instead of literal text
-        $info['signature'] = htmlspecialchars_decode($info['signature'], ENT_QUOTES);
-        
-        // Use the reliable convert method to handle HTML rendering
-        $info['signature'] = $this->parser->convert( array( 
-            'TEXT'    => $info['signature'], 
-            'HTML'    => 1, 
-            'SMILIES' => 0, 
-            'BBCODE'  => $ibforums->vars['sig_allow_ibc'] 
-        ) );
-    }
-    else
-    {
-        // Standard non-HTML parsing
-        $info['signature'] = $this->parser->convert( array( 
-            'TEXT'    => $info['signature'], 
-            'HTML'    => 0, 
-            'SMILIES' => 0, 
-            'BBCODE'  => $ibforums->vars['sig_allow_ibc'] 
-        ) );
-    }
-}
+					if ($ibforums->vars['sig_allow_html'] == 1)
+					{
+						// Decode entities so <strong> appears as HTML
+						$poster['signature'] = htmlspecialchars_decode($poster['signature'], ENT_QUOTES);
+						
+						$poster['signature'] = $this->parser->convert( array( 
+							'TEXT'    => $poster['signature'], 
+							'HTML'    => 1, 
+							'SMILIES' => 0, 
+							'BBCODE'  => $ibforums->vars['sig_allow_ibc'] 
+						) );
+					}
+					else
+					{
+						$poster['signature'] = $this->parser->convert( array( 
+							'TEXT'    => $poster['signature'], 
+							'HTML'    => 0, 
+							'SMILIES' => 0, 
+							'BBCODE'  => $ibforums->vars['sig_allow_ibc'] 
+						) );
+					}
 					
 					if ( $ibforums->vars['post_wordwrap'] > 0 )
 					{
@@ -378,7 +373,7 @@ class Printable {
 					
 					$row['signature'] = $skin_universal->signature_separator($poster['signature']);
 				}
-			}
+			} // This closes the main signature check
 			
 			//--------------------------------------------------------------
 			// Parse HTML tag on the fly
@@ -471,7 +466,6 @@ class Printable {
 }
 
 ?>
-
 
 
 
