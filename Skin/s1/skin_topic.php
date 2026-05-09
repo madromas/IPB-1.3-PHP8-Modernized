@@ -234,7 +234,59 @@ return <<<EOF
 </table>
 <br />
 <div class="tableborder">
-    <div class='maintitle'><{CAT_IMG}>&nbsp;<b>{$data['TOPIC']['title']}</b>{$data['TOPIC']['description']}</div>
+    <div class='maintitle'>
+        <!-- Right-aligned section -->
+        <div style='float: right; font-weight: normal; display: flex; align-items: center;'>
+            
+            <div class="share-wrap" style="position: relative; margin-right: 10px;">
+
+    <a href="javascript:void(0);" class="share-btn" title="Share" onclick="toggleShareMenu(event);">
+    </a>
+    
+    <div id="share-menu-id" class="share-menu" style="display: none;">
+        
+        <!-- Facebook -->
+    <a rel="nofollow" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}" title="Facebook">
+        <i class="fab fa-facebook"></i> Facebook
+    </a>
+
+    <!-- X (Twitter) -->
+    <a rel="nofollow" target="_blank" href="https://twitter.com/intent/tweet?url={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}&text={$data['TOPIC']['title']}" title="X">
+        <i class="fab fa-x-twitter"></i> X / Twitter
+    </a>
+
+    <!-- Reddit -->
+    <a rel="nofollow" target="_blank" href="https://www.reddit.com/submit?url={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}&title={$data['TOPIC']['title']}" title="Reddit">
+        <i class="fab fa-reddit"></i> Reddit
+    </a>
+
+    <!-- LinkedIn -->
+    <a rel="nofollow" target="_blank" href="https://www.linkedin.com/sharing/share-offsite/?url={$ibforums->base_url}showtopic={$data['TOPIC']['tid']}" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+    
+    <!-- WhatsApp (Great for mobile users) -->
+    <a rel="nofollow" target="_blank" href="https://api.whatsapp.com/send?text={$data['TOPIC']['title']}%20{$ibforums->base_url}showtopic={$data['TOPIC']['tid']}" title="WhatsApp">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
+
+    <!-- Copy Link (Bonus) -->
+    <a href="javascript:void(0);" onclick="navigator.clipboard.writeText('{$ibforums->base_url}showtopic={$data['TOPIC']['tid']}'); alert('Link copied!');">
+        <i class="fas fa-link"></i> Copy Link
+    </a>
+        
+    </div>
+</div>
+
+            <div class="post-actions-wrap" style="display:none">
+                lol 
+            </div>
+            
+        </div>
+
+        <!-- Left-aligned Title -->
+        <{CAT_IMG}>&nbsp;<b>{$data['TOPIC']['title']}</b> {$data['TOPIC']['description']} 
+    </div>
 	<!--{IBF.POLL}-->
 	<div align='right' class='postlinksbar'>
 	  <strong><!--{IBF.START_NEW_POLL}--><a href='{$ibforums->base_url}act=Track&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}'>{$ibforums->lang['track_topic']}</a> |
@@ -280,14 +332,18 @@ return <<<EOF
     </tr>
     <tr>
       <td align='center' valign='top' class='{$post['post_css']}'>
-        <span class='postdetails'>{$author['member_status']}<br /><span class="avatar">{$author['avatar']}</span><br />
+        <span class='postdetails'>{$author['member_status']}<br />
+        <span class="avatar">
+            {$author['avatar']}
+        </span>
+        <br />
         <br />
         {$author['title']}<br />
         {$author['member_rank_img']}<br /><br />
-        {$author['profile']}<br />
+        <span style="display:none">{$author['profile']}<br /></span>
         {$author['member_group']}<br />
         {$author['member_posts']}<br />
-        {$author['member_number']}<br />
+         <span style="display:none">{$author['member_number']}<br /></span>
         {$author['member_joined']}<br />
         {$author['rep']} {$post['rep_options']}<br />
         {$author['files']}<br />
