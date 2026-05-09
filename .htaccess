@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteRule ^index.htm index.php?%{QUERY_STRING}
+RewriteRule ^index.html index.php?%{QUERY_STRING}
+RewriteRule ^main.html index.php?act=idx&%{QUERY_STRING}
+RewriteRule ^forum([0-9]+)\.html$ index.php?act=SF&f=$1&%{QUERY_STRING}
+RewriteRule ^topic([0-9]+)\.html$ index.php?act=ST&f=1&t=$1&%{QUERY_STRING}
+RewriteRule ^topic([0-9]+)s([0-9]+)\.html$ index.php?act=ST&f=1&t=$1&st=$2&%{QUERY_STRING}
+RewriteRule ^cat([0-9]+)\.html$ index.php?act=SC&c=$1&%{QUERY_STRING}
+RewriteRule ^section([0-9]+)\.html$ index.php?act=portal&news=$1&%{QUERY_STRING}
+AddDefaultCharset iso-8859-1
