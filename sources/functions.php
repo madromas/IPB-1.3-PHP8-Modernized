@@ -2204,6 +2204,7 @@ class display {
         //---------------------------------------------------------
         
         $js = '<script language="javascript" src="./html/quote.js"></script>';
+        $js = '<script language="javascript" src="./html/common.js"></script>';
         
         // Modernized Legacy Copyright - Stripped of all 20-year-old license checks
         $copyright = "<p><div align='center' class='copyright'>
