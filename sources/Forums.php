@@ -570,7 +570,12 @@ class Forums {
         
 		if ( $read = $std->my_getcookie('topicsread') )
         {
-        	$this->read_array = unserialize(stripslashes($read));
+        	$this->read_array = @unserialize(stripslashes($read ?? ''));
+
+if ( ! is_array($this->read_array) )
+{
+    $this->read_array = array();
+}
         }
 
         $ibforums->input['last_visit'] = $ibforums->forum_read[ $ibforums->input['f'] ] > $ibforums->input['last_visit']

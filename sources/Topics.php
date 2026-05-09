@@ -196,14 +196,15 @@ else
         //-------------------------------------
         
         if ( $read = $std->my_getcookie('topicsread') )
-        {
-        	$this->read_array = unserialize(stripslashes($read));
-        	
-        	if (! is_array($this->read_array) )
-        	{
-        		$this->read_array = array();
-        	}
-        }
+{
+    
+    $this->read_array = @unserialize(stripslashes($read ?? ''));
+    
+    if (! is_array($this->read_array) )
+    {
+        $this->read_array = array();
+    }
+}
         
         $DB->query("SELECT rating from ibf_forums where id=".$this->forum['id']);
 		$dummy = $DB->fetch_row();
