@@ -75,6 +75,8 @@ $lang = array (
 'interests' => "Interests",
 'avatar'    => "Avatar",
 'siggie'    => "Signature",
+'award' =>  "Awards:",
+'no_award' =>  "<i>This user has no awards.</i>",
 
 
 );

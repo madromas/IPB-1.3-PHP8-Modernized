@@ -2,6 +2,8 @@
 
 $lang = array (
 
+
+
 'rating_cannot'               => "You can rate this topic.",
 'rating_raters'               => " voters",
 'rating_choose'               => "Select your rating: ",
@@ -118,6 +120,7 @@ $lang = array (
 'm_group'					=>	"Group:",
 'back_top'              =>  "Back to top",
 'member_no'             =>  "Member No.:",
+'member_award'             =>  "Awards:",
 'd_download' 	=> "Downloads:",
 'd_upload'	=> "Submissions:",
 'd_no_upload'	=> "0",
