@@ -450,7 +450,7 @@ function signature($sig, $t_sig, $key) {
         selector: '#sig-editor',
         menubar: false,
         plugins: 'link image lists emoticons',
-        toolbar: 'bold italic color | link image emoticons',
+        toolbar: 'bold italic underline forecolor | link image emoticons',
         height: 250,
     });
 
@@ -476,7 +476,7 @@ function signature($sig, $t_sig, $key) {
     <input type='hidden' name='key' value='$key' />
 
     <div class='pformstrip'>{$ibforums->lang['cp_current_sig']}</div>
-    <div class='signature-preview' style="margin:20px; padding:15px; border:1px solid #334155; border-radius:4px;">
+    <div class='signature-preview' style=" padding:15px;">
         $sig
     </div>
 
