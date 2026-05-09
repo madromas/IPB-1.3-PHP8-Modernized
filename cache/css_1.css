@@ -111,7 +111,7 @@ img.attach { border:2px outset #EEF2F7;padding:2px;}
     color: #143876 !important;
     background-color: transparent;
     border: 1px solid #5f86c9 !important;
-    border-radius: 10px;
+    border-radius: 6px;
     backdrop-filter: blur(8px);
 }
 
