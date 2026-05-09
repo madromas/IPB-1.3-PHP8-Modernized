@@ -489,10 +489,32 @@ $info['posts'] = $member['posts'] ? $member['posts'] : 0;
     	
     	$info['signature']   = $member['signature'];
     	
-    	if ( $ibforums->vars['sig_allow_html'] == 1 )
-		{
-			$info['signature'] = $this->parser->parse_html($info['signature'], 0);
-		}
+    	if ( $info['signature'] )
+{
+    if ( $ibforums->vars['sig_allow_html'] == 1 )
+    {
+        // Decode entities so <strong> appears as HTML instead of literal text
+        $info['signature'] = htmlspecialchars_decode($info['signature'], ENT_QUOTES);
+        
+        // Use the reliable convert method to handle HTML rendering
+        $info['signature'] = $this->parser->convert( array( 
+            'TEXT'    => $info['signature'], 
+            'HTML'    => 1, 
+            'SMILIES' => 0, 
+            'BBCODE'  => $ibforums->vars['sig_allow_ibc'] 
+        ) );
+    }
+    else
+    {
+        // Standard non-HTML parsing
+        $info['signature'] = $this->parser->convert( array( 
+            'TEXT'    => $info['signature'], 
+            'HTML'    => 0, 
+            'SMILIES' => 0, 
+            'BBCODE'  => $ibforums->vars['sig_allow_ibc'] 
+        ) );
+    }
+}
     	
     	if ( $member['website'] and preg_match( "/^http:\/\/\S+$/", $member['website'] ) )
     	{

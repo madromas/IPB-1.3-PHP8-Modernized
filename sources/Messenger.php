@@ -1216,25 +1216,41 @@ class Messenger {
 												);
 												
 		if ($this->member['view_sigs'])
-		{
-			$member['signature'] = $this->parser->convert( array( 'TEXT'    => $member['signature'],
-																  'SMILIES' => 0,
-																  'CODE'    => $ibforums->vars['sig_allow_ibc'],
-																  'HTML'    => $ibforums->vars['sig_allow_html'],
-																  'SIGNATURE'=> 1,
-														 )      );
-			
-			if ( $ibforums->vars['sig_allow_html'] == 1 )
-			{
-				$member['signature'] = $this->parser->parse_html($member['signature'], 0);
-			}
-														 
-			$member['signature'] = $skin_universal->signature_separator($member['signature']);
-		}
-		else
-		{
-			$member['signature'] = "";
-		}
+{
+    // 1. Prepare HTML if enabled
+    if ( $ibforums->vars['sig_allow_html'] == 1 )
+    {
+        // Decode entities first to ensure tags like <strong> render correctly
+        $member['signature'] = htmlspecialchars_decode($member['signature'], ENT_QUOTES);
+        
+        // Use the core convert method with HTML enabled
+        $member['signature'] = $this->parser->convert( array( 
+            'TEXT'      => $member['signature'],
+            'SMILIES'   => 0,
+            'BBCODE'    => $ibforums->vars['sig_allow_ibc'], // Changed from 'CODE' to 'BBCODE' for consistency
+            'HTML'      => 1,
+            'SIGNATURE' => 1,
+        ) );
+    }
+    else
+    {
+        // Standard non-HTML parsing
+        $member['signature'] = $this->parser->convert( array( 
+            'TEXT'      => $member['signature'],
+            'SMILIES'   => 0,
+            'BBCODE'    => $ibforums->vars['sig_allow_ibc'],
+            'HTML'      => 0,
+            'SIGNATURE' => 1,
+        ) );
+    }
+
+    // 2. Final Output with Separator
+    $member['signature'] = $skin_universal->signature_separator($member['signature']);
+}
+else
+{
+    $member['signature'] = "";
+}
 		
 		$member['VID'] = $this->msg_stats['current_id'];
 		

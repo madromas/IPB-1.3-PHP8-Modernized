@@ -1713,24 +1713,46 @@ class UserCP {
  	//*******************************************************************/
  	
  	function signature()
- 	{
- 		global $ibforums, $DB, $std, $print;
- 		
-		$t_sig = $this->parser->unconvert( $this->member['signature'], $ibforums->vars['sig_allow_ibc'], $ibforums->vars['sig_allow_html'] );
-		
-		$ibforums->lang['the_max_length'] = $ibforums->vars['max_sig_length'] ? $ibforums->vars['max_sig_length'] : 0;
-		
-		if ( $ibforums->vars['sig_allow_html'] == 1 )
-		{
-			$this->member['signature'] = $this->parser->parse_html($this->member['signature'], 0);
-		}
- 		
- 		$this->output .= $this->html->signature($this->member['signature'], $t_sig, $std->return_md5_check());
- 		
- 		$this->page_title = $ibforums->lang['t_welcome'];
- 		$this->nav        = array( "<a href='".$this->base_url."act=UserCP&amp;CODE=00'>".$ibforums->lang['t_title']."</a>" );
- 		
- 	}
+{
+    global $ibforums, $DB, $std, $print;
+
+    // 1. Unconvert for TinyMCE
+    $t_sig = $this->parser->unconvert( $this->member['signature'], $ibforums->vars['sig_allow_ibc'], $ibforums->vars['sig_allow_html'] );
+
+    $ibforums->lang['the_max_length'] = $ibforums->vars['max_sig_length'] ? $ibforums->vars['max_sig_length'] : 0;
+
+    // 2. Prepare Preview
+    $preview_sig = $this->member['signature'];
+
+    if ( $ibforums->vars['sig_allow_html'] == 1 )
+    {
+        // Decode entities so the browser sees <strong> instead of &lt;strong&gt;
+        $preview_sig = htmlspecialchars_decode($preview_sig, ENT_QUOTES);
+        
+        // Final pass through the most basic conversion method available
+        $preview_sig = $this->parser->convert( array( 
+            'TEXT'    => $preview_sig, 
+            'HTML'    => 1, 
+            'SMILIES' => 0, 
+            'BBCODE'  => $ibforums->vars['sig_allow_ibc'] 
+        ) );
+    }
+    else
+    {
+        // Plain text version
+        $preview_sig = $this->parser->convert( array( 
+            'TEXT'    => $preview_sig, 
+            'HTML'    => 0, 
+            'SMILIES' => 0, 
+            'BBCODE'  => $ibforums->vars['sig_allow_ibc'] 
+        ) );
+    }
+
+    $this->output .= $this->html->signature($preview_sig, $t_sig, $std->return_md5_check());
+
+    $this->page_title = $ibforums->lang['t_welcome'];
+    $this->nav        = array( "<a href='".$this->base_url."act=UserCP&amp;CODE=00'>".$ibforums->lang['t_title']."</a>" );
+}
  	
  	function do_signature() {
  	

@@ -1060,24 +1060,46 @@ else
 			//--------------------------------------------------------------
 			
 			$row['signature'] = "";
-			
-			if ($poster['signature'] and $ibforums->member['view_sigs'])
-			{
-				if ($row['use_sig'] == 1)
-				{
-					if ( $ibforums->vars['sig_allow_html'] == 1 )
-					{
-						$poster['signature'] = $this->parser->parse_html($poster['signature'], 0);
-					}
-					
-					if ( $ibforums->vars['post_wordwrap'] > 0 )
-					{
-						$poster['signature'] = $this->parser->my_wordwrap( $poster['signature'], $ibforums->vars['post_wordwrap']) ;
-					}
-					
-					$row['signature'] = $skin_universal->signature_separator($poster['signature']);
-				}
-			}
+
+if ($poster['signature'] and $ibforums->member['view_sigs'])
+{
+    if ($row['use_sig'] == 1)
+    {
+        // 1. Process HTML if enabled in Admin CP
+        if ( $ibforums->vars['sig_allow_html'] == 1 )
+        {
+            // Clean entities first to ensure <strong> works
+            $poster['signature'] = htmlspecialchars_decode($poster['signature'], ENT_QUOTES);
+            
+            // Use the core convert method to avoid "Undefined Method" errors
+            $poster['signature'] = $this->parser->convert( array( 
+                'TEXT'    => $poster['signature'], 
+                'HTML'    => 1, 
+                'SMILIES' => 0, 
+                'BBCODE'  => $ibforums->vars['sig_allow_ibc'] 
+            ) );
+        }
+        else
+        {
+            // If HTML is off, parse normally without tag rendering
+            $poster['signature'] = $this->parser->convert( array( 
+                'TEXT'    => $poster['signature'], 
+                'HTML'    => 0, 
+                'SMILIES' => 0, 
+                'BBCODE'  => $ibforums->vars['sig_allow_ibc'] 
+            ) );
+        }
+
+        // 2. Handle Wordwrap
+        if ( $ibforums->vars['post_wordwrap'] > 0 )
+        {
+            $poster['signature'] = $this->parser->my_wordwrap( $poster['signature'], $ibforums->vars['post_wordwrap']) ;
+        }
+
+        // 3. Final Output with Separator
+        $row['signature'] = $skin_universal->signature_separator($poster['signature']);
+    }
+}
 			
 			//--------------------------------------------------------------
             // Fix up the membername so it links to the members profile
@@ -1131,7 +1153,8 @@ $row['topic_starter_id'] = $this->topic['starter_id'];
 		//-------------------------------------
 		// Print the footer
 		//-------------------------------------
-		
+
+
 		$this->output .= $this->html->TableFooter( array( 'TOPIC' => $this->topic, 'FORUM' => $this->forum ) );
 		
 		//+----------------------------------------------------------------
@@ -1385,6 +1408,7 @@ $row['topic_starter_id'] = $this->topic['starter_id'];
 
 	}
 	
+    
 	//--------------------------------------------------------------
 	// Parse the member info
 	//--------------------------------------------------------------
