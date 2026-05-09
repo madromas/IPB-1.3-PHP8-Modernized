@@ -31,6 +31,7 @@ $PAGES = array(
 							 18 =>array( 'Search Engine Spiders', 'act=op&code=spider' ),
 							 19 =>array( 'Warning Set-up'       , 'act=op&code=warn' ),
 							 20 =>array( 'IPDynamic Lite Set-up'    , 'act=csite',     'sources/dynamiclite' ),
+							 21 =>array( 'Awards'	      , 'act=mem&code=awards' ),
 							 22 =>array( 'Reputation Set-up' , 'act=op&code=rep' ),
 							 
 							 

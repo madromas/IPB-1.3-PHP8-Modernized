@@ -70,6 +70,26 @@ class ad_forums {
 
 		switch($IN['code'])
 		{
+			//----AWARDS---------------
+			case 'awards':
+				$this->awards_form();
+				break;
+			case 'doaddawards':
+				$this->do_add_award();
+				break;
+			case 'awards_search':
+				$this->awards_search();
+				break;
+			case 'awards_edit_form':
+				$this->awards_edit_form();
+				break;
+			case 'awards_edit_do':
+				$this->awards_edit_do();
+				break;
+			case 'awards_delete':
+				$this->awards_delete();
+				break;
+			//-------------------------
 			case 'stepone':
 				$this->do_advanced_search(1);
 				break;
@@ -2037,9 +2057,350 @@ class ad_forums {
 		
 		
 	}
+
+	 //-------------------------------------------------------------
+	// AWARDS: Hack V1.0 By GuiLLeee (25-09-2k2)
+	//--------------------------------------------------------------
+
+	function awards_search() {
+
+	global $IN, $root_path, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+
+
+		$ADMIN->page_detail = "Enter keywords in the search bar.";
+		$ADMIN->page_title  = "List of Awards";
+		
+
+		$userid	=	$IN['awards_search_userid'];
+
+		$DB->query("SELECT * FROM ibf_awards WHERE mid='$userid'");
+
+		if (!$DB->get_num_rows())
+		{
+			$ADMIN->error("The search found no results.");
+		}
+
+		//+-------------------------------
+		
+		$SKIN->td_header[] = array( "Award Name"  , "20%" );
+		$SKIN->td_header[] = array( "Awarded By"  , "20%" );
+		$SKIN->td_header[] = array( "Description"  , "40%" );
+		$SKIN->td_header[] = array( "Options"  , "20%" );
+		
+		//+-------------------------------
+
+
+		$ADMIN->html .= $SKIN->start_table( "Search result" );
+
+
+		while ($award	=	$DB->fetch_row())
+		{
+
+		$ADMIN->html .= $SKIN->add_td_row( array( 
+								"<center>" . $award['awardtitle'] . "</center>",
+								"<center>" . $award['cid'] . "</center>",
+								"<center>" . $award['description'] . "</center>",
+								"<center>" . "<a href='{$ADMIN->base_url}&act=mem&code=awards_edit_form&q=".$award['id']."'>Edit</a>&nbsp;&nbsp;<a href='{$ADMIN->base_url}&act=mem&code=awards_delete&q=".$award['id']."'>Delete</a>" . "</center>",
+							)      );	
+
+		}
+
+
+										 
+		$ADMIN->html .= $SKIN->end_table();
+
+
+		$ADMIN->output();
+
+
+	}
+
+
+	function awards_delete() {
+
+	global $IN, $root_path, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+
+		$award_id	=	$IN['q'];
+
+		$DB->query("SELECT * FROM ibf_awards WHERE id='".$award_id."'");
+		$award		=	$DB->fetch_row();
+
+		if (!$award)
+		{
+			$ADMIN->error("The specified award does not exist.");
+		}
+
+		$DB->query("DELETE FROM ibf_awards WHERE id='".$award['id']."'");
+
+		$ADMIN->done_screen("Award Deleted", "Administration CP Home", "act=index" );
+
+
+	}
+
+	function awards_edit_form() {
+
+	global $IN, $root_path, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+
+
+		$ADMIN->page_detail = "Edit the award.";
+		$ADMIN->page_title  = "Editing";
+		
+		$award_id	=	$IN['q'];
+
+		$DB->query("SELECT * FROM ibf_awards WHERE id='".$award_id."'");
+		$award		=	$DB->fetch_row();
+
+		if (!$award)
+		{
+			$ADMIN->error("The selected reward was not found.");
+		}
+
+
+		$ADMIN->html .= $SKIN->start_form( array( 1 => array( 'code'  , 'awards_edit_do' ),
+												  2 => array( 'act'   , 'mem'      ),
+												3 => array ( 'id', $award_id)
+									     )      );
+		
+		
+		//+-------------------------------
+		
+		$SKIN->td_header[] = array( "&nbsp;"  , "40%" );
+		$SKIN->td_header[] = array( "&nbsp;"  , "60%" );
+		
+		//+-------------------------------
+		
+		$ADMIN->html .= $SKIN->start_table( "Editing Award" );
+		
+									     
+		
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>User ID</b><br>The user's ID number. For example: 1 (this is the admin—usually!)" ,
+$SKIN->form_input( "mid", $award['mid'] ?? '')
+)      ); 
+
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Award Title</b><br>The actual title of the award you are presenting" ,
+$SKIN->form_input( "awardtitle", $award['awardtitle'] ?? '')
+)      ); 
+
+$dh = opendir( $INFO['html_dir'].'/awards' );
+$award_images = array();
+$award_images[] = array("", "Select an Award Icon");
+
+while ($file = readdir($dh)) {
+    // Look for gif, jpg, or png files
+    if (preg_match("/\.(gif|jpg|jpeg|png)$/i", $file)) {
+        if ($file != '.' && $file != '..') {
+            // We use the full filename (e.g., 1st.gif) so the img tag can find it later
+            $award_images[] = array($file, $file);
+        }
+    }
+}
+closedir($dh);
+
+$ADMIN->html .= $SKIN->add_td_row( array( 
+    "<b>Award Image</b><br>Select an icon from /html/awards", 
+    $SKIN->form_dropdown( "awardimg", $award_images, $award['awardimg'] ?? '' ) 
+) );
+
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Presented By</b><br>Who is presenting the award?" ,
+$SKIN->form_input( "cid", $award['cid'] ?? '')
+)      ); 
+
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Description</b><br>A brief description of the award" ,
+$SKIN->form_input( "description", $award['description'] ?? '')
+)      ); 
+
+
+$ADMIN->html .= $SKIN->end_form("Update");
+										 
+		$ADMIN->html .= $SKIN->end_table();
+
+
+		$ADMIN->output();
+
+	}
+
+
+	function awards_edit_do() {
+
+	global $IN, $root_path, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+
+		
+		$award_id	=	$IN['id'];
+
+		$DB->query("SELECT * FROM ibf_awards WHERE id='".$award_id."'");
+		$award		=	$DB->fetch_row();
+
+		if (!$award)
+		{
+			$ADMIN->error("The selected reward was not found.");
+		}
+
+
+		foreach( array('mid', 'awardtitle', 'awardimg', 'cid', 'description') as $field )
+		{
+			if ($IN[ $field ] == "")
+			{
+				$ADMIN->error("You must fill out the form completely!");
+			}
+		}
+
+
+	$db_string1	=	Array(	'mid'		=>	$IN['mid'],
+					'awardtitle'	=>	$IN['awardtitle'],
+					'awardimg'	=>	$IN['awardimg'],
+					'cid'		=>	$IN['cid'],
+					'description'	=>	$IN['description']
+				);
+
+
+	$db_string = $DB->compile_db_update_string( $db_string1 );
+
+	$DB->query("UPDATE ibf_awards SET $db_string WHERE id='".$award_id."'");
+
+
+
+	$ADMIN->done_screen("Award Edited", "Administration CP Home", "act=index" );
+
+	}
+	
+
+
+	function awards_form()
+	{
+		global $IN, $root_path, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+
+		$ADMIN->page_title = "Add Reward"; 
+
+$ADMIN->page_detail = "Fill out this form";
+
+		$DB->query("SELECT * FROM ibf_awards");
+
+
+
+		//+-------------------------------
+		
+		$ADMIN->html .= $SKIN->start_form( array( 1 => array( 'code'  , 'doaddawards' ),
+												  2 => array( 'act'   , 'mem'     ),
+									     )      );
+		
+		//+-------------------------------
+		
+		$SKIN->td_header[] = array( "&nbsp;"  , "40%" );
+		$SKIN->td_header[] = array( "&nbsp;"  , "60%" );
+		
+		//+-------------------------------
+		
+		$ADMIN->html .= $SKIN->start_table( "Add Award" );
+		
+									     
+		
+		$ADMIN->html .= $SKIN->add_td_row( array( "<b>User ID</b><br>The user's ID number. E.g.: 1 (this is the admin, usually!)" ,
+$SKIN->form_input( "mid", $award['mid'] ?? '')
+)      ); 
+
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Award Title</b><br>The actual title of the award you are presenting" ,
+$SKIN->form_input( "awardtitle", $award['awardtitle'] ?? '')
+)      ); 
+
+$dh = opendir( $INFO['html_dir'].'/awards' );
+$award_images = array();
+$award_images[] = array("", "Select an Award Icon");
+
+while ($file = readdir($dh)) {
+    // Look for gif, jpg, or png files
+    if (preg_match("/\.(gif|jpg|jpeg|png)$/i", $file)) {
+        if ($file != '.' && $file != '..') {
+            // We use the full filename (e.g., 1st.gif) so the img tag can find it later
+            $award_images[] = array($file, $file);
+        }
+    }
+}
+closedir($dh);
+
+$ADMIN->html .= $SKIN->add_td_row( array( 
+    "<b>Award Image</b><br>Select an icon from /html/awards", 
+    $SKIN->form_dropdown( "awardimg", $award_images, $award['awardimg'] ?? '' ) 
+) );
+
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Presented By</b><br>Who is presenting the award?" ,
+$SKIN->form_input( "cid", $award['cid'] ?? '')
+)      ); 
+
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Description</b><br>A brief description of the award" ,
+$SKIN->form_input( "description", $award['description'] ?? '')
+)      ); 
+
+$ADMIN->html .= $SKIN->end_form("Add Award");
+										 
+		$ADMIN->html .= $SKIN->end_table();
+
+		//+-------------------------------
+		
+		$ADMIN->html .= $SKIN->start_form( array( 1 => array( 'code'  , 'awards_search' ),
+												  2 => array( 'act'   , 'mem'     ),
+									     )      );
+		
+		//+-------------------------------
+		//+-------------------------------
+		
+		$SKIN->td_header[] = array( "&nbsp;"  , "40%" );
+		$SKIN->td_header[] = array( "&nbsp;"  , "60%" );
+		
+		//+-------------------------------
+
+
+		$ADMIN->html .= $SKIN->start_table( "Search for Award" ); 
+
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Search for Award</b><br>Enter Award ID" ,
+
+$SKIN->form_input( "awards_search_userid" )
+)      ); 
+
+
+$ADMIN->html .= $SKIN->end_form("Search for Award" );
+										 
+		$ADMIN->html .= $SKIN->end_table();
+		
+		$ADMIN->output();
+
+	}
+
+	function do_add_award()
+	{
+		global $IN, $root_path, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
+		
+		foreach( array('mid', 'awardtitle', 'awardimg', 'cid', 'description') as $field )
+		{
+			if ($IN[ $field ] == "")
+			{
+				$ADMIN->error("You must fill out the form completely!");
+			}
+		}
+		
+		
+		$db_string = $DB->compile_db_insert_string( array (
+															 			'mid'  => $IN['mid'],
+			
+			'awardtitle'  => $IN['awardtitle'],
+															 			'awardimg'  => $IN['awardimg'],
+															 			'cid'  => $IN['cid'],
+															 			'description'  => $IN['description'],
+												  )       );
+												  
+		$DB->query("INSERT INTO ibf_awards (" .$db_string['FIELD_NAMES']. ") VALUES (". $db_string['FIELD_VALUES'] .")");
+		
+
+		$ADMIN->done_screen("Award Added", "Award Control", "act=mem&code=awards" );												 
+		
+	}
+
+	//-------------------------------------------------------------
+	// END AWARDS: Hack V1.0 By GuiLLeee (25-09-2k2)
+	//--------------------------------------------------------------
 	
 	function do_add()
 	{
+
 		global $IN, $INFO, $DB, $SKIN, $ADMIN, $std, $MEMBER, $GROUP;
 		
 		foreach( array('name', 'password', 'email', 'mgroup') as $field )
