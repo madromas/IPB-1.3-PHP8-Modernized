@@ -438,6 +438,7 @@ $choice = array(
                  "ST"       => "Topics",
                  "Login"    => "Login",
                  "Post"     => "Post",
+                 "awards"   => "awards",
                  "Poll"     => "lib/add_poll",
                  "Reg"      => "Register",
                  "Online"   => "Online",
