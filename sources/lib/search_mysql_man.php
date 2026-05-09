@@ -172,7 +172,7 @@ class search_lib extends Search
 		
 		 // Is this a membername search?
 		 
-		 $name_filter = trim( $name_filter );
+		$name_filter = trim( $name_filter ?? '' );
 		 $member_string = "";
 		 
 		 if ( $name_filter != "" )
