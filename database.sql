@@ -706,7 +706,8 @@ CREATE TABLE `ibf_members` (
   `allow_rep` tinyint(1) NOT NULL DEFAULT 1,
   `allow_anon` tinyint(1) NOT NULL DEFAULT 1,
   `rep_do` int(10) NOT NULL DEFAULT 0,
-  `rep_do_open` int(10) NOT NULL DEFAULT 0
+  `rep_do_open` int(10) NOT NULL DEFAULT 0,
+  `favorites` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
