@@ -73,13 +73,13 @@ return <<<EOF
   </td>
   <td class="pformright" valign='top'>
     <!-- THE TEXTAREA: Now it just holds raw HTML -->
-    <textarea name="Post" id="legacy-post-area" style="width:100%; height:400px; opacity:0;">$data</textarea>
+    <textarea name="Post" id="legacy-post-area" style="width:100%; height:350px; opacity:0;">$data</textarea>
 
     <script>
   // INITIALIZE TINYMCE
   tinymce.init({
       selector: '#legacy-post-area',
-      height: 400,
+      height: 350,
       menubar: false,
       images_upload_url: 'tinymce_upload.php',
       automatic_uploads: true,
