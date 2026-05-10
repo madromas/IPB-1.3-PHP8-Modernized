@@ -125,7 +125,6 @@ function LOFISKIN_fastreply_entry($topic,$key,$url)
  <div class='replywrapper'>
  <div class='replytopbar'>
  <div class='postname'>Fast Reply:</div>
-  <div class='postdate'>Powered by dgreen</div>
  </div>
  <div class='postcontent' align=center>
  <form name='REPLIER' action="{$url}" method='post' >
