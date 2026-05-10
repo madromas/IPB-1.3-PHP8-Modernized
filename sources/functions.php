@@ -855,7 +855,7 @@ class FUNC {
       // --- Custom Forum Icon Logic Start ---
 if ($forum_data['icon']) 
 {
-    $icon_img = "<img src=\"".$ibforums->vars['html_url']."/icons/".$forum_data['icon'].".gif\" border=\"0\" alt=\"\" />";
+    $icon_img = "<img src=\"".$ibforums->vars['html_url']."/icons/".$forum_data['icon'].".gif\" border=\"0\" alt=\"\" class=\"forum-icon\"/>";
     
     // Create the link wrapper
     $link_start = "<a href=\"{$ibforums->base_url}showforum={$forum_data['id']}\">";
