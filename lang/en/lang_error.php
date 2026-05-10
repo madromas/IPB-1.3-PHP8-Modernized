@@ -2,6 +2,7 @@
 
 $lang = array (
 
+'fav_guest' => "Sorry, but you must log in to use this feature.",
 	'rep_cantchange'	=> "You have been restricted from changing members reputation",
 'rep_noanon'		=> "You have been restricted from voting anonimously",
 'rep_gcantchange'	=> "Your group has been restricted from changing members reputation",
@@ -333,5 +334,8 @@ $lang = array (
 'move_no_source'					=>	"No source forum was chosen",
 'log_in'					=>	"Not Logged in?",
 'data_incorrect'					=>	"One of the data fields contained the incorrect type of data, please double check the URL or data you entered into the form",
+'sig_too_big_img' => "The total file size of your signature image exceeds the 30 KB limit. Please optimize your images and try again.",
+'sig_too_tall'    => "Image in your signature exceed the maximum allowed height of 150px.",
+
 );
 ?>
