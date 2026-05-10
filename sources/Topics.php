@@ -52,6 +52,7 @@ class Topics {
     var $pfields    = array();
     var $pfields_dd = array();
     var $md5_check  = "";
+    var $rating_html = "";
     
     /***********************************************************************************/
 	//
@@ -80,7 +81,7 @@ class Topics {
         
         $this->parser = new post_parser(1);
         
-        if($ibforums->input['CODE'] == "00")
+        if( (isset($ibforums->input['CODE']) && $ibforums->input['CODE'] == "00") )
 		{
 			$this->ratingpro();
 			exit;
@@ -89,6 +90,11 @@ class Topics {
         //-------------------------------------
         // Check the input
         //-------------------------------------
+
+        $ibforums->lang['the_max_length'] = $ibforums->lang['the_max_length'] ?? 0;
+        $ibforums->lang['override']       = $ibforums->lang['override'] ?? "";
+
+        $ibforums->input['st'] = $ibforums->input['st'] ?? 0;
         
         $ibforums->input['t'] = intval($ibforums->input['t']);
         
@@ -458,7 +464,7 @@ $this->rep_hide    = explode(",", $ibforums->vars['rep_change_exclude'] ?? "");
 		// Generate the forum page span links
 		//-------------------------------------
 		
-		if ($ibforums->input['hl'])
+		if ( isset($ibforums->input['hl']) && $ibforums->input['hl'] )
 		{
 			$hl = '&amp;hl='.$ibforums->input['hl'];
 		}
@@ -466,16 +472,18 @@ $this->rep_hide    = explode(",", $ibforums->vars['rep_change_exclude'] ?? "");
 		$this->topic['SHOW_PAGES']
 			= $std->build_pagelinks( array( 'TOTAL_POSS'  => ($this->topic['posts']+1),
 											'PER_PAGE'    => $ibforums->vars['display_max_posts'],
-											'CUR_ST_VAL'  => $ibforums->input['st'],
+											'CUR_ST_VAL'  => (isset($ibforums->input['st']) ? $ibforums->input['st'] : 0),
 											'L_SINGLE'    => "",
-											'BASE_URL'    => $this->base_url."showtopic=".$this->topic['tid'].$hl,
+											'BASE_URL'    => $this->base_url."showtopic=".$this->topic['tid'].($hl ?? ""),
 										  )
 								   );
 								   
-		if ( ($this->topic['posts'] + 1) > $ibforums->vars['display_max_posts'])
-		{
-			$this->topic['go_new'] = $this->html->golastpost_link($this->forum['id'], $this->topic['tid'] );
-		}
+		$this->topic['go_new'] = "";
+
+if ( ($this->topic['posts'] + 1) > $ibforums->vars['display_max_posts'])
+{
+    $this->topic['go_new'] = $this->html->golastpost_link($this->forum['id'], $this->topic['tid'] );
+}
 								   
 		
 		//-------------------------------------
@@ -545,7 +553,7 @@ $this->topic['fav_title'] = $is_fav ? "Remove from Favorites" : "Add to Favorite
 		$join_profile_query = "";
 		$join_get_fields    = "";
 		
-		if ( $ibforums->vars['custom_profile_topic'] == 1 )
+		if ( isset($ibforums->vars['custom_profile_topic']) && $ibforums->vars['custom_profile_topic'] == 1 )
 		{
 			//--------------------------------------------
 			// Get the data for the profile fields
@@ -588,7 +596,7 @@ while ($s_row = $DB->fetch_row()) {
 }
 // --- END COLLECTOR ---
 
-		$first = intval($ibforums->input['st']);
+		$first = isset($ibforums->input['st']) ? intval($ibforums->input['st']) : 0;
 		
 		if ( $ibforums->vars['post_order_column'] != 'post_date' )
 		{
@@ -622,6 +630,11 @@ while ($s_row = $DB->fetch_row()) {
 		$cached_members0 = array();
 		
 		while ( $row0 = $DB->fetch_row() ) {
+
+			$row0['st']             = $ibforums->input['st'] ?? 0;
+    $row0['delete_button']  = $row0['delete_button'] ?? "";
+    $row0['attachment']     = $row0['attachment'] ?? "";
+    $row0['website_icon']   = $row0['website_icon'] ?? "";
 			 
 			$poster0 = array();
 		
@@ -648,11 +661,16 @@ while ($s_row = $DB->fetch_row()) {
 				}
 			}
 			else
-			{
-				// It's definately a guest...
-				$poster0 = $std->set_up_guest( $row0['author_name'] );
-				$row0['name_css'] = 'unreg';
-			}
+{
+    // It's definitely a guest...
+    $poster = $std->set_up_guest( $row['author_name'] ?: 'Guest' );
+    $row['name_css'] = 'unreg';
+    $poster['member_joined']   = '--'; 
+    $poster['member_rank_img'] = '';
+    $poster['member_group']    = $ibforums->lang['guest_group'] ?? 'Guests';
+    $poster['custom_profile_topic'] = ""; 
+    $poster['awards']          = "";
+}
 			
 			//--------------------------------------------------------------
 			
@@ -789,7 +807,7 @@ while ($s_row = $DB->fetch_row()) {
 				$poster0['name'] = "<a href='{$this->base_url}&act=Profile&CODE=03&MID={$poster0['id']}'>{$poster0['name']}</a>";
 			}
 			
-
+            $post['st'] = $ibforums->input['st'] ?? 0;
 	
 			$this->output .= $this->html->RenderRow( $row0, $poster0 );
 			
@@ -799,7 +817,7 @@ while ($s_row = $DB->fetch_row()) {
 			}
 		// end oska modified
 		   
-		$DB->query( "SELECT p.*,
+		$this->query_id = $DB->query( "SELECT p.*,
 				    m.id,m.name,m.mgroup,m.email,m.joined,m.avatar,m.avatar_size,m.posts,m.aim_name,m.icq_number,
 				    m.signature, m.website,m.yahoo,m.integ_msg,m.title,m.hide_email,m.msnname, m.warn_level, m.warn_lastwarn,
 				    g.g_id, g.g_title, g.g_icon, m.rep, g.g_dohtml $join_get_fields
@@ -844,6 +862,10 @@ while ($s_row = $DB->fetch_row()) {
 		
 		while ( $row = $DB->fetch_row() )
 		{
+			$row['st']             = $ibforums->input['st'] ?? 0;
+    $row['delete_button']  = $row['delete_button'] ?? "";
+    $row['attachment']     = $row['attachment'] ?? "";
+    $row['website_icon']   = $row['website_icon'] ?? "";
 		
 			$poster = array();
 		
@@ -896,7 +918,7 @@ if ( isset($row['author_id']) && $row['author_id'] > 0 ) {
 
 			$row['post_css'] = $post_count % 2 ? 'post1' : 'post2';
 
-			if ( ($post_count == 0) AND ($ibforums->input['st'] == 0) AND ($this->rating_html) )
+		if ( ($post_count == 0) AND (isset($ibforums->input['st']) AND $ibforums->input['st'] == 0) AND ($this->rating_html) )
 {
     $row['topic_rating_box'] = $this->rating_html;
 }
@@ -927,7 +949,7 @@ else
 			
 			//--------------------------------------------------------------
 			
-			if ($ibforums->input['hl'])
+			if ( isset($ibforums->input['hl']) && $ibforums->input['hl'] )
 			{
 				$keywords = str_replace( "+", " ", $ibforums->input['hl'] );
 				
@@ -1169,13 +1191,13 @@ $row['topic_starter_id'] = $this->topic['starter_id'];
 		//-------------------------------------
 
 
-		$this->output .= $this->html->TableFooter( array( 'TOPIC' => $this->topic, 'FORUM' => $this->forum ) );
+$this->output .= $this->html->TableFooter( array( 'TOPIC' => $this->topic, 'FORUM' => $this->forum ) );
 		
 		//+----------------------------------------------------------------
 		// Process users active in this forum
 		//+----------------------------------------------------------------
 		
-		if ($ibforums->vars['no_au_topic'] != 1)
+		if ( (isset($ibforums->vars['no_au_topic']) AND $ibforums->vars['no_au_topic'] != 1) )
 		{	
 			//+-----------------------------------------
 			// Get the users
@@ -1465,7 +1487,7 @@ if ( $member['avatar'] AND $member['id'] )
 				{
 					for ($i = 1; $i <= $pips; ++$i)
 					{
-						$member['member_rank_img'] .= "<{A_STAR}>";
+						$member['member_rank_img'] = ($member['member_rank_img'] ?? "") . "<{A_STAR}>";
 					}
 				}
 				else
@@ -1478,7 +1500,7 @@ if ( $member['avatar'] AND $member['id'] )
 
 		$days_since_join = floor( (time() - $member['joined']) / 86400 );
 
-$member['member_joined'] .= " ({$days_since_join} days)";
+$member['member_joined'] = ($member['member_joined'] ?? "") . " ({$days_since_join} days)";
 		
 		$member['profile']="<a href='{$this->base_url}showuser={$member['id']}'>{$ibforums->lang['link_profile']}</a>";
 		
@@ -1497,19 +1519,30 @@ $member['member_joined'] .= " ({$days_since_join} days)";
 $member['award'] = "";
 
 if (intval($member['id']) > 0) {
-    // 1. Get the count and the images
-    $DB->query("SELECT awardimg, awardtitle FROM ibf_awards WHERE mid='" . intval($member['id']) . "'");
-    $nawards = $DB->get_num_rows();
+    // 1. We run the query and save its ID to a temporary variable
+    $aq_id = $DB->query("SELECT awardimg, awardtitle FROM ibf_awards WHERE mid='" . intval($member['id']) . "'");
+    $nawards = $DB->get_num_rows($aq_id);
     
     if ($nawards > 0) {
-        // 2. Start the Popup Link using the language string and count
         $member['award'] = "<a href='{$ibforums->base_url}act=awards&mid={$member['id']}'>" . $ibforums->lang['member_award'] . " ($nawards)</a>";
         
-        // 3. Display the actual icons below the text link
-        while ($aw = $DB->fetch_row()) {
+        // 2. Fetch all awards into a temporary array so we can finish with the DB quickly
+        $temp_aw = [];
+        while ($aw_row = $DB->fetch_row($aq_id)) {
+            $temp_aw[] = $aw_row;
+        }
+
+        // 3. Loop through our temporary array for the images
+        foreach ($temp_aw as $aw) {
             $member['award'] .= "<img src='{$ibforums->vars['board_url']}/html/awards/{$aw['awardimg']}' title='{$aw['awardtitle']}' alt='Award' border='0' style='margin-top:2px; margin-right:2px; display:none' /> ";
         }
     }
+    
+    /**
+     * THE FIX: This is the magic line. 
+     * We force the DB object to point back to the main posts result.
+     */
+    $DB->query_id = $this->query_id; 
 }
 // --- END AWARDS ---
 
@@ -1706,8 +1739,8 @@ if (intval($member['id']) > 0) {
 								
 				if ( ( $ibforums->member['is_mod'] AND $ibforums->member['allow_warn'] ) or ( $ibforums->member['g_is_supmod'] == 1 ) )
 				{
-					$member['warn_add']   = "<a href='{$ibforums->base_url}act=warn&amp;type=add&amp;mid={$member['id']}&amp;t={$this->topic['tid']}&amp;st=".intval($ibforums->input['st'])."' title='{$ibforums->lang['tt_warn_add']}'><{WARN_ADD}></a>";
-					$member['warn_minus'] = "<a href='{$ibforums->base_url}act=warn&amp;type=minus&amp;mid={$member['id']}&amp;t={$this->topic['tid']}&amp;st=".intval($ibforums->input['st'])."' title='{$ibforums->lang['tt_warn_minus']}'><{WARN_MINUS}></a>";
+					$member['warn_add']   = "<a href='{$ibforums->base_url}act=warn&amp;type=add&amp;mid={$member['id']}&amp;t={$this->topic['tid']}&amp;st=".intval($ibforums->input['st'] ?? 0)."' title='{$ibforums->lang['tt_warn_add']}'><{WARN_ADD}></a>";
+                    $member['warn_minus'] = "<a href='{$ibforums->base_url}act=warn&amp;type=minus&amp;mid={$member['id']}&amp;t={$this->topic['tid']}&amp;st=".intval($ibforums->input['st'] ?? 0)."' title='{$ibforums->lang['tt_warn_minus']}'><{WARN_MINUS}></a>";
 				}
 			}
 		}
@@ -1716,7 +1749,7 @@ if (intval($member['id']) > 0) {
 		// Profile fields stuff
 		//--------------------------------------------------------------
 		
-		if ( $ibforums->vars['custom_profile_topic'] == 1 )
+		if ( (isset($ibforums->vars['custom_profile_topic']) AND $ibforums->vars['custom_profile_topic'] == 1) )
 		{
 			foreach( $this->pfields as $id => $pf )
 			{
@@ -1751,7 +1784,7 @@ if (intval($member['id']) > 0) {
 			return "";
 		}
 		
-		$button = "<a href=\"javascript:delete_post('{$this->base_url}act=Mod&amp;CODE=04&amp;f={$this->forum['id']}&amp;t={$this->topic['tid']}&amp;p={$post_id}&amp;st={$ibforums->input['st']}&amp;auth_key=".$this->md5_check."')\"><{P_DELETE}></a>";
+		$button = "<a href=\"javascript:delete_post('{$this->base_url}act=Mod&amp;CODE=04&amp;f={$this->forum['id']}&amp;t={$this->topic['tid']}&amp;p={$post_id}&amp;st=".($ibforums->input['st'] ?? 0)."&amp;auth_key=".$this->md5_check."')\"><{P_DELETE}></a>";
 		
 if ( isset($ibforums->member['g_is_supmod']) AND $ibforums->member['g_is_supmod'] == 1 ) return $button;
 
@@ -1781,7 +1814,7 @@ return "";
 			return "";
 		}
 		
-		$button = "<a href=\"{$this->base_url}act=Post&amp;CODE=08&amp;f={$this->forum['id']}&amp;t={$this->topic['tid']}&amp;p={$post_id}&amp;st={$ibforums->input['st']}\"><{P_EDIT}></a>";
+		$button = "<a href=\"{$this->base_url}act=Post&amp;CODE=08&amp;f={$this->forum['id']}&amp;t={$this->topic['tid']}&amp;p={$post_id}&amp;st=".($ibforums->input['st'] ?? 0)."\"><{P_EDIT}></a>";
 		
 		if ( isset($ibforums->member['g_is_supmod']) AND $ibforums->member['g_is_supmod'] == 1 ) return $button;
 
