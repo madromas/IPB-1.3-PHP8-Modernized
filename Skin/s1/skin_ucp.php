@@ -450,6 +450,7 @@ function signature($sig, $t_sig, $key) {
         selector: '#sig-editor',
         menubar: false,
         branding: false,
+        statusbar: false,
         plugins: 'link image lists emoticons',
         toolbar: 'bold italic underline forecolor | link image emoticons',
         height: 250,
