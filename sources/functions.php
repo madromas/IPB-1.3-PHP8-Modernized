@@ -1698,7 +1698,7 @@ return $forum_data['last_post'] > $rtime ? "<{C_ON".$sub_cat_img."}>" : "<{C_OFF
     				  'id'       => 0,
     				  'password' => "",
     				  'email'    => "",
-    				  'title'    => "Unregistered",
+    				  'title'    => "<img src='/html/avatars/dickbutt.gif' title='Guest' class='guest-avatar'>",
     				  'mgroup'    => $INFO['guest_group'],
     				  'view_sigs' => $INFO['guests_sig'],
     				  'view_img'  => $INFO['guests_img'],
@@ -2144,17 +2144,21 @@ class display {
        //+----------------------------------------------
         		  
        if ($ibforums->vars['debug_level'] >= 2)
-       {
-       		$stats .= "<br />\n<div class='tableborder'>\n<div class='pformstrip'>FORM and GET Input</div><div class='row1' style='padding:6px'>\n";
-        
-			while( list($k, $v) = each($ibforums->input) )
-			{
-				$stats .= "<strong>$k</strong> = $v<br />\n";
-			}
-			
-			$stats .= "</div>\n</div>";
-        
+{
+    $stats .= "<br />\n<div class='tableborder'>\n<div class='pformstrip'>FORM and GET Input</div><div class='row1' style='padding:6px'>\n";
+    
+    // PHP 8 Fix: Replace each() with foreach
+    foreach ($ibforums->input as $k => $v)
+    {
+        // Handle array values to prevent "Array to string conversion" notice
+        if (is_array($v)) {
+            $v = implode(', ', $v);
         }
+        $stats .= "<strong>$k</strong> = $v<br />\n";
+    }
+    
+    $stats .= "</div>\n</div>";
+}
         
         //+----------------------------------------------
         
