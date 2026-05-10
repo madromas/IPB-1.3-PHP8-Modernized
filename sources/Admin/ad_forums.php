@@ -551,14 +551,14 @@ class ad_forums {
 		}
 		
 		$db_string = $DB->compile_db_update_string( array (
-															 'last_poster_id'   => $last_post['last_poster_id'],
-															 'last_poster_name' => $last_post['last_poster_name'],
-															 'last_post'        => $last_post['last_post'],
-															 'last_title'       => $last_post['title'],
-															 'last_id'          => $last_post['tid'],
-															 'topics'           => $topics['count'],
-															 'posts'            => $postc
-												 )        );
+    'last_poster_id'   => intval($last_post['last_poster_id']),
+    'last_poster_name' => $last_post['last_poster_name'] ?? "",
+    'last_post'        => intval($last_post['last_post']),
+    'last_title'       => $last_post['title'] ?? "",
+    'last_id'          => intval($last_post['tid']),
+    'topics'           => intval($topics['count']),
+    'posts'            => intval($postc)
+) );
 												 
 		$DB->query("UPDATE ibf_forums SET $db_string WHERE id='".$IN['f']."'");
 		
@@ -1120,7 +1120,9 @@ $icons[] = array($iconname, $iconname);
 }
 closedir($dh);
 
-$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_dropdown( "icon", $icons, $forum['icon'] )
+$ADMIN->html .= $SKIN->add_td_row( array( 
+    "<b>Forum Icon</b>", 
+    $SKIN->form_dropdown( "icon", $icons, $forum['icon'] ?? "" ) 
 ) );
 									     
 		//+-------------------------------
@@ -1217,7 +1219,7 @@ $ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_drop
 									     )      );
 									     
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Email addresses to send new topic awaiting approval notification?</b><br>(Leave this box empty if you do not require this)<br />Separate many with a comma (add@ress1.com,add@ress2.com)" ,
-												  $SKIN->form_input("notify_modq_emails", $forum['notify_modq_emails'])
+												  $SKIN->form_input("notify_modq_emails", $forum['notify_modq_emails'] ?? "")
 									     )      );
 									     
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Require password access?<br>Enter the password here</b><br>(Leave this box empty if you do not require this)" ,
@@ -1281,7 +1283,7 @@ $ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_drop
 		
 		$ADMIN->html .= $SKIN->start_table("Permission Access Levels");
 		
-		$ADMIN->html .= $SKIN->build_group_perms($forum['read_perms'], $forum['start_perms'], $forum['reply_perms'], $forum['upload_perms']);
+		$ADMIN->html .= $SKIN->build_group_perms($forum['read_perms'] ?? "", $forum['start_perms'] ?? "", $forum['reply_perms'] ?? "", $forum['upload_perms'] ?? "");
 		
 		$ADMIN->html .= $SKIN->end_form("Create this forum");
 										 
@@ -1338,46 +1340,45 @@ $ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_drop
 		}
 		
 		$db_string = $DB->compile_db_insert_string( array (
-															'id'               => $row['top_forum'],
-															'position'         => $row['top_forum'],
-															'topics'           => 0,
-															'posts'            => 0,
-															'last_post'        => "",
-															'last_poster_id'   => "",
-															'last_poster_name' => "",
-															'name'             => $IN['FORUM_NAME'],
-															'description'      => $std->my_nl2br( $std->txt_stripslashes($_POST['FORUM_DESC']) ),
-															'use_ibc'          => $IN['FORUM_IBC'],
-															'use_html'         => $IN['FORUM_HTML'],
-															'status'           => $IN['FORUM_STATUS'],
-															'start_perms'      => $perms['START'],
-															'reply_perms'      => $perms['REPLY'],
-															'read_perms'       => $perms['READ'],
-															'upload_perms'     => $perms['UPLOAD'],
-															'password'         => $IN['FORUM_PROTECT'],
-															'category'         => $cat,
-															'last_id'          => "",
-															'last_title'       => "",
-															'sort_key'         => $IN['SORT_KEY'],
-															'sort_order'       => $IN['SORT_ORDER'],
-															'prune'            => $IN['PRUNE_DAYS'],
-															'show_rules'       => 0,
-															'preview_posts'    => $IN['MODERATE'],
-															'allow_poll'       => $IN['allow_poll'],
-															'allow_pollbump'   => $IN['allow_pollbump'],
-															'inc_postcount'    => $IN['inc_postcount'],
-															'rating'    => $IN['rating'],
-															'parent_id'        => $parent,
-															'sub_can_post'     => $IN['sub_can_post'],
-															'quick_reply'      => $IN['quick_reply'],
-															'redirect_on'       => $IN['redirect_on'],
-															'redirect_hits'     => $IN['redirect_hits'],
-															'redirect_url'      => $IN['redirect_url'],
-															'icon' => $IN['icon'],
-															'redirect_loc'		=> $IN['redirect_loc'],
-															'notify_modq_emails'=> $IN['notify_modq_emails'],
-															
-												  )       );
+    'id'                 => intval($row['top_forum']),
+    'position'           => intval($row['top_forum']),
+    'topics'             => 0,
+    'posts'              => 0,
+    'last_post'          => 0,
+    'last_poster_id'     => 0,
+    'last_poster_name'   => "",
+    'name'               => $IN['FORUM_NAME'],
+    'description'        => $std->my_nl2br( $std->txt_stripslashes($_POST['FORUM_DESC']) ),
+    'use_ibc'            => intval($IN['FORUM_IBC']),
+    'use_html'           => intval($IN['FORUM_HTML']),
+    'status'             => $IN['FORUM_STATUS'],
+    'start_perms'        => $perms['START'],
+    'reply_perms'        => $perms['REPLY'],
+    'read_perms'         => $perms['READ'],
+    'upload_perms'       => $perms['UPLOAD'],
+    'password'           => $IN['FORUM_PROTECT'],
+    'category'           => intval($cat),
+    'last_id'            => 0,
+    'last_title'         => "",
+    'sort_key'           => $IN['SORT_KEY'],
+    'sort_order'         => $IN['SORT_ORDER'],
+    'prune'              => intval($IN['PRUNE_DAYS']),
+    'show_rules'         => 0,
+    'preview_posts'      => intval($IN['MODERATE']),
+    'allow_poll'         => intval($IN['allow_poll']),
+    'allow_pollbump'     => intval($IN['allow_pollbump']),
+    'inc_postcount'      => intval($IN['inc_postcount']),
+    'rating'             => intval($IN['rating']),
+    'parent_id'          => intval($parent),
+    'sub_can_post'       => intval($IN['sub_can_post']),
+    'quick_reply'        => intval($IN['quick_reply']),
+    'redirect_on'        => intval($IN['redirect_on']),
+    'redirect_hits'      => intval($IN['redirect_hits']),
+    'redirect_url'       => $IN['redirect_url'],
+    'icon'               => $IN['icon'] ?? "",
+    'redirect_loc'       => intval($IN['redirect_loc']),
+    'notify_modq_emails' => $IN['notify_modq_emails'] ?? "",
+) );
 												  
 		$DB->query("INSERT INTO ibf_forums (".$db_string['FIELD_NAMES'].") VALUES (".$db_string['FIELD_VALUES'].")");
 		
