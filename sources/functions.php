@@ -53,6 +53,16 @@ class FUNC {
 		$this->get_magic_quotes = get_magic_quotes_gpc();
 		
 	}
+
+	function member_check($member_only_content) {
+        global $ibforums;
+        
+        if ($ibforums->member['id']) {
+            return $member_only_content;
+        } else {
+            return "";
+        }
+    }
 	
      //-------------------------------------------
 	// Hack. Convert php to html (class FUNC)
@@ -126,6 +136,7 @@ class FUNC {
 			$buffer = preg_replace($s_search,$s_replace,$buffer);
 			$buffer = preg_replace($search,$replace,$buffer);
 		}
+
 		return $buffer;
 	}
 
@@ -1906,8 +1917,8 @@ return $forum_data['last_post'] > $rtime ? "<{C_ON".$sub_cat_img."}>" : "<{C_OFF
     	$print->add_output($html);
     		
     	$print->do_output( array(
-    								OVERRIDE   => 1,
-    								TITLE      => $ibforums->lang['offline_title'],
+    								'OVERRIDE'   => 1,
+    								'TITLE'      => $ibforums->lang['offline_title'],
     							 )
     					  );
     }
@@ -2032,6 +2043,14 @@ class display {
 			$buffer = preg_replace($s_search,$s_replace,$buffer);
 			$buffer = preg_replace($search,$replace,$buffer);
 		}
+
+        // --- SIGNATURE STYLE MEMBER CHECK ---
+		if ( ! $ibforums->member['id'] ) {
+			$buffer = preg_replace( "#\{member_only\}(.*?)\{/member_only\}#is", "", $buffer );
+		} else {
+			$buffer = str_replace( array("{member_only}", "{/member_only}"), "", $buffer );
+		}
+
 		return $buffer;
 	}
 
@@ -2964,7 +2983,7 @@ class session {
         {
             				  
             $DB->query("SELECT moderator.mid as is_mod, moderator.allow_warn, m.allow_anon, m.allow_rep, m.rep, m.id, m.name, m.mgroup, m.password, m.email, m.restrict_post, m.view_sigs, m.view_avs, m.view_pop, m.view_img, m.auto_track,
-                              m.mod_posts, m.language, m.skin, m.new_msg, m.show_popup, m.msg_total, m.time_offset, m.posts, m.joined, m.last_post,
+                              m.mod_posts, m.language, m.skin, m.new_msg, m.show_popup, m.msg_total, m.time_offset, m.posts, m.joined, m.last_post, m.favorites,
             				  m.last_visit, m.last_activity, m.dst_in_use, m.view_prefs, m.org_perm_id, m.temp_ban, m.sub_end, g.*
             				  FROM ibf_members m
             				    LEFT JOIN ibf_groups g ON (g.g_id=m.mgroup)
@@ -3270,11 +3289,8 @@ $query .= "WHERE id='".$this->session_id."'";
         $DB->query("UPDATE ibf_sessions SET $db_str WHERE id='".$bot."_session'");
         
     }        
-    
+ 
         
 }
-
-
-
 
 ?>

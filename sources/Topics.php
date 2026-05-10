@@ -498,6 +498,19 @@ $this->rep_hide    = explode(",", $ibforums->vars['rep_change_exclude'] ?? "");
 		//-------------------------------------
 		// Render the page top
 		//-------------------------------------
+
+		// --- FAVORITE TOGGLE ---
+$is_fav = 0;
+if ($ibforums->member['id']) {
+    $fav_array = explode(',', $ibforums->member['favorites'] ?? '');
+    if (in_array($this->topic['tid'], $fav_array)) {
+        $is_fav = 1;
+    }
+}
+$this->topic['fav_icon']  = $is_fav ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
+$this->topic['fav_color'] = $is_fav ? "#F2BC00" : "#ffffff"; 
+$this->topic['fav_title'] = $is_fav ? "Remove from Favorites" : "Add to Favorites";
+// --- END FAVORITE TOGGLE ---
 		
 		$this->output .= $this->html->PageTop( array( 'TOPIC' => $this->topic, 'FORUM' => $this->forum ) );
 		
