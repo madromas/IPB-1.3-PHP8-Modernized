@@ -1591,7 +1591,7 @@ class Moderate {
 		$last_post = $DB->fetch_row();
 			
 		$DB->query("UPDATE ibf_topics SET last_post='"        .$last_post['post_date']   ."', ".
-										 "last_poster_id='"   .$last_post['author_id']   ."', ".
+										 "last_poster_id='" . intval($last_post['author_id']) . "', ".
 										 "last_poster_name='" .$last_post['author_name'] ."', ".
 										 "posts=posts-1 WHERE tid='".$this->topic['tid']."'");
 										 
@@ -1613,7 +1613,7 @@ class Moderate {
 															   'last_id'          => $tt['tid']              ? $tt['tid']              : "",
 															   'last_post'        => $tt['last_post']        ? $tt['last_post']        : "",
 															   'last_poster_name' => $tt['last_poster_name'] ? $tt['last_poster_name'] : "",
-															   'last_poster_id'   => $tt['last_poster_id']   ? $tt['last_poster_id']   : "",
+															   'last_poster_id' => $tt['last_poster_id'] ? intval($tt['last_poster_id']) : 0,
 													  )      );
 			
 			$DB->query("UPDATE ibf_forums SET ".$db_string.",posts=posts-1 WHERE id='".$this->forum['id']."'");
@@ -2173,7 +2173,7 @@ class Moderate {
 		// Reset this forums stats
 		
 		$db_string = $DB->compile_db_update_string( array (
-															 'last_poster_id'   => $last_post['last_poster_id'],
+															 'last_poster_id' => intval($last_post['last_poster_id']),
 															 'last_poster_name' => $last_post['last_poster_name'],
 															 'last_post'        => $last_post['last_post'],
 															 'last_title'       => $last_post['title'],
