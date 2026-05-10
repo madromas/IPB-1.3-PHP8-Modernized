@@ -454,6 +454,12 @@ function signature($sig, $t_sig, $key) {
         plugins: 'link image lists emoticons',
         toolbar: 'bold italic underline forecolor | link image emoticons',
         height: 250,
+        content_css: 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap',
+      content_style: "body { font-family: 'Nunito', sans-serif; font-size: 15px; }",
+      
+      contextmenu: false,
+      quickbars_insert_toolbar: false,
+      quickbars_selection_toolbar: false,
     });
 
     function ValidateForm() {
