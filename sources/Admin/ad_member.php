@@ -2573,18 +2573,6 @@ $ADMIN->html .= $SKIN->end_form("Search for Award" );
 												  $SKIN->form_input( "ip_address" )
 									     )      );
 									     
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>AIM name contains...</b>" ,
-												  $SKIN->form_input( "aim_name" )
-									     )      );
-									     
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>ICQ Number contains...</b>" ,
-												  $SKIN->form_input( "icq_number" )
-									     )      );
-									     
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Yahoo! Identity contains...</b>" ,
-												  $SKIN->form_input( "yahoo" )
-									     )      );
-									     
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Signature contains...</b>" ,
 												  $SKIN->form_input( "signature" )
 									     )      );
@@ -2629,7 +2617,7 @@ $ADMIN->html .= $SKIN->end_form("Search for Award" );
 			{
 				$query = array();
 				
-				foreach( array('name','email','ip_address','aim_name','icq_number','yahoo','signature','last_post','last_activity','mgroup') as $bit )
+				foreach( array('name','email','ip_address','signature','last_post','last_activity','mgroup') as $bit )
 				{
 					$IN[ $bit ] = urldecode(trim($IN[ $bit ]));
 					
@@ -3235,27 +3223,7 @@ $ADMIN->html .= $SKIN->end_form("Search for Award" );
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Email Address</b>" ,
 												  $SKIN->form_input("email", $mem['email'])
 									     )      );
-									     
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>AIM Identity</b>" ,
-												  $SKIN->form_input("aim_name", $mem['aim_name'])
-									     )      );							     						     
-		
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>ICQ Number</b>" ,
-												  $SKIN->form_input("icq_number", $mem['icq_number'])
-									     )      );
-									     
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Yahoo Identity</b>" ,
-												  $SKIN->form_input("yahoo", $mem['yahoo'])
-									     )      );
-		
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>MSN Identity</b>" ,
-												  $SKIN->form_input("msnname", $mem['msnname'])
-									     )      );
-									     
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Integrity Messenger Name</b>" ,
-												  $SKIN->form_input("integ_msg", $mem['integ_msg'])
-									     )      );
-									     
+									     							     
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Website Address</b>" ,
 												  $SKIN->form_input("website", $mem['website'])
 									     )      );
@@ -3428,10 +3396,7 @@ $ADMIN->html .= $SKIN->end_table();
 															'hide_email'   => $IN['hide_email'],
 															'email_pm'     => $IN['email_pm'],
 															'email'        => $IN['email'],
-															'aim_name'     => $IN['aim_name'],
-															'icq_number'   => $IN['icq_number'],
-															'yahoo'        => $IN['yahoo'],
-															'msnname'      => $IN['msnname'],
+															
 															'website'      => $IN['website'],
 															'avatar'       => $IN['avatar'],
 															'avatar_size'  => $IN['avatar_size'],
@@ -3445,7 +3410,6 @@ $ADMIN->html .= $SKIN->end_table();
 															'mod_posts'    => $mod_queue,
 															'org_perm_id'  => $permid,
 															'warn_level'   => $IN['warn_level'],
-															'integ_msg'    => $IN['integ_msg'],
 												  )       );
 												  
 		$DB->query("UPDATE ibf_members SET $db_string".$password." WHERE id='".$IN['mid']."'");
@@ -3558,10 +3522,6 @@ $ADMIN->html .= $SKIN->end_table();
 			
 			$mem_array = array(
 							    'title'        => $IN['title'],
-								'aim_name'     => $IN['aim_name'],
-								'icq_number'   => $IN['icq_number'],
-								'yahoo'        => $IN['yahoo'],
-								'msnname'      => $IN['msnname'],
 								'website'      => $IN['website'],
 								'location'     => $IN['location'],
 								'interests'    => $IN['interests'],

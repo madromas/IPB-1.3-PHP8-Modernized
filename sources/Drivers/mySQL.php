@@ -460,10 +460,10 @@ die("Error! Please reload page...");
 		$return_string = "";
 		
 		foreach ($data as $k => $v)
-		{
-			$v = preg_replace( "/'/", "\\'", $v );
-			$return_string .= $k . "='".$v."',";
-		}
+{
+    $v = preg_replace( "/'/", "\\'", $v ?? '' );
+    $return_string .= $k . "='".$v."',";
+}
 		
 		$return_string = preg_replace( "/,$/" , "" , $return_string );
 		
