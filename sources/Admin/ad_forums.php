@@ -1121,7 +1121,7 @@ $icons[] = array($iconname, $iconname);
 closedir($dh);
 
 $ADMIN->html .= $SKIN->add_td_row( array( 
-    "<b>Forum Icon</b>", 
+    "<b>Forum Icon</b><br>Located at /html/icons/", 
     $SKIN->form_dropdown( "icon", $icons, $forum['icon'] ?? "" ) 
 ) );
 									     
@@ -1537,7 +1537,7 @@ $icons[] = array($iconname, $iconname);
 }
 closedir($dh);
 
-$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_dropdown( "icon", $icons, $forum['icon'] )
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b><br>Located at /html/icons/" , $SKIN->form_dropdown( "icon", $icons, $forum['icon'] )
 ) );
 		
 		$ADMIN->html .= $SKIN->end_table();
@@ -1926,7 +1926,7 @@ $icons[] = array($iconname, $iconname);
 }
 closedir($dh);
 
-$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b>" , $SKIN->form_dropdown( "icon", $icons, $forum['icon'] )
+$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum Icon</b><br>Located at /html/icons/" , $SKIN->form_dropdown( "icon", $icons, $forum['icon'] )
 ) );
 									     
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Forum State</b>" ,
