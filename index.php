@@ -478,6 +478,7 @@ $choice = array(
                  'warn'     => "misc/warn",
                  'home'     => 'dynamiclite/csite',
                  'module'   => 'modules',
+                 'fav'		=> 'fav',
                );
 
               
