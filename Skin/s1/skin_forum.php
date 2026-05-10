@@ -182,7 +182,7 @@ function show_no_matches() {
 global $ibforums;
 return <<<EOF
 				<tr> 
-					<td class='row4' colspan='7' align='center'>
+					<td class='row4' colspan='8' align='center'>
 						<br />
                          <b>{$ibforums->lang['no_topics']}</b>
 						<br /><br />
