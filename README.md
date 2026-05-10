@@ -35,6 +35,7 @@ A modernized distribution of **Invision Power Board 1.3**, fully patched for **P
 *   **Warn Users by %**: Increase or decrease user warning lavel.
 *   **PHP -> HTML Converter**: Converter of php links to html links. For search robots, catalogs, and better indexing of your forum.
 *   **Awards System**: Allows you to add, delete, and edit awards for users from the admin panel.
+*   **Favorites System**: Enhanced user bookmarking. Manage your favorite topics.
 
 ## 📦 Installation
 
