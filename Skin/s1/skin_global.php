@@ -215,11 +215,19 @@ if ( userPage > 0  ) {
 <tr>
  <td><a href='{$ibforums->vars['home_url']}'>{$ibforums->vars['home_name']}</a><!--IBF.RULES--></td>
  <td align="right">
-   <img src="{$ibforums->vars['img_url']}/atb_help.gif" border="0" alt="" />&nbsp;<a href='{$ibforums->base_url}act=Help'>{$ibforums->lang['tb_help']}</a>
-   &nbsp; &nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/atb_search.gif" border="0" alt="" />&nbsp;<a href='{$ibforums->base_url}act=Search&amp;f={$ibforums->input['f']}'>{$ibforums->lang['tb_search']}</a>
-   &nbsp; &nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/atb_members.gif" border="0" alt="" />&nbsp;<a href='{$ibforums->base_url}act=Members'>{$ibforums->lang['tb_mlist']}</a>
-   &nbsp; &nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/atb_reput.gif" border="0" alt="" />&nbsp;<a href='{$ibforums->base_url}act=rep&CODE=totals'>{$ibforums->lang['rep_name']}</a>
-   &nbsp; &nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/atb_calendar.gif" border="0" alt="" />&nbsp;<a href='{$ibforums->base_url}act=calendar'>{$ibforums->lang['tb_calendar']}</a>
+
+ 
+   <i class="fa-solid fa-circle-question" style="color: #3498db;"></i>&nbsp;<a href='{$ibforums->base_url}act=Help'>{$ibforums->lang['tb_help']}</a>
+     &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass" style="color: #2ecc71;"></i>&nbsp;<a href='{$ibforums->base_url}act=Search&amp;f={$ibforums->input['f']}'>{$ibforums->lang['tb_search']}</a>
+
+{member_only}
+    &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-users" style="color: #9b59b6;"></i>&nbsp;<a href='{$ibforums->base_url}act=Members'>{$ibforums->lang['tb_mlist']}</a>
+    &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-star" style="color: #e74c3c;"></i>&nbsp;<a href='{$ibforums->base_url}act=rep&CODE=totals'>{$ibforums->lang['rep_name']}</a>
+    &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-bookmark" style="color: #f39c12;"></i>&nbsp;<a href='{$ibforums->base_url}act=fav'>Favorites</a>
+{/member_only}
+&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-calendar-days" style="color: #1abc9c;"></i>&nbsp;<a href='{$ibforums->base_url}act=calendar'>{$ibforums->lang['tb_calendar']}</a>
+
+
    <!--IBF.CHATLINK-->
    <!--IBF.TSLLINK-->
  </td>

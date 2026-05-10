@@ -202,6 +202,11 @@ EOF;
 function RenderRow($data) {
 global $ibforums;
 
+//  Handle the Favorite Row Color
+$favs = explode(",", ($ibforums->member['favorites'] ?? '') );
+$f_class = (in_array($data['tid'], $favs)) ? "fav-row" : ""; 
+
+// Handle the Rating Badge 
 $score = intval($data['rating_total']);
 
 if ($score == 0) {
@@ -215,11 +220,13 @@ if ($score == 0) {
 return <<<EOF
     <!-- Begin Topic Entry {$data['tid']} -->
     <tr> 
-	  <td align='center' class='row4'>{$data['folder_img']}</td>
+	  <td align='center' class='row4'><a href="{$ibforums->base_url}act=fav&topic={$data['tid']}" title="Add to favorites">{$data['folder_img']}</a></td>
       <td align='center' class='row2'>{$data['topic_icon']}</td>
-      <td class='row4'>
+      
+      <td class='row2 {$f_class}'>
         {$data['go_new_post']}{$data['prefix']} <a href="{$ibforums->base_url}showtopic={$data['tid']}" title="{$ibforums->lang['topic_started_on']} {$data['start_date']}">{$data['title']}</a>  {$data['PAGES']}
         <br /><span class='desc'>{$data['description']}</span></td>
+
       <td align='center' class='row2'>{$data['starter']}</td>
       <td align='center' class='row4'>{$data['posts']}</td>
       <td align='center' class='row2'>{$data['views']}</td>
@@ -258,13 +265,17 @@ EOF;
 function render_pinned_row($data) {
 global $ibforums;
 
+//  Handle the Favorite Row Color
+$favs = explode(",", ($ibforums->member['favorites'] ?? '') );
+$f_class = (in_array($data['tid'], $favs)) ? "fav-row" : ""; 
+
+// Handle the Rating Badge 
 $score = intval($data['rating_total']);
 
 if ($score == 0) {
     $data['rating'] = "<span class='rating-neutral'>0</span>";
 } else {
     $class = ($score > 0) ? "rating-positive" : "rating-negative";
-    // abs() ensures that -5 becomes 5, and we remove the + for positive numbers
     $display = abs($score); 
     $data['rating'] = "<span class='{$class}'>{$display}</span>";
 }
@@ -272,11 +283,13 @@ if ($score == 0) {
 return <<<EOF
     <!-- Begin Pinned Topic Entry {$data['tid']} -->
     <tr> 
-	  <td align='center' class='row4'>{$data['folder_img']}</td>
+	  <td align='center' class='row4'><a href="{$ibforums->base_url}act=fav&topic={$data['tid']}" title="Add to favorites">{$data['folder_img']}</a></td>
       <td align='center' class='row2'>{$data['topic_icon']}</td>
-      <td class='row4'>
-       {$data['go_new_post']}<b>{$data['prefix']} <a href='{$ibforums->base_url}showtopic={$data['tid']}' class='linkthru' title='{$ibforums->lang['topic_started_on']} {$data['start_date']}'>{$data['title']}</a></b>  {$data['PAGES']}
+      
+      <td class='row2 {$f_class}'>
+       {$data['go_new_post']}<b>{$data['prefix']}</b> <a href='{$ibforums->base_url}showtopic={$data['tid']}' class='linkthru' title='{$ibforums->lang['topic_started_on']} {$data['start_date']}'>{$data['title']}  {$data['PAGES']}</a>
         <br /><span class='desc'>{$data['description']}</span></td>
+
       <td align='center' class='row4'>{$data['starter']}</td>
       <td align='center' class='row4'>{$data['posts']}</td>
       <td align='center' class='row4'>{$data['views']}</td>

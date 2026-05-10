@@ -176,7 +176,7 @@ EOF;
 function start_poll_link($fid, $tid) {
 global $ibforums;
 return <<<EOF
-	<a href="{$ibforums->base_url}act=Post&amp;CODE=14&amp;f=$fid&amp;t=$tid">{$ibforums->lang['new_poll_link']}</a> &#124;&nbsp;
+	<a href="{$ibforums->base_url}act=Post&amp;CODE=14&amp;f=$fid&amp;t=$tid" title="{$ibforums->lang['new_poll_link']}"><i class="fa-solid fa-chart-bar" style="color: #465584"></i></a> &nbsp;&nbsp;
 EOF;
 }
 
@@ -293,7 +293,7 @@ return <<<EOF
         <i class="fab fa-whatsapp"></i> WhatsApp
     </a>
 
-    <!-- Copy Link (Bonus) -->
+    <!-- Copy Link -->
     <a href="javascript:void(0);" onclick="navigator.clipboard.writeText('{$ibforums->base_url}showtopic={$data['TOPIC']['tid']}'); alert('Link copied!');">
         <i class="fas fa-link"></i> Copy Link
     </a>
@@ -301,8 +301,10 @@ return <<<EOF
     </div>
 </div>
 
-            <div class="post-actions-wrap" style="display:none">
-                lol 
+            <div class="post-actions-wrap">
+                <a href="{$ibforums->base_url}act=fav&topic={$data['TOPIC']['tid']}" title="{$data['TOPIC']['fav_title']}">
+    <i class="{$data['TOPIC']['fav_icon']}" style="color: {$data['TOPIC']['fav_color']};"></i>
+                </a> 
             </div>
             
         </div>
@@ -312,9 +314,9 @@ return <<<EOF
     </div>
 	<!--{IBF.POLL}-->
 	<div align='right' class='postlinksbar'>
-	  <strong><!--{IBF.START_NEW_POLL}--><a href='{$ibforums->base_url}act=Track&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}'>{$ibforums->lang['track_topic']}</a> |
-	  <a href='{$ibforums->base_url}act=Forward&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}'>{$ibforums->lang['forward']}</a> |
-	  <a href='{$ibforums->base_url}act=Print&amp;client=printer&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}'>{$ibforums->lang['print']}</a></strong>
+	  <!--{IBF.START_NEW_POLL}--><a href='{$ibforums->base_url}act=Track&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}' title="{$ibforums->lang['track_topic']}"><i class="fa-solid fa-eye" style="color: #465584"></i></a> &nbsp;&nbsp; 
+<a href='{$ibforums->base_url}act=Forward&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}' title="{$ibforums->lang['forward']}"><i class="fa-solid fa-envelope" style="color: #465584"></i></a> &nbsp;&nbsp; 
+<a href='{$ibforums->base_url}act=Print&amp;client=printer&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}' title="{$ibforums->lang['print']}"><i class="fa-solid fa-print" style="color: #465584"></i></a>
 	</div>
 	
 EOF;
