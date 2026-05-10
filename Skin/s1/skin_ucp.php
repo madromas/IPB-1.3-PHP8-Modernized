@@ -449,6 +449,7 @@ function signature($sig, $t_sig, $key) {
     tinymce.init({
         selector: '#sig-editor',
         menubar: false,
+        branding: false,
         plugins: 'link image lists emoticons',
         toolbar: 'bold italic underline forecolor | link image emoticons',
         height: 250,
@@ -565,26 +566,6 @@ function ValidateProfile() {
   <td class='pformleft'>{$ibforums->lang['website']}</td>
   <td class='pformright'><input type='text' size='40' maxlength='1200' name='WebSite' value='{$Profile['website']}' class='forminput' /></td>
 </tr>  
-<tr>
-  <td class='pformleft'>{$ibforums->lang['icq']}</td>
-  <td class='pformright'><input type='text' size='40' maxlength='20' name='ICQNumber' value='{$Profile['icq_number']}' class='forminput' /></td>
-</tr>
-<tr>
-  <td class='pformleft'>{$ibforums->lang['aol']}</td>
-  <td class='pformright'><input type='text' size='40' maxlength='30' name='AOLName' value='{$Profile['aim_name']}' class='forminput' /></td>
-</tr>
-<tr>
-  <td class='pformleft'>{$ibforums->lang['yahoo']}</td>
-  <td class='pformright'><input type='text' size='40' maxlength='30' name='YahooName' value='{$Profile['yahoo']}' class='forminput' /></td>
-</tr>
-<tr>
-  <td class='pformleft'>{$ibforums->lang['msn']}</td>
-  <td class='pformright'><input type='text' size='40' maxlength='30' name='MSNName' value='{$Profile['msnname']}' class='forminput' /></td>
-</tr>
-<tr>
-  <td class='pformleft'><a href='http://www.integritymessenger.com/' target='_blank'>{$ibforums->lang['integ_msg']}</a></td>
-  <td class='pformright'><input type='text' size='40' maxlength='30' name='integ_msg' value='{$Profile['integ_msg']}' class='forminput' /></td>
-</tr>
 <tr>
   <td class='pformleft'>{$ibforums->lang['location']}<br />(<a href='javascript:CheckLength("location");'>{$ibforums->lang['check_length']}</a>)</td>
   <td class='pformright'><input type='text' size='40' name='Location' value='{$Profile['location']}' class='forminput' /></td>

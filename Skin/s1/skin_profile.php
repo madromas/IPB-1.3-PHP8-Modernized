@@ -127,26 +127,6 @@ return <<<EOF
 		   <td width="100%">{$info['email']}</td>
 		 </tr>
 		 <tr>
-		  <td nowrap="nowrap">{$ibforums->lang['integ_msg']}</td>
-		  <td width="100%">{$info['integ_msg']}</td>
-	     </tr>
-		 <tr>
-		   <td nowrap="nowrap">{$ibforums->lang['aim']}</td>
-		   <td width="100%">{$info['aim_name']}</td>
-		 </tr>
-		 <tr>
-		   <td nowrap="nowrap">{$ibforums->lang['icq']}</td>
-		   <td width="100%">{$info['icq_number']}</td>
-		 </tr>
-		 <tr>
-		   <td nowrap="nowrap">{$ibforums->lang['yahoo']}</td>
-		   <td width="100%">{$info['yahoo']}</td>
-		 </tr>
-		 <tr>
-		   <td nowrap="nowrap">{$ibforums->lang['msn']}</td>
-		   <td width="100%">{$info['msn_name']}</td>
-		 </tr>
-		 <tr>
 		   <td nowrap="nowrap">{$ibforums->lang['pm']}</b></td>
 		   <td><a href='javascript:redirect_to("&act=Msg&;CODE=4&MID={$info['mid']}", 1);'>{$ibforums->lang['click_here']}</a></td>
 		 </tr>
@@ -191,26 +171,6 @@ return <<<EOF
       <tr>
         <td nowrap="nowrap">{$ibforums->lang['email']}</td>
 		<td width="100%">{$info['email']}</td>
-	  </tr>
-	  <tr>
-		<td nowrap="nowrap">{$ibforums->lang['integ_msg']}</td>
-		<td width="100%">{$info['integ_msg']}</td>
-	  </tr>
-	  <tr>
-		<td nowrap="nowrap">{$ibforums->lang['aim']}</td>
-		<td width="100%">{$info['aim_name']}</td>
-	  </tr>
-	  <tr>
-		<td nowrap="nowrap">{$ibforums->lang['icq']}</td>
-		<td width="100%">{$info['icq_number']}</td>
-	  </tr>
-	  <tr>
-		<td nowrap="nowrap">{$ibforums->lang['yahoo']}</td>
-		<td width="100%">{$info['yahoo']}</td>
-	  </tr>
-	  <tr>
-		<td nowrap="nowrap">{$ibforums->lang['msn']}</td>
-		<td width="100%">{$info['msn_name']}</td>
 	  </tr>
 	  <tr>
 		<td nowrap="nowrap">{$ibforums->lang['pm']}</b></td>
@@ -338,26 +298,6 @@ return <<<EOF
 	  <tr>
 		<td class="row3" width='30%' valign='top'><b>{$ibforums->lang['email']}</b></td>
 		<td align='left' width='70%' class='row1'>{$info['email']}</td>
-	  </tr>
-	   <tr>
-		<td class="row3" valign='top'><b>{$ibforums->lang['integ_msg']}</b></td>
-		<td align='left' class='row1'>{$info['integ_msg']}</td>
-	  </tr>
-	  <tr>
-		<td class="row3" valign='top'><b>{$ibforums->lang['aim']}</b></td>
-		<td align='left' class='row1'>{$info['aim_name']}</td>
-	  </tr>
-	  <tr>
-		<td class="row3" valign='top'><b>{$ibforums->lang['icq']}</b></td>
-		<td align='left' class='row1'>{$info['icq_number']}</td>
-	  </tr>
-	  <tr>
-		<td class="row3" valign='top'><b>{$ibforums->lang['yahoo']}</b></td>
-		<td align='left' class='row1'>{$info['yahoo']}</td>
-	  </tr>
-	  <tr>
-		<td class="row3" valign='top'><b>{$ibforums->lang['msn']}</b></td>
-		<td align='left' class='row1'>{$info['msn_name']}</td>
 	  </tr>
 	  <tr>
 		<td class="row3" valign='top'><b>{$ibforums->lang['pm']}</b></td>

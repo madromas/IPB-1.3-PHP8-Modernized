@@ -98,73 +98,8 @@ EOF;
 }
 
 
-function msn_body($msnname) {
-global $ibforums;
-return <<<EOF
-				
-			  <object classid='clsid:F3A614DC-ABE0-11d2-A441-00C04F795683' codebase='#Version=2,0,0,83' codetype='application/x-oleobject' id='MsgrObj' name='MsgrApp' width='0' height='0'></object>
-			  <object classid='clsid:FB7199AB-79BF-11d2-8D94-0000F875C541' codetype='application/x-oleobject' id='MsgrApp' name='MsgrApp' width='0' height='0'></object>
-              <tr>
-                <td class='row2' align='left'><b>{$ibforums->lang['msn_name']}</b></td>
-                <td class='row2' align='left'><input type='text' name='msnname' value='$msnname' size='40' class='forminput' onMouseOver="this.focus()" onFocus="this.select()"></td>
-              </tr>
-              <tr>
-                <td class='row2' align='center' colspan='2'><a href="javascript:MsgrApp.LaunchIMUI('$msnname');">{$ibforums->lang['msn_send_msg']}</a></td>
-              </tr>
-              <tr>
-                <td class='row2' align='center' colspan='2'><a href="javascript:MsgrApp.LaunchAddContactUI('$msnname');">{$ibforums->lang['msn_add_contact']}</a></td>
-              </tr>
-              
-EOF;
-}
-
-function yahoo_body($yahoo) {
-global $ibforums;
-return <<<EOF
-				
-			  <tr>
-                <td class='row2' align='left'><b>{$ibforums->lang['yahoo_name']}</b></td>
-                <td class='row2' align='left'><input type='text' name='msnname' value='$yahoo' size='40' class='forminput' onMouseOver="this.focus()" onFocus="this.select()"></td>
-              </tr>
-               <tr>
-                <td class='row2' align='left'><b>{$ibforums->lang['yahoo_status']}</b></td>
-                <td class='row2' align='left'><img border=0 src="http://opi.yahoo.com/online?u=$yahoo&amp;m=g&amp;t=2"></td>
-              </tr>
-              <tr>
-                <td class='row2' align='center' colspan='2'><a href="http://edit.yahoo.com/config/send_webmesg?.target=$yahoo&amp;.src=pg">{$ibforums->lang['yahoo_send_msg']}</a></td>
-              </tr>
-              <tr>
-                <td class='row2' align='center' colspan='2'><a href="http://members.yahoo.com/interests?.oc=t&amp;.kw=$yahoo&amp;.sb=1">{$ibforums->lang['yahoo_view_profile']}</a></td>
-              </tr>
-              
-EOF;
-}
 
 
-function icq_body($data) {
-global $ibforums;
-return <<<EOF
-              <form action="http://msg.mirabilis.com/scripts/WWPMsg.dll" METHOD="POST" name="frmPager">
-			      <INPUT TYPE="hidden" NAME="subject" VALUE="From WebPager Panel">
-              <input type="hidden" name="to" value="{$data[UIN]}">
-              <tr>
-                <td class='row2' align='left'><b>{$ibforums->lang['name']}</b></td>
-                <td class='row2' align='left'><input type='text' name='from' value='{$ibforums->member['name']}' size='40' class='forminput' onMouseOver="this.focus()" onFocus="this.select()"></td>
-              </tr>
-              <tr>
-                <td class='row2' align='left'><b>{$ibforums->lang['email']}</b></td>
-                <td class='row2' align='left'><input type='text' name='fromemail' value='{$ibforums->member['email']}' size='40' class='forminput' onMouseOver="this.focus()" onFocus="this.select()"></td>
-              </tr>
-              <tr>
-                <td class='row2' align='left' valign='top'><b>{$ibforums->lang['msg']}</b></td>
-                <td class='row2' align='left'><textarea wrap='virtual' cols='50' rows='12' wrap='soft' name='body' class='textinput' onMouseOver="this.focus()" onFocus="this.select()"></textarea></td>
-              </tr>
-              <tr>
-                <td class='row2' align='center' colspan='2'><input type='submit' value='{$ibforums->lang['submit']}' class='forminput'></td>
-              </tr>
-              </form>
-EOF;
-}
 
 function end_table() {
 global $ibforums;
@@ -192,15 +127,7 @@ return <<<EOF
 EOF;
 }
 
-function aol_body($data) {
-global $ibforums;
-return <<<EOF
-<!-- Begin AIM Remote -->
-<table width='140' align='center'>
-<tr align='right'><td><a href="http://www.aol.co.uk/aim/index.html"><img src="http://www.aol.co.uk/aim/remote/gr/aimver_man.gif" width=44 height=55 border=0 alt="Download AIM"></a><img src="http://www.aol.co.uk/aim/remote/gr/aimver_topsm.gif" width=73 height=55 border=0 alt="AIM Remote"><br /><a href="aim:goim?screenname={$data['AOLNAME']}&amp;message=Hi.+Are+you+there?"><img src="http://www.aol.co.uk/aim/remote/gr/aimver_im.gif" width=117 height=39 border=0 alt="Send me an Instant Message"></a><br /><a href="aim:addbuddy?screenname={$data['AOLNAME']}"><img src="http://www.aol.co.uk/aim/remote/gr/aimver_bud.gif" width=117 height=39 border=0 alt="Add me to Your Buddy List"></a><br /><a href="http://www.aol.co.uk/aim/remote.html"><img src="http://www.aol.co.uk/aim/remote/gr/aimver_botadd.gif" width=117 height=23 border=0 alt="Add Remote to Your Page"></a><br /><a href="http://www.aol.co.uk/aim/index.html"><img src="http://www.aol.co.uk/aim/remote/gr/aimver_botdow.gif" width=117 height=29 border=0 alt="Download AOL Instant Messenger"></a><br /><br /></td></tr></table>
-<!-- End AIM Remote -->
-EOF;
-}
+
 
 function forward_form($title, $text, $lang) {
 global $ibforums;

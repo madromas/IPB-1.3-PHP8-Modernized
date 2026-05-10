@@ -11,6 +11,29 @@ return <<<EOF
 EOF;
 }
 
+function latest_posts($data) {
+global $ibforums;
+return <<<EOF
+    <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
+      <tr>
+        <td>
+          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+           <tr>
+             <td colspan='2' class='maintitle' ><b>{$ibforums->lang['latest_posts']}</b></td>
+           </tr>
+           <tr>
+                 <td class='row5' colspan='2'>
+                     {$data}
+                     </td>
+               </tr>           
+              </table>
+             </td>
+           </tr>
+          </table>
+<br>
+EOF;
+}
+
 function warn_level_warn($id, $percent) {
 global $ibforums;
 return <<<EOF
@@ -373,7 +396,7 @@ return <<<EOF
         <!-- PM / EMAIL / WWW / MSGR -->
       
         <div align='left' class='darkrow3' style='float:left;width:auto'>
-        {$author['addresscard']}{$author['message_icon']}{$author['email_icon']}{$author['website_icon']}{$author['integ_icon']}{$author['yahoo_icon']}
+        {$author['addresscard']}{$author['message_icon']}{$author['email_icon']}{$author['website_icon']}
         </div>
         
         <!-- REPORT / UP -->

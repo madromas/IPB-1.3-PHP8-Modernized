@@ -41,8 +41,6 @@ function PopUp(url, name, width,height,center,resize,scroll,posleft,postop) {
 	<th class='pformstrip' align="center" width="20%">{$ibforums->lang['member_joined']}</th>
 	<th class='pformstrip' align="center" width="10%">{$ibforums->lang['member_posts']}</th>
 	<th class='pformstrip' align="center">{$ibforums->lang['member_email']}</th>
-	<th class='pformstrip' align="center">{$ibforums->lang['member_aol']}</th>
-	<th class='pformstrip' align="center">{$ibforums->lang['member_icq']}</th>
 	<th class='pformstrip' width="5%" align="center">{$ibforums->lang['member_photo']}</th>
 	
   </tr>
