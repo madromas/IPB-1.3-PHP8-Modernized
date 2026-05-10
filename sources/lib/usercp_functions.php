@@ -88,10 +88,10 @@ class usercp_functions {
 		
 		//-----------------------------------
 		// Check to make sure we don't just have
-		// http:// in the URL box..
+		// https:// in the URL box..
 		//------------------------------------
 		
-		if ( preg_match( "/^http:\/\/$/i", $ibforums->input['url_photo'] ) )
+		if ( preg_match( "/^https:\/\/$/i", $ibforums->input['url_photo'] ) )
 		{
 			$ibforums->input['url_photo'] = "";
 		}
@@ -498,15 +498,15 @@ class usercp_functions {
 		
 		//+----------------------------------------
 		
-		$db_string = $DB->compile_db_update_string(  array (
-															  'time_offset'  => $ibforums->input['u_timezone'],
-															  'view_avs'     => $ibforums->input['VIEW_AVS'],
-															  'view_sigs'    => $ibforums->input['VIEW_SIGS'],
-															  'view_img'     => $ibforums->input['VIEW_IMG'],
-															  'view_pop'     => $ibforums->input['DO_POPUP'],
-															  'dst_in_use'   => $ibforums->input['DST'],
-															  'view_prefs'   => $ibforums->input['postpage']."&".$ibforums->input['topicpage'],
-												  )         );
+		$db_string = $DB->compile_db_update_string( array (
+    'time_offset'  => $ibforums->input['u_timezone'],
+    'view_avs'     => intval($ibforums->input['VIEW_AVS']),
+    'view_sigs'    => intval($ibforums->input['VIEW_SIGS']),
+    'view_img'     => intval($ibforums->input['VIEW_IMG']),
+    'view_pop'     => intval($ibforums->input['DO_POPUP']),
+    'dst_in_use'   => intval($ibforums->input['DST']),
+    'view_prefs'   => $ibforums->input['postpage']."&".$ibforums->input['topicpage'],
+) );
 		
 		$DB->query("UPDATE ibf_members SET $db_string WHERE id='".$this->class->member['id']."'");
 		
@@ -707,7 +707,7 @@ class usercp_functions {
 		// http:// in the URL box..
 		//------------------------------------
 		
-		if ( preg_match( "/^http:\/\/$/i", $ibforums->input['url_avatar'] ) )
+		if ( preg_match( "/^https:\/\/$/i", $ibforums->input['url_avatar'] ) )
 		{
 			$ibforums->input['url_avatar'] = "";
 		}
@@ -1049,9 +1049,9 @@ class usercp_functions {
 			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'calendar_not_all' ) );
 		}
 		
-		if ( ! preg_match( "#^http://#", $ibforums->input['WebSite'] ) )
+		if ( ! preg_match( "#^https://#", $ibforums->input['WebSite'] ) )
 		{
-			$ibforums->input['WebSite'] = 'http://'.$ibforums->input['WebSite'];
+			$ibforums->input['WebSite'] = 'https://'.$ibforums->input['WebSite'];
 		}
 		
 		//----------------------------------
@@ -1059,11 +1059,6 @@ class usercp_functions {
 		//----------------------------------
 		
 		$set = array(  'website'     => $ibforums->input['WebSite'],
-					   'icq_number'  => $ibforums->input['ICQNumber'],
-					   'aim_name'    => $ibforums->input['AOLName'],
-					   'yahoo'       => $ibforums->input['YahooName'],
-					   'msnname'     => $ibforums->input['MSNName'],
-					   'integ_msg'   => $ibforums->input['integ_msg'],
 					   'location'    => $ibforums->input['Location'],
 					   'interests'   => $ibforums->input['Interests'],
 					   'bday_day'    => $ibforums->input['day'],
@@ -1187,7 +1182,7 @@ class usercp_functions {
 $max_kb_limit = 30720; // 30 KB
 $max_height   = 150;   // Your height limit
 
-$cnt = preg_match_all("/http:\/\/.+?\.(gif|jpg|png|jpeg)/", $HTTP_POST_VARS['Post'], $matches);
+$cnt = preg_match_all("/https:\/\/.+?\.(gif|jpg|png|jpeg)/", $HTTP_POST_VARS['Post'], $matches);
 
 for ($i = 0; $i < $cnt; $i++) {
     $img_data = filesize_url($matches[0][$i]);

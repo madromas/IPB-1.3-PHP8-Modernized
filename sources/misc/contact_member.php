@@ -795,7 +795,7 @@ class Contact {
 														  'NAME'   => $member['name'],
 														  'TO'     => $member['id'],
 														  'subject'=> $ibforums->input['subject'],
-														  'content'=> stripslashes(htmlspecialchars($_POST['message'])),
+														 'content'=> stripslashes(htmlspecialchars($_POST['message'] ?? '')),
 													   )
 											   )
 					  : $this->html->show_address(

@@ -117,9 +117,9 @@ $txt = preg_replace('/(?<!<a href=")<img([^>]+)src=["\'](uploads\/[^"\']+)["\'](
     return $text;
 }
 
-    function unconvert($txt="", $code=1, $html=0) {
-        return trim(stripslashes($txt));
-    }
+   function unconvert($txt="", $code=1, $html=0) {
+    return trim(stripslashes($txt ?? ''));
+}
 
     function regex_mod_tag($txt="") {
         return "<!--mod1--><div class='mod-notice-wrapper'><table class='mod-table'><tr><td class='mod-icon-blue'>M</td><td class='mod-content'>".$txt."</td></tr></table></div><!--mod2-->";

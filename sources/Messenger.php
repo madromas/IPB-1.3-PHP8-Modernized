@@ -1446,7 +1446,7 @@ else
  		// Get some more HTML and words, oh yes.
  		//--------------------------------------
  		
- 		$errors = preg_replace( "/^<br>/", "", $errors );
+ 		$errors = preg_replace( "/^<br>/", "", $errors ?? '' );
  		
  		$ibforums->lang = $std->load_words($ibforums->lang, 'lang_post', $ibforums->lang_id);
     	

@@ -2370,7 +2370,7 @@ class display {
 		
 		$ibforums->skin['template'] = str_replace( "<#IMG_DIR#>", $ibforums->skin['img_dir'], $ibforums->skin['template'] );
 		
-		/*$ibforums->skin['template'] = preg_replace( "#img\s+?src=[\"'](?!http://)(.+?)[\"'](.+?)?>#is", "img src=\"http://domain.com/\\1\"\\2>", $ibforums->skin['template'] );*/
+		/*$ibforums->skin['template'] = preg_replace( "#img\s+?src=[\"'](?!https://)(.+?)[\"'](.+?)?>#is", "img src=\"https://domain.com/\\1\"\\2>", $ibforums->skin['template'] );*/
 		
 		//---------------------------------------
 		// Close this DB connection
