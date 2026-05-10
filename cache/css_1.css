@@ -68,6 +68,8 @@ img.attach { border:2px outset #EEF2F7;padding:2px;}
 
 .avatar img {border-radius:.5em;width: 80px;}
 
+
+
 /* Base style for all ratings */
 .rating-positive, 
 .rating-negative, 
@@ -680,3 +682,28 @@ pre[class*="language-"] code {
 }
 
 /* Share btn */
+
+/* Favorite styles */
+
+.fav-row {
+    border-left: 3px solid #F2BC00 !important;
+    padding-left: 8px !important; 
+}
+.post-actions-wrap {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    background: #7899d4;
+    border: 1px solid #3b7ac9;
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
+    margin-top: -7px;
+    margin-right: 5px;
+}
+
+/* Favorite styles */
