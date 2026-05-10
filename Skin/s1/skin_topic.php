@@ -301,11 +301,12 @@ return <<<EOF
     </div>
 </div>
 
+          {member_only}
             <div class="post-actions-wrap">
                 <a href="{$ibforums->base_url}act=fav&topic={$data['TOPIC']['tid']}" title="{$data['TOPIC']['fav_title']}">
-    <i class="{$data['TOPIC']['fav_icon']}" style="color: {$data['TOPIC']['fav_color']};"></i>
-                </a> 
+    <i class="{$data['TOPIC']['fav_icon']}" style="color: {$data['TOPIC']['fav_color']};"></i></a> 
             </div>
+            {/member_only}
             
         </div>
 
