@@ -223,7 +223,7 @@ return <<<EOF
 	  <td align='center' class='row4'><a href="{$ibforums->base_url}act=fav&topic={$data['tid']}" title="Add to favorites">{$data['folder_img']}</a></td>
       <td align='center' class='row2'>{$data['topic_icon']}</td>
       
-      <td class='row2 {$f_class}'>
+      <td class='row2 {$f_class} forum-row'>
         {$data['go_new_post']}{$data['prefix']} <a href="{$ibforums->base_url}showtopic={$data['tid']}" title="{$ibforums->lang['topic_started_on']} {$data['start_date']}">{$data['title']}</a>  {$data['PAGES']}
         <br /><span class='desc'>{$data['description']}</span></td>
 
@@ -286,7 +286,7 @@ return <<<EOF
 	  <td align='center' class='row4'><a href="{$ibforums->base_url}act=fav&topic={$data['tid']}" title="Add to favorites">{$data['folder_img']}</a></td>
       <td align='center' class='row2'>{$data['topic_icon']}</td>
       
-      <td class='row2 {$f_class}'>
+      <td class='row2 {$f_class} forum-row'>
        {$data['go_new_post']}<b>{$data['prefix']}</b> <a href='{$ibforums->base_url}showtopic={$data['tid']}' class='linkthru' title='{$ibforums->lang['topic_started_on']} {$data['start_date']}'>{$data['title']}  {$data['PAGES']}</a>
         <br /><span class='desc'>{$data['description']}</span></td>
 

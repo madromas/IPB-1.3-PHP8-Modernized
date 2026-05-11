@@ -120,6 +120,13 @@ return <<<EOF
           <td class='row4' width='95%'>
             <b>{$active['GUESTS']}</b> {$ibforums->lang['guests']}, <b>{$active['MEMBERS']}</b> {$ibforums->lang['public_members']} <b>{$active['ANON']}</b> {$ibforums->lang['anon_members']}
             <div class='thin'>{$active['NAMES']}</div>
+
+
+
+
+
+
+            
             {$active['links']}
           </td>
         </tr>
@@ -295,7 +302,7 @@ global $ibforums;
 return <<<EOF
         <tr> 
           <td class="row4" align="center">{$info['img_new_post']}</td>
-          <td class="row4"><b><a href="{$ibforums->base_url}showforum={$info['id']}">{$info['name']}</a></b><br /><span class='desc'>{$info['description']}<br />{$info['moderator']}</span></td>
+          <td class="row4 forum-row"><b><a href="{$ibforums->base_url}showforum={$info['id']}">{$info['name']}</a></b><br /><span class='desc'>{$info['description']}<br />{$info['moderator']}</span></td>
           <td class="row2" align="center">{$info['topics']}</td>
           <td class="row2" align="center">{$info['posts']}</td>
           <td class="row2">{$info['last_post']}<br />{$ibforums->lang['in']}:&nbsp;{$info['last_unread']}{$info['last_topic']}<br />{$ibforums->lang['by']}: {$info['last_poster']}</td>
