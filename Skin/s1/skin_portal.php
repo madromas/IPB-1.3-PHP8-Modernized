@@ -325,7 +325,7 @@ return <<<EOF
              </td>
            </tr>
           </table>
-<br>
+  <br>
 EOF;
 }
 
@@ -630,13 +630,13 @@ return <<<EOF
  <tr>
   <!-- Sidebar Column -->
   <td width="22%" vAlign="top" class="portal-sidebar">
-    <div style="display:none;">{$data['loginbox']}</div>
-    {$data['navigation']}
+    <span style="display:none;">{$data['loginbox']}</span>
+    <span style="display:none;">{$data['navigation']}</span>
     {$data['forums_list']}
     {$data['new_posts']}
     {$data['latest_posts']}
     {$data['poll']}
-    {$data['old_news']}
+    <span style="display:none;">{$data['old_news']}</span>
     {$data['top_posters']}
     {$data['top_forums']}
     {$data['new_members']}
