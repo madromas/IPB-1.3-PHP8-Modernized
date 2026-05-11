@@ -304,7 +304,9 @@ option.sub { font-weight:bold;color:#555 }
 
 .row5 { background-color: #fff }
 
+.forum-row { background-color: #DFE6EF }
 
+.forum-row:hover { background-color: #D3DCE7}
 
 .darkrow1 { background-color: #C2CFDF; color:#4C77B6; }
 
