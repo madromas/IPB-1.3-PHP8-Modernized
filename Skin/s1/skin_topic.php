@@ -540,11 +540,55 @@ tinymce.init({
 	selector: '#qr-editor',
     height: 300,
     menubar: false,
+    images_upload_url: 'tinymce_upload.php',
+      automatic_uploads: true,
+      images_reuse_filename: true,
     statusbar: false,
     plugins: 'autolink link image media emoticons codesample',
     toolbar: 'bold italic underline | link image media emoticons | codesample',
     content_css: 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap',
       content_style: "body { font-family: 'Nunito', sans-serif; font-size: 15px; }",
+    
+    images_upload_handler: (blobInfo, progress) => new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.withCredentials = false;
+          xhr.open('POST', 'tinymce_upload.php');
+
+          xhr.upload.onprogress = (e) => {
+              progress(e.loaded / e.total * 100);
+          };
+
+          xhr.onload = () => {
+              if (xhr.status === 403) {
+                  reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
+                  return;
+              }
+
+              if (xhr.status < 200 || xhr.status >= 300) {
+                  reject('HTTP Error: ' + xhr.status);
+                  return;
+              }
+
+              const json = JSON.parse(xhr.responseText);
+
+              if (!json || typeof json.location != 'string') {
+                  reject('Invalid JSON: ' + xhr.responseText);
+                  return;
+              }
+
+              resolve(json.location);
+          };
+
+          xhr.onerror = () => {
+              reject('Image upload failed due to a Network Error.');
+          };
+
+          const formData = new FormData();
+          formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+          xhr.send(formData);
+      }),
+
     setup: function (editor) {
         editor.on('change', function () {
             editor.save(); 
