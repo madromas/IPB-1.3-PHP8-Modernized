@@ -301,12 +301,11 @@ return <<<EOF
     </div>
 </div>
 
-          {member_only}
             <div class="post-actions-wrap">
                 <a href="{$ibforums->base_url}act=fav&topic={$data['TOPIC']['tid']}" title="{$data['TOPIC']['fav_title']}">
-    <i class="{$data['TOPIC']['fav_icon']}" style="color: {$data['TOPIC']['fav_color']};"></i></a> 
+    <i class="{$data['TOPIC']['fav_icon']}" style="color: {$data['TOPIC']['fav_color']};"></i>
+                </a> 
             </div>
-            {/member_only}
             
         </div>
 
@@ -358,27 +357,24 @@ return <<<EOF
     </tr>
     <tr>
       <td align='center' valign='top' class='{$post['post_css']}'>
-        <span class='postdetails'>{$author['member_status']}<br />
-        <span class="avatar">
-            {$author['avatar']}
-        </span>
-        <br />
-        <br />
-        {$author['title']}<br />
-        {$author['member_rank_img']}<br /><br />
-        <span style="display:none">{$author['profile']}<br /></span>
-        {$author['member_group']}<br />
-        {$author['member_posts']}<br />
-         <span style="display:none">{$author['member_number']}<br /></span>
-        {$author['member_joined']}<br />
-        {$author['award']}<br />
-        {$author['rep']} {$post['rep_options']}<br />
-        {$author['files']}<br />
-        {$author['downloads']}<br /><br />
-        {$author['warn_text']} {$author['warn_minus']}{$author['warn_img']}{$author['warn_add']}</span><br />
-        <!--$ author[field_1]-->
-        <img src='{$ibforums->vars['img_url']}/spacer.gif' alt='' width='160' height='1' /><br /> 
-      </td>
+    <span class='postdetails'>
+        {$author['member_status']}
+        <div class="avatar">{$author['avatar']}</div>
+        {$author['title']}
+        {$author['member_rank_img']}
+        {$author['member_group']}
+        {$author['member_posts']}
+        {$author['member_joined']}
+        {$author['award']}
+        <div class="rep-box">{$author['rep']} {$post['rep_options']}</div>
+        {$author['files']}
+        {$author['downloads']}<br><br>
+        <div class="warn-box">
+            {$author['warn_text']} {$author['warn_minus']}{$author['warn_img']}{$author['warn_add']}
+        </div>
+    </span>
+    <img src='{$ibforums->vars['img_url']}/spacer.gif' alt='' width='160' height='1' />
+</td>
       <td width='100%' valign='top' class='{$post['post_css']}'>
       <div style='float:right; margin-left:10px;'>
         {$post['topic_rating_box']}
