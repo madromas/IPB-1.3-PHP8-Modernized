@@ -831,9 +831,9 @@ class Search {
 		$sr = $DB->fetch_row();
 		
 		$tmp_topics     = $sr['topic_id'];
-		$topic_max_hits = "";//$sr['topic_max'];
-		$tmp_posts      = $sr['post_id'];
-		$post_max_hits  = "";//$sr['post_max'];
+        $topic_max_hits = 0; 
+        $tmp_posts      = $sr['post_id'];
+        $post_max_hits  = 0; 
 		
 		$this->sort_order = $sr['sort_order'];
 		$this->sort_key   = $sr['sort_key'];
