@@ -133,7 +133,6 @@ $CATS = array (
 				  9 => 'Statistic Center',
 				  10 => 'SQL Management',
 				  11 => 'Board Logs',
-				  12 => 'Download Manager',
 			  );
 			  
 $DESC = array (
@@ -148,16 +147,6 @@ $DESC = array (
 				  9 => "Get registration and posting statistics",
 				  10 => "Manage your SQL database; repair, optimize and export data",
 				  11 => "View admin, moderator and email logs (Root admin only)",
-				  12 => "Manage settings for downloads component",
 			  );
-			  
-	$PAGES[12] = array (
-    1 => array( 'Downloads Home'      , 'act=downloads' ),
-    2 => array( 'Add Category'        , 'act=downloads&code=showaddcat' ),
-    3 => array( 'Edit Categories'     , 'act=downloads&code=showeditcat' ),
-    4 => array( 'Re-Order Categories' , 'act=downloads&code=reorder' ),
-    5 => array( 'Archive Settings'    , 'act=downloads&code=settings' ),
-    6 => array( 'Archive On/Off'      , 'act=downloads&code=switch' ),
-);		  
-			  
+			  				  
 ?>
