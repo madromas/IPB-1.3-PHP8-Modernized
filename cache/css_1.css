@@ -266,7 +266,6 @@ option.sub { font-weight:bold;color:#555 }
 
 .postdetails > span, 
 .postdetails > div {
-    display: block;
     margin-bottom: 4px;
 }
 
