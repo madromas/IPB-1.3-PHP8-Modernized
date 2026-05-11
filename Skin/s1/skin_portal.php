@@ -317,8 +317,7 @@ return <<<EOF
                            <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=idx">{$ibforums->lang['nav_forums']}</a><br>
                            <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Search&f=1">{$ibforums->lang['nav_search']}</a><br>
                            <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Members">{$ibforums->lang['nav_mlist']}</a><br>
-                           <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Help">{$ibforums->lang['nav_help']}</a><br>
-                           <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?act=Downloads">{$ibforums->lang['tb_download']}</a>
+                           <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Help">{$ibforums->lang['nav_help']}</a>                 
                      </td>
                </tr>           
               </table>
