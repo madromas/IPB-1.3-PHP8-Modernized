@@ -15,7 +15,7 @@ EOF;
 function display($text) {
 global $ibforums;
 return <<<EOF
-</div>
+
 <div style='padding:4px'>$text</div>
 </div>
 EOF;
