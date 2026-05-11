@@ -344,7 +344,7 @@ return <<<EOF
         <!-- POSTED DATE DIV -->
         
         <div align='left' class='row4' style='float:left;padding-top:2px;padding-bottom:2px'>
-        {$post['post_icon']}<span class='postdetails'><b><a title="{$ibforums->lang['tt_link']}" href="#" onclick="link_to_post({$post['pid']}); return false;" style="text-decoration:underline">{$ibforums->lang['posted_on']}</a></b> {$post['post_date']}</span>
+        {$post['post_icon']}<span class='postdetails'><b><a title="{$ibforums->lang['tt_link']}" href="#" onclick="link_to_post({$post['pid']}); return false;">{$ibforums->lang['posted_on']}</a></b> {$post['post_date']}</span>
         </div>
         
         <!-- REPORT / DELETE / EDIT / QUOTE DIV -->
@@ -367,8 +367,7 @@ return <<<EOF
         {$author['member_joined']}
         {$author['award']}
         <div class="rep-box">{$author['rep']} {$post['rep_options']}</div>
-        {$author['files']}
-        {$author['downloads']}<br><br>
+        <br><br>
         <div class="warn-box">
             {$author['warn_text']} {$author['warn_minus']}{$author['warn_img']}{$author['warn_add']}
         </div>
@@ -726,7 +725,7 @@ return <<<EOF
     <tr>
         <td align="center" style="padding-top: 10px; border-top: 1px solid #eee;">
             <!-- Triggers the full TinyMCE emoji picker -->
-            <b><a href="javascript:void(0)" onclick="tinymce.execCommand('mceEmoticons');" style="color: #004a99; text-decoration: underline;">
+            <b><a href="javascript:void(0)" onclick="tinymce.execCommand('mceEmoticons');" style="color: #004a99;">
                 {$ibforums->lang['all_emoticons']}
             </a></b>
         </td>
