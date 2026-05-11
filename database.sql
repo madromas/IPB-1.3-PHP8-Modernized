@@ -946,7 +946,8 @@ CREATE TABLE `ibf_sessions` (
   `location` varchar(40) DEFAULT NULL,
   `member_group` smallint(3) DEFAULT NULL,
   `in_forum` smallint(5) NOT NULL DEFAULT 0,
-  `in_topic` int(10) DEFAULT NULL
+  `in_topic` int(10) DEFAULT NULL,
+  `last_post` int(10) unsigned DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
