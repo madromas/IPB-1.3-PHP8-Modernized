@@ -357,12 +357,11 @@ class Profile {
     	$percent = 0;
     	
     	$DB->query("SELECT DISTINCT(p.forum_id), f.name, COUNT(p.author_id) as f_posts FROM ibf_posts p, ibf_forums f ".
-    			   "WHERE p.forum_id IN ($forum_id_str) AND p.author_id='".$member['id']."' AND p.forum_id=f.id GROUP BY p.forum_id ORDER BY f_posts DESC");
+    			   "WHERE p.forum_id IN ($forum_id_str) AND p.author_id='".$member['id']."' AND p.forum_id=f.id GROUP BY p.forum_id ORDER BY f_posts DESC LIMIT 1");
     			   
     	$favourite   = $DB->fetch_row();
     	
-    	$DB->query("SELECT COUNT(pid) as total_posts FROM ibf_posts WHERE author_id='".intval($member['id'])."'");
-$total_posts = $DB->fetch_row();
+        $DB->query("SELECT COUNT(*) as total_posts FROM ibf_posts WHERE author_id='".intval($member['id'])."'");
 
 $DB->query("SELECT TOTAL_TOPICS, TOTAL_REPLIES FROM ibf_stats");
 $stats = $DB->fetch_row();
