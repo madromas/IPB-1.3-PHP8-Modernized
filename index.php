@@ -127,7 +127,6 @@ class info {
 $INFO = array();
 
 require ROOT_PATH."conf_global.php";
-require ROOT_PATH."downloads_config.php";
 
 //--------------------------------
 // Cookie Ban Mwahaha
@@ -269,22 +268,6 @@ else if ( ($ibforums->input['showuser'] ?? "") != "" )
 {
 	$ibforums->input['act'] = "Profile";
 	$ibforums->input['MID'] = intval($ibforums->input['showuser']);
-}
-else if ( ($ibforums->input['download'] ?? "") != "" )
-{
-	$ibforums->input['act'] = "Downloads";
-	$ibforums->input['do'] = "view";
-	$ibforums->input['type'] = "file";
-	$ibforums->input['id']   = intval($ibforums->input['download']);
-
-}
-else if ( ($ibforums->input['dlcategory'] ?? "") != "" )
-{
-	$ibforums->input['act'] = "Downloads";
-	$ibforums->input['do'] = "view";
-	$ibforums->input['type'] = "cat";
-	$ibforums->input['cat']   = intval($ibforums->input['dlcategory']);
-
 }
 else
 {
@@ -467,9 +450,6 @@ $choice = array(
                  "Attach"   => "misc/attach",
                  'legends'  => 'misc/legends',
                  'modcp'    => 'mod_cp',
-                 'Downloads' => 'Downloads',
-                 'downloads' => 'Downloads',
-		         'FileCP'    => 'FileCP',
                  'calendar' => "calendar",
                  'buddy'    => "browsebuddy",
                  'rep'      => "Reputation",
