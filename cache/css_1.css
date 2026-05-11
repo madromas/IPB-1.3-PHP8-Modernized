@@ -52,9 +52,9 @@ video {
     display: inline-block;
 }
 
-a:link, a:visited, a:active { text-decoration: underline; color: #000 }
+a:link, a:visited, a:active { text-decoration: none; color: #000 }
 
-a:hover { color: #465584; text-decoration:underline }
+a:hover { color: #465584; text-decoration:none }
 
 fieldset.search { padding:6px; line-height:150% }
 
