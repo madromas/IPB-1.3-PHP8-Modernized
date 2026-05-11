@@ -283,18 +283,20 @@ INSERT INTO `ibf_faq` (`id`, `title`, `text`, `description`) VALUES
 --
 
 CREATE TABLE `ibf_files` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `mid` int(11) NOT NULL DEFAULT 0,
   `cat` int(11) NOT NULL DEFAULT 0,
-  `open` tinyint(1) NOT NULL DEFAULT 0,
+  `open` tinyint(1) NOT NULL DEFAULT 1,
   `screenshot` varchar(255) DEFAULT '',
   `sname` varchar(255) DEFAULT '',
   `author` varchar(255) DEFAULT '',
   `downloads` int(10) NOT NULL DEFAULT 0,
   `views` int(10) NOT NULL DEFAULT 0,
-  `file_size` int(10) NOT NULL DEFAULT 0,
+  `file_size` varchar(50) DEFAULT '0',
   `updated` int(10) NOT NULL DEFAULT 0,
-  `approved` tinyint(1) NOT NULL DEFAULT 0
+  `approved` tinyint(1) NOT NULL DEFAULT 0,
+  `fdesc` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -304,13 +306,17 @@ CREATE TABLE `ibf_files` (
 --
 
 CREATE TABLE `ibf_files_cats` (
-  `cid` int(11) NOT NULL,
+  `cid` int(11) NOT NULL AUTO_INCREMENT,
   `cname` varchar(255) DEFAULT '',
   `cdesc` text DEFAULT NULL,
-  `copen` tinyint(1) NOT NULL DEFAULT 0,
+  `copen` tinyint(1) NOT NULL DEFAULT 1,
   `sub` int(11) NOT NULL DEFAULT 0,
   `position` int(11) NOT NULL DEFAULT 0,
-  `mid` int(11) NOT NULL DEFAULT 0
+  `mid` int(11) NOT NULL DEFAULT 0,
+  `dis_screen` tinyint(1) NOT NULL DEFAULT 1,
+  `cperms` text DEFAULT NULL,
+  `cfiles` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
