@@ -1456,7 +1456,11 @@ $this->output .= $this->html->TableFooter( array( 'TOPIC' => $this->topic, 'FORU
 
 if ( $member['avatar'] AND $member['id'] )
 {
-    $member['avatar'] = "<a href='{$this->base_url}showuser={$member['id']}'>{$member['avatar']}</a>";
+    $member['avatar'] = "<a href='{$this->base_url}showuser={$member['id']}'>{$member['avatar']}</a><br />";
+}
+else if ( $member['avatar'] )
+{
+    $member['avatar'] .= "<br />";
 }
 		
 		$pips = 0;
@@ -1467,7 +1471,11 @@ if ( $member['avatar'] AND $member['id'] )
 			{
 				if (!$member['title'])
 				{
-					$member['title'] = $this->mem_titles[ $k ]['TITLE'];
+					$member['title'] = $this->mem_titles[ $k ]['TITLE'] . "<br />";
+				}
+				else
+				{
+					$member['title'] .= "<br />";
 				}
 				$pips = $v['PIPS'];
 				break;
@@ -1477,7 +1485,7 @@ if ( $member['avatar'] AND $member['id'] )
 		
 		if ($member['g_icon'])
 		{
-			$member['member_rank_img'] = "<img src='{$ibforums->vars[TEAM_ICON_URL]}/{$member['g_icon']}' border='0' alt='Group Icon' />";
+			$member['member_rank_img'] = "<img src='{$ibforums->vars[TEAM_ICON_URL]}/{$member['g_icon']}' border='0' alt='Group Icon' /><br />";
 		}
 		else
 		{
@@ -1489,26 +1497,27 @@ if ( $member['avatar'] AND $member['id'] )
 					{
 						$member['member_rank_img'] = ($member['member_rank_img'] ?? "") . "<{A_STAR}>";
 					}
+					$member['member_rank_img'] .= "<br />";
 				}
 				else
 				{
-					$member['member_rank_img'] = "<img src='{$ibforums->vars['TEAM_ICON_URL']}/$pips' border='0' alt='*' />";
+					$member['member_rank_img'] = "<img src='{$ibforums->vars['TEAM_ICON_URL']}/$pips' border='0' alt='*' /><br />";
 				}
 			}
 		}
-							   
+							    
 
 		$days_since_join = floor( (time() - $member['joined']) / 86400 );
 
-$member['member_joined'] = ($member['member_joined'] ?? "") . " ({$days_since_join} days)";
+$member['member_joined'] = ($member['member_joined'] ?? "") . " ({$days_since_join} days)<br />";
 		
-		$member['profile']="<a href='{$this->base_url}showuser={$member['id']}'>{$ibforums->lang['link_profile']}</a>";
+		$member['profile']="<a href='{$this->base_url}showuser={$member['id']}'>{$ibforums->lang['link_profile']}</a><br />";
 		
-		$member['member_group'] = $ibforums->lang['m_group'].' '.$member['g_title'];
+		$member['member_group'] = $ibforums->lang['m_group'].' '.$member['g_title']."<br />";
 		
-		$member['member_posts'] = $ibforums->lang['m_posts'].' '.$std->do_number_format($member['posts']);
+		$member['member_posts'] = $ibforums->lang['m_posts'].' '.$std->do_number_format($member['posts'])."<br />";
 		
-		$member['member_number'] = $ibforums->lang['member_no'].' '.$std->do_number_format($member['id']);
+		$member['member_number'] = $ibforums->lang['member_no'].' '.$std->do_number_format($member['id'])."<br />";
 		
 		$member['profile_icon'] = "<a href='{$this->base_url}showuser={$member['id']}'><{P_PROFILE}></a>";
 		
