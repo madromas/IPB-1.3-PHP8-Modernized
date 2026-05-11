@@ -856,7 +856,7 @@ class Search {
 		
 		//-------------------------------------
 		
-		foreach( explode( ",", $tmp_posts) as $pid )
+		foreach( explode( ",", $tmp_posts ?? "" ) as $pid )
 		{
 			if ( ! preg_match( "/,$pid,/", $posts ) )
 			{
@@ -1518,7 +1518,7 @@ class Search {
     
     function convert_highlite_words($words="")
     {
-    	$words = trim(urldecode($words));
+    	$words = trim(urldecode($words ?? ""));
     	
     	// Convert booleans to something easy to match next time around
     	
