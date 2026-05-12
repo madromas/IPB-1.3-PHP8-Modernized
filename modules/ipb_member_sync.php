@@ -30,7 +30,7 @@
 | - on_login: Is called when logged in succcessfully
 | - on_delete: Is called when member deleted (single, multiple)
 | - on_email_change: When email address change is confirmed
-| - on_profile_update: When profile is updated (msn, sig, etc)
+| - on_profile_update: When profile is updated (sig, etc)
 | - on_pass_change: When password is updated
 | - on_group_change: When the member's membergroup has changed
 | - on_name_change: When the member's name has been changed
@@ -178,9 +178,9 @@ class ipb_member_sync
 	//-----------------------------------------------
 	// on_profile_update($member)
 	// 
-	// $member = array: avatar, avatar_size, aim_name
-	// icq_number, location, website, yahoo, interests
-	// integ_msg, msnname, id, name
+	// $member = array: avatar, avatar_size,
+	//  location, website, interests
+	//  , id, name
 	// 
 	//-----------------------------------------------
 	

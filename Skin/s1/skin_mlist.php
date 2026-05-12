@@ -109,8 +109,6 @@ return <<<EOF
 	 <td class='row4' align="center" width="20%">{$member['joined']}</td>
 	 <td class='row4' align="center" width="10%">{$member['posts']}</td>
 	 <td class='row2' align="center">{$member['member_email']}</td>
-	 <td class='row2' align="center">{$member['aim_name']}</td>
-	 <td class='row2' align="center">{$member['icq_number']}</td>
 	 <td class='row2' align="center">{$member['camera']}</td>
   </tr>
   <!-- End of Entry -->

@@ -473,7 +473,7 @@ var Win = window.open( url, name, 'width='+width+',height='+height+',top='+Y+',l
         <!-- EMAIL / WWW / MSGR -->
       
         <div align='left' class='darkrow3' style='float:left;'>
-        {$data['member']['addresscard']}{$data['member']['message_icon']}{$data['member']['email_icon']}{$data['member']['website_icon']}{$data['member']['integ_icon']}{$data['member']['icq_icon']}{$data['member']['aol_icon']}{$data['member']['yahoo_icon']}{$data['member']['msn_icon']}
+        {$data['member']['addresscard']}{$data['member']['message_icon']}{$data['member']['email_icon']}{$data['member']['website_icon']}
       </div>
         
         <!-- UP -->
