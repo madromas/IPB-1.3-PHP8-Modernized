@@ -881,16 +881,19 @@ class admin_skin {
 				}
 				else
 				{
-					if ($this->td_header[$i][1] != "")
-					{
-						$width = " width='{$this->td_header[$i][1]}' ";
-					}
-					else
-					{
-						$width = "";
-					}
-					
-					$html .= "<td class='$td_col' $width valign='$align'>".$array[$i]."</td>\n";
+					if (isset($this->td_header[$i][1]) && $this->td_header[$i][1] != "")
+{
+    $width = " width='{$this->td_header[$i][1]}' ";
+}
+else
+{
+    $width = "";
+}
+
+// Ensure $array[$i] exists as well to prevent a second warning on the next line
+$cell_content = $array[$i] ?? "";
+
+$html .= "<td class='$td_col' $width valign='$align'>".$cell_content."</td>\n";
 				}
 			}
 			

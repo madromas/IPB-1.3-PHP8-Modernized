@@ -686,8 +686,8 @@ class ad_settings {
 								 )      );
 		
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>If not using external link; guidelines/rules text</b><br>HTML Enabled" ,
-										  $SKIN->form_textarea( "gl_guidelines", $std->my_br2nl($row['cs_value']), 65, 20  )
-								 )      );
+    $SKIN->form_textarea( "gl_guidelines", $std->my_br2nl($row['cs_value'] ?? ''), 65, 20 )
+) );
 								 
  
 		$this->common_footer();
@@ -864,11 +864,10 @@ class ad_settings {
 								 )      );
 								 
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Mail address to receive COPPA forms</b>" ,
-										  $SKIN->form_textarea( "coppa_address", str_replace( "\n\n", "\n", $std->my_br2nl(str_replace( "\r\n", "\n", $INFO['coppa_address']) ) )  )
-								 )      );
-		
-		
-		$this->common_footer();
+										$SKIN->form_textarea( "coppa_address", str_replace( "\n\n", "\n", $std->my_br2nl(str_replace( "\r\n", "\n", $INFO['coppa_address'] ?? '')) ) )
+) );
+
+$this->common_footer();
 	
 	
 	}

@@ -2038,11 +2038,11 @@ class ad_forums {
 									     )      );
 									     
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Member Group</b>" ,
-												  $SKIN->form_dropdown( "mgroup",
-																		$mem_group,
-												  						$mem['mgroup']
-												  					  )
-									     )      );
+    $SKIN->form_dropdown( "mgroup",
+        $mem_group,
+        $mem['mgroup'] ?? ''
+    )
+) );
 									     
 		if ($custom_out != "")
 		{

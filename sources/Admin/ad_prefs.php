@@ -146,7 +146,7 @@ class ad_prefs {
 	function get_html()
 	{
 		global $SKIN;
-		
+		$this->msg = $this->msg ?? '';
 $hit_muhl = <<<EOF
 <html>
  <head>
