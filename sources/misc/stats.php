@@ -207,7 +207,7 @@ class stats {
     	
     	$admin_ids = array();
     	
-    	$DB->query("SELECT m.id, m.name, m.email, m.hide_email, m.location, m.aim_name, m.icq_number, g.g_access_cp
+    	$DB->query("SELECT m.id, m.name, m.email, m.hide_email, m.location, g.g_access_cp
     			    FROM ibf_members m, ibf_groups g
     			    WHERE g.g_access_cp=1 AND m.mgroup=g.g_id ORDER BY m.name");
     	
@@ -231,7 +231,7 @@ class stats {
     	if ( count($sup_ids) > 0 )
     	{
     		
-    		$DB->query("SELECT id, name, email, hide_email, location, aim_name, icq_number from ibf_members WHERE mgroup IN (".implode( ',', $sup_ids ).") and id NOT IN(".implode(',', $admin_ids).") ORDER BY name");
+    		$DB->query("SELECT id, name, email, hide_email, location from ibf_members WHERE mgroup IN (".implode( ',', $sup_ids ).") and id NOT IN(".implode(',', $admin_ids).") ORDER BY name");
     	
     		if ( $DB->get_num_rows() )
     		{
@@ -251,7 +251,7 @@ class stats {
         // Do we have any moderators? NORMAL MODS 1st
         //--------------------------------------------
 
-                    $DB->query("SELECT m2.id, m2.name, m2.email, m2.hide_email, m2.location, m2.aim_name, m2.icq_number,
+                    $DB->query("SELECT m2.id, m2.name, m2.email, m2.hide_email, m2.location,
                            f.id as forum_id, f.read_perms, f.name as forum_name, c.state
                     FROM ibf_moderators md
                       LEFT JOIN ibf_forums f ON(f.id=md.forum_id)
@@ -277,7 +277,7 @@ class stats {
      // Do we have any moderators?.
      //--------------------------------------------
      
-     $DB->query("SELECT m.id, m.name, m.email, m.hide_email, m.location, m.aim_name, m.icq_number,
+     $DB->query("SELECT m.id, m.name, m.email, m.hide_email, m.location,
                         f.id as forum_id, f.read_perms, f.name as forum_name, c.state
                  FROM ibf_categories c, ibf_members m 
                    LEFT JOIN ibf_moderators md ON((m.id=md.member_id or (md.is_group=1 and md.group_id=m.mgroup)))
@@ -314,8 +314,6 @@ class stats {
     														  'email'      => $i['email'],
     														  'hide_email' => $i['hide_email'],
     														  'location'   => $i['location'],
-    														  'aim_name'   => $i['aim_name'],
-    														  'icq_number' => $i['icq_number'],
     														  'id'         => $i['id']
     														);
     														
@@ -488,25 +486,7 @@ class stats {
 		{
 			$member['email_icon'] = '&nbsp;';
 		}
-		
-		if ($member['icq_number'])
-		{
-			$member['icq_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}&act=ICQ&MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_ICQ}></a>";
-		}
-		else
-		{
-			$member['icq_iconn'] = '&nbsp;';
-		}
-		
-		if ($member['aim_name'])
-		{
-			$member['aol_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}&act=AOL&MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_AOL}></a>";
-		}
-		else
-		{
-			$member['aol_icon'] = '&nbsp;';
-		}
-				
+			
 			return $member;
 		
 	}

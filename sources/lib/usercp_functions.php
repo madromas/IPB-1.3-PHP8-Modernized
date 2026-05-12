@@ -505,28 +505,11 @@ class usercp_functions {
     'view_img'     => intval($ibforums->input['VIEW_IMG']),
     'view_pop'     => intval($ibforums->input['DO_POPUP']),
     'dst_in_use'   => intval($ibforums->input['DST']),
+    'view_qr'      => intval($ibforums->input['OPEN_QR']),
     'view_prefs'   => $ibforums->input['postpage']."&".$ibforums->input['topicpage'],
 ) );
-		
-		$DB->query("UPDATE ibf_members SET $db_string WHERE id='".$this->class->member['id']."'");
-		
-		/*if ($ibforums->input['HIDE_SESS'] == 1)
-		{
-			$std->my_setcookie('hide_sess', '1');
-		}
-		else
-		{
-			$std->my_setcookie('hide_sess', '0');
-		}*/
-		
-		if ($ibforums->input['OPEN_QR'] == 1)
-		{
-			$std->my_setcookie('open_qr', '1');
-		}
-		else
-		{
-			$std->my_setcookie('open_qr', '0');
-		}
+
+$DB->query("UPDATE ibf_members SET $db_string WHERE id='".$this->class->member['id']."'");
 		
 		$print->redirect_screen( $ibforums->lang['set_updated'], "act=UserCP&CODE=04" );
 	
@@ -1021,12 +1004,6 @@ class usercp_functions {
 		{
 			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'photo_too_long' ) );
 		}
-		//+--------------------
-		if ( ($_POST['ICQNumber']) && (!preg_match( "/^(?:\d+)$/", $_POST['ICQNumber'] ) ) )
-		{
-			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'not_icq_number' ) );
-		}
-		
 		
 		//----------------------------------
 		// make sure that either we entered
