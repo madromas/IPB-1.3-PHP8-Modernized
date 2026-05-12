@@ -3041,13 +3041,13 @@ class session {
      	if ($member_id != 0)
         {
             				  
-            $DB->query("SELECT moderator.mid as is_mod, moderator.allow_warn, m.allow_anon, m.allow_rep, m.rep, m.id, m.name, m.mgroup, m.password, m.email, m.restrict_post, m.view_sigs, m.view_avs, m.view_pop, m.view_img, m.auto_track,
-                              m.mod_posts, m.language, m.skin, m.new_msg, m.show_popup, m.msg_total, m.time_offset, m.posts, m.joined, m.last_post, m.favorites,
-            				  m.last_visit, m.last_activity, m.dst_in_use, m.view_prefs, m.org_perm_id, m.temp_ban, m.sub_end, g.*
-            				  FROM ibf_members m
-            				    LEFT JOIN ibf_groups g ON (g.g_id=m.mgroup)
-            				    LEFT JOIN ibf_moderators moderator ON (moderator.member_id=m.id OR moderator.group_id=m.mgroup )
-            				  WHERE m.id=$member_id");
+            $DB->query("SELECT moderator.mid as is_mod, moderator.allow_warn, m.allow_anon, m.allow_rep, m.rep, m.id, m.name, m.mgroup, m.password, m.email, m.restrict_post, m.view_sigs, m.view_avs, m.view_pop, m.view_img, m.view_qr, m.auto_track,
+              m.mod_posts, m.language, m.skin, m.new_msg, m.show_popup, m.msg_total, m.time_offset, m.posts, m.joined, m.last_post, m.favorites,
+              m.last_visit, m.last_activity, m.dst_in_use, m.view_prefs, m.org_perm_id, m.temp_ban, m.sub_end, g.*
+              FROM ibf_members m
+                LEFT JOIN ibf_groups g ON (g.g_id=m.mgroup)
+                LEFT JOIN ibf_moderators moderator ON (moderator.member_id=m.id OR moderator.group_id=m.mgroup )
+              WHERE m.id=$member_id");
             
             if ( $DB->get_num_rows() )
             {

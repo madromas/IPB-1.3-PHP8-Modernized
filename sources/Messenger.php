@@ -2309,31 +2309,6 @@ else
 			$member['website_icon'] = "<a href='{$member['website']}' target='_blank'><{P_WEBSITE}></a>";
 		}
 		
-		if ($member['icq_number'])
-		{
-			$member['icq_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=ICQ&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_ICQ}></a>";
-		}
-		
-		if ($member['aim_name'])
-		{
-			$member['aol_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=AOL&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_AOL}></a>";
-		}
-		
-		if ($member['yahoo'])
-		{
-			$member['yahoo_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=YAHOO&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_YIM}></a>";
-		}
-		
-		if ($member['msnname'])
-		{
-			$member['msn_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=MSN&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_MSN}></a>";
-		}
-		
-		if ($member['integ_msg'])
-		{
-			$member['integ_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=integ&amp;MID={$member['id']}','Pager','750','450','0','1','1','1')\"><{INTEGRITY_MSGR}></a>";
-		}
-		
 		if ($ibforums->member['id'])
 		{
 			$member['addresscard'] = "<a href=\"javascript:PopUp('{$this->base_url}act=Profile&amp;CODE=showcard&amp;MID={$member['id']}','AddressCard','470','300','0','1','1','1')\" title='{$ibforums->lang['ac_title']}'><{ADDRESS_CARD}></a>";

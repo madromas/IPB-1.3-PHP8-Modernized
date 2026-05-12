@@ -275,7 +275,7 @@ class Memberlist {
 		// START THE LISTING
 		//-----------------------------
 		
-		$DB->query("SELECT m.name, m.id, m.posts, m.joined, m.mgroup, m.email,m.title, m.hide_email, m.location, m.aim_name, m.icq_number,
+		$DB->query("SELECT m.name, m.id, m.posts, m.joined, m.mgroup, m.email,m.title, m.hide_email, m.location,
 		                   me.photo_location, me.photo_type, me.photo_dimensions
 				    FROM ibf_members m
 				      LEFT JOIN ibf_member_extra me ON me.id=m.id
@@ -338,23 +338,6 @@ class Memberlist {
 				$member['member_email'] = '&nbsp;';
 			}
 			
-			if ($member['icq_number'])
-			{
-				$member['icq_number'] = "<a href=\"javascript:PopUp('{$this->base_url}act=ICQ&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_ICQ}></a>";
-			}
-			else
-			{
-				$member['icq_number'] = '&nbsp;';
-			}
-			
-			if ($member['aim_name'])
-			{
-				$member['aim_name'] = "<a href=\"javascript:PopUp('{$this->base_url}act=AOL&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_AOL}></a>";
-			}
-			else
-			{
-				$member['aim_name'] = '&nbsp;';
-			}
 			
 			if ($member['photo_type'] and $member['photo_location'])
 			{

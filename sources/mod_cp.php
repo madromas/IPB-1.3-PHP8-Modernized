@@ -1795,7 +1795,7 @@ if ( isset($this->children[ $forum['id'] ]) && is_array($this->children[ $forum[
 		//+----------------------------------------------------------------
 		
 		$DB->query( "SELECT p.*, ".
-				    "m.id,m.name,m.mgroup,m.email,m.joined,m.avatar,m.avatar_size,m.posts as member_posts,m.aim_name,m.icq_number,m.signature, m.website,m.yahoo,m.title,m.hide_email,m.msnname, ".
+				    "m.id,m.name,m.mgroup,m.email,m.joined,m.avatar,m.avatar_size,m.posts as member_posts,m.signature, m.website,m.title,m.hide_email, ".
 				    "g.g_id, g.g_title, g.g_icon, t.* ".
 				    "FROM ibf_posts p, ibf_members m, ibf_groups g, ibf_topics t ".
 				    "WHERE t.tid='".$ibforums->input['tid']."' AND t.approved=1 AND p.topic_id=t.tid AND p.queued=1 AND p.author_id=m.id AND g.g_id=m.mgroup ".
@@ -2045,7 +2045,7 @@ if ( isset($this->children[ $forum['id'] ]) && is_array($this->children[ $forum[
 		//+----------------------------------------------------------------
 		
 		$DB->query( "SELECT p.*, ".
-				    "m.id,m.name,m.mgroup,m.email,m.joined,m.avatar,m.avatar_size,m.posts as member_posts,m.aim_name,m.icq_number,m.signature, m.website,m.yahoo,m.title,m.hide_email,m.msnname, ".
+				    "m.id,m.name,m.mgroup,m.email,m.joined,m.avatar,m.avatar_size,m.posts as member_posts,m.signature, m.website,m.title,m.hide_email, ".
 				    "g.g_id, g.g_title, g.g_icon, t.* ".
 				    "FROM ibf_posts p, ibf_members m, ibf_groups g, ibf_topics t ".
 				    "WHERE t.forum_id='".$this->forum['id']."' and t.approved=0 AND p.topic_id=t.tid AND p.new_topic=1 AND p.author_id=m.id AND g.g_id=m.mgroup ".
@@ -2853,14 +2853,6 @@ if ( isset($this->children[ $forum['id'] ]) && is_array($this->children[ $forum[
 		
 		if ( $member['website'] and $member['website'] = preg_match( "/^http:\/\/\S+$/", $member['WEBSITE'] ) ) {
 			$member['WEBSITE_ICON'] = "<a href='{$member['website']}' target='_blank'><{P_WEBSITE}></a>&nbsp;";
-		}
-		
-		if ($member['icq_number']) {
-			$member['ICQ_ICON'] = "<a href=\"javascript:PopUp('{$this->base_url}&act=ICQ&MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_ICQ}></a>&nbsp;";
-		}
-		
-		if ($member['aim_name']) {
-			$member['AOL_ICON'] = "<a href=\"javascript:PopUp('{$this->base_url}&act=AOL&MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_AOL}></a>&nbsp;";
 		}
 		
 		//-----------------------------------------------------

@@ -624,8 +624,8 @@ while ($s_row = $DB->fetch_row()) {
 		
 		if ($first > 0 and $this->topic['firstpost'] == 1) {
 		$DB->query( "SELECT p.*,
-				    m.id,m.name,m.mgroup,m.email,m.joined,m.avatar,m.avatar_size,m.posts,m.aim_name,m.icq_number,
-				    m.signature, m.website,m.yahoo,m.title,m.hide_email,m.msnname,
+				    m.id,m.name,m.mgroup,m.email,m.joined,m.avatar,m.avatar_size,m.posts,
+				    m.signature, m.website,m.title,m.hide_email,
 				    g.g_id, g.g_title, g.g_icon
 				    FROM ibf_posts p
 				      LEFT JOIN ibf_members m ON (p.author_id=m.id)
@@ -824,8 +824,8 @@ while ($s_row = $DB->fetch_row()) {
 		// end oska modified
 		   
 		$this->query_id = $DB->query( "SELECT p.*,
-				    m.id,m.name,m.mgroup,m.email,m.joined,m.avatar,m.avatar_size,m.posts,m.aim_name,m.icq_number,
-				    m.signature, m.website,m.yahoo,m.integ_msg,m.title,m.hide_email,m.msnname, m.warn_level, m.warn_lastwarn,
+				    m.id,m.name,m.mgroup,m.email,m.joined,m.avatar,m.avatar_size,m.posts,
+				    m.signature,m.website,m.title,m.hide_email, m.warn_level, m.warn_lastwarn,
 				    g.g_id, g.g_title, g.g_icon, m.rep, g.g_dohtml $join_get_fields
 				    FROM ibf_posts p
 				      LEFT JOIN ibf_members m ON (p.author_id=m.id)
@@ -1300,6 +1300,7 @@ $this->output .= $this->html->TableFooter( array( 'TOPIC' => $this->topic, 'FORU
 		// Enable quick reply box?
 		
 		if (   ( $this->topic['quick_reply'] == 1 )
+			and ( $ibforums->member['view_qr'] == 1 )
 	   and ( $std->check_perms( $this->topic['reply_perms']) == TRUE )
 	   and ( $this->topic['state'] != 'closed' )
 	   and ( $this->topic['poll_state'] != 'closed' ) )
@@ -1572,26 +1573,7 @@ if (intval($member['id']) > 0) {
 			$member['website_icon'] = "<a href='{$member['website']}' target='_blank'><{P_WEBSITE}></a>";
 		}
 		
-		if ($member['icq_number'])
-		{
-			$member['icq_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=ICQ&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_ICQ}></a>";
-		}
 		
-		if ($member['aim_name'])
-		{
-			$member['aol_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=AOL&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_AOL}></a>";
-		}
-		
-		if ($member['yahoo'])
-		{
-			$member['yahoo_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=YAHOO&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_YIM}></a>";
-		}
-		
-		if ($member['msnname'])
-		{
-			$member['msn_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=MSN&amp;MID={$member['id']}','Pager','450','330','0','1','1','1')\"><{P_MSN}></a>";
-		}
-
 		$tmp_rep = empty ($member['rep']) ? 0 : $member['rep'];
         if ($ibforums->vars['rep_goodnum'] and $tmp_rep >= $ibforums->vars['rep_goodnum']) $member['title'] = $ibforums->vars['rep_goodtitle'].' '.$member['title'];
         if ($ibforums->vars['rep_badnum']  and $tmp_rep <= $ibforums->vars['rep_badnum'])  $member['title'] = $ibforums->vars['rep_badtitle']. ' '.$member['title'];
@@ -1643,10 +1625,6 @@ if (intval($member['id']) > 0) {
 		
 		if (in_array( $this->forum['id'], $this->rep_exclude)) $member['rep'] = "";
 		
-		if ($member['integ_msg'])
-		{
-			$member['integ_icon'] = "<a href=\"javascript:PopUp('{$this->base_url}act=integ&amp;MID={$member['id']}','Pager','750','450','0','1','1','1')\"><{INTEGRITY_MSGR}></a>";
-		}
 		
 		if ($ibforums->member['id'])
 		{

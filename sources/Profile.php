@@ -147,13 +147,8 @@ class Profile {
     	
     	$member['password'] = '';
     	
-    	$info['aim_name']    = $member['aim_name']   ? $member['aim_name']   : $ibforums->lang['no_info'];
-    	$info['icq_number']  = $member['icq_number'] ? $member['icq_number'] : $ibforums->lang['no_info'];
-    	$info['yahoo']       = $member['yahoo']      ? $member['yahoo']      : $ibforums->lang['no_info'];
     	$info['location']    = $member['location']   ? $member['location']   : $ibforums->lang['no_info'];
     	$info['interests']   = $member['interests']  ? $member['interests']  : $ibforums->lang['no_info'];
-    	$info['msn_name']    = $member['msnname']    ? $member['msnname']    : $ibforums->lang['no_info'];
-    	$info['integ_msg']   = $member['integ_msg']  ? $member['integ_msg']  : $ibforums->lang['no_info'];
     	$info['mid']         = $member['id'];
     	
     	if (!$member['hide_email'])
@@ -465,13 +460,8 @@ $info['posts'] = $member['posts'] ? $member['posts'] : 0;
 			$info['rep'] .= " " . $this->html->rep_options_links($stuff);
         }
     	
-    	$info['aim_name']    = $member['aim_name']   ? $member['aim_name']   : $ibforums->lang['no_info'];
-    	$info['icq_number']  = $member['icq_number'] ? $member['icq_number'] : $ibforums->lang['no_info'];
-    	$info['yahoo']       = $member['yahoo']      ? $member['yahoo']      : $ibforums->lang['no_info'];
     	$info['location']    = $member['location']   ? $member['location']   : $ibforums->lang['no_info'];
     	$info['interests']   = $member['interests']  ? $member['interests']  : $ibforums->lang['no_info'];
-    	$info['msn_name']    = $member['msnname']    ? $member['msnname']    : $ibforums->lang['no_info'];
-    	$info['integ_msg']   = $member['integ_msg']  ? $member['integ_msg']  : $ibforums->lang['no_info'];
     	
     	$ibforums->vars['time_adjust'] = $ibforums->vars['time_adjust'] == "" ? 0 : $ibforums->vars['time_adjust'];
     	

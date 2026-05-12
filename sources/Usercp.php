@@ -1236,55 +1236,48 @@ class UserCP {
  		//---------------------
  		
  		$this->output .= $this->html->settings_header($this->member, $time_select, $time, $dst_check, $this->md5_check);
- 		
- 		$hide_sess   = $std->my_getcookie('hide_sess');
- 		
- 		$open_qreply = $std->my_getcookie("open_qr");
- 		
- 		if ( $open_qreply == FALSE )
- 		{
- 			$open_qreply = 0;
- 		}
- 		
- 		// View avatars, signatures and images..
- 		
- 		$view_ava  = "<select name='VIEW_AVS' class='forminput'>";
- 		$view_sig  = "<select name='VIEW_SIGS' class='forminput'>";
- 		$view_img  = "<select name='VIEW_IMG' class='forminput'>";
- 		$view_pop  = "<select name='DO_POPUP' class='forminput'>";
- 		$html_sess = "<select name='HIDE_SESS' class='forminput'>";
- 		$html_qr   = "<select name='OPEN_QR' class='forminput'>";
- 		
- 		$view_ava .= $this->member['view_avs'] ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
- 											   : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
- 		
- 		$view_sig .= $this->member['view_sigs'] ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
- 											   : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
- 		
- 		$view_img .= $this->member['view_img'] ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
- 											   : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
- 											  
- 		$view_pop .= $this->member['view_pop'] ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
- 											   : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
- 		
- 		$html_sess .= $hide_sess == 1          ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
- 											   : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
- 		
- 		$html_qr   .= $open_qreply == 1        ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
- 											   : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
- 		
- 		
- 		
- 		
- 		$this->output .= $this->html->settings_end( array ( 'IMG'  => $view_img."</select>",
- 															'SIG'  => $view_sig."</select>",
- 															'AVA'  => $view_ava."</select>",
- 															'POP'  => $view_pop."</select>",
- 															'SESS' => $html_sess."</select>",
- 															'QR'   => $html_qr."</select>",
- 															'TPS'  => $topic_select,
- 															'PPS'  => $post_select,
- 												  )       );
+
+// ---------------------------------------------------------
+// Pull preferences directly from $this->member (DB)
+// ---------------------------------------------------------
+
+$view_ava  = "<select name='VIEW_AVS' class='forminput'>";
+$view_sig  = "<select name='VIEW_SIGS' class='forminput'>";
+$view_img  = "<select name='VIEW_IMG' class='forminput'>";
+$view_pop  = "<select name='DO_POPUP' class='forminput'>";
+$html_sess = "<select name='HIDE_SESS' class='forminput'>";
+$html_qr   = "<select name='OPEN_QR' class='forminput'>";
+
+$view_ava .= $this->member['view_avs'] ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
+                                       : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
+
+$view_sig .= $this->member['view_sigs'] ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
+                                        : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
+
+$view_img .= $this->member['view_img'] ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
+                                        : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
+                                      
+$view_pop .= $this->member['view_pop'] ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
+                                        : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
+
+// Still using cookie for session hide? If you ever add a 'hide_sess' column to the DB, change this line too!
+$hide_sess = $std->my_getcookie('hide_sess');
+$html_sess .= $hide_sess == 1           ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
+                                        : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
+
+// Use our brand new database column for the dropdown state!
+$html_qr   .= $this->member['view_qr'] == 1 ? "<option value='1' selected='selected'>".$ibforums->lang['yes']."</option>\n<option value='0'>".$ibforums->lang['no']."</option>"
+                                            : "<option value='1'>".$ibforums->lang['yes']."</option>\n<option value='0' selected='selected'>".$ibforums->lang['no']."</option>";
+
+$this->output .= $this->html->settings_end( array ( 'IMG'  => $view_img."</select>",
+                                                    'SIG'  => $view_sig."</select>",
+                                                    'AVA'  => $view_ava."</select>",
+                                                    'POP'  => $view_pop."</select>",
+                                                    'SESS' => $html_sess."</select>",
+                                                    'QR'   => $html_qr."</select>",
+                                                    'TPS'  => $topic_select,
+                                                    'PPS'  => $post_select,
+                                           )        );
  		
  		$this->page_title = $ibforums->lang['t_welcome'];
  		$this->nav        = array( "<a href='".$this->base_url."act=UserCP&amp;CODE=00'>".$ibforums->lang['t_title']."</a>" );
