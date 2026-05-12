@@ -1959,25 +1959,6 @@ ALTER TABLE `ibf_faq`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ibf_files`
---
-ALTER TABLE `ibf_files`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ibf_files_cats`
---
-ALTER TABLE `ibf_files_cats`
-  ADD PRIMARY KEY (`cid`);
-
---
--- Indexes for table `ibf_files_downloads`
---
-ALTER TABLE `ibf_files_downloads`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `file_id` (`file_id`);
-
---
 -- Indexes for table `ibf_forums`
 --
 ALTER TABLE `ibf_forums`
@@ -2294,11 +2275,7 @@ ALTER TABLE `ibf_files`
 ALTER TABLE `ibf_files_cats`
   MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `ibf_files_downloads`
---
-ALTER TABLE `ibf_files_downloads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 
 --
 -- AUTO_INCREMENT for table `ibf_forum_perms`
