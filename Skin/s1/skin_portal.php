@@ -9,8 +9,8 @@ return <<<EOF
                </tr>
            <tr>
                    <td class='row2' width='5%' valign='middle'><{F_ACTIVE}></td>
-                   <td class='row5' width="95%" align='left'>{$ibforums->lang['member_of_moment']}:<b>
-               <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}">{$data['member_name']}</a></b><br>
+                   <td class='row5' width="95%" align='left'>{$ibforums->lang['member_of_moment']}:
+               <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}">{$data['member_name']}</a><br>
                {$ibforums->lang['most_active_in']} {$data['forum_url']} ({$data['fav_posts']})<br>
                {$ibforums->lang['total_posts']} {$data['total_posts']} {$ibforums->lang['posts_since']} {$data['join_date']}<br> {$data['avatar']}
                    </td>
@@ -26,7 +26,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td class='maintitle' ><b>{$ibforums->lang['old_news']}</b></td>
+             <td class='maintitle' >{$ibforums->lang['old_news']}</td>
            </tr>
            <tr>
                  <td class='row5' colspan='2'>
@@ -52,7 +52,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td colspan='2' class='maintitle' ><b>{$ibforums->lang['upload_form']}</b></td>
+             <td colspan='2' class='maintitle' >{$ibforums->lang['upload_form']}</td>
            </tr>
 <form action='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}' method='POST' name='REPLIER' onSubmit='return ValidateForm()' enctype='multipart/form-data'>
 <input type='hidden' name='st' value='0'>
@@ -87,15 +87,15 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td colspan='8' class='maintitle' ><b>{$ibforums->lang['new_posts']}</b></td>
+             <td colspan='8' class='maintitle' >{$ibforums->lang['new_posts']}</td>
            </tr>
            <tr>
              <td class='row1'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
              <td class='row1'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
-             <td class='row1' valign='middle' align='left'><b>{$ibforums->lang['l_title']}</b></td>
-             <td class='row1' valign='middle' align='center' width='15%'><b>{$ibforums->lang['l_starter']}</b></td>
-             <td class='row1' valign='middle' align='center' width='8%'><b>{$ibforums->lang['l_replies']}</b></td>
-             <td class='row1' valign='middle' align='left' width='33%'><b>{$ibforums->lang['l_lastpost']}</b></td>
+             <td class='row1' valign='middle' align='left'>{$ibforums->lang['l_title']}</td>
+             <td class='row1' valign='middle' align='center' width='15%'>{$ibforums->lang['l_starter']}</td>
+             <td class='row1' valign='middle' align='center' width='8%'>{$ibforums->lang['l_replies']}</td>
+             <td class='row1' valign='middle' align='left' width='33%'>{$ibforums->lang['l_lastpost']}</td>
                </tr>
 {$data}
               </table>
@@ -113,7 +113,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td colspan='8' class='maintitle' ><b>{$ibforums->lang['latest_posts']}</b></td>
+             <td colspan='8' class='maintitle' >{$ibforums->lang['latest_posts']}</td>
            </tr>
            <tr>
              <td class='row1'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
@@ -164,7 +164,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td colspan='3' class='maintitle' ><b>{$ibforums->lang['top_forums']}</b></td>
+             <td colspan='3' class='maintitle' >{$ibforums->lang['top_forums']}</td>
            </tr>
 {$data}
               </table>
@@ -196,7 +196,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td class='maintitle' ><b>{$ibforums->lang['new_members']}</b></td>
+             <td class='maintitle' >{$ibforums->lang['new_members']}</td>
            </tr>
 {$data}
               </table>
@@ -224,11 +224,11 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td colspan='2' class='maintitle' ><b>{$ibforums->lang['top_posters']}</b></td>
+             <td colspan='2' class='maintitle' >{$ibforums->lang['top_posters']}</td>
            </tr>
            <tr>
-             <td class='row1' valign='middle' align='left' width='35%'><b>{$ibforums->lang['t_username']}</b></td>
-             <td class='row1' valign='middle' align='left' width='65%'><b>{$ibforums->lang['t_posts']}</b></td>
+             <td class='row1' valign='middle' align='left' width='35%'>{$ibforums->lang['t_username']}</td>
+             <td class='row1' valign='middle' align='left' width='65%'>{$ibforums->lang['t_posts']}</td>
                </tr>
 {$data}
               </table>
@@ -275,7 +275,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td colspan='2' class='maintitle' ><b>{$ibforums->lang['loginbox']}</b></td>
+             <td colspan='2' class='maintitle' >{$ibforums->lang['loginbox']}</td>
            </tr>
      <form action="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}" method="post" name='LOGIN' onSubmit='return ValidateForm()'>
      <input type='hidden' name='act' value='Login'>
@@ -309,7 +309,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td colspan='2' class='maintitle' ><b>{$ibforums->lang['navigation']}</b></td>
+             <td colspan='2' class='maintitle' >{$ibforums->lang['navigation']}</td>
            </tr>
            <tr>
                  <td class='row5' colspan='2'>
@@ -337,7 +337,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td colspan='2' class='maintitle' ><b>{$ibforums->lang['latest_posts']}</b></td>
+             <td colspan='2' class='maintitle' >{$ibforums->lang['latest_posts']}</td>
            </tr>
            <tr>
                  <td class='row5' colspan='2'>
@@ -360,7 +360,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td colspan='2' class='maintitle' ><b>{$ibforums->lang['board_stats']}</b></td>
+             <td colspan='2' class='maintitle' >{$ibforums->lang['board_stats']}</td>
            </tr>
 EOF;
 }
@@ -451,11 +451,11 @@ return <<<EOF
     
           <table cellpadding='4' cellspacing='1' border='0' width='100%' class='tableborder'>
            <tr>
-             <td class='maintitle' ><b>
+             <td class='maintitle' >
                 <!-- if you want an Icon, uncomment this line{$data['icon']} -->
 
 
-<a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}&view=getlastpost'>{$data['title']}</a></b></td>
+<a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}&view=getlastpost'>{$data['title']}</a></td>
            </tr>
                <tr>
     <td class='row5' style='padding:6px;'>
@@ -496,7 +496,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='1' border='0' width='100%'>
            <tr>
-             <td colspan='3' class='maintitle' ><b>{$data['title']}, <font style="font-weight:normal;">{$data['description']}</b></td>
+             <td colspan='3' class='maintitle' >{$data['title']}, <font style="font-weight:normal;">{$data['description']}</td>
            </tr>
 
                 <tr>
@@ -529,7 +529,7 @@ global $ibforums;
 return <<<EOF
     <tr>
     <td class='row1'><b>{$data['choice']}</b></td>
-    <td class='row1'><img src='{$ibforums->vars['img_url']}/bar_left.gif' border='0' width='4' height='11' align='middle' alt=''><img src='{$ibforums->vars['img_url']}/bar.gif' border='0' width='{$data['width']}' height='11' align='middle' alt=''><img src='{$ibforums->vars['img_url']}/bar_right.gif' border='0' width='4' height='11' align='middle' alt=''>&nbsp;[<B>{$data['votes']}</b>, {$data['percent']}%]</td>
+    <td class='row1'><img src='{$ibforums->vars['img_url']}/bar_left.gif' border='0' width='4' height='11' align='middle' alt=''><img src='{$ibforums->vars['img_url']}/bar.gif' border='0' width='{$data['width']}' height='11' align='middle' alt=''><img src='{$ibforums->vars['img_url']}/bar_right.gif' border='0' width='4' height='11' align='middle' alt=''>&nbsp;[<b>{$data['votes']}</b>, {$data['percent']}%]</td>
     </tr>
 EOF;
 }
@@ -540,7 +540,7 @@ return <<<EOF
 <table width="100%" align="center" border="0" cellspacing="1" cellpadding="0" class='tableborder welcome-panel'>
   <tr> 
     <td class='maintitle'>
-        <{CAT_IMG}> <b>{$ibforums->lang['welcome_back']}, {$ibforums->member['name']}</b>
+        <{CAT_IMG}> {$ibforums->lang['welcome_back']}, {$ibforums->member['name']}
     </td>
   </tr>
   <tr>
@@ -578,7 +578,7 @@ return <<<EOF
 <table width="100%" align="center" border="0" cellspacing="1" cellpadding="0" class='tableborder guest-panel'>
   <tr> 
     <td class='maintitle'>
-        <{CAT_IMG}> <b>{$ibforums->lang['welcome_guest']} <a href="{$ibforums->vars['board_url']}/index.php?act=Reg&CODE=00">{$ibforums->lang['register']}</a> {$ibforums->lang['or']} <a href="{$ibforums->vars['board_url']}/index.php?act=Login&CODE=00">{$ibforums->lang['login']}</a>!</b>
+        <{CAT_IMG}> {$ibforums->lang['welcome_guest']} <a href="{$ibforums->vars['board_url']}/index.php?act=Reg&CODE=00">{$ibforums->lang['register']}</a> {$ibforums->lang['or']} <a href="{$ibforums->vars['board_url']}/index.php?act=Login&CODE=00">{$ibforums->lang['login']}</a>!
     </td>
   </tr>
   <tr>
