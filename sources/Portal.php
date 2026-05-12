@@ -245,7 +245,7 @@ if ($this->read_array === false && $read !== serialize(false)) {
             if ($ibforums->vars['portal_num_newposts'])
                $number_of_posts = $ibforums->vars['portal_num_newposts'];
             else
-               $number_of_posts = 5;            
+               $number_of_posts = 10;            
 
                 // Get User Data
                     if ( ($ibforums->vars['show_user_posted'] == 1) and ($ibforums->member['id']) )
@@ -307,7 +307,7 @@ if ($this->read_array === false && $read !== serialize(false)) {
             if ($ibforums->vars['portal_num_latestposts_big'])
                $number_of_posts = $ibforums->vars['portal_num_latestposts_big'];
             else
-               $number_of_posts = 5;            
+               $number_of_posts = 10;            
 
                 // Get User Data
                     if ( ($ibforums->vars['show_user_posted'] == 1) and ($ibforums->member['id']) )
@@ -708,7 +708,7 @@ function do_member_moment()
             if ($ibforums->vars['portal_num_latestposts'])
                $number_of_posts = $ibforums->vars['portal_num_latestposts'];
             else
-               $number_of_posts = 5;            
+               $number_of_posts = 10;            
 
                 // Get User Data
             $query = $DB->query( "SELECT i.last_poster_name, i.last_poster_id, i.title, i.tid, i.forum_id, i.last_post FROM ibf_topics AS i RIGHT JOIN ibf_forums AS f ON i.forum_id = f.id WHERE f.read_perms = '*' OR f.read_perms LIKE '".$ibforums->member['mgroup']."' OR f.read_perms LIKE '%,".$ibforums->member['mgroup']."' OR f.read_perms LIKE '".$ibforums->member['mgroup'].",%' OR f.read_perms LIKE '%,".$ibforums->member['mgroup'].",%' ORDER BY last_post DESC LIMIT 0,".$number_of_posts );

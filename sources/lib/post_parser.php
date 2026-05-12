@@ -39,12 +39,12 @@ class post_parser {
      * Main Conversion Engine
      */
     function convert($in=array( 'TEXT' => "", 'SIGNATURE' => 0, 'MOD_FLAG' => FALSE)) {
-        global $ibforums;
+      global $ibforums;
 
-        $this->in_sig = $in['SIGNATURE'];
-        $txt = $in['TEXT'];
+$this->in_sig = $in['SIGNATURE'] ?? "";
+$txt          = $in['TEXT']      ?? "";
 
-        $txt = str_replace( array('&lt;p&gt;', '&lt;/p&gt;'), array('<p>', '</p>'), $txt );
+$txt = str_replace( array('&lt;p&gt;', '&lt;/p&gt;'), array('<p>', '</p>'), $txt );
 
 // 2. MOVE CUSTOM TAGS HERE (Above the early return)
     if ( isset($in['MOD_FLAG']) && $in['MOD_FLAG'] == TRUE ) {
@@ -60,10 +60,10 @@ class post_parser {
     }
 
     // Syntax Highlighting
-        if ($in['SIGNATURE'] != 1) {
-            $txt = preg_replace_callback("#\[sql\](.+?)\[/sql\]#s", function($m) { return $this->regex_sql_tag($m[1]); }, $txt);
-            $txt = preg_replace_callback("#\[html\](.+?)\[/html\]#s", function($m) { return $this->regex_html_tag($m[1]); }, $txt);
-        }
+        if ( ($in['SIGNATURE'] ?? 0) != 1) {
+    $txt = preg_replace_callback("#\[sql\](.+?)\[/sql\]#s", function($m) { return $this->regex_sql_tag($m[1]); }, $txt);
+    $txt = preg_replace_callback("#\[html\](.+?)\[/html\]#s", function($m) { return $this->regex_html_tag($m[1]); }, $txt);
+}
 
 $txt = preg_replace('/(?<!<a href=")<img([^>]+)src=["\'](uploads\/[^"\']+)["\']([^>]*)>(?!<\/a>)/i', '<a data-fancybox href="$2" target="_blank"><img$1src="$2"$3></a>', $txt);
         

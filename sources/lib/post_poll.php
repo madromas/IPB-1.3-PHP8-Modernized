@@ -75,7 +75,7 @@ class post_functions extends Post {
 	
 	function process($class) {
 	
-		global $ibforums, $std, $DB, $print;
+		global $ibforums, $std, $DB, $print, $sess;
 		
 		//-------------------------------------------------
 		// Parse the post, and check for any errors.
@@ -148,7 +148,7 @@ class post_functions extends Post {
 	
 	function add_new_poll($class) {
 		
-		global $ibforums, $std, $DB, $print;
+		global $ibforums, $std, $DB, $print, $sess;
 		
 		//-------------------------------------------------
 		// Sort out the poll stuff
@@ -327,45 +327,7 @@ class post_functions extends Post {
 		// date and increment their post count.
 		//-------------------------------------------------
 		
-		$pcount = "";
-		
-		if ($ibforums->member['id'])
-		{
-			if ($class->forum['inc_postcount'])
-			{
-				// Increment the users post count
-				
-				$pcount = "posts=posts+1, ";
-				
-			}
-			
-			// Are we checking for auto promotion?
-			
-			if ($ibforums->member['g_promotion'] != '-1&-1')
-			{
-				list($gid, $gposts) = explode( '&', $ibforums->member['g_promotion'] );
-				
-				if ( $gid > 0 and $gposts > 0 )
-				{
-					if ( $ibforums->member['posts'] + 1 >= $gposts )
-					{
-						$mgroup = "mgroup='$gid', ";
-						
-						if ( USE_MODULES == 1 )
-						{
-							$class->modules->register_class($class);
-							$class->modules->on_group_change($ibforums->member['id'], $gid);
-						}
-					}
-				}
-			}
-			
-			$ibforums->member['last_post'] = time();
-			
-			$DB->query("UPDATE ibf_members SET ".$pcount.$mgroup.
-											  "last_post='"    .$ibforums->member['last_post']   ."'".
-											  "WHERE id='"     .$ibforums->member['id']."'");
-		}
+		$class->inc_userpostcount();
 		
 		//-------------------------------------------------
 		// Set a last post time cookie
@@ -380,10 +342,6 @@ class post_functions extends Post {
 		$std->boink_it($class->base_url."act=ST&f={$class->forum['id']}&t={$this->topic['tid']}");
 		
 	}
-
-
-
-
 
 
 	function show_form($class) {

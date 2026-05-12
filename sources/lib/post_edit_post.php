@@ -183,7 +183,7 @@ class post_functions extends Post {
 		
 		global $ibforums, $std, $DB, $print, $_FILES;
 		
-		$time = $std->get_date( time(), 'LONG' );
+		$time = $std->get_date_old( time(), 'LONG' );
 				
 		//-------------------------------------------------
 		// Reset some data

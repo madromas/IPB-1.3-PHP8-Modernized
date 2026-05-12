@@ -98,7 +98,7 @@ class post_functions extends Post {
 	
 	function process($class) {
 	
-		global $ibforums, $std, $DB, $print;
+		global $ibforums, $std, $DB, $print, $sess;
 		
 		//-------------------------------------------------
 		// Parse the post, and check for any errors.
@@ -115,7 +115,7 @@ class post_functions extends Post {
 		
 			$this->quoted_post['AUTHOR']['name'] = $ibforums->input['QAuthorN'];
 			
-			$this->quoted_post['DATE'] = $std->get_date( $ibforums->input['QDate'], 'LONG' );
+			$this->quoted_post['DATE'] = $std->get_date_old( $ibforums->input['QDate'], 'LONG' );
 																	   
 			if ( $class->parser->error != "" )
 			{
@@ -168,7 +168,7 @@ class post_functions extends Post {
 	
 function add_reply($class) {
 		
-		global $ibforums, $std, $DB, $print;
+		global $ibforums, $std, $DB, $print, $sess;
 		
 		//-------------------------------------------------
 		// Update the post info with the upload array info
@@ -296,45 +296,7 @@ function add_reply($class) {
 		// date and increment their post count.
 		//-------------------------------------------------
 		
-		$pcount = "";
-		
-		if ($ibforums->member['id'])
-		{
-			if ($class->forum['inc_postcount'])
-			{
-				// Increment the users post count
-				
-				$pcount = "posts=posts+1, ";
-				
-			}
-			
-			// Are we checking for auto promotion?
-			
-			if ($ibforums->member['g_promotion'] != '-1&-1')
-			{
-				list($gid, $gposts) = explode( '&', $ibforums->member['g_promotion'] );
-				
-				if ( $gid > 0 and $gposts > 0 )
-				{
-					if ( $ibforums->member['posts'] + 1 >= $gposts )
-					{
-						$mgroup = "mgroup='$gid', ";
-						
-						if ( USE_MODULES == 1 )
-						{
-							$class->modules->register_class($class);
-							$class->modules->on_group_change($ibforums->member['id'], $gid);
-						}
-					}
-				}
-			}
-			
-			$ibforums->member['last_post'] = time();
-			
-			$DB->query("UPDATE ibf_members SET ".$pcount.$mgroup.
-											  "last_post='"    .$ibforums->member['last_post']   ."'".
-											  "WHERE id='"     .$ibforums->member['id']."'");
-		}
+		$class->inc_userpostcount();
 		
 		//-------------------------------------------------
 		// Are we tracking topics we reply in 'auto_track'?

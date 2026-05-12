@@ -368,11 +368,17 @@ else
         //-------------------------------------
         
         if ($ibforums->member['id'])
-        {
-			$this->read_array[$this->topic['tid']] = time();
-			
-			$std->my_setcookie('topicsread', serialize($this->read_array), -1 );
-        }
+{
+    $current_read = @unserialize(stripslashes($std->my_getcookie('topicsread') ?? ''));
+
+if (!is_array($current_read)) {
+    $current_read = array();
+}
+    
+    $current_read[$this->topic['tid']] = time();
+    
+    $std->my_setcookie('topicsread', serialize($current_read), 1);
+}
         
         //----------------------------------------
         // If this is a sub forum, we need to get
@@ -781,7 +787,7 @@ while ($s_row = $DB->fetch_row()) {
 			// Siggie stuff
 			//--------------------------------------------------------------
 			
-			if (!$ibforums->vars[SIG_SEP]) $ibforums->vars[SIG_SEP] = "<br><br>--------------------<br>";
+			if (!$ibforums->vars[SIG_SEP]) $ibforums->vars[SIG_SEP] = "<br>--------------------<br>";
 			
 			if ($poster0['signature'] and $ibforums->member['view_sigs'])
 			{

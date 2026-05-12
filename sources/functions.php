@@ -674,12 +674,15 @@ class FUNC {
 	/*-------------------------------------------------------------------------*/
 	
 	function my_br2nl($t="")
-	{
-		$t = preg_replace( "#(?:\n|\r)?<br />(?:\n|\r)?#", "\n", $t );
-		$t = preg_replace( "#(?:\n|\r)?<br>(?:\n|\r)?#"  , "\n", $t );
-		
-		return $t;
-	}
+{
+    // Force $t to be a string. If it's null, it becomes ""
+    $t = (string)$t;
+
+    $t = preg_replace( "#(?:\n|\r)?<br />(?:\n|\r)?#", "\n", $t );
+    $t = preg_replace( "#(?:\n|\r)?<br>(?:\n|\r)?#"  , "\n", $t );
+    
+    return $t;
+}
 	
 	
 	/*-------------------------------------------------------------------------*/
@@ -1424,6 +1427,55 @@ return $forum_data['last_post'] > $rtime ? "<{C_ON".$sub_cat_img."}>" : "<{C_OFF
     /*-------------------------------------------------------------------------*/    
     
     function get_date($date, $method) {
+    global $ibforums;
+
+    if (!$date) {
+        return '--';
+    }
+
+    if (empty($method)) {
+        $method = 'LONG';
+    }
+
+    // Fix dynamic property warnings and null offsets
+    if (!isset($this->offset_set) || $this->offset_set == 0) {
+        $m_offset = $ibforums->member['time_offset'] ?? $ibforums->vars['time_offset'] ?? 0;
+        $this->offset = $m_offset * 3600;
+
+        $t_adjust = $ibforums->vars['time_adjust'] ?? 0;
+        if ($t_adjust != "" && $t_adjust != 0) {
+            $this->offset += ($t_adjust * 60);
+        }
+
+        // Check for DST safely
+        if (!empty($ibforums->member['dst_in_use'])) {
+            $this->offset += 3600;
+        }
+
+        $this->offset_set = 1;
+    }
+
+    $todaystamp = time(); // mktime() without args is deprecated in some PHP versions, time() is cleaner
+    $todaydate  = gmdate("F j Y", ($todaystamp + $this->offset));
+    $yestdate   = gmdate("F j Y", (($todaystamp - 86400) + $this->offset));
+    $postdate   = gmdate("F j Y", ($date + $this->offset));
+    
+    $tydate = ""; // Initialize to prevent "Undefined variable" warning
+
+    if ($postdate == $todaydate) $tydate = "Today at";
+    if ($postdate == $yestdate)  $tydate = "Yesterday at";
+
+    if ($tydate != "") {
+        return "$tydate " . gmdate("g:i a", ($date + $this->offset));
+    } else {
+        // Fallback to the old method if it's not today/yesterday
+        // Ensure the method exists in the time_options array to prevent crashes
+        $format = $this->time_options[$method] ?? 'd M Y - h:i A';
+        return gmdate($format, ($date + $this->offset));
+    }
+}
+
+    function get_date_old($date, $method) {
         global $ibforums;
         
         if (!$date)
@@ -1480,22 +1532,25 @@ return $forum_data['last_post'] > $rtime ? "<{C_ON".$sub_cat_img."}>" : "<{C_OFF
     /*-------------------------------------------------------------------------*/    
     
     function my_setcookie($name, $value = "", $sticky = 1) {
-        global $INFO;
-        
-        //$expires = "";
-        
-        if ($sticky == 1)
-        {
-        	$expires = time() + 60*60*24*365;
-        }
+    global $INFO;
+    
+    $expires = ($sticky == 1) ? (time() + 60*60*24*365) : 0;
 
-        $INFO['cookie_domain'] = $INFO['cookie_domain'] == "" ? ""  : $INFO['cookie_domain'];
-        $INFO['cookie_path']   = $INFO['cookie_path']   == "" ? "/" : $INFO['cookie_path'];
-        
-        $name = $INFO['cookie_id'].$name;
-      
-        @setcookie($name, $value, $expires, $INFO['cookie_path'], $INFO['cookie_domain']);
-    }
+    $domain = $INFO['cookie_domain'] ?: "";
+    $path   = $INFO['cookie_path']   ?: "/";
+    $name   = $INFO['cookie_id'].$name;
+    
+    $options = [
+        'expires'  => $expires,
+        'path'     => $path,
+        'domain'   => $domain,
+        'secure'   => true,    
+        'httponly' => false,     
+        'samesite' => 'Lax'      
+    ];
+
+    setcookie($name, $value, $options);
+}
     
     /*-------------------------------------------------------------------------*/
     // Cookies, cookies everywhere and not a byte to eat.                

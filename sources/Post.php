@@ -90,7 +90,7 @@ class Post {
     function __construct()
     {
 
-        global $purifier, $ibforums, $DB, $std, $print, $skin_universal;
+        global $purifier, $ibforums, $DB, $std, $print, $skin_universal, $sess;
         
         require ROOT_PATH."sources/lib/post_parser.php";
         
@@ -287,59 +287,72 @@ class Post {
         // Are we allowed to post at all?
         //--------------------------------------
         
-        if ($ibforums->member['id'])
+       // 1. Check if they are a member and if they are restricted/banned from posting
+if ($ibforums->member['id'])
+{
+    if ( $ibforums->member['restrict_post'] )
+    {
+        if ( $ibforums->member['restrict_post'] == 1 )
         {
-        	if ( $ibforums->member['restrict_post'] )
-        	{
-        		if ( $ibforums->member['restrict_post'] == 1 )
-        		{
-        			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'posting_off') );
-        		}
-        		
-        		$post_arr = $std->hdl_ban_line( $ibforums->member['restrict_post'] );
-        		
-        		if ( time() >= $post_arr['date_end'] )
-        		{
-        			// Update this member's profile
-        			
-        			$DB->query("UPDATE ibf_members SET restrict_post=0 WHERE id=".intval($ibforums->member['id']) );
-        		}
-        		else
-        		{
-        			$std->Error( array( 'LEVEL' => 1, 'MSG' => 'posting_off_susp', 'EXTRA' => $std->get_date($post_arr['date_end'], 'LONG') ) );
-        		}
-        		
-        	}
-        	
-        	// Flood check..
-        	
-        	if ( $ibforums->input['CODE'] != "08" and $ibforums->input['CODE'] != "09" and $ibforums->input['CODE'] != "14" and $ibforums->input['CODE'] != "15" )
-        	{
-				if ( $ibforums->vars['flood_control'] > 0 )
-				{
-					if ($ibforums->member['g_avoid_flood'] != 1)
-					{
-						if ( time() - $ibforums->member['last_post'] < $ibforums->vars['flood_control'] )
-						{
-							$std->Error( array( 'LEVEL' => 1, 'MSG' => 'flood_control' , 'EXTRA' => $ibforums->vars['flood_control'] ) );
-						}
-					}
-				}
-				
-			}
-        	
-        }
-       else if ( isset($ibforums->is_bot) && $ibforums->is_bot == 1 )
-        {
-        	$std->Error( array( 'LEVEL' => 1, 'MSG' => 'posting_off') );
+            $std->Error( array( 'LEVEL' => 1, 'MSG' => 'posting_off') );
         }
         
+        $post_arr = $std->hdl_ban_line( $ibforums->member['restrict_post'] );
         
-        if ($ibforums->member['id'] != 0 and $ibforums->member['g_is_supmod'] == 0)
+        if ( time() >= $post_arr['date_end'] )
         {
-        	$DB->query("SELECT * from ibf_moderators WHERE forum_id='".$this->forum['id']."' AND (member_id='".$ibforums->member['id']."' OR (is_group=1 AND group_id='".$ibforums->member['mgroup']."'))");
-        	$this->moderator = $DB->fetch_row();
+            $DB->query("UPDATE ibf_members SET restrict_post=0 WHERE id=".intval($ibforums->member['id']) );
         }
+        else
+        {
+            $std->Error( array( 'LEVEL' => 1, 'MSG' => 'posting_off_susp', 'EXTRA' => $std->get_date($post_arr['date_end'], 'LONG') ) );
+        }
+    }
+}
+// 2. Check if it's a bot
+else if ( isset($ibforums->is_bot) && $ibforums->is_bot == 1 )
+{
+    $std->Error( array( 'LEVEL' => 1, 'MSG' => 'posting_off') );
+}
+
+// 3. FLOOD CHECK (Moved outside so it hits BOTH members and guests)
+if ( $ibforums->input['CODE'] != "08" and $ibforums->input['CODE'] != "09" and $ibforums->input['CODE'] != "14" and $ibforums->input['CODE'] != "15" )
+{
+    if ( $ibforums->vars['flood_control'] )
+    {
+        if ( $ibforums->member['id'] ) 
+        {
+            // Member flood check..
+            if ( $ibforums->member['g_avoid_flood'] != 1 )
+            {
+                if ( time() - $ibforums->member['last_post'] < $ibforums->vars['flood_control'] )
+                {
+                    $std->Error( array( 'LEVEL' => 1, 'MSG' => 'flood_control', 'EXTRA' => $ibforums->vars['flood_control'] ) );
+                }
+            }
+        } 
+        else // This is now reachable for guests!
+        {
+            $DB->query("SELECT last_post FROM ibf_sessions WHERE id='".addslashes($sess->session_id)."' LIMIT 1");
+            $last_p = $DB->fetch_row();
+
+            if ( $last_p['last_post'] )
+            {
+                if ( time() - $last_p['last_post'] < $ibforums->vars['flood_control'] )
+                {
+                    $std->Error( array( 'LEVEL' => 1, 'MSG' => 'flood_control', 'EXTRA' => $ibforums->vars['flood_control'] ) );
+                }
+            }
+        }
+    }
+}
+
+// 4. Check for Moderator permissions
+if ($ibforums->member['id'] != 0 and $ibforums->member['g_is_supmod'] == 0)
+{
+    $DB->query("SELECT * from ibf_moderators WHERE forum_id='".$this->forum['id']."' AND (member_id='".$ibforums->member['id']."' OR (is_group=1 AND group_id='".$ibforums->member['mgroup']."'))");
+    $this->moderator = $DB->fetch_row();
+}
         
         //--------------------------------------
         // Convert the code ID's into something
@@ -391,24 +404,14 @@ class Post {
         	
         	// Make sure we have a "Guest" Name..
         	
-        	if (!$ibforums->member['id'])
-        	{
-        	
-        		$ibforums->input['UserName'] = trim($ibforums->input['UserName']);
-        		$ibforums->input['UserName'] = str_replace( "<br>", "", $ibforums->input['UserName']);
-        		$ibforums->input['UserName'] = $ibforums->input['UserName'] ? $ibforums->input['UserName'] : 'Guest';
-        		
-        		if ($ibforums->input['UserName'] != 'Guest')
-        		{
-        			$DB->query("SELECT id FROM ibf_members WHERE LOWER(name)='".trim(strtolower($ibforums->input['UserName']))."'");
-        			
-        			if ( $DB->get_num_rows() )
-        			{
-        				$ibforums->input['UserName'] = $ibforums->vars['guest_name_pre'].$ibforums->input['UserName'].$ibforums->vars['guest_name_suf'];
-        			}
-        		}
-        		
-        	}
+        	if ( !$ibforums->member['id'] )
+{
+    $user_name = trim( $ibforums->input['UserName'] ?? "" );
+    $user_name = str_replace( "<br>", "", $user_name );
+
+    $display_name = $user_name ?: 'Guest';
+    $ibforums->input['UserName'] = ($ibforums->vars['guest_name_pre'] ?? "") . $display_name . ($ibforums->vars['guest_name_suf'] ?? "");
+}
         	
         	//-------------------------------------------------------------------------
         	// Stop the user hitting the submit button in the hope that multiple topics
@@ -1288,6 +1291,60 @@ $FILE_TYPE = $_FILES['FILE_UPLOAD']['type'] ?? '';
                                             );
     
     $DB->query("INSERT INTO ibf_moderator_logs (" .$db_string['FIELD_NAMES']. ") VALUES (". $db_string['FIELD_VALUES'] .")");
+}
+  
+function inc_userpostcount() {
+    global $ibforums, $DB;
+
+    $pcount = "";
+    $mgroup = "";
+    
+    if ( !empty($ibforums->member['id']) )
+    {
+        if ( !empty($this->forum['inc_postcount']) )
+        {
+            // Increment the users post count
+            $pcount = "posts=posts+1, ";
+        }
+        
+        // Are we checking for auto promotion?
+        $promo = $ibforums->member['g_promotion'] ?? '-1&-1';
+        
+        if ($promo != '-1&-1')
+        {
+            list($gid, $gposts) = explode( '&', $promo );
+            
+            if ( ($gid ?? 0) > 0 and ($gposts ?? 0) > 0 )
+            {
+                if ( ($ibforums->member['posts'] ?? 0) + 1 >= $gposts )
+                {
+                    $mgroup = "mgroup='$gid', ";
+                    
+                    if ( defined('USE_MODULES') && USE_MODULES == 1 )
+                    {
+                        // PHP 8 FIX: Removed the & from &$this
+                        $this->modules->register_class($this);
+                        $this->modules->on_group_change($ibforums->member['id'], $gid);
+                    }
+                }
+            }
+        }
+        
+        $ibforums->member['last_post'] = time();
+        
+        $DB->query("UPDATE ibf_members SET ".$pcount.$mgroup.
+                                          "last_post='"    .$ibforums->member['last_post']   ."' ".
+                                          "WHERE id='"     .$ibforums->member['id']."'");
+    }
+    else
+    {
+        // GUEST FLOOD CONTROL: Update the session table for guests
+        global $sess;
+        if ( !empty($sess->session_id) )
+        {
+            $DB->query("UPDATE ibf_sessions SET last_post='".time()."' WHERE id='".addslashes($sess->session_id)."'");
+        }
+    }
 }
         
 }

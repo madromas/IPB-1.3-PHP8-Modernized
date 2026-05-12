@@ -150,7 +150,7 @@ class modfunctions
 				unset($db_string);
 				
 				$ta = array (
-							  'last_poster_id'   => $ibforums->member['id'],
+							  'last_poster_id'   => intval($ibforums->member['id']),
 							  'last_poster_name' => $ibforums->member['name'],
 							  'last_post'        => $pa['post_date'],
 							);
@@ -471,7 +471,7 @@ class modfunctions
 																	 'state'            => 'link',
 																	 'posts'            => 0,
 																	 'views'            => 0,
-																	 'starter_id'       => $row['starter_id'],
+																	 'starter_id'       => intval($row['starter_id']),
 																	 'start_date'       => $row['start_date'],
 																	 'starter_name'     => $row['starter_name'],
 																	 'last_post'        => $row['last_post'],
@@ -479,7 +479,7 @@ class modfunctions
 																	 'approved'         => 1,
 																	 'pinned'           => 0,
 																	 'moved_to'         => $row['tid'].'&'.$moveto,
-																	 'last_poster_id'   => $row['last_poster_id'],
+																	 'last_poster_id'   => intval($row['last_poster_id']),
 																	 'last_poster_name' => $row['last_poster_name']
 														 )        );
 														 
@@ -665,11 +665,12 @@ class modfunctions
 		//----------------------------------------------
 		
 		$db_string = $DB->compile_db_update_string( array (
-															 'last_poster_id'   => $last_post['last_poster_id'],
+															 
+															 'last_poster_id'   => intval($last_post['last_poster_id']),
 															 'last_poster_name' => $last_post['last_poster_name'],
 															 'last_post'        => $last_post['last_post'],
 															 'last_title'       => $last_post['title'],
-															 'last_id'          => $last_post['tid'],
+															 'last_id'          => intval($last_post['last_id']),
 															 'topics'           => intval($topics['count']) < 1 ? 0 : intval($topics['count']),
 															 'posts'            => intval($real_posts)      < 1 ? 0 : intval($real_posts),
 												 )        );
