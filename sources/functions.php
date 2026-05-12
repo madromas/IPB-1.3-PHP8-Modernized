@@ -40,6 +40,27 @@ class FUNC {
 
 	// Set up some standards to save CPU later
 	
+    // Add this inside class FUNC { ... }
+static function get_post_icon($id = 0) {
+    $id = intval($id);
+    if ($id <= 0) return "";
+
+    $icons = [
+        1 => ['fa-solid fa-circle-question',   '#3498db'],
+        2 => ['fa-solid fa-circle-exclamation', '#e67e22'],
+        3 => ['fa-solid fa-lightbulb',          '#f1c40f'],
+        4 => ['fa-solid fa-bullhorn',           '#9b59b6'],
+        5 => ['fa-solid fa-circle-check',       '#2ecc71'],
+        6 => ['fa-solid fa-comments',           '#7f8c8d'],
+        7 => ['fa-solid fa-heart',              '#e74c3c'],
+    ];
+
+    if (isset($icons[$id])) {
+        return "<i class='{$icons[$id][0]}' style='color:{$icons[$id][1]}'></i>&nbsp;&nbsp;";
+    }
+    return "";
+}
+
 	function FUNC() {
 		global $INFO;
 		

@@ -1141,13 +1141,19 @@ $FILE_TYPE = $_FILES['FILE_UPLOAD']['type'] ?? '';
 		}
 	}
 	
+    
+
+
+
+
+
     /*****************************************************/
 	// HTML: add smilie box.
 	// ------------------
 	// Inserts the clickable smilies box
 	/*****************************************************/
-	
-	function html_add_smilie_box() {
+	function html_add_smilie_box()
+	 {
 		global $ibforums, $DB;
 		
 		$show_table = 0;
@@ -1200,6 +1206,9 @@ $FILE_TYPE = $_FILES['FILE_UPLOAD']['type'] ?? '';
 		}
 	
 	}
+
+
+    
 		
 	/*****************************************************/
 	// HTML: topic summary.

@@ -736,9 +736,10 @@ while ($s_row = $DB->fetch_row()) {
 			
 			$row0['edit_button']   = $this->edit_button($row0['pid'], $poster0, $row0['post_date']);
 			$row0['post_date']     = $std->get_date( $row0['post_date'], 'LONG' );
-			$row0['post_icon']     = $row0['icon_id']
-							  ? "<img src='".$ibforums->vars['img_url']."/icon{$row0['icon_id']}.gif' alt=''>&nbsp;&nbsp;"
-							  : "";
+			
+			$row0['post_icon'] = (isset($ibforums->vars['post_icons'][$row0['icon_id']])) 
+    ? "<i class='".$ibforums->vars['post_icons'][$row0['icon_id']][0]."' style='color:".$ibforums->vars['post_icons'][$row0['icon_id']][1]."' title='".$ibforums->vars['post_icons'][$row0['icon_id']][2]."'></i>&nbsp;&nbsp;" 
+    : "";
 			
 			$row0['ip_address']  = $this->view_ip($row0, $poster0);
 			
@@ -993,9 +994,10 @@ else
 			
 			$row['edit_button']   = $this->edit_button($row['pid'], $poster, $row['post_date']);
 			$row['post_date']     = $std->get_date( $row['post_date'], 'LONG' );
-			$row['post_icon']     = $row['icon_id']
-							  ? "<img src='".$ibforums->vars['img_url']."/icon{$row['icon_id']}.gif' alt='' />&nbsp;&nbsp;"
-							  : "";
+
+$row['post_icon'] = (isset($ibforums->vars['post_icons'][$row['icon_id']])) 
+    ? "<i class='".$ibforums->vars['post_icons'][$row['icon_id']][0]."' style='color:".$ibforums->vars['post_icons'][$row['icon_id']][1]."' title='".$ibforums->vars['post_icons'][$row['icon_id']][2]."'></i>&nbsp;&nbsp;" 
+    : "";
 			
 			$row['ip_address']  = $this->view_ip($row, $poster);
 			

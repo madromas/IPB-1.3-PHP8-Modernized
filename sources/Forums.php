@@ -649,8 +649,8 @@ if ( ! is_array($this->read_array) )
 		// Query the database to see how many topics there are in the forum
 		//+----------------------------------------------------------------
 		
-		$DB->query("SELECT COUNT(tid) as max FROM ibf_topics WHERE forum_id=".$this->forum['id']." and approved=1 and (pinned=1 or last_post > $Prune)");
-		$total_possible = $DB->fetch_row();
+		$DB->query("SELECT COUNT(*) as max FROM ibf_topics WHERE forum_id=".$this->forum['id']." and approved=1 and (pinned=1 or last_post > $Prune)");
+        $total_possible = $DB->fetch_row(); 
 		
 		//+----------------------------------------------------------------
 		// Generate the forum page span links
@@ -912,8 +912,11 @@ if ( ! is_array($this->read_array) )
 	
 		$topic['folder_img']     = $std->folder_icon($topic, $show_dots, $this->read_array[$topic['tid']]);
 		
-		$topic['topic_icon']     = $topic['icon_id']  ? '<img src="'.$ibforums->vars['img_url'] . '/icon' . $topic['icon_id'] . '.gif" border="0" alt="" />'
-													  : '&nbsp;';
+
+$topic['topic_icon'] = (isset($ibforums->vars['post_icons'][$topic['icon_id']])) 
+    ? "<i class='".$ibforums->vars['post_icons'][$topic['icon_id']][0]."' style='color:".$ibforums->vars['post_icons'][$topic['icon_id']][1]."' title='".$ibforums->vars['post_icons'][$topic['icon_id']][2]."'></i>&nbsp;" 
+    : "&nbsp;";
+
 		
 		$topic['start_date'] = $std->get_date( $topic['start_date'], 'LONG' );
 	
