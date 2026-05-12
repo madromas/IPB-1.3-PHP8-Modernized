@@ -557,14 +557,27 @@ EOF;
 
 
 function PostIcons() {
-global $ibforums;
-return <<<EOF
+    global $ibforums;
+    
+    $icons_html = "";
+    
+    if ( isset($ibforums->vars['post_icons']) && is_array($ibforums->vars['post_icons']) ) {
+        foreach($ibforums->vars['post_icons'] as $id => $data) {
+    // $data[0] = class, $data[1] = color, $data[2] = title
+    $icons_html .= "<label style='margin-right:15px;'>
+                        <input type='radio' class='radiobutton' name='iconid' value='{$id}' /> 
+                        <i class='{$data[0]}' style='color:{$data[1]}' title='{$data[2]}'></i>
+                    </label>";
+}
+    }
+
+    return <<<EOF
  <tr>
   <td class='pformleft'>{$ibforums->lang['post_icon']}</td>
-  <td class='pformright'>
-	<input type="radio" class="radiobutton" name="iconid" value="1" />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon1.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="2"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon2.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="3"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon3.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="4"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon4.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="5"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon5.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="6"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon6.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="7"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon7.gif"  align='middle' alt='' /><br />
-	<input type="radio" class="radiobutton" name="iconid" value="8" />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon8.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="9"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon9.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="10"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon10.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="11"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon11.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="12"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon12.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="13"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon13.gif"  align='middle' alt='' />&nbsp;&nbsp;&nbsp;<input type="radio" class="radiobutton" name="iconid" value="14"  />&nbsp;&nbsp;<img src="{$ibforums->vars['img_url']}/icon14.gif"  align='middle' alt='' /><br />
-    <input type="radio" class="radiobutton" name="iconid" value="0" checked="checked" />&nbsp;&nbsp;[ Use None ]
+  <td class='pformright' style='vertical-align:middle; line-height:2;'>
+    {$icons_html}
+    <br />
+    <label><input type="radio" class="radiobutton" name="iconid" value="0" checked="checked" /> [ Use None ]</label>
   </td>
  </tr>
 EOF;
