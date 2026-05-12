@@ -52,7 +52,7 @@ video {
     display: inline-block;
 }
 
-a:link, a:visited, a:active { text-decoration: none; color: #000 }
+a:link, a:visited, a:active { text-decoration: none; color: #02486a;}
 
 a:hover { color: #465584; text-decoration:none }
 
