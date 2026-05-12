@@ -415,23 +415,7 @@ $SKIN->td_header[] = array( "&nbsp;"        , "5%" );
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>E-mail address</b>" ,
 												  $SKIN->form_input("email", "")
 									     )      );
-									     
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>AIM handle</b>" ,
-												  $SKIN->form_input("aim_name", "")
-									     )      );							     						     
-		
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>ICQ number</b>" ,
-												  $SKIN->form_input("icq_number", "")
-									     )      );
-									     
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Yahoo ID</b>" ,
-												  $SKIN->form_input("yahoo", "")
-									     )      );
-		
-		$ADMIN->html .= $SKIN->add_td_row( array( "<b>MSN handle</b>" ,
-												  $SKIN->form_input("msnname", "")
-									     )      );
-									     
+
 		$ADMIN->html .= $SKIN->add_td_row( array( "<b>Website URL</b>" ,
 												  $SKIN->form_input("website", "")
 									     )      );
@@ -568,42 +552,6 @@ $SKIN->td_header[] = array( "&nbsp;"        , "5%" );
 			}
 			else {
 			$req .= ", email='".$IN['email']."'";
-			}
-			$i = "1";
-		}
-		if ( $IN['aim_name'] <> "" ) {
-			if ($req == "UPDATE ibf_members SET") {
-			$req .= " aim_name='".$IN['aim_name']."'";
-			}
-			else {
-			$req .= ", aim_name='".$IN['aim_name']."'";
-			}
-			$i = "1";
-		}
-		if ( $IN['icq_number'] <> "" ) {
-			if ($req == "UPDATE ibf_members SET") {
-			$req .= " icq_number='".$IN['icq_number']."'";
-			}
-			else {
-			$req .= ", icq_number='".$IN['icq_number']."'";
-			}
-			$i = "1";
-		}
-		if ( $IN['yahoo'] <> "" ) {
-			if ($req == "UPDATE ibf_members SET") {
-			$req .= " yahoo='".$IN['yahoo']."'";
-			}
-			else {
-			$req .= ", yahoo='".$IN['yahoo']."'";
-			}
-			$i = "1";
-		}
-		if ( $IN['msnname'] <> "" ) {
-			if ($req == "UPDATE ibf_members SET") {
-			$req .= " msnname='".$IN['msnname']."'";
-			}
-			else {
-			$req .= ", msnname='".$IN['msnname']."'";
 			}
 			$i = "1";
 		}

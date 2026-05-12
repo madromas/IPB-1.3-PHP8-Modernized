@@ -981,24 +981,29 @@ class ad_settings {
 							$flag  = 0;
 							
 							foreach($functions as $fname => $ftext)
-							{
-								preg_match( "/return <<<(EOF|HTML)(.+?)(EOF|HTML);/s", $ftext, $matches );
-								
-								$matches[2] = str_replace( '\\n' , '\\\\\\n', $matches[2] );
-								
-								
-								$db_update = $DB->compile_db_update_string( array (
-																				'set_id'          => $IN['id'],
-																				'group_name'      => $name,
-																				'section_content' => $matches[2],
-																				'func_name'       => $fname,
-																				'func_data'       => trim($config[$fname]),
-																				'updated'         => time(),
-																	  )       );
-																	  
-						
-								$DB->query("INSERT INTO ibf_skin_templates SET $db_update");
-							}
+{
+
+    $matches = array(2 => ""); 
+
+    preg_match( "/return <<<(EOF|HTML)(.+?)(EOF|HTML);/s", $ftext, $matches );
+
+    $raw_content = isset($matches[2]) ? (string)$matches[2] : "";
+
+    $raw_content = str_replace( '\\n' , '\\\\\\n', $raw_content );
+    
+    $clean_content = mb_convert_encoding($raw_content, 'UTF-8', 'Windows-1252');
+
+    $db_update = $DB->compile_db_update_string( array (
+            'set_id'          => $IN['id'],
+            'group_name'      => $name,
+            'section_content' => $clean_content,
+            'func_name'       => $fname,
+            'func_data'       => trim($config[$fname]),
+            'updated'         => time(),
+    ) );
+                  
+    $DB->query("INSERT INTO ibf_skin_templates SET $db_update");
+}
 							
 							$functions = array();
 							

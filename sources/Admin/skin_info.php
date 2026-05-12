@@ -71,7 +71,7 @@ $skin_names = array(
 					 						),
 					 'skin_emails'  => array(
 					 							'Member Contact Sections',
-					 							'Elements from various contact methods, such as ICQ, AIM pager, email form and report post to moderator form',
+					 							'Elements from various contact methods, such as email form and report post to moderator form',
 					 						),
 					 'skin_forum'   => array(
 					 							'Forum Index Sections',
@@ -216,10 +216,6 @@ $bit_names['skin_calendar'] = array (
 
 $bit_names['skin_emails'] = array(
 'pager_header'			=> '1: Pop-up Header',
-'yahoo_body'			=> '2: +-- Yahoo Body',
-'msn_body'				=> '3: +-- MSN Body',
-'aol_body'				=> '4: +-- AIM Body',
-'icq_body'				=> '5: +-- ICQ Body',
 'end_table'				=> '6: End Table',
 'report_form'			=> '7: Report this post form',
 'send_form'				=> '8: Send Email form',
