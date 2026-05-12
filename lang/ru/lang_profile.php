@@ -8,8 +8,6 @@ $lang = array (
 'latest_x_posts'    => "ïîñëåäíèõ ñîîáùåíèé ïîëüçîâàòåëÿ",
 //Ïîñëåäíèå õ ñîîáùåíèé â ïðîôèëå. Êîíåö êîäà.
 
-//added 1.2 b3
-'integ_msg'    => "Integrity Messenger",
 
 //added 1.2
 
@@ -56,10 +54,6 @@ $lang = array (
 "back"  => "íàçàä",
 
 'email'   => "E-mail",
-'aim'     => "Èìÿ â AIM",
-'icq'     => "Íîìåð ICQ",
-'yahoo'   => "Èìÿ â Yahoo",
-'msn'     => "Èìÿ â MSN",
 'pm'      => "Ëè÷íîå ïèñüìî",
 
 'page_title' => "Ïðîôèëü ïîëüçîâàòåëÿ",

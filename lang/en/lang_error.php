@@ -87,7 +87,6 @@ $lang = array (
 'is_broken_link' => "Sorry, the link that brought you to this page seems to be out of date or broken.",
 'pass_no_match'  => "The entered passwords did not match, please go back and try again",
 'av_no_gallery' => "Sorry, the chosen avatar gallery doesn't exist anymore - please try again",
-'no_integ'  => "Sorry, this member doesn't have an Integrity Messenger profile at present.",
 
 'file_2_big'   => "Sorry, that file is too wide or too high - please try again after resizing the image",
 'no_photo_selected' => "You must enter a URL to a photograph or choose an image to upload from your computer before continuing",
@@ -117,9 +116,6 @@ $lang = array (
 'mt_same_topic' => "You cannot merge the same topic, that's just silly",
 
 'forum_no_post_allowed'    => "You cannot move topics into this forum as it does not allow posts to be made",
-
-'no_msn'					=>	"This member does not have a valid MSN Messenger Name.",
-'no_yahoo'					=>	"This member does not have a valid Yahoo! Messenger Name",
 
 'cf_to_long'  => "You entered too much data for the field '<#EXTRA#>', please go back and check the input",
 
@@ -209,7 +205,6 @@ $lang = array (
 'move_already_moved'					=>	"This is the original moved topic and it can't be moved again, if you want to move it again, please choose the topic that was moved into the previous destination forum",
 'cookie_error'					=>	"Sorry, there is a cookie error, please re-log in",
 'no_attach'					=>	"Attachments are not allowed for this forum",
-'no_aol'					=>	"That member does not have a valid AOL Name",
 'name_too_short'					=>	"The username you entered was too short",
 'missing_files'					=>	"Sorry, some required files are missing, if you intended to view a topic, it's possible that it's been moved or deleted. Please go back and try again.",
 'post_too_long'					=>	"Sorry, your post was too long, please reduce it",
@@ -217,7 +212,6 @@ $lang = array (
 'flash_url'					=>	"That is not a valid Flash URL",
 'profile_guest'					=>	"We could not find this member in our database, it's possible that the member has been removed.",
 'stf_no_subject'					=>	"You must enter a subject for the email",
-'not_icq_number'					=>	"That is not a valid ICQ number",
 'rp_noemail'					=>	"You must enter a valid email address before we can send this report",
 
 'upload_to_big'					=>	"The file you requested to upload was greater than the limit the administrator has set for your group.",
@@ -297,8 +291,6 @@ $lang = array (
 'no_starting'					=>	"Sorry, you do not have permission to start a topic in this forum",
 'no_search_forum'					=>	"You did not choose any forums to search in, or the forums you chose to search in are password protected. If this is the case, please make sure you are logged into the password protected forums before searching.",
 'not_registered'					=>	"Guests cannot peform this action, if you are a registered member, please log-in",
-'no_icq'					=>	"That member does not have a valid ICQ Number",
-'not_aol_name'					=>	"That is not a valid AOL Identity",
 'private_email'					=>	"That member has chosen to keep their email address private",
 'user_agent_no_match'					=>	"You are using a different computer than the one you logged in under.",
 'poll_add_vote'					=>	"Vote!",
@@ -306,7 +298,6 @@ $lang = array (
 'incorrect_use'					=>	"Incorrect use of one of the board files",
 'no_search_results'					=>	"Sorry, but we did not find any matches to display. Try again and broaden your search criteria. If you were searching for new posts since your last visit, it's possible that there are none to show.",
 'request_error'					=>	"An error occurred, not all of the required fields were sent from the validation link. Please ensure that they whole link was entered, it's possible that your email clients auto-wrapper cut the link in half. Please try again.",
-'not_yahoo_name'					=>	"That is not a valid YAHOO name",
 'stf_invalid_email'					=>	"The email address you entered was of an incorrect format",
 'pass_link'					=>	"Click here!",
 'no_email'					=>	"You must enter an email address to request your log-in details",

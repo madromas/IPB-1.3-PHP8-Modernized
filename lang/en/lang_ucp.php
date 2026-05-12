@@ -67,7 +67,6 @@ $lang = array (
 
 'email_c_up'   => "Email settings updated",
 
-'integ_msg' => "<b>Integrity Messenger identity</b>",
 
 'dead_section_title' => "No access permissions",
 'dead_section_text'  => "Sorry, the board administrator has not enabled your permissions for this part of the control panel.",
@@ -223,13 +222,11 @@ $lang = array (
 
 
 'total_posts'           => "Total Posts",
-'aol_name'              => "AOLAIM Name",
 'home_page'             => "Home Page",
 'viewing_profile'       => "Viewing member profile",
 'registration_date'     => "Registration Date",
 'change_email'          => "Email Address Change request",
 'no_information'        => "<i>No Information Entered</i>",
-'msn_name'              => "MSN Identity",
 'profile_edited'        => "Your profile has been edited",
 'member_level'          => "Member Level",
 'post_average'          => "Post Average",
@@ -258,7 +255,6 @@ $lang = array (
 'D_6'                   => "Sat",
 'hidden_email'          => "<# NAME #> has chosen to keep his/her email address private",
 'auth_text'             => "Your Email address change request has been processed.<br /><br />The board administrator has chosen to require validation for all email addresses. Within the next 10 minutes (usually instantly) you'll receive an email with instructions on the next step.<br />The email has been sent to",
-'icq_number'            => "ICQ Number",
 'M_10'                  => "Oct.",
 'M_11'                  => "Nov.",
 'M_12'                  => "Dec.",
@@ -266,7 +262,6 @@ $lang = array (
 'contact_header'        => "Contact Details",
 'signature'             => "Signature",
 'last_modification'     => "Last Profile Update",
-'yahoo_name'            => "Yahoo Identity",
 'personal_header'       => "Statistics and Personal Information for <# NAME #>",
 
 //----
@@ -308,7 +303,6 @@ $lang = array (
 'maximum'               => "Maximum",
 'avatar_pre_txt'        => "Please select an avatar from the list below, simply click on the avatar's name to view it.",
 'height'                => "Height",
-'icq'                   => "<b>Your ICQ UIN</b>",
 'subs_replies'          => "Replies",
 'avatar_url_title'      => "Your image avatars",
 'avatar_title'          => "Your avatar options",
@@ -324,7 +318,6 @@ $lang = array (
 'account_pass_title'    => "Your Password",
 'personal_ops'          => "Your personal options",
 'settings_title'        => "Your Account Options",
-'yahoo'                 => "<b>Your Yahoo identity</b>",
 'subs_cancel'           => "Cancel",
 'account_email_title'   => "Your registered email address",
 'js_signature'          => "Signature",
@@ -368,7 +361,6 @@ $lang = array (
 'settings_viewsig'      => "Do you wish to view members signatures?",
 'js_interests'          => "Interests",
 'av_preset'             => "You are currently using a pre-installed avatar",
-'aol'                   => "<b>Your AOL identity</b>",
 'settings_lang'         => "Board Interface Language",
 'pixels'                => "pixels",
 't_welcome'             => "Welcome to your control panel",
@@ -381,7 +373,6 @@ $lang = array (
 'no_posts'              => "You've yet to post",
 'subs'                  => "Topic Tracker",
 'subs_deleted'          => "The subscription has been deleted",
-'msn'                   => "<b>Your MSN Messenger identity</b>",
 'registered'            => "You registered on ",
 'subs_by'               => "By:",
 'number_posts'          => "Total number of posts to date",

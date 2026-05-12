@@ -16,10 +16,8 @@ $lang = array (
 
 
 'member_group'      => "Group",
-'member_aol'        => "AOL",
 'sort_by_name'      => "Member Name",
 'member_joined'     => "Joined",
-'member_icq'        => "ICQ",
 'sorting_text'      => "Showing <#FILTER#> by <#SORT_KEY#> in <#SORT_ORDER#> with <#MAX_RESULTS#> results per page",
 'member_name'       => "Name",
 'member_posts'      => "Posts",

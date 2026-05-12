@@ -6,9 +6,6 @@ $lang = array (
 
 'latest_x_posts'    => "Latest Posts by",
 
-//added 1.2 b3
-'integ_msg'    => "Integrity Messenger",
-
 // 1.2
 
 'rating_level' => "Rating",
@@ -51,10 +48,6 @@ $lang = array (
 "back"  => "back",
 
 'email'   => "Email",
-'aim'     => "AIM Name",
-'icq'     => "ICQ Number",
-'yahoo'   => "Yahoo Identity",
-'msn'     => "MSN Identity",
 'pm'      => "Personal Message",
 
 'page_title' => "Viewing Profile",

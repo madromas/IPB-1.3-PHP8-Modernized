@@ -30,8 +30,6 @@ $lang = array (
 
 'leader_name'            => "Member Name",
 'leader_email'           => "Email",
-'leader_aol'             => "AOL",
-'leader_icq'             => "ICQ",
 'leader_location'        => "Location",
 'leader_forums'          => "Forums",
 'leader_all_forums'      => "All Forums",
