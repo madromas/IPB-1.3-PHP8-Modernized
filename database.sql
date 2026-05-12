@@ -608,12 +608,9 @@ CREATE TABLE `ibf_members` (
   `avatar` varchar(128) DEFAULT NULL,
   `avatar_size` varchar(9) DEFAULT NULL,
   `posts` mediumint(7) DEFAULT 0,
-  `aim_name` varchar(40) DEFAULT NULL,
-  `icq_number` varchar(40) DEFAULT NULL,
   `location` varchar(128) DEFAULT NULL,
   `signature` text DEFAULT NULL,
   `website` varchar(70) DEFAULT NULL,
-  `yahoo` varchar(32) DEFAULT NULL,
   `title` varchar(64) DEFAULT NULL,
   `allow_admin_mails` tinyint(1) DEFAULT NULL,
   `time_offset` varchar(10) DEFAULT NULL,
@@ -625,7 +622,6 @@ CREATE TABLE `ibf_members` (
   `warn_level` int(10) DEFAULT NULL,
   `warn_lastwarn` int(10) NOT NULL DEFAULT 0,
   `language` varchar(32) DEFAULT NULL,
-  `msnname` varchar(64) DEFAULT NULL,
   `last_post` int(10) DEFAULT NULL,
   `restrict_post` varchar(100) NOT NULL DEFAULT '0',
   `view_sigs` tinyint(1) DEFAULT 1,
@@ -659,6 +655,7 @@ CREATE TABLE `ibf_members` (
   `allow_anon` tinyint(1) NOT NULL DEFAULT 1,
   `rep_do` int(10) NOT NULL DEFAULT 0,
   `rep_do_open` int(10) NOT NULL DEFAULT 0,
+  `view_qr` tinyint(1) DEFAULT 1,
   `favorites` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
