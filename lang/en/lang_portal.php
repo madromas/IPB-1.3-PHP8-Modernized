@@ -66,6 +66,7 @@ $lang['n_joined'] = "joined @";
 $lang['l_title'] = "Topic Title";
 $lang['l_starter'] = "Topic Starter";
 $lang['l_replies'] = "Replies";
+$lang['l_rating'] = "Rating";
 $lang['l_lastpost'] = "Last Action";
 $lang['last_post_by'] = "By:";
 $lang['in'] = "In:";
