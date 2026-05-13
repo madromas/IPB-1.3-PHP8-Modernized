@@ -2,7 +2,7 @@
 
 class skin_topic {
 
-	function rep_options_links($stuff) {
+    function rep_options_links($stuff) {
 global $ibforums;
 return <<<EOF
 [ <a href='{$ibforums->base_url}act=rep&CODE=01&mid=$stuff[mid]&f=$stuff[f]&t=$stuff[t]&p=$stuff[p]'>+</a>
@@ -100,16 +100,16 @@ function Mod_Panel($data, $fid, $tid, $key="") {
 global $ibforums;
 return <<<EOF
   <div align='left' style='float:left;width:auto'>
-	<form method='POST' style='display:inline' name='modform' action='{$ibforums->base_url}'>
-	<input type='hidden' name='t' value='$tid' />
-	<input type='hidden' name='f' value='$fid' />
-	<input type='hidden' name='st' value='{$ibforums->input['st']}' />
-	<input type='hidden' name='auth_key' value='$key' />
-	<input type='hidden' name='act' value='Mod' />
-	<select name='CODE' class='forminput' style="font-weight:bold;color:red">
-	<option value='-1' style='color:black'>{$ibforums->lang['moderation_ops']}</option>
-	$data
-	</select>&nbsp;<input type='submit' value='{$ibforums->lang['jmp_go']}' class='forminput' /></form>
+    <form method='POST' style='display:inline' name='modform' action='{$ibforums->base_url}'>
+    <input type='hidden' name='t' value='$tid' />
+    <input type='hidden' name='f' value='$fid' />
+    <input type='hidden' name='st' value='{$ibforums->input['st']}' />
+    <input type='hidden' name='auth_key' value='$key' />
+    <input type='hidden' name='act' value='Mod' />
+    <select name='CODE' class='forminput' style="font-weight:bold;color:red">
+    <option value='-1' style='color:black'>{$ibforums->lang['moderation_ops']}</option>
+    $data
+    </select>&nbsp;<input type='submit' value='{$ibforums->lang['jmp_go']}' class='forminput' /></form>
   </div>
         
 EOF;
@@ -123,61 +123,10 @@ EOF;
 }
 
 
-
-
-function quick_reply_box_open($fid="",$tid="",$show="hide", $key="") {
-global $ibforums;
-return <<<EOF
-	<script type="text/javascript">
-	<!--
-	function emo_pop()
-	{
-	  window.open('index.{$ibforums->vars['php_ext']}?act=legends&amp;CODE=emoticons&amp;s={$ibforums->session_id}','Legends','width=250,height=500,resizable=yes,scrollbars=yes'); 
-	}
-	//-->
-	</script>
-	<br />
-	<div align='left' id='qr_open' style="display:$show;position:relative;">
-	   <form name='REPLIER' action="{$ibforums->base_url}" method='post'>
-	   <input type='hidden' name='act' value='Post' />
-	   <input type='hidden' name='CODE' value='03' />
-	   <input type='hidden' name='f' value='$fid' />
-	   <input type='hidden' name='t' value='$tid' />
-	   <input type='hidden' name='st' value='{$ibforums->input['st']}' />
-	   <input type='hidden' name='enabletrack' value='{$ibforums->member['auto_track']}' />
-	   <input type='hidden' name='auth_key' value='$key' />
-	   <!-- TITLE DIV -->
-	   <div class="tableborder">
-	     <div class='maintitle'><{CAT_IMG}>&nbsp;{$ibforums->lang['qr_title']}</div>
-		 <div class="tablepad" align="center">
-			 <textarea cols='70' rows='8' name='Post' class='textinput' tabindex="1"></textarea>
-			 <br /><br />
-			 <a href='javascript:emo_pop();'>{$ibforums->lang['show_emo']}</a> &#124;
-			 <input type='checkbox' name='enableemo' value='yes' class="checkbox" checked="checked" />&nbsp;{$ibforums->lang['qr_add_smilie']} &#124;
-			 <input type='checkbox' name='enablesig' value='yes' class="checkbox" checked="checked" />&nbsp;{$ibforums->lang['qr_add_sig']}
-			 <br /><br />
-			 <input type='submit' name='submit' value='{$ibforums->lang['qr_submit']}' class='forminput' tabindex="2" accesskey="s" />&nbsp;
-			 <input type='submit' name='preview' value='{$ibforums->lang['qr_more_opts']}' class='forminput' />
-			 &nbsp;&nbsp; <input type='button' name='qrc' onclick="ShowHide('qr_open','qr_closed');" value='{$ibforums->lang['qr_closeit']}' class='forminput' />
-		 </div>
-	  </div>
-	   </form>
-	</div>
-EOF;
-}
-
-function quick_reply_box_closed() {
-global $ibforums;
-return <<<EOF
-	<!-- DEFAULT DIV -->
-	<a href="javascript:ShowHide('qr_open','qr_closed');" title="{$ibforums->lang['qr_open']}" accesskey="f"><{T_QREPLY}></a>
-EOF;
-}
-
 function start_poll_link($fid, $tid) {
 global $ibforums;
 return <<<EOF
-	<a href="{$ibforums->base_url}act=Post&amp;CODE=14&amp;f=$fid&amp;t=$tid" title="{$ibforums->lang['new_poll_link']}"><i class="fa-solid fa-chart-bar" style="color: #465584"></i></a> &nbsp;&nbsp;
+    <a href="{$ibforums->base_url}act=Post&amp;CODE=14&amp;f=$fid&amp;t=$tid" title="{$ibforums->lang['new_poll_link']}"><i class="fa-solid fa-chart-bar" style="color: #465584"></i></a> &nbsp;&nbsp;
 EOF;
 }
 
@@ -191,8 +140,8 @@ return <<<EOF
     
     function link_to_post(pid)
     {
-    	temp = prompt( "{$ibforums->lang['tt_prompt']}", "{$ibforums->base_url}showtopic={$ibforums->input['t']}&view=findpost&p=" + pid );
-    	return false;
+        temp = prompt( "{$ibforums->lang['tt_prompt']}", "{$ibforums->base_url}showtopic={$ibforums->input['t']}&view=findpost&p=" + pid );
+        return false;
     }
     
     function delete_post(theURL) {
@@ -218,32 +167,32 @@ return <<<EOF
     if (scroll != 0) { scroll = 1 }
 
     var Win = window.open( url, name, 'width='+width+',height='+height+',top='+Y+',left='+X+',resizable='+resize+',scrollbars='+scroll+',location=no,directories=no,status=no,menubar=no,toolbar=no');
-	}
-	
-	function ShowHide(id1, id2) {
-	  if (id1 != '') expMenu(id1);
-	  if (id2 != '') expMenu(id2);
-	}
-	
-	function expMenu(id) {
-	  var itm = null;
-	  if (document.getElementById) {
-		itm = document.getElementById(id);
-	  } else if (document.all){
-		itm = document.all[id];
-	  } else if (document.layers){
-		itm = document.layers[id];
-	  }
-	
-	  if (!itm) {
-	   // do nothing
-	  }
-	  else if (itm.style) {
-		if (itm.style.display == "none") { itm.style.display = ""; }
-		else { itm.style.display = "none"; }
-	  }
-	  else { itm.visibility = "show"; }
-	}
+    }
+    
+    function ShowHide(id1, id2) {
+      if (id1 != '') expMenu(id1);
+      if (id2 != '') expMenu(id2);
+    }
+    
+    function expMenu(id) {
+      var itm = null;
+      if (document.getElementById) {
+        itm = document.getElementById(id);
+      } else if (document.all){
+        itm = document.all[id];
+      } else if (document.layers){
+        itm = document.layers[id];
+      }
+    
+      if (!itm) {
+       // do nothing
+      }
+      else if (itm.style) {
+        if (itm.style.display == "none") { itm.style.display = ""; }
+        else { itm.style.display = "none"; }
+      }
+      else { itm.visibility = "show"; }
+    }
     //-->
     </script>
     
@@ -318,13 +267,13 @@ return <<<EOF
         <!-- Left-aligned Title -->
         <{CAT_IMG}>&nbsp;<b>{$data['TOPIC']['title']}</b> {$data['TOPIC']['description']} 
     </div>
-	<!--{IBF.POLL}-->
-	<div align='right' class='postlinksbar'>
-	  <!--{IBF.START_NEW_POLL}--><a href='{$ibforums->base_url}act=Track&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}' title="{$ibforums->lang['track_topic']}"><i class="fa-solid fa-eye" style="color: #465584"></i></a> &nbsp;&nbsp; 
+    <!--{IBF.POLL}-->
+    <div align='right' class='postlinksbar'>
+      <!--{IBF.START_NEW_POLL}--><a href='{$ibforums->base_url}act=Track&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}' title="{$ibforums->lang['track_topic']}"><i class="fa-solid fa-eye" style="color: #465584"></i></a> &nbsp;&nbsp; 
 <a href='{$ibforums->base_url}act=Forward&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}' title="{$ibforums->lang['forward']}"><i class="fa-solid fa-envelope" style="color: #465584"></i></a> &nbsp;&nbsp; 
 <a href='{$ibforums->base_url}act=Print&amp;client=printer&amp;f={$data['FORUM']['id']}&amp;t={$data['TOPIC']['tid']}' title="{$ibforums->lang['print']}"><i class="fa-solid fa-print" style="color: #465584"></i></a>
-	</div>
-	
+    </div>
+    
 EOF;
 }
 
@@ -341,7 +290,7 @@ if (isset($post['topic_starter_id']) && $author['id'] > 0) {
 
 return <<<EOF
 
-	<!--Begin Msg Number {$post['pid']}-->
+    <!--Begin Msg Number {$post['pid']}-->
     <table width='100%' border='0' cellspacing='1' cellpadding='3'>
     <tr>
       <td align='center' valign='middle' class='row4' width="1%"><a name='entry{$post['pid']}'></a><span class='{$post['name_css']}'>{$author['name']}</span> {$author_tag}</td>
@@ -442,11 +391,10 @@ return <<<EOF
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
  <td align='left' width="20%" nowrap="nowrap"><!--IBF.TOPIC_OPTIONS_CLOSED-->{$data['TOPIC']['SHOW_PAGES']}</td>
- <td align='right' width="80%" class="bottommenu">{$data['TOPIC']['REPLY_BUTTON']}<!--IBF.QUICK_REPLY_CLOSED--><a href='{$ibforums->base_url}act=Post&amp;CODE=00&amp;f={$data['FORUM']['id']}' title='{$ibforums->lang['start_new_topic']}'><{A_POST}></a>{$data['TOPIC']['POLL_BUTTON']}</td>
+ <td align='right' width="80%" class="bottommenu">{$data['TOPIC']['REPLY_BUTTON']}<a href='{$ibforums->base_url}act=Post&amp;CODE=00&amp;f={$data['FORUM']['id']}' title='{$ibforums->lang['start_new_topic']}'><{A_POST}></a>{$data['TOPIC']['POLL_BUTTON']}</td>
 </tr>
 </table>
 
-<!--IBF.QUICK_REPLY_OPEN-->
 <!--IBF.TOPIC_OPTIONS_OPEN-->
 
 <br />
@@ -462,20 +410,20 @@ global $ibforums;
 return <<<EOF
 <div id='topic_open' style='display:none;z-index:2;'>
     <div class="tableborder">
-	  <div class='maintitle'><{CAT_IMG}>&nbsp;<a href="javascript:ShowHide('topic_open','topic_closed')">{$ibforums->lang['to_close']}</a></div>
-	  <div class='tablepad'>
-	   <b><a href='{$ibforums->base_url}act=Track&amp;f={$fid}&amp;t={$tid}'>{$ibforums->lang['tt_title']}</a></b>
-	   <br />
-	   <span class='desc'>{$ibforums->lang['tt_desc']}</span>
-	   <br /><br />
-	   <b><a href='{$ibforums->base_url}act=Track&amp;f={$fid}&amp;type=forum'>{$ibforums->lang['ft_title']}</a></b>
-	   <br />
-	   <span class='desc'>{$ibforums->lang['ft_desc']}</span>
-	   <br /><br />
-	   <b><a href='{$ibforums->base_url}act=Print&amp;client=choose&amp;f={$fid}&amp;t={$tid}'>{$ibforums->lang['av_title']}</a></b>
-	   <br />
-	   <span class='desc'>{$ibforums->lang['av_desc']}</span>
-	 </div>
+      <div class='maintitle'><{CAT_IMG}>&nbsp;<a href="javascript:ShowHide('topic_open','topic_closed')">{$ibforums->lang['to_close']}</a></div>
+      <div class='tablepad'>
+       <b><a href='{$ibforums->base_url}act=Track&amp;f={$fid}&amp;t={$tid}'>{$ibforums->lang['tt_title']}</a></b>
+       <br />
+       <span class='desc'>{$ibforums->lang['tt_desc']}</span>
+       <br /><br />
+       <b><a href='{$ibforums->base_url}act=Track&amp;f={$fid}&amp;type=forum'>{$ibforums->lang['ft_title']}</a></b>
+       <br />
+       <span class='desc'>{$ibforums->lang['ft_desc']}</span>
+       <br /><br />
+       <b><a href='{$ibforums->base_url}act=Print&amp;client=choose&amp;f={$fid}&amp;t={$tid}'>{$ibforums->lang['av_title']}</a></b>
+       <br />
+       <span class='desc'>{$ibforums->lang['av_desc']}</span>
+     </div>
    </div>
 </div>
 EOF;
@@ -492,8 +440,8 @@ EOF;
 function topic_active_users($active=array()) {
 global $ibforums;
 return <<<EOF
-	  <div class="activeuserstrip">{$ibforums->lang['active_users_title']} ({$ibforums->lang['active_users_detail']})</div>
-	  <div class='row2 group-legend' style='padding:6px'>{$ibforums->lang['active_users_members']} {$active['names']}</div>
+      <div class="activeuserstrip">{$ibforums->lang['active_users_title']} ({$ibforums->lang['active_users_detail']})</div>
+      <div class='row2 group-legend' style='padding:6px'>{$ibforums->lang['active_users_members']} {$active['names']}</div>
 EOF;
 }
 
@@ -551,7 +499,7 @@ function safeInitTinyMCE(selector, config) {
 
 // TinyMCE Initialization for Quick Reply
 tinymce.init({
-	selector: '#qr-editor',
+    selector: '#qr-editor',
     height: 300,
     menubar: false,
     images_upload_url: 'tinymce_upload.php',
