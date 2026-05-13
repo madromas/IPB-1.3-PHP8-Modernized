@@ -428,7 +428,7 @@ return <<<EOF
     <i class="fa-solid fa-users"></i>
 </div>
     </td>
-    <td class='row5' width='95%'>
+    <td class='row5 group-legend' width='95%'>
         <b>{$active['GUESTS']}</b> {$ibforums->lang['guests']}, 
         <b>{$active['MEMBERS']}</b> {$ibforums->lang['public_members']} 
         <b>{$active['ANON']}</b> {$ibforums->lang['anon_members']} 
