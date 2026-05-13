@@ -516,7 +516,7 @@ return <<<EOF
                    <td class='prew' style='cursor:pointer' onclick="window.location.href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}&view=getlastpost'">{$data['post_body']} {$data['post_body_extra']}</td>
                </tr>
                <tr>
-                   <td class='row5'>{$ibforums->lang['comments']} {$data['replies']} : <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}'>{$ibforums->lang['viewcomments']}</a> Views: {$data['views']}</td>
+                   <td class='row5' style='padding:.5em'>{$ibforums->lang['comments']} {$data['replies']} : <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}'>{$ibforums->lang['viewcomments']}</a> Views: {$data['views']}</td>
                </tr>
           </table>
     
