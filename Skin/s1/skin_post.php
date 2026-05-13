@@ -557,18 +557,20 @@ EOF;
 
 
 function PostIcons() {
-    global $ibforums;
+    global $ibforums, $post_icons_list;
     
     $icons_html = "";
     
-    if ( isset($ibforums->vars['post_icons']) && is_array($ibforums->vars['post_icons']) ) {
-        foreach($ibforums->vars['post_icons'] as $id => $data) {
-    // $data[0] = class, $data[1] = color, $data[2] = title
-    $icons_html .= "<label style='margin-right:15px; display: inline-flex; align-items: center; cursor: pointer;'>
-                        <input type='radio' class='radiobutton' name='iconid' value='{$id}' /> 
-                        <i class='{$data[0]}' style='color:{$data[1]}' title='{$data[2]}'></i>
-                    </label>";
-}
+    // Point the loop to our new indestructible list
+    if ( isset($post_icons_list) && is_array($post_icons_list) ) {
+        foreach($post_icons_list as $id => $data) {
+
+            // $data[0] = class, $data[1] = color, $data[2] = title
+            $icons_html .= "<label style='margin-right:15px; display: inline-flex; align-items: center; cursor: pointer;'>
+                                <input type='radio' class='radiobutton' name='iconid' value='{$id}' /> 
+                                <i class='{$data[0]}' style='color:{$data[1]}' title='{$data[2]}'></i>
+                            </label>";
+        }
     }
 
     return <<<EOF
