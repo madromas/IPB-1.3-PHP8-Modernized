@@ -8,7 +8,11 @@ return <<<EOF
                        <td class='darkrow1' colspan='2'>{$ibforums->lang['member_of_moment']}</td>
                </tr>
            <tr>
-                   <td class='row2' width='5%' valign='middle'><{F_ACTIVE}></td>
+                   <td class='row2' width='5%' valign='middle'>
+                   <div style='font-size: 24px; color: #4C77B6; text-align: center;'>
+    <i class="fa-solid fa-users"></i>
+</div>
+                   </td>
                    <td class='row5' width="95%" align='left'>{$ibforums->lang['member_of_moment']}:
                <a href="{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}">{$data['member_name']}</a><br>
                {$ibforums->lang['most_active_in']} {$data['forum_url']} ({$data['fav_posts']})<br>
@@ -90,12 +94,12 @@ return <<<EOF
              <td colspan='8' class='maintitle' >{$ibforums->lang['new_posts']}</td>
            </tr>
            <tr>
-             <td class='row1'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
-             <td class='row1'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
-             <td class='row1' valign='middle' align='left'>{$ibforums->lang['l_title']}</td>
-             <td class='row1' valign='middle' align='center' width='15%'>{$ibforums->lang['l_starter']}</td>
-             <td class='row1' valign='middle' align='center' width='8%'>{$ibforums->lang['l_replies']}</td>
-             <td class='row1' valign='middle' align='left' width='33%'>{$ibforums->lang['l_lastpost']}</td>
+             <td class='row3'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
+             <td class='row3'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
+             <td class='row3' valign='middle' align='left'>{$ibforums->lang['l_title']}</td>
+             <td class='row3' valign='middle' align='center' width='15%'>{$ibforums->lang['l_starter']}</td>
+             <td class='row3' valign='middle' align='center' width='8%'>{$ibforums->lang['l_replies']}</td>
+             <td class='row3' valign='middle' align='left' width='33%'>{$ibforums->lang['l_lastpost']}</td>
                </tr>
 {$data}
               </table>
@@ -116,12 +120,13 @@ return <<<EOF
              <td colspan='8' class='maintitle' >{$ibforums->lang['latest_posts']}</td>
            </tr>
            <tr>
-             <td class='row1'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
-             <td class='row1'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
-             <td class='row1' valign='middle' align='left'><b>{$ibforums->lang['l_title']}</b></td>
-             <td class='row1' valign='middle' align='center' width='15%'><b>{$ibforums->lang['l_starter']}</b></td>
-             <td class='row1' valign='middle' align='center' width='8%'><b>{$ibforums->lang['l_replies']}</b></td>
-             <td class='row1' valign='middle' align='left' width='33%'><b>{$ibforums->lang['l_lastpost']}</b></td>
+             <td class='row3'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
+             <td class='row3'><img src='{$ibforums->vars['imgurl']}/spacer.gif' alt='' width='20' height='1'></td>
+             <td class='row3' valign='middle' align='left'><b>{$ibforums->lang['l_title']}</b></td>
+             <td class='row3' valign='middle' align='center' width='15%'><b>{$ibforums->lang['l_starter']}</b></td>
+             <td class='row3' valign='middle' align='center' width='8%'><b>{$ibforums->lang['l_replies']}</b></td>
+             <td class='row3' valign='middle' align='center' width='8%'><b>{$ibforums->lang['l_rating']}</b></td>
+             <td class='row3' valign='middle' align='left' width='33%'><b>{$ibforums->lang['l_lastpost']}</b></td>
                </tr>
 {$data}
               </table>
@@ -133,22 +138,39 @@ EOF;
 }
 function RenderRow($Data) {
 global $ibforums;
+
+//  Handle the Favorite Row Color
+$favs = explode(",", ($ibforums->member['favorites'] ?? '') );
+$f_class = (in_array($Data['tid'], $favs)) ? "fav-row" : ""; 
+
+// Handle the Rating Badge 
+$score = intval($Data['rating_total']);
+
+if ($score == 0) {
+    $Data['rating'] = "<span class='rating-neutral'>0</span>";
+} else {
+    $class = ($score > 0) ? "rating-positive" : "rating-negative";
+    $display = abs($score); 
+    $Data['rating'] = "<span class='{$class}'>{$display}</span>";
+}
+
 return <<<EOF
     <!-- Begin Topic Entry {$Data['tid']} -->
     <tr> 
           <td align='center' class='row5'>{$Data['folder_img']}</td>
-      <td align='center' class='row2'>{$Data['topic_icon']}</td>
-      <td class='row5'>
+      <td align='center' class='row5'>{$Data['topic_icon']}</td>
+      <td class='row5 {$f_class}'>
           <table width='100%' border='0' cellspacing='0' cellpadding='0'>
                   <tr> 
                         <td valign='middle'>{$Data['go_new_post']}</td>
-            <td width='100%'><span class='linkthru'>{$Data['prefix']} <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?act=ST&f={$Data['forum_id']}&t={$Data['tid']}&s={$ibforums->session_id}' class='linkthru' title='{$ibforums->lang['topic_started_on']} {$Data['start_date']}'>{$Data['title']}</a></span>  {$Data[PAGES]}</td>
+            <td width='100%'><span class='linkthru'>{$Data['prefix']} <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?act=ST&f={$Data['forum_id']}&t={$Data['tid']}&s={$ibforums->session_id}' class='linkthru' title='{$ibforums->lang['topic_started_on']} {$Data['start_date']}'>{$Data['title']}</a></span>  {$Data['PAGES']}</td>
           </tr>
         </table>
         <span class='desc'>{$Data['description']}</span></td>
-      <td align='center' class='row2'>{$Data['starter']}</td>
+      <td align='center' class='row5'>{$Data['starter']}</td>
       <td align='center' class='row5'>{$Data['posts']}</td>
-      <td class='row2'>{$Data['last_post']}<br>
+      <td align='center' class='row5'>{$Data['rating']}</td>
+      <td class='row5'>{$Data['last_post']}<br>
                       {$ibforums->lang['in']} <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=SF&f={$Data['forum_id']}'>{$Data['name']}</a><br>
                       <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$Data['forum_id']}&t={$Data['tid']}&view=getlastpost'>{$Data['last_text']}</a> <b>{$Data['last_poster']}</b></td>
     </tr>
@@ -369,10 +391,10 @@ function stats_posts($text) {
 global $ibforums;
 return <<<EOF
                    <tr>
-                     <td class='darkrow1' colspan='2'>{$ibforums->lang['board_stats']}</td>
+                     <td class='row2' colspan='2'>{$ibforums->lang['board_stats']}</td>
                    </tr>
                    <tr>
-                         <td class='row2' width='5%' valign='middle'>
+                         <td class='row5' width='5%' valign='middle'>
                          <div style='font-size: 24px; color: #16A085; text-align: center;'>
     <i class="fa-solid fa-chart-simple"></i>
 </div>
@@ -386,10 +408,10 @@ function stats_birthdays($birthusers="", $total="", $birth_lang="") {
 global $ibforums;
 return <<<EOF
         <tr>
-           <td class='darkrow1' colspan='2'>{$ibforums->lang['birthday_header']}</td>
+           <td class='row2' colspan='2'>{$ibforums->lang['birthday_header']}</td>
             </tr>
             <tr>
-          <td class='row2' width='5%' valign='middle'>
+          <td class='row5' width='5%' valign='middle'>
           <div style='font-size: 24px; color: #E67E22; text-align: center;'>
     <i class="fa-solid fa-cake-candles"></i> 
 </div>
@@ -403,10 +425,10 @@ function calendar_events($events = "") {
 global $ibforums;
 return <<<EOF
         <tr>
-           <td class='darkrow1' colspan='2'>{$ibforums->lang['calender_f_title']}</td>
+           <td class='row2' colspan='2'>{$ibforums->lang['calender_f_title']}</td>
             </tr>
             <tr>
-          <td class='row2' width='5%' valign='middle'>
+          <td class='row5' width='5%' valign='middle'>
           <div style='font-size: 24px; color: #8E44AD; text-align: center;'>
     <i class="fa-solid fa-calendar-days"></i>
 </div>
@@ -420,10 +442,10 @@ function stats_active($active) {
 global $ibforums;
 return <<<EOF
         <tr>
-    <td class='darkrow1' colspan='2'>{$active['TOTAL']} {$ibforums->lang['active_users']}</td>
+    <td class='row2' colspan='2'>{$active['TOTAL']} {$ibforums->lang['active_users']}</td>
 </tr>
 <tr>
-    <td width="5%" class='row2'>
+    <td width="5%" class='row5'>
     <div style='font-size: 24px; color: #4C77B6; text-align: center;'>
     <i class="fa-solid fa-users"></i>
 </div>
@@ -654,13 +676,13 @@ return <<<EOF
   <td width="1%"></td>
 
   <td width="22%" vAlign="top" class="portal-sidebar">
-    <span style="display:none;">{$data['loginbox']}</span>
-    <span style="display:none;">{$data['navigation']}</span>
+    {$data['loginbox']}
+    {$data['navigation']}
     {$data['forums_list']}
     {$data['new_posts']}
     {$data['latest_posts']}
     {$data['poll']}
-    <span style="display:none;">{$data['old_news']}</span>
+    {$data['old_news']}
     {$data['top_posters']}
     {$data['top_forums']}
     {$data['new_members']}
