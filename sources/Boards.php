@@ -220,6 +220,22 @@ if ( ($ibforums->input['c'] ?? "") != "" )
 			}
 			
 			$ibforums->lang['active_users'] = sprintf( $ibforums->lang['active_users'], $ibforums->vars['au_cutoff'] );
+
+			// --- START GROUP LEGEND MOD ---
+			global $ibforums, $DB;
+			$legend_parts = array();
+			
+			$DB->query("SELECT g_id, g_title, prefix, suffix FROM ibf_groups WHERE g_id NOT IN (1,2) ORDER BY g_id ASC");
+			
+			while ( $row = $DB->fetch_row() )
+			{
+				$group_name = $row['prefix'] . $row['g_title'] . $row['suffix'];
+				$legend_parts[] = "<a href='{$ibforums->base_url}act=Members&amp;max_results=30&amp;filter={$row['g_id']}&amp;sort_key=name&amp;sort_order=asc' style='text-decoration:none'>{$group_name}</a>";
+			}
+
+			// Changed separator to " | " to match your screenshot
+			$active['group_legend'] = implode(" | ", $legend_parts);
+			// --- END GROUP LEGEND MOD ---
 			
 			$stats_html .= $this->html->ActiveUsers($active, $ibforums->vars['au_cutoff']);
 		}
