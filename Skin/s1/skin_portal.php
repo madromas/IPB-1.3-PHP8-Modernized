@@ -644,7 +644,15 @@ return <<<EOF
 <div id='portal-main-container'>
 <table cellpadding='0' cellspacing='0' border='0' width='<{tbl_width}>' align='center'>
  <tr>
-  <!-- Sidebar Column -->
+  <td width="77%" vAlign="top" class="portal-content">
+    {$data['welcomepanel']}
+    {$data['latest_posts_big']}
+    {$data['new_posts_big']}
+    {$data['news']}
+  </td>
+
+  <td width="1%"></td>
+
   <td width="22%" vAlign="top" class="portal-sidebar">
     <span style="display:none;">{$data['loginbox']}</span>
     <span style="display:none;">{$data['navigation']}</span>
@@ -657,15 +665,6 @@ return <<<EOF
     {$data['top_forums']}
     {$data['new_members']}
     {$data['stats']}
-  </td>
-  <!-- Spacer Column -->
-  <td width="1%"></td>
-  <!-- Main Content Column -->
-  <td width="77%" vAlign="top" class="portal-content">
-    {$data['welcomepanel']}
-    {$data['latest_posts_big']}
-    {$data['new_posts_big']}
-    {$data['news']}
   </td>
  </tr>
 </table>
