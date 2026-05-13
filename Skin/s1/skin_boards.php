@@ -116,21 +116,22 @@ return <<<EOF
            <td class='pformstrip' colspan='2'>{$active['TOTAL']} {$ibforums->lang['active_users']}</td>
         </tr>
         <tr>
-          <td width="5%" class='row2'><{F_ACTIVE}></td>
-          <td class='row4' width='95%'>
+          <td width="5%" class='row2'>
+          <div style='font-size: 24px; color: #4C77B6; text-align: center;'>
+    <i class="fa-solid fa-users"></i>
+</div>
+</td>
+          <td class='row4 group-legend' width='95%'>
             <b>{$active['GUESTS']}</b> {$ibforums->lang['guests']}, <b>{$active['MEMBERS']}</b> {$ibforums->lang['public_members']} <b>{$active['ANON']}</b> {$ibforums->lang['anon_members']}
             <div class='thin'>{$active['NAMES']}</div>
-
-
-
-
-
-
-            
+<div style='padding-top:5px;'>
+    {$active['group_legend']}
+</div>
+          
             {$active['links']}
           </td>
         </tr>
-        EOF;
+EOF;
 }
 
 function active_user_links() {
@@ -147,7 +148,11 @@ return <<<EOF
 		     <td class='pformstrip' colspan='2'>{$ibforums->lang['board_stats']}</td>
 		   </tr>
 		   <tr>
-			 <td class='row2' width='5%' valign='middle'><{F_STATS}></td>
+			 <td class='row2' width='5%' valign='middle'>
+             <div style='font-size: 24px; color: #16A085; text-align: center;'>
+    <i class="fa-solid fa-chart-simple"></i>
+</div>
+             </td>
 			 <td class='row4' width="95%" align='left'>$text<br />{$ibforums->lang['most_online']}</td>
 		   </tr>
 EOF;
@@ -160,7 +165,11 @@ return <<<EOF
            <td class='pformstrip' colspan='2'>{$ibforums->lang['birthday_header']}</td>
     	</tr>
     	<tr>
-          <td class='row2' width='5%' valign='middle'><{F_ACTIVE}></td>
+          <td class='row2' width='5%' valign='middle'>
+          <div style='font-size: 24px; color: #E67E22; text-align: center;'>
+    <i class="fa-solid fa-cake-candles"></i> 
+</div>
+          </td>
           <td class='row4' width='95%'><b>$total</b> $birth_lang<br />$birthusers</td>
         </tr>
 EOF;
@@ -175,7 +184,11 @@ return <<<EOF
            <td class='pformstrip' colspan='2'>{$ibforums->lang['calender_f_title']}</td>
     	</tr>
     	<tr>
-          <td class='row2' width='5%' valign='middle'><{F_ACTIVE}></td>
+          <td class='row2' width='5%' valign='middle'>
+          <div style='font-size: 24px; color: #8E44AD; text-align: center;'>
+    <i class="fa-solid fa-calendar-days"></i>
+</div>
+          </td>
           <td class='row4' width='95%'>$events</td>
         </tr>
 EOF;
