@@ -17,7 +17,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='2' class='maintitle' ><b>{$ibforums->lang['latest_posts']}</b></td>
            </tr>
@@ -33,6 +33,7 @@ return <<<EOF
 <br>
 EOF;
 }
+
 
 function warn_level_warn($id, $percent) {
 global $ibforums;
@@ -256,6 +257,11 @@ return <<<EOF
 </tr>
 </table>
 <br />
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+ <td vAlign="top" width="80%">
+
 <div class="tableborder">
     <div class='maintitle'>
         <!-- Right-aligned section -->
@@ -420,9 +426,18 @@ global $ibforums;
 return <<<EOF
       <!--IBF.QUICK_REPLY_NEW-->
       <!--IBF.TOPIC_ACTIVE-->
-      <div class="activeuserstrip" align="center">&laquo; <a href='{$ibforums->base_url}showtopic={$data['TOPIC']['tid']}&amp;view=old'>{$ibforums->lang['t_old']}</a> &#0124; <strong><a href='{$ibforums->base_url}showforum={$data['FORUM']['id']}'>{$data['FORUM']['name']}</a></strong> &#0124; <a href='{$ibforums->base_url}showtopic={$data['TOPIC']['tid']}&amp;view=new'>{$ibforums->lang['t_new']}</a> &raquo;</div>
-</div>
- 
+
+<div class="activeuserstrip" align="center">&laquo; <a href='{$ibforums->base_url}showtopic={$data['TOPIC']['tid']}&amp;view=old'>{$ibforums->lang['t_old']}</a> &#0124; <strong><a href='{$ibforums->base_url}showforum={$data['FORUM']['id']}'>{$data['FORUM']['name']}</a></strong> &#0124; <a href='{$ibforums->base_url}act=showtopic={$data['TOPIC']['tid']}&amp;view=new'>{$ibforums->lang['t_new']}</a> &raquo;</div>
+</div> </td> 
+
+<td width="1%"></td> 
+ <td vAlign="top" width="19%">
+    {$data['latest_posts']}
+ </td>
+
+</tr>
+</table>
+
 <br />
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
@@ -478,7 +493,7 @@ function topic_active_users($active=array()) {
 global $ibforums;
 return <<<EOF
 	  <div class="activeuserstrip">{$ibforums->lang['active_users_title']} ({$ibforums->lang['active_users_detail']})</div>
-	  <div class='row2' style='padding:6px'>{$ibforums->lang['active_users_members']} {$active['names']}</div>
+	  <div class='row2 group-legend' style='padding:6px'>{$ibforums->lang['active_users_members']} {$active['names']}</div>
 EOF;
 }
 

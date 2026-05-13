@@ -24,7 +24,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td class='maintitle' >{$ibforums->lang['old_news']}</td>
            </tr>
@@ -50,7 +50,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='2' class='maintitle' >{$ibforums->lang['upload_form']}</td>
            </tr>
@@ -85,7 +85,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='8' class='maintitle' >{$ibforums->lang['new_posts']}</td>
            </tr>
@@ -111,7 +111,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='8' class='maintitle' >{$ibforums->lang['latest_posts']}</td>
            </tr>
@@ -162,7 +162,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='3' class='maintitle' >{$ibforums->lang['top_forums']}</td>
            </tr>
@@ -194,7 +194,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td class='maintitle' >{$ibforums->lang['new_members']}</td>
            </tr>
@@ -222,7 +222,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='2' class='maintitle' >{$ibforums->lang['top_posters']}</td>
            </tr>
@@ -273,7 +273,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='2' class='maintitle' >{$ibforums->lang['loginbox']}</td>
            </tr>
@@ -307,7 +307,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='2' class='maintitle' >{$ibforums->lang['navigation']}</td>
            </tr>
@@ -335,7 +335,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='2' class='maintitle' >{$ibforums->lang['latest_posts']}</td>
            </tr>
@@ -358,7 +358,7 @@ return <<<EOF
     <table cellpadding='0' cellspacing='0' border='0' width='100%' class='tableborder' align='center'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='2' class='maintitle' >{$ibforums->lang['board_stats']}</td>
            </tr>
@@ -465,7 +465,7 @@ if ($score == 0) {
 
 return <<<EOF
     
-          <table cellpadding='4' cellspacing='1' border='0' width='100%' class='tableborder'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%' class='tableborder'>
            <tr>
              <td class='maintitle' >
                 <!-- if you want an Icon, uncomment this line{$data['icon']} -->
@@ -510,7 +510,7 @@ return <<<EOF
     <input type='hidden' name='t' value='{$data['tid']}'>
       <tr>
         <td>
-          <table cellpadding='4' cellspacing='1' border='0' width='100%'>
+          <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
              <td colspan='3' class='maintitle' >{$data['title']}, <font style="font-weight:normal;">{$data['description']}</td>
            </tr>
@@ -553,7 +553,7 @@ EOF;
 function WelcomePanel($data="") {
 global $ibforums, $stats;
 return <<<EOF
-<table width="100%" align="center" border="0" cellspacing="1" cellpadding="0" class='tableborder welcome-panel'>
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class='tableborder welcome-panel'>
   <tr> 
     <td class='maintitle'>
         <{CAT_IMG}> {$ibforums->lang['welcome_back']}, {$ibforums->member['name']}
@@ -561,7 +561,7 @@ return <<<EOF
   </tr>
   <tr>
     <td class='mainbg'>
-      <table width="100%" border="0" cellspacing="1" cellpadding="4">
+      <table width="100%" border="0" cellspacing="0" cellpadding="4">
         <tr> 
           <td class="row5 avatar" width="{$data['width']}">{$data['avatar']}</td>
           <td class="row5" width="70%" nowrap>
@@ -591,7 +591,7 @@ EOF;
 function GuestPanel($data="") {
 global $ibforums, $stats;
 return <<<EOF
-<table width="100%" align="center" border="0" cellspacing="1" cellpadding="0" class='tableborder guest-panel'>
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class='tableborder guest-panel'>
   <tr> 
     <td class='maintitle'>
         <{CAT_IMG}> {$ibforums->lang['welcome_guest']} <a href="{$ibforums->vars['board_url']}/index.php?act=Reg&CODE=00">{$ibforums->lang['register']}</a> {$ibforums->lang['or']} <a href="{$ibforums->vars['board_url']}/index.php?act=Login&CODE=00">{$ibforums->lang['login']}</a>!
@@ -599,7 +599,7 @@ return <<<EOF
   </tr>
   <tr>
     <td class='mainbg'>
-      <table width="100%" border="0" cellspacing="1" cellpadding="4">
+      <table width="100%" border="0" cellspacing="0" cellpadding="4">
         <tr>
           <td class="row5 avatar" width="{$data['width']}"><img src='{$ibforums->vars['board_url']}/html/avatars/default.svg'></td>
           <td class="row5" width="70%">

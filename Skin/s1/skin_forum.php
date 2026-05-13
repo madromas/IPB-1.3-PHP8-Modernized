@@ -172,7 +172,7 @@ function forum_active_users($active=array()) {
 global $ibforums;
 return <<<EOF
 	  <div class='darkrow2' style='padding:6px'>{$ibforums->lang['active_users_title']} ({$ibforums->lang['active_users_detail']})</div>
-	  <div class='row2' style='padding:6px'>{$ibforums->lang['active_users_members']} {$active['names']}</div>
+	  <div class='row2 group-legend' style='padding:6px'>{$ibforums->lang['active_users_members']} {$active['names']}</div>
 EOF;
 }
 
