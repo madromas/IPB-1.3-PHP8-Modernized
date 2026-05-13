@@ -1,30 +1,14 @@
 <?php
 
-
-/*
-+--------------------------------------------------------------------------
-|   Invision Power Board v1.3 Final
-|   ========================================
-|   by Matthew Mecham
-|   (c) 2001 - 2003 Invision Power Services
-|   http://www.invisionpower.com
-|   ========================================
-|   Web: http://www.invisionboard.com
-|   Time: Thu, 20 Nov 2003 01:15:27 GMT
-|   Release: 322f4d4bcd09dcb3058f62ae41ab3e8b
-|   Email: matt@invisionpower.com
-|   Licence Info: http://www.invisionboard.com/?license
-+---------------------------------------------------------------------------
-|
-|   > Multi function library
-|   > Module written by Matt Mecham
-|   > Date started: 14th February 2002
-|
-|	> Module Version Number: 1.0.0
-+--------------------------------------------------------------------------
-*/
-
-
+$post_icons_list = [
+    1 => ['fa-solid fa-circle-question',    '#3498db', 'Question'],
+    2 => ['fa-solid fa-circle-exclamation', '#e67e22', 'Important'],
+    3 => ['fa-solid fa-lightbulb',          '#f1c40f', 'Idea'],
+    4 => ['fa-solid fa-bullhorn',           '#9b59b6', 'Announcement'],
+    5 => ['fa-solid fa-circle-check',       '#2ecc71', 'Solved'],
+    6 => ['fa-solid fa-comments',           '#7f8c8d', 'Discussion'],
+    7 => ['fa-solid fa-heart',              '#e74c3c', 'Love']
+];
 
 class FUNC {
 
@@ -39,27 +23,6 @@ class FUNC {
 	var $get_magic_quotes = 0;
 
 	// Set up some standards to save CPU later
-	
-    // Add this inside class FUNC { ... }
-static function get_post_icon($id = 0) {
-    $id = intval($id);
-    if ($id <= 0) return "";
-
-    $icons = [
-        1 => ['fa-solid fa-circle-question',   '#3498db'],
-        2 => ['fa-solid fa-circle-exclamation', '#e67e22'],
-        3 => ['fa-solid fa-lightbulb',          '#f1c40f'],
-        4 => ['fa-solid fa-bullhorn',           '#9b59b6'],
-        5 => ['fa-solid fa-circle-check',       '#2ecc71'],
-        6 => ['fa-solid fa-comments',           '#7f8c8d'],
-        7 => ['fa-solid fa-heart',              '#e74c3c'],
-    ];
-
-    if (isset($icons[$id])) {
-        return "<i class='{$icons[$id][0]}' style='color:{$icons[$id][1]}'></i>&nbsp;&nbsp;";
-    }
-    return "";
-}
 
 	function FUNC() {
 		global $INFO;
@@ -875,7 +838,7 @@ static function get_post_icon($id = 0) {
         {
         	$sub_cat_img = '_CAT';
         }
-        
+
       // --- Custom Forum Icon Logic Start ---
 if ($forum_data['icon']) 
 {

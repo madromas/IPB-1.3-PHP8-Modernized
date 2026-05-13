@@ -63,7 +63,7 @@ class Topics {
     function __construct()
     {
     
-        global $ibforums, $DB, $std, $print, $skin_universal;
+        global $ibforums, $DB, $std, $print, $skin_universal, $post_icons_list;
         
         $this->md5_check = $std->return_md5_check();
          
@@ -737,8 +737,8 @@ while ($s_row = $DB->fetch_row()) {
 			$row0['edit_button']   = $this->edit_button($row0['pid'], $poster0, $row0['post_date']);
 			$row0['post_date']     = $std->get_date( $row0['post_date'], 'LONG' );
 			
-			$row0['post_icon'] = (isset($ibforums->vars['post_icons'][$row0['icon_id']])) 
-    ? "<i class='".$ibforums->vars['post_icons'][$row0['icon_id']][0]."' style='color:".$ibforums->vars['post_icons'][$row0['icon_id']][1]."' title='".$ibforums->vars['post_icons'][$row0['icon_id']][2]."'></i>&nbsp;&nbsp;" 
+			$row0['post_icon'] = (isset($post_icons_list[$row0['icon_id']])) 
+    ? "<i class='".$post_icons_list[$row0['icon_id']][0]."' style='color:".$post_icons_list[$row0['icon_id']][1]."' title='".$post_icons_list[$row0['icon_id']][2]."'></i>&nbsp;&nbsp;" 
     : "";
 			
 			$row0['ip_address']  = $this->view_ip($row0, $poster0);
@@ -995,8 +995,8 @@ else
 			$row['edit_button']   = $this->edit_button($row['pid'], $poster, $row['post_date']);
 			$row['post_date']     = $std->get_date( $row['post_date'], 'LONG' );
 
-$row['post_icon'] = (isset($ibforums->vars['post_icons'][$row['icon_id']])) 
-    ? "<i class='".$ibforums->vars['post_icons'][$row['icon_id']][0]."' style='color:".$ibforums->vars['post_icons'][$row['icon_id']][1]."' title='".$ibforums->vars['post_icons'][$row['icon_id']][2]."'></i>&nbsp;&nbsp;" 
+$row['post_icon'] = (isset($post_icons_list[$row['icon_id']])) 
+    ? "<i class='".$post_icons_list[$row['icon_id']][0]."' style='color:".$post_icons_list[$row['icon_id']][1]."' title='".$post_icons_list[$row['icon_id']][2]."'></i>&nbsp;&nbsp;" 
     : "";
 			
 			$row['ip_address']  = $this->view_ip($row, $poster);

@@ -888,7 +888,7 @@ if ( ! is_array($this->read_array) )
 	//+----------------------------------------------------------------
 
 	function render_entry($topic) {
-		global $DB, $std, $ibforums;
+		global $DB, $std, $ibforums, $post_icons_list;
 		
 		$topic['last_text']   = $ibforums->lang['last_post_by'];
 		
@@ -911,10 +911,9 @@ if ( ! is_array($this->read_array) )
 		}
 	
 		$topic['folder_img']     = $std->folder_icon($topic, $show_dots, $this->read_array[$topic['tid']]);
-		
 
-$topic['topic_icon'] = (isset($ibforums->vars['post_icons'][$topic['icon_id']])) 
-    ? "<i class='".$ibforums->vars['post_icons'][$topic['icon_id']][0]."' style='color:".$ibforums->vars['post_icons'][$topic['icon_id']][1]."' title='".$ibforums->vars['post_icons'][$topic['icon_id']][2]."'></i>&nbsp;" 
+$topic['topic_icon'] = (isset($post_icons_list[$topic['icon_id']])) 
+    ? "<i class='".$post_icons_list[$topic['icon_id']][0]."' style='color:".$post_icons_list[$topic['icon_id']][1]."' title='".$post_icons_list[$topic['icon_id']][2]."'></i>&nbsp;" 
     : "&nbsp;";
 
 		
