@@ -2,6 +2,10 @@
 
 $lang = array (
 
+// Added for topic view Latest Threads
+
+'latest_posts' => "Latest Threads",
+'by'           => "by",
 
 
 'rating_cannot'               => "You can rate this topic.",
