@@ -540,7 +540,7 @@ if ($this->read_array === false && $read !== serialize(false)) {
                                                 else
                                                 {
                                                         $active['MEMBERS']++;
-                                                        $active['NAMES'] .= " <span id='highlight'>&gt;</span><a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&MID={$result['member_id']}'>{$result['prefix']}{$result['member_name']}{$result['suffix']}</a>";
+                                                        $active['NAMES'] .= "<a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&MID={$result['member_id']}'>{$result['prefix']}{$result['member_name']}{$result['suffix']}</a>,&nbsp;";
                                                 }
                                         }
                                         
