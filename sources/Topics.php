@@ -1303,17 +1303,18 @@ $this->output .= $this->html->TableFooter( array(
 		//+----------------------------------------------------------------
 		
 		$this->output = str_replace( "<!--IBF.MOD_PANEL-->", $this->moderation_panel(), $this->output );
-		
-		// Enable quick reply box?
-		
-		if (   ( $this->topic['quick_reply'] == 1 )
-			and ( $ibforums->member['view_qr'] == 1 )
-	   and ( $std->check_perms( $this->topic['reply_perms']) == TRUE )
-	   and ( $this->topic['state'] != 'closed' )
-	   and ( $this->topic['poll_state'] != 'closed' ) )
-	{
-		// ADD QUICK REPLY
-		$this->output = str_replace("<!--IBF.QUICK_REPLY_NEW-->",$this->html->quick_reply_new($this->topic['forum_id'],$this->topic['tid'],$this->md5_check),$this->output);
+
+// Enable quick reply box?
+
+if ( ( $this->topic['quick_reply'] == 1 )
+    and ( $ibforums->member['id'] == 0 or $ibforums->member['view_qr'] == 1 )
+    and ( $std->check_perms( $this->topic['reply_perms']) == TRUE )
+    and ( $this->topic['state'] != 'closed' )
+    and ( $this->topic['poll_state'] != 'closed' ) )
+{
+    // ADD QUICK REPLY
+    $this->output = str_replace("<!--IBF.QUICK_REPLY_NEW-->",$this->html->quick_reply_new($this->topic['forum_id'],$this->topic['tid'],$this->md5_check),$this->output);
+
 		// ADD SMILIES
 		$this->quick_add_smilie();
 		// ADD CHECKBOXES
