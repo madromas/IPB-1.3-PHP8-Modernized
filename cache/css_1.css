@@ -285,7 +285,7 @@ option.sub { font-weight:bold;color:#555 }
 .unreg { font-size: 12px; font-weight: bold; color: #900 }
 
 
-.prew { background-color: #fff; font-size:15px }
+.prew { background-color: #fff; font-size:15px; padding:.5em }
 
 .post1 { background-color: #fff }
 
