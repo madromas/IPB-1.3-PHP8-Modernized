@@ -61,13 +61,4 @@ $INFO['upload_url']				=	'';
 $INFO['use_ttf']				=	'1';
 $INFO['warn_on']				=	'1';
 
-$INFO['post_icons'] = [
-    1 => ['fa-solid fa-circle-question',   '#3498db', 'Question'],
-    2 => ['fa-solid fa-circle-exclamation', '#e67e22', 'Important'],
-    3 => ['fa-solid fa-lightbulb',          '#f1c40f', 'Idea'],
-    4 => ['fa-solid fa-bullhorn',           '#9b59b6', 'Announcement'],
-    5 => ['fa-solid fa-circle-check',       '#2ecc71', 'Solved'],
-    6 => ['fa-solid fa-comments',           '#7f8c8d', 'Discussion'],
-    7 => ['fa-solid fa-heart',              '#e74c3c', 'Appreciation'],
-];
 ?>
