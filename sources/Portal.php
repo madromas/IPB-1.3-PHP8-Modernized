@@ -715,7 +715,10 @@ function do_member_moment()
 
             //var_dump($query);
                 while( $out = $DB->fetch_row($query) ) {
-    $thread_urls .= "<a href='{$ibforums->base_url}act=ST&f=".$out['forum_id']."&t=".$out['tid']."&view=getlastpost'>".$out['title']."</a> {$ibforums->lang['by']} " . $out['last_poster_name']."<br>";
+    $thread_urls .= "<div style='padding:4px; border-bottom:1px solid #eee;'>
+                        <a href='{$ibforums->base_url}act=ST&f=".$out['forum_id']."&t=".$out['tid']."&view=getlastpost' style=''>".$out['title']."</a> 
+                        <div class='desc'>{$ibforums->lang['by']} ".$out['last_poster_name']."</div>
+                     </div>";
 }
 
                 $to_echo = $this->html->latest_posts($thread_urls);

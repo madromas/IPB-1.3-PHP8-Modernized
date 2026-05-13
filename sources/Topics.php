@@ -142,6 +142,7 @@ class Topics {
         'quick_reply'  => $this->topic['quick_reply'],
         'use_html'     => $this->topic['use_html'],
         'topic_mm_id'  => $this->topic['topic_mm_id']
+
     );
                             
     $this->category = array( 
@@ -1199,7 +1200,11 @@ $row['topic_starter_id'] = $this->topic['starter_id'];
 		//-------------------------------------
 
 
-$this->output .= $this->html->TableFooter( array( 'TOPIC' => $this->topic, 'FORUM' => $this->forum ) );
+$this->output .= $this->html->TableFooter( array( 
+    'TOPIC'        => $this->topic, 
+    'FORUM'        => $this->forum,
+    'latest_posts' => $this->get_sidebar_latest_posts()
+) );
 		
 		//+----------------------------------------------------------------
 		// Process users active in this forum
@@ -2459,6 +2464,36 @@ else
 		$std->boink_it($ibforums->vars['board_url']."/index.".$ibforums->vars['php_ext']."?act=ST&f=".$ibforums->input['f']."&t=".$tid);
 	}
 	
+function get_sidebar_latest_posts() {
+    global $DB, $ibforums, $std;
+
+    // Use portal settings if they exist, otherwise default to 10
+    $number_of_posts = $ibforums->vars['portal_num_latestposts'] ? $ibforums->vars['portal_num_latestposts'] : 10;
+
+    $query = $DB->query( "SELECT i.last_poster_name, i.last_poster_id, i.title, i.tid, i.forum_id, i.last_post 
+                          FROM ibf_topics AS i 
+                          RIGHT JOIN ibf_forums AS f ON i.forum_id = f.id 
+                          WHERE f.read_perms = '*' 
+                          OR f.read_perms LIKE '".$ibforums->member['mgroup']."' 
+                          OR f.read_perms LIKE '%,".$ibforums->member['mgroup']."' 
+                          OR f.read_perms LIKE '".$ibforums->member['mgroup'].",%' 
+                          OR f.read_perms LIKE '%,".$ibforums->member['mgroup'].",%' 
+                          ORDER BY last_post DESC LIMIT 0, ".$number_of_posts );
+
+    $thread_urls = "";
+    while( $out = $DB->fetch_row($query) ) {
+
+        if (strlen($out['title']) > 35) $out['title'] = substr($out['title'], 0, 32) . "...";
+        
+        $thread_urls .= "<div style='padding:4px; border-bottom:1px solid #eee;'>
+                            <a href='{$ibforums->base_url}showtopic=".$out['tid']."&view=getlastpost'>".$out['title']."</a> 
+                            <div class='desc'>{$ibforums->lang['by']} ".$out['last_poster_name']."</div>
+                         </div>";
+    }
+
+    return $this->html->latest_posts($thread_urls);
+}
+
 }
 
 ?>
