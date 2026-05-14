@@ -351,22 +351,39 @@ class Profile {
     	
     	$percent = 0;
     	
-    	$DB->query("SELECT DISTINCT(p.forum_id), f.name, COUNT(p.author_id) as f_posts FROM ibf_posts p, ibf_forums f ".
-    			   "WHERE p.forum_id IN ($forum_id_str) AND p.author_id='".$member['id']."' AND p.forum_id=f.id GROUP BY p.forum_id ORDER BY f_posts DESC LIMIT 1");
+    	$DB->query("SELECT p.forum_id, f.name, COUNT(p.pid) as f_posts 
+            FROM ibf_posts p 
+            LEFT JOIN ibf_forums f ON (p.forum_id=f.id)
+            WHERE p.author_id='".$member['id']."' AND p.forum_id IN ($forum_id_str)
+            GROUP BY p.forum_id 
+            ORDER BY f_posts DESC LIMIT 1");
     			   
-    	$favourite   = $DB->fetch_row();
     	
-        $DB->query("SELECT COUNT(*) as total_posts FROM ibf_posts WHERE author_id='".intval($member['id'])."'");
+
+
+
+
+
+        $favourite = $DB->fetch_row();
+
+// Properly fetch the total posts count into a variable
+$DB->query("SELECT COUNT(*) as total_posts FROM ibf_posts WHERE author_id='".intval($member['id'])."'");
+$total_posts_row = $DB->fetch_row();
+$total_posts_count = $total_posts_row['total_posts'];
 
 $DB->query("SELECT TOTAL_TOPICS, TOTAL_REPLIES FROM ibf_stats");
 $stats = $DB->fetch_row();
 
 $board_posts = intval($stats['TOTAL_TOPICS']) + intval($stats['TOTAL_REPLIES']);
 
-if ( isset($total_posts['total_posts']) && $total_posts['total_posts'] > 0 && isset($favourite['f_posts']) )
+// Now use $total_posts_count instead of the empty array
+if ( $total_posts_count > 0 && isset($favourite['f_posts']) )
 {
-    $percent = round( $favourite['f_posts'] / $total_posts['total_posts'] * 100 );
+    $percent = round( $favourite['f_posts'] / $total_posts_count * 100 );
 }
+
+
+
 
 if ($member['posts'] > 0 && $board_posts > 0)
 {
@@ -391,7 +408,7 @@ $info['posts'] = $member['posts'] ? $member['posts'] : 0;
     	$info['mid']         = $member['id'];
     	$info['fav_forum']   = isset($favourite['name'])  ? $favourite['name'] : 'None';
         $info['fav_id']      = isset($favourite['id'])    ? $favourite['id']   : 0;
-        $info['fav_posts']   = isset($favourite['posts']) ? $favourite['posts'] : 0;
+        $info['fav_posts']   = isset($favourite['f_posts']) ? $favourite['f_posts'] : 0;
     	$info['percent']     = $percent;
     	$info['group_title'] = $member['group_title'];
     	$info['board_posts'] = $board_posts;
@@ -505,15 +522,17 @@ $info['posts'] = $member['posts'] ? $member['posts'] : 0;
     }
 }
     	
-    	if ( $member['website'] and preg_match( "/^http:\/\/\S+$/", $member['website'] ) )
-    	{
-			$info['homepage'] = "<a href='{$member['website']}' target='_blank'>{$member['website']}</a>";
-		}
-		else
-		{
-			$info['homepage'] = $ibforums->lang['no_info'];
-		}
-		
+    	if ( $member['website'] )
+{
+    // Clean up the URL in case it was entered without http://
+    $url = ( !preg_match( "/^https?:\/\//i", $member['website'] ) ) ? "http://".$member['website'] : $member['website'];
+    $info['homepage'] = "<a href='{$url}' target='_blank'>{$url}</a>";
+}
+else
+{
+    $info['homepage'] = $ibforums->lang['no_info'];
+}
+
     	
     	if ($member['bday_month'])
     	{
