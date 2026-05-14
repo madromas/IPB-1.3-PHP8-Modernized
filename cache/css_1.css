@@ -209,7 +209,13 @@ option.sub { font-weight:bold;color:#555 }
 
 #calendarname { font-size:22px; font-weight:bold; }
 
-
+.calendar-today {
+    border: 2px solid #5f86c9;
+    border-radius: 4px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 2;
+}
 
 #photowrap { padding:6px; }
 
