@@ -390,7 +390,7 @@ global $ibforums;
 
 return <<<HTML
 
-	<td style='height:100px;border:2px;border-style:outset' valign='top' class='row1'>
+	<td class='calendar-today' valign='top' class='row1'>
 	<div class='caldate'>$month_day</div>
 	$events
 	</td>
