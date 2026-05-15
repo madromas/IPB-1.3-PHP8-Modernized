@@ -819,3 +819,55 @@ i.fa-solid, i.fa-regular, i.fa-brands {
 }
 
 /* Favorite styles */
+
+/* Portal Pagination Styling */
+.portal-pagination-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.portal-pagelinks {
+    color: #444;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px; 
+}
+
+.portal-pagelinks a, 
+.portal-pagelinks b,
+.portal-pagelinks .pagejump {
+    display: inline-block;
+    padding: 5px 10px;
+    min-width: 14px;
+    text-align: center;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.portal-pagelinks a {
+    background: #f0f4f8;
+    color: #02486a;
+    border: 1px solid #d0e0f0;
+}
+
+.portal-pagelinks a:hover {
+    background: #3a6ea5;
+    color: #ffffff;
+    border-color: #2a527a;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.portal-pagelinks b {
+    background: #3a6ea5;
+    color: #ffffff;
+    border: 1px solid #3a6ea5;
+    font-weight: bold;
+}
+
+.portal-pagelinks .pagejump {
+    font-weight: bold;
+}
