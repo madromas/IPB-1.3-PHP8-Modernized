@@ -252,13 +252,19 @@ return <<<EOF
 </script>
 <table class="tablebasic" cellspacing="0" cellpadding="2">
 <tr>
- <td>{$info['photo']}</td>
- <td width="100%" valign="bottom">
-   <div id="profilename">{$info['name']}</div>
-   <div>
-	 <a href='{$info['base_url']}act=Search&amp;CODE=getalluser&amp;mid={$info['mid']}'>{$ibforums->lang['find_posts']}</a> &middot;
-	 <a href='{$info['base_url']}act=Msg&amp;CODE=02&amp;MID={$info['mid']}'>{$ibforums->lang['add_to_contact']}</a>
-	 <!--MEM OPTIONS-->
+ <td style="padding-right: 15px; vertical-align: middle;">
+    <div style="border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.15); display: inline-block; overflow: hidden;">
+        {$info['photo']}
+    </div>
+ </td>
+ <td width="100%" style="vertical-align: middle;">
+   <div style="display: flex; flex-direction: column; justify-content: center; min-height: 100px;">
+     <div id="profilename" style="font-size: 2em; font-weight: bold; margin-bottom: 8px; line-height: 1.2;">{$info['name']}</div>
+     <div style="font-size: 0.9em; color: #555;">
+	   <a href='{$info['base_url']}act=Search&amp;CODE=getalluser&amp;mid={$info['mid']}'>{$ibforums->lang['find_posts']}</a> &middot;
+	   <a href='{$info['base_url']}act=Msg&amp;CODE=02&amp;MID={$info['mid']}'>{$ibforums->lang['add_to_contact']}</a>
+	   <!--MEM OPTIONS-->
+	   </div>
    </div>
  </td>
 </tr>
