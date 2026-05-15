@@ -22,7 +22,7 @@ A modernized distribution of **Invision Power Board 1.3**, fully patched for **P
 
 ## ✨ Modern Enhancements
 
-*   **IBF Portal 4.0**: Fully integrated portal system to transform your forum into a community hub.
+*   **IBF Portal 4.0**: Fully integrated portal system with pagination to transform your forum into a community hub.
 *   **TinyMCE Integration**: Replaced the legacy posting interface with a modernized TinyMCE editor for a better rich-text experience.
 *   **HTML Purifier**: Integrated a modernized standalone security engine to protect against XSS and fix broken HTML tags.
 *   **Security Patches**: Fixed legacy issues with search result insertions and anti-spam image generation.
