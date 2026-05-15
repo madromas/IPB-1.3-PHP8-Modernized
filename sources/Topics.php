@@ -369,12 +369,13 @@ if ( ! strstr( $std->my_getcookie('topics_read'), ",".$this->topic['tid']."," ) 
     $std->my_setcookie('topics_read', $std->my_getcookie('topics_read').",".$this->topic['tid'].",");
 }
       
-        //-------------------------------------
+    //-------------------------------------
 // Update the topic read cookie
 //-------------------------------------
 
 if ($ibforums->member['id'])
 {
+
     $raw_cookie = $std->my_getcookie('topicsread');
     $current_read = $raw_cookie ? @unserialize(stripslashes($raw_cookie)) : array();
 
@@ -382,13 +383,13 @@ if ($ibforums->member['id'])
     {
         $current_read = array();
     }
-    
+
     $current_read[$this->topic['tid']] = time();
     
     if (count($current_read) > 40)
     {
-        asort($current_read);
-        $current_read = array_slice($current_read, -40, 40, true); 40
+        asort($current_read); 
+        $current_read = array_slice($current_read, -40, 40, true); 
     }
     
     $std->my_setcookie('topicsread', serialize($current_read), 1);
