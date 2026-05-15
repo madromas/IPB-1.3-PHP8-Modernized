@@ -4,6 +4,87 @@
 
 html { overflow-x: auto;} 
 
+
+
+/* 1. Header Layout */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px 0px 0px;
+}
+
+.search-toggle-btn {
+    cursor: pointer;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+}
+
+/* 2. The Dropdown Row */
+.search-row-hidden {
+    display: none; 
+    box-sizing: border-box;
+    margin-top: 2px;
+}
+
+/* 3. The Modern Search Input */
+.search-flex-container {
+    display: flex;
+    width: 100%;
+}
+
+.search-input-wrapper {
+    position: relative; /* This is the anchor for the icon */
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;      /* Distance from the left edge */
+    color: #888;     /* Greyish icon color */
+    z-index: 10;     /* Ensures it sits on top of the input */
+    pointer-events: none; /* Clicking the icon clicks the input underneath */
+}
+
+.modern-input {
+    width: 100%;
+    height: 38px;
+    padding: 0 100px 0 45px;
+    border: 1px solid #BCD0ED;
+    border-radius: 3px;
+    font-family: 'Nunito', sans-serif;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.modern-submit {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    bottom: 6px;
+    background: #5f86c9;
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.modern-submit:hover { background: #4f75b8; }
+
+
+
+
+
 div#logostrip a {
     font-size: 32px;
     font-weight: 700;
@@ -166,6 +247,12 @@ div.btn-post-control a:hover
     background: #4f75b8;
 }
 
+.btn-post-control i {
+    font-size: 12px;
+    margin: 0 5px; 
+    cursor: pointer;
+    vertical-align: middle;
+}
 
 .googleroot  { padding:6px; line-height:130% }
 
