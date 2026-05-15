@@ -847,13 +847,36 @@ function do_news()
     
         $max = ($ibforums->vars['portal_newsposts'] ?? 0) > 0 ? $ibforums->vars['portal_newsposts'] : 5;
 
+        // 1. Get the current page offset from the URL parameter (st = start)
+        $start = intval($ibforums->input['st']) ? intval($ibforums->input['st']) : 0;
+
+        // 2. Count the total topics available across your news forum selector
+        $DB->query("SELECT COUNT(t.tid) as total_news_topics 
+                    FROM ibf_topics t 
+                    INNER JOIN ibf_posts p ON t.tid = p.topic_id 
+                    WHERE ($forumid) AND p.new_topic=1");
+        $total_rows = $DB->fetch_row();
+        $total_news = intval($total_rows['total_news_topics']);
+
+        
+        $page_links = $std->build_pagelinks( array(
+            'TOTAL_POSS' => $total_news,
+            'PER_PAGE'   => $max,
+            'CUR_ST_VAL' => $start,
+            'BASE_URL'   => $this->base_url . "&act=portal" . ($requested_forum ? "&news=" . $requested_forum : ""),
+        ) );
+
+        if (!empty($page_links)) {
+            $page_links = str_replace( array('[', ']', '&#91;', '&#93;'), '', $page_links );
+        }
+        
         $DB->query("SELECT m.name as member_name, m.id as member_id, t.*, p.*, f.name as forum_name 
                     FROM ibf_topics t
                     INNER JOIN ibf_posts p ON t.tid = p.topic_id
                     LEFT JOIN ibf_members m ON m.id = t.starter_id
                     LEFT JOIN ibf_forums f ON f.id = t.forum_id
                     WHERE ($forumid) AND p.new_topic=1
-                    ORDER BY t.tid DESC LIMIT 0, ".$max);
+                    ORDER BY t.tid DESC LIMIT $start, ".$max);
 
        $first = 1;
         while ( $row = $DB->fetch_row() )
@@ -894,6 +917,10 @@ function do_news()
             
             // Pass the updated $row to the skin
             $to_echo .= $this->html->news($row);
+        }
+
+        if ($page_links != "") {
+            $to_echo .= $this->html->portal_pagination($page_links);
         }
         
         return $to_echo;
