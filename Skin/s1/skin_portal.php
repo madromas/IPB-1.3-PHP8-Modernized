@@ -700,5 +700,14 @@ return <<<EOF
 EOF;
 }
 
+function portal_pagination($links) {
+global $ibforums;
+return <<<EOF
+<div class="portal-pagination-wrap">
+    <span class="portal-pagelinks">{$links}</span>
+</div>
+EOF;
+}
+
 }
 ?>
