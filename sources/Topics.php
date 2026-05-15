@@ -1638,7 +1638,7 @@ if (intval($member['id']) > 0) {
                             'f' => $this->forum['id'],
                             'mid' => $member['id'] );
             
-            $member['rep'] = "<a href='{$ibforums->base_url}act=rep&CODE=03&mid=".$stuff['mid']."'>".$ibforums->lang['rep_name'].":</a> ".$member['rep'];
+            $member['rep'] = "<a href='{$ibforums->base_url}act=rep&CODE=03&mid=".$stuff['mid']."'>Rep:</a> ".$member['rep'];
         }
         else
         {
