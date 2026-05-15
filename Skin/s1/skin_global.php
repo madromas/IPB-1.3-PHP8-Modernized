@@ -208,7 +208,27 @@ if ( userPage > 0  ) {
  
 <!--IBF.BANNER-->
 <div id='logostrip'>
-  <a href='{$ibforums->base_url}' title='Board Home'>{$ibforums->vars['board_name']}</a>
+  <div class="header-container">
+    <a href='{$ibforums->base_url}' title='Board Home' class="logo-link">{$ibforums->vars['board_name']}</a>
+    
+    <div class="search-toggle-btn" onclick="toggleSearchBox()">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+  </div>
+</div>
+
+<div id="search-dropdown-row" class="search-row-hidden">
+    <form action="/index.php?act=Search&CODE=01" method="post" class="search-flex-container">
+        <input type="hidden" name='forums' value="all">
+        <input type="hidden" name='search_in' value='posts'>
+        <input type="hidden" name='result_type' value='topics'>
+        
+        <div class="search-input-wrapper">
+            <i class="fa-solid fa-magnifying-glass input-icon"></i>
+            <input type='text' maxlength='100' name='keywords' class='modern-input' placeholder='Search...'>
+            <input type='submit' value='Search' class='modern-submit'>
+        </div>
+    </form>
 </div>
 <!-- IE6/Win TABLE FIX -->
 <table  width="100%" cellspacing="6" id="submenu">
