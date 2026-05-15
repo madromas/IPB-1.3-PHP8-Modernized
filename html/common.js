@@ -18,3 +18,16 @@ document.onclick = function(event) {
         menu.style.display = 'none';
     }
 };
+
+function toggleSearchBox() {
+    var row = document.getElementById("search-dropdown-row");
+    var input = row.querySelector('.modern-input');
+
+    if (row.style.display === "block") {
+        row.style.display = "none";
+    } else {
+        row.style.display = "block";
+        // Focus the input so user can type immediately
+        input.focus();
+    }
+}
