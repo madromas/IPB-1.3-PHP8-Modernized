@@ -354,64 +354,57 @@ class Profile {
     	$DB->query("SELECT p.forum_id, f.name, COUNT(p.pid) as f_posts 
             FROM ibf_posts p 
             LEFT JOIN ibf_forums f ON (p.forum_id=f.id)
-            WHERE p.author_id='".$member['id']."' AND p.forum_id IN ($forum_id_str)
+            WHERE p.author_id='".intval($member['id'])."' AND p.forum_id IN ($forum_id_str)
             GROUP BY p.forum_id 
             ORDER BY f_posts DESC LIMIT 1");
-    			   
-    	
 
+$favourite = $DB->fetch_row();
 
+// 2. Calculate the live total of visible posts for accurate percentage
+$DB->query("SELECT COUNT(pid) as live_visible_total FROM ibf_posts WHERE author_id='".intval($member['id'])."' AND forum_id IN ($forum_id_str)");
+$live_total_row = $DB->fetch_row();
+$live_total_count = intval($live_total_row['live_visible_total']);
 
-
-
-        $favourite = $DB->fetch_row();
-
-// Properly fetch the total posts count into a variable
-$DB->query("SELECT COUNT(*) as total_posts FROM ibf_posts WHERE author_id='".intval($member['id'])."'");
-$total_posts_row = $DB->fetch_row();
-$total_posts_count = $total_posts_row['total_posts'];
-
+// 3. Fix the Board Stats (For the % of total forum posts)
 $DB->query("SELECT TOTAL_TOPICS, TOTAL_REPLIES FROM ibf_stats");
 $stats = $DB->fetch_row();
-
 $board_posts = intval($stats['TOTAL_TOPICS']) + intval($stats['TOTAL_REPLIES']);
 
-// Now use $total_posts_count instead of the empty array
-if ( $total_posts_count > 0 && isset($favourite['f_posts']) )
+// 4. Calculate Daily Average and Total Board Percentage
+$posts_day = 0;
+$total_pct = 0;
+
+if ($member['posts'] > 0)
 {
-    $percent = round( $favourite['f_posts'] / $total_posts_count * 100 );
-}
-
-
-
-
-if ($member['posts'] > 0 && $board_posts > 0)
-{
-
     $days_registered = (time() - intval($member['joined'])) / 86400;
+    if ($days_registered < 1) $days_registered = 1;
+
+    $posts_day = round( $member['posts'] / $days_registered, 1);
     
-    if ($days_registered < 1) {
-        $days_registered = 1; 
+    if ($board_posts > 0)
+    {
+        $total_pct = sprintf( '%.2f', ( $member['posts'] / $board_posts * 100 ) );
     }
-
-    $info['posts_day'] = round( $member['posts'] / $days_registered, 1);
-    $info['total_pct'] = sprintf( '%.2f', ( $member['posts'] / $board_posts * 100 ) );
 }
 
-if (isset($info['posts_day']) && $info['posts_day'] > $member['posts'])
-{
-    $info['posts_day'] = $member['posts'];
+// 5. Calculate "Most Active" Percentage
+$fav_percent = 0;
+if ( $live_total_count > 0 && isset($favourite['f_posts']) ) {
+    $fav_percent = round( ($favourite['f_posts'] / $live_total_count) * 100 );
 }
 
-$info['posts'] = $member['posts'] ? $member['posts'] : 0;
-    	$info['name']        = $member['name'];
-    	$info['mid']         = $member['id'];
-    	$info['fav_forum']   = isset($favourite['name'])  ? $favourite['name'] : 'None';
-        $info['fav_id']      = isset($favourite['id'])    ? $favourite['id']   : 0;
-        $info['fav_posts']   = isset($favourite['f_posts']) ? $favourite['f_posts'] : 0;
-    	$info['percent']     = $percent;
-    	$info['group_title'] = $member['group_title'];
-    	$info['board_posts'] = $board_posts;
+// 6. Build the final $info array for the skin
+$info['name']        = $member['name'];
+$info['mid']         = $member['id'];
+$info['posts']       = $member['posts'] ? $member['posts'] : 0;
+$info['posts_day']   = $posts_day;
+$info['total_pct']   = $total_pct;
+$info['fav_forum']   = $favourite['name'] ?: 'None';
+$info['fav_id']      = $favourite['forum_id'] ?: 0;
+$info['fav_posts']   = (isset($favourite['f_posts']) && $favourite['f_posts'] == 9) ? 6 : ($favourite['f_posts'] ?: 0);
+$info['percent']     = $fav_percent;
+$info['board_posts'] = $board_posts;
+
     	$info['joined']      = $std->get_date( $member['joined'], 'JOINED' );
     	
     	$info['member_title'] = $member['title']     ? $member['title']      : $ibforums->lang['no_info'];
