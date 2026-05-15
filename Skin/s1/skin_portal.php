@@ -496,7 +496,7 @@ return <<<EOF
 <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}&view=getlastpost'>{$data['title']}</a></td>
            </tr>
                <tr>
-    <td class='row5' style='padding:6px;'>
+    <td class='row3' style='padding:6px;'>
         
         <div style='float:right;'>
             {$data['rating']}

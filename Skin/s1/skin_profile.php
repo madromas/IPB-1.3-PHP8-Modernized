@@ -3,11 +3,17 @@
 class skin_profile {
 
 	function rep_options_links($stuff) {
-global $ibforums;
-return <<<EOF
-[ <a href='{$ibforums->base_url}act=rep&CODE=01&mid=$stuff[mid]&t=$stuff[t]'>+</a>
-|
-<a href='{$ibforums->base_url}act=rep&CODE=02&mid=$stuff[mid]&t=$stuff[t]'>—</a> ]
+    global $ibforums;
+    return <<<EOF
+<span style='font-size:1.1em; font-weight:bold;'>
+    <a href='{$ibforums->base_url}act=rep&CODE=01&mid={$stuff['mid']}&t={$stuff['t']}' title='Upvote' style='color:#28a745; text-decoration:none;'>
+        <i class="fa-solid fa-square-plus"></i>
+    </a>
+    <span style='color:#666; margin: 0 2px;'>|</span>
+    <a href='{$ibforums->base_url}act=rep&CODE=02&mid={$stuff['mid']}&t={$stuff['t']}' title='Downvote' style='color:#dc3545; text-decoration:none;'>
+        <i class="fa-solid fa-square-minus"></i>
+    </a>
+</span>
 EOF;
 }
 

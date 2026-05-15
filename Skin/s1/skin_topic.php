@@ -3,11 +3,16 @@
 class skin_topic {
 
     function rep_options_links($stuff) {
-global $ibforums;
-return <<<EOF
-[ <a href='{$ibforums->base_url}act=rep&CODE=01&mid=$stuff[mid]&f=$stuff[f]&t=$stuff[t]&p=$stuff[p]'>+</a>
-|
-<a href='{$ibforums->base_url}act=rep&CODE=02&mid=$stuff[mid]&f=$stuff[f]&t=$stuff[t]&p=$stuff[p]'>—</a> ]
+    global $ibforums;
+    return <<<EOF
+<span style='white-space:nowrap;'>
+    <a href='{$ibforums->base_url}act=rep&CODE=01&mid={$stuff['mid']}&f={$stuff['f']}&t={$stuff['t']}&p={$stuff['p']}' title='Positive Rep' style='color:#28a745; text-decoration:none;font-size:10px;'>
+        <i class="fa-solid fa-circle-plus"></i>
+    </a>
+    <a href='{$ibforums->base_url}act=rep&CODE=02&mid={$stuff['mid']}&f={$stuff['f']}&t={$stuff['t']}&p={$stuff['p']}' title='Negative Rep' style='color:#dc3545; text-decoration:none;font-size:10px;'>
+        <i class="fa-solid fa-circle-minus"></i>
+    </a>
+</span>
 EOF;
 }
 
@@ -348,7 +353,7 @@ return <<<EOF
       
         <!-- PM / EMAIL / WWW / MSGR -->
       
-        <div align='left' class='darkrow3' style='float:left;width:auto'>
+        <div align='left' class='darkrow3 btn-post-control' style='float:left;width:auto'>
         {$author['addresscard']}{$author['message_icon']}{$author['email_icon']}{$author['website_icon']}
         </div>
         
