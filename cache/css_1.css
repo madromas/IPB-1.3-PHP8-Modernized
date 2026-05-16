@@ -871,3 +871,9 @@ i.fa-solid, i.fa-regular, i.fa-brands {
 .portal-pagelinks .pagejump {
     font-weight: bold;
 }
+
+@media (max-width: 768px) {
+.topic-sidebar {
+    display:none;
+}
+}
