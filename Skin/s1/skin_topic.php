@@ -385,7 +385,7 @@ return <<<EOF
 </div> </td> 
 
 <td width="1%"></td> 
- <td vAlign="top" width="19%">
+ <td vAlign="top" width="19%" class="topic-sidebar">
     {$data['latest_posts']}
  </td>
 

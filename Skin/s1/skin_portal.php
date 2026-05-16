@@ -503,9 +503,11 @@ return <<<EOF
         </div>
 
         <div>
-            {$ibforums->lang['postby']} 
-            <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}'>{$data['member_name']}</a> 
-            @ {$data['start_date']} {$data['extra']} 
+         <i class="fas fa-user" style="color: #5f86c9;"></i> 
+            <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}'>{$data['member_name']}</a> &nbsp;
+            <i class="fas fa-arrow-right" style="color: #5f86c9;"></i> <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}'>{$data['extra']}</a>
+
+             
         </div>
 
         <div style='clear:both;'></div>
@@ -516,7 +518,12 @@ return <<<EOF
                    <td class='prew' style='cursor:pointer' onclick="window.location.href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}&view=getlastpost'">{$data['post_body']} {$data['post_body_extra']}</td>
                </tr>
                <tr>
-                   <td class='row5' style='padding:.5em'>{$ibforums->lang['comments']} {$data['replies']} : <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}'>{$ibforums->lang['viewcomments']}</a> Views: {$data['views']}</td>
+                   <td class='row5' style='padding:.5em'>
+                   
+             
+             <i class="far fa-calendar" style="color: #5f86c9;"></i> {$data['start_date']} &nbsp; 
+
+                   <i class="far fa-comments" style="color: #5f86c9;"></i> <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}'>{$ibforums->lang['comments']}</a> ({$data['replies']}) &nbsp; <i class="far fa-eye" style="color: #5f86c9;"></i> {$data['views']}</td>
                </tr>
           </table>
     
