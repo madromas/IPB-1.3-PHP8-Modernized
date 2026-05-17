@@ -206,27 +206,33 @@ if ($this->read_array === false && $read !== serialize(false)) {
     //*********************************************/
     // Top Forums
     //*********************************************/
-    function do_top_forums() {
-            global $DB, $ibforums, $std;
+   function do_top_forums() {
+        global $DB, $ibforums, $std;
 
-            if ($ibforums->vars['portal_top_forums'])
-            {
+        if ($ibforums->vars['portal_top_forums'])
+        {
             if ($ibforums->vars['portal_num_top_forums'])
                $number_of_forums = $ibforums->vars['portal_num_top_forums'];
             else
                $number_of_forums = 5;            
 
-                // Get User Data
+            // Get User Data
             $query = $DB->query( "SELECT f.* FROM ibf_forums AS f WHERE f.read_perms = '*' OR f.read_perms LIKE '".$ibforums->member['mgroup']."' OR f.read_perms LIKE '%,".$ibforums->member['mgroup']."' OR f.read_perms LIKE '".$ibforums->member['mgroup'].",%' OR f.read_perms LIKE '%,".$ibforums->member['mgroup'].",%' ORDER BY (topics+posts) DESC LIMIT 0,".$number_of_forums );
 
             $rating = 0;
-                while( $row = $DB->fetch_row($query) ) {
-                    $rating++;
-                    $data.= $this->html->top_forums_row($row+array("rating"=>$rating));
-                }
-
-                return $this->html->top_forums($data);
+            $data = ""; // Initialize string to avoid undefined variable notices
+            
+            while( $row = $DB->fetch_row($query) ) {
+                $rating++;
+                
+                // Explicitly inject the rating key into the row data array
+                $row['rating'] = $rating;
+                
+                $data .= $this->html->top_forums_row($row);
             }
+
+            return $this->html->top_forums($data);
+        }
         else
         {
             return '';
