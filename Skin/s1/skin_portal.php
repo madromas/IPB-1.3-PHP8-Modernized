@@ -505,7 +505,7 @@ return <<<EOF
         <div>
          <i class="fas fa-user" style="color: #5f86c9;font-size:12px;"></i> 
             <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=Profile&CODE=03&MID={$data['member_id']}'>{$data['member_name']}</a> &nbsp;
-            <i class="fas fa-arrow-right" style="color: #5f86c9;font-size:12px;"></i> <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=ST&f={$data['forum_id']}&t={$data['tid']}'>{$data['extra']}</a>
+            <i class="fas fa-arrow-right" style="color: #5f86c9;font-size:12px;"></i> <a href='{$ibforums->vars['board_url']}/index.{$ibforums->vars['php_ext']}?s={$ibforums->session_id}&act=SF&f={$data['forum_id']}'>{$data['extra']}</a>
 
              
         </div>
