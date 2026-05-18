@@ -2433,8 +2433,7 @@ if ($score == 0)
 else 
 {
     $class   = ($score > 0) ? "rating-positive" : "rating-negative";
-    // abs() ensures that -5 becomes 5, and we remove the + for positive numbers
-    $display = abs($score); 
+    $display = ($score < 0) ? "-" . abs($score) : abs($score); 
     $data['rating'] = "<span class='{$class}'>{$display}</span>";
 }
 
