@@ -143,16 +143,8 @@ global $ibforums;
 $favs = explode(",", ($ibforums->member['favorites'] ?? '') );
 $f_class = (in_array($Data['tid'], $favs)) ? "fav-row" : ""; 
 
-// Handle the Rating Badge 
-$score = intval($Data['rating_total']);
 
-if ($score == 0) {
-    $Data['rating'] = "<span class='rating-neutral'>0</span>";
-} else {
-    $class = ($score > 0) ? "rating-positive" : "rating-negative";
-    $display = abs($score); 
-    $Data['rating'] = "<span class='{$class}'>{$display}</span>";
-}
+
 
 return <<<EOF
     <!-- Begin Topic Entry {$Data['tid']} -->
@@ -477,12 +469,11 @@ global $ibforums;
 $score = intval($data['rating_total']);
 
 if ($score == 0) {
-    $data['rating'] = "<span class='rating-neutral'>0</span>";
+    $Data['rating'] = "<span class='rating-neutral'>0</span>";
 } else {
     $class = ($score > 0) ? "rating-positive" : "rating-negative";
-    // abs() ensures that -5 becomes 5, and we remove the + for positive numbers
-    $display = abs($score); 
-    $data['rating'] = "<span class='{$class}'>{$display}</span>";
+    $display = ($score < 0) ? "-" . abs($score) : abs($score); 
+    $Data['rating'] = "<span class='{$class}'>{$display}</span>";
 }
 
 return <<<EOF
@@ -499,7 +490,7 @@ return <<<EOF
     <td class='row3' style='padding:6px;'>
         
         <div style='float:right;'>
-            {$data['rating']}
+            {$Data['rating']}
         </div>
 
         <div>

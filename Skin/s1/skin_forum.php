@@ -36,7 +36,7 @@ EOF;
 function show_sub_link($fid) {
 global $ibforums;
 return <<<EOF
-		&#0124; <a href='{$ibforums->base_url}act=Track&amp;f=$fid&amp;type=forum'>{$ibforums->lang['ft_title']}</a>
+        &#0124; <a href='{$ibforums->base_url}act=Track&amp;f=$fid&amp;type=forum'>{$ibforums->lang['ft_title']}</a>
 EOF;
 }
 
@@ -53,10 +53,10 @@ global $ibforums;
 return <<<EOF
 <script language='javascript' type="text/javascript">
 <!--
-	function who_posted(tid)
-	{
-		window.open("{$ibforums->js_base_url}act=Stats&CODE=who&t="+tid, "WhoPosted", "toolbar=no,scrollbars=yes,resizable=yes,width=230,height=300");
-	}
+    function who_posted(tid)
+    {
+        window.open("{$ibforums->js_base_url}act=Stats&CODE=who&t="+tid, "WhoPosted", "toolbar=no,scrollbars=yes,resizable=yes,width=230,height=300");
+    }
 //-->
 </script>
 
@@ -70,20 +70,20 @@ return <<<EOF
 </table>
 <br />
 
-	<form action='{$ibforums->base_url}act=SF&amp;f={$data['id']}&amp;st={$ibforums->input['st']}' method='post'>
+    <form action='{$ibforums->base_url}act=SF&amp;f={$data['id']}&amp;st={$ibforums->input['st']}' method='post'>
       <div class="tableborder">
         <div class='maintitle'><{CAT_IMG}>&nbsp;{$data['name']}</div>
-		<table width='100%' border='0' cellspacing='1' cellpadding='4'>
-		  <tr> 
-			<td align='center' class='titlemedium'><img src='{$ibforums->vars['img_url']}/spacer.gif' alt='' width='20' height='1' /></td>
-			<td align='center' class='titlemedium'><img src='{$ibforums->vars['img_url']}/spacer.gif' alt='' width='20' height='1' /></td>
-			<th width='45%' align='left' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_topic_title']}</th>
-			<th width='14%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_topic_starter']}</th>
-			<th width='7%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_replies']}</th>
-			<th width='7%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_hits']}</th>
+        <table width='100%' border='0' cellspacing='1' cellpadding='4'>
+          <tr> 
+            <td align='center' class='titlemedium'><img src='{$ibforums->vars['img_url']}/spacer.gif' alt='' width='20' height='1' /></td>
+            <td align='center' class='titlemedium'><img src='{$ibforums->vars['img_url']}/spacer.gif' alt='' width='20' height='1' /></td>
+            <th width='45%' align='left' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_topic_title']}</th>
+            <th width='14%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_topic_starter']}</th>
+            <th width='7%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_replies']}</th>
+            <th width='7%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_hits']}</th>
             <th width='7%' align='center' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_rating']}</th>
-			<th width='27%' align='left' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_last_action']}</th>
-		  </tr>
+            <th width='27%' align='left' nowrap="nowrap" class='titlemedium'>{$ibforums->lang['h_last_action']}</th>
+          </tr>
         <!-- Forum page unique top -->
 EOF;
 }
@@ -96,7 +96,7 @@ return <<<EOF
       <!--IBF.FORUM_ACTIVE-->
       
       <div align='center' class='darkrow2' style='padding:4px'>{$ibforums->lang['showing_text']}{$ibforums->lang['sort_text']}&nbsp;<input type='submit' value='{$ibforums->lang['sort_submit']}' class='forminput' /></div>
-	</div>
+    </div>
 </form>
 
 <br />
@@ -111,28 +111,28 @@ return <<<EOF
 <br />
 
 <div align='left' class="wrapmini">
-	<{B_NEW}>&nbsp;&nbsp;{$ibforums->lang['pm_open_new']}
-	<br /><{B_NORM}>&nbsp;&nbsp;{$ibforums->lang['pm_open_no']}
-	<br /><{B_HOT}>&nbsp;&nbsp;{$ibforums->lang['pm_hot_new']}
-	<br /><{B_HOT_NN}>&nbsp;&nbsp;{$ibforums->lang['pm_hot_no']}
+    <{B_NEW}>&nbsp;&nbsp;{$ibforums->lang['pm_open_new']}
+    <br /><{B_NORM}>&nbsp;&nbsp;{$ibforums->lang['pm_open_no']}
+    <br /><{B_HOT}>&nbsp;&nbsp;{$ibforums->lang['pm_hot_new']}
+    <br /><{B_HOT_NN}>&nbsp;&nbsp;{$ibforums->lang['pm_hot_no']}
 </div>
 
 <div align='left' class="wrapmini">
-	<{B_POLL}>&nbsp;&nbsp;{$ibforums->lang['pm_poll']}
-	<br /><{B_POLL_NN}>&nbsp;&nbsp;{$ibforums->lang['pm_poll_no']}
-	<br /><{B_LOCKED}>&nbsp;&nbsp;{$ibforums->lang['pm_locked']}
-	<br /><{B_MOVED}>&nbsp;&nbsp;{$ibforums->lang['pm_moved']}
+    <{B_POLL}>&nbsp;&nbsp;{$ibforums->lang['pm_poll']}
+    <br /><{B_POLL_NN}>&nbsp;&nbsp;{$ibforums->lang['pm_poll_no']}
+    <br /><{B_LOCKED}>&nbsp;&nbsp;{$ibforums->lang['pm_locked']}
+    <br /><{B_MOVED}>&nbsp;&nbsp;{$ibforums->lang['pm_moved']}
 </div>
 
 <div align='right'>
     <form action='{$ibforums->base_url}' method='post' name='search'>
-	<input type='hidden' name='forums' value='{$data['id']}' />
-	<input type='hidden' name='cat_forum' value='forum' />
-	<input type='hidden' name='act' value='Search' />
-	<input type='hidden' name='joinname' value='1' />
-	<input type='hidden' name='CODE' value='01' />
-	{$ibforums->lang['search_forum']}&nbsp;
-	<input type='text' size='30' name='keywords' class='forminput' value='{$ibforums->lang['enter_keywords']}' onfocus='this.value = "";' /><input type='submit' value='{$ibforums->lang['search_go']}' class='forminput' />
+    <input type='hidden' name='forums' value='{$data['id']}' />
+    <input type='hidden' name='cat_forum' value='forum' />
+    <input type='hidden' name='act' value='Search' />
+    <input type='hidden' name='joinname' value='1' />
+    <input type='hidden' name='CODE' value='01' />
+    {$ibforums->lang['search_forum']}&nbsp;
+    <input type='text' size='30' name='keywords' class='forminput' value='{$ibforums->lang['enter_keywords']}' onfocus='this.value = "";' /><input type='submit' value='{$ibforums->lang['search_go']}' class='forminput' />
    </form>
    <br />
    <br />
@@ -171,8 +171,8 @@ EOF;
 function forum_active_users($active=array()) {
 global $ibforums;
 return <<<EOF
-	  <div class='darkrow2' style='padding:6px'>{$ibforums->lang['active_users_title']} ({$ibforums->lang['active_users_detail']})</div>
-	  <div class='row2 group-legend' style='padding:6px'>{$ibforums->lang['active_users_members']} {$active['names']}</div>
+      <div class='darkrow2' style='padding:6px'>{$ibforums->lang['active_users_title']} ({$ibforums->lang['active_users_detail']})</div>
+      <div class='row2 group-legend' style='padding:6px'>{$ibforums->lang['active_users_members']} {$active['names']}</div>
 EOF;
 }
 
@@ -181,12 +181,12 @@ EOF;
 function show_no_matches() {
 global $ibforums;
 return <<<EOF
-				<tr> 
-					<td class='row4' colspan='8' align='center'>
-						<br />
+                <tr> 
+                    <td class='row4' colspan='8' align='center'>
+                        <br />
                          <b>{$ibforums->lang['no_topics']}</b>
-						<br /><br />
-					</td>
+                        <br /><br />
+                    </td>
         </tr>
 EOF;
 }
@@ -213,14 +213,14 @@ if ($score == 0) {
     $data['rating'] = "<span class='rating-neutral'>0</span>";
 } else {
     $class = ($score > 0) ? "rating-positive" : "rating-negative";
-    $display = abs($score); 
+    $display = ($score < 0) ? "-" . abs($score) : abs($score); 
     $data['rating'] = "<span class='{$class}'>{$display}</span>";
 }
 
 return <<<EOF
     <!-- Begin Topic Entry {$data['tid']} -->
     <tr> 
-	  <td align='center' class='row4'><a href="{$ibforums->base_url}act=fav&topic={$data['tid']}" title="Add to favorites">{$data['folder_img']}</a></td>
+      <td align='center' class='row4'><a href="{$ibforums->base_url}act=fav&topic={$data['tid']}" title="Add to favorites">{$data['folder_img']}</a></td>
       <td align='center' class='row2'>{$data['topic_icon']}</td>
       
       <td class='row2 {$f_class} forum-row'>
@@ -244,7 +244,7 @@ return <<<EOF
     <tr>
       <td align='center' class='darkrow1'>&nbsp;</td>
       <td align='center' class='darkrow1'>&nbsp;</td>
-	  <td align='left' class='darkrow1' colspan='6' style='padding:6px'><b>{$ibforums->lang['pinned_start']}</b></td>
+      <td align='left' class='darkrow1' colspan='6' style='padding:6px'><b>{$ibforums->lang['pinned_start']}</b></td>
     </tr>
 EOF;
 }
@@ -256,7 +256,7 @@ return <<<EOF
     <tr>
       <td align='center' class='darkrow1'>&nbsp;</td>
       <td align='center' class='darkrow1'>&nbsp;</td>
-	  <td align='left' class='darkrow1' colspan='6' style='padding:6px'><b>{$ibforums->lang['regular_topics']}</b></td>
+      <td align='left' class='darkrow1' colspan='6' style='padding:6px'><b>{$ibforums->lang['regular_topics']}</b></td>
     </tr>
 EOF;
 }
@@ -283,7 +283,7 @@ if ($score == 0) {
 return <<<EOF
     <!-- Begin Pinned Topic Entry {$data['tid']} -->
     <tr> 
-	  <td align='center' class='row4'><a href="{$ibforums->base_url}act=fav&topic={$data['tid']}" title="Add to favorites">{$data['folder_img']}</a></td>
+      <td align='center' class='row4'><a href="{$ibforums->base_url}act=fav&topic={$data['tid']}" title="Add to favorites">{$data['folder_img']}</a></td>
       <td align='center' class='row2'>{$data['topic_icon']}</td>
       
       <td class='row2 {$f_class} forum-row'>
