@@ -554,13 +554,13 @@ class calendar {
 			$month = intval($ibforums->input['e_month']);
 			$year  = intval($ibforums->input['e_year']);
 			
-			$end_day   = "";
-			$end_month = "";
-			$end_year  = "";
-			
-			$end_date     = "";
-			$event_ranged = 0;
-			$event_repeat = 0;
+			$end_day   = 0;
+		    $end_month = 0;
+		    $end_year  = 0;
+		
+		    $end_date     = "";
+		    $event_ranged = 0;
+		    $event_repeat = 0;
 			
 			if ( $ibforums->input['eventtype'] == 'range' )
 			{	
@@ -1320,9 +1320,9 @@ class calendar {
 		$month = intval($ibforums->input['e_month']);
 		$year  = intval($ibforums->input['e_year']);
 		
-		$end_day   = "";
-		$end_month = "";
-		$end_year  = "";
+		$end_day   = 0;
+		$end_month = 0;
+		$end_year  = 0;
 		
 		$end_date     = "";
 		$event_ranged = 0;
@@ -1411,7 +1411,7 @@ class calendar {
 															'end_day'        => $end_day,
 															'end_month'		 => $end_month,
 															'end_year'       => $end_year,
-															'end_unix_stamp' => mktime( 23, 59, 59, $end_month, $end_day, $end_year),
+															'end_unix_stamp' => mktime( 23, 59, 59, (int)$end_month, (int)$end_day, (int)$end_year ),
 															'event_ranged'   => $event_ranged,
 															'event_bgcolor'	 => $ibforums->input['bg'],
 															'event_color'	 => $ibforums->input['ft'],
