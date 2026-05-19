@@ -24,7 +24,7 @@ return <<<EOF
         <td>
           <table cellpadding='4' cellspacing='0' border='0' width='100%'>
            <tr>
-             <td colspan='2' class='maintitle' ><b>{$ibforums->lang['latest_posts']}</b></td>
+             <td colspan='2' class='maintitle' >{$ibforums->lang['latest_posts']}</td>
            </tr>
            <tr>
                  <td class='row5' colspan='2'>
@@ -214,7 +214,7 @@ return <<<EOF
 
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
 <tr>
- <td vAlign="top" width="80%">
+ <td vAlign="top" width="79%">
 
 <div class="tableborder">
     <div class='maintitle'>
@@ -270,7 +270,7 @@ return <<<EOF
         </div>
 
         <!-- Left-aligned Title -->
-        <{CAT_IMG}>&nbsp;<b>{$data['TOPIC']['title']}</b> {$data['TOPIC']['description']} 
+        <{CAT_IMG}>&nbsp;{$data['TOPIC']['title']} {$data['TOPIC']['description']} 
     </div>
     <!--{IBF.POLL}-->
     <div align='right' class='postlinksbar'>
@@ -332,7 +332,7 @@ return <<<EOF
             {$author['warn_text']} {$author['warn_minus']}{$author['warn_img']}{$author['warn_add']}
         </div>
     </span>
-    <img src='{$ibforums->vars['img_url']}/spacer.gif' alt='' width='160' height='1' />
+    <img src='{$ibforums->vars['img_url']}/spacer.gif' alt='' width='150' height='1' />
 </td>
       <td width='100%' valign='top' class='{$post['post_css']}'>
       <div style='float:right; margin-left:10px;'>
@@ -385,7 +385,7 @@ return <<<EOF
 </div> </td> 
 
 <td width="1%"></td> 
- <td vAlign="top" width="19%" class="topic-sidebar">
+ <td vAlign="top" width="20%" class="topic-sidebar">
     {$data['latest_posts']}
  </td>
 
