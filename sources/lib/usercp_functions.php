@@ -687,17 +687,20 @@ $DB->query("UPDATE ibf_members SET $db_string WHERE id='".$this->class->member['
 		
 		//-----------------------------------------
 // Check to make sure we don't just have
-// http:// in the URL box..
+// https:// in the URL box..
 //-----------------------------------------
 
-if ( preg_match( "/^https:\/\/$/i", $ibforums->input['url_avatar'] ) )
-{
-$ibforums->input['url_avatar'] = "";
-}
+$avatar_url = trim($ibforums->input['url_avatar']);
+$avatar_url = str_replace(array("\n", "\r", "\t", " "), "", $avatar_url);
 
-if ( preg_match( "#javascript:#is", $ibforums->input['url_avatar'] ) )
-{
-$ibforums->input['url_avatar'] = "";
+if (preg_match("/(javascript|data|vbscript):/i", $avatar_url)) {
+    $ibforums->input['url_avatar'] = "";
+}
+elseif ($avatar_url === "http://" || $avatar_url === "https://" || strlen($avatar_url) < 12) {
+    $ibforums->input['url_avatar'] = "";
+}
+else {
+    $ibforums->input['url_avatar'] = $avatar_url;
 }
 
 if ( empty($ibforums->input['url_avatar']) )
