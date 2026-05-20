@@ -181,6 +181,13 @@ tinymce.PluginManager.add('spoiler_plugin', function(editor) {
           const formData = new FormData();
           formData.append('file', blobInfo.blob(), blobInfo.filename());
 
+          const urlParams = new URLSearchParams(window.location.search);
+let forumId = urlParams.get('f') || '0';
+
+forumId = parseInt(forumId.replace(/[^\d]/g, ''), 10) || 0;
+
+formData.append('forum_id', forumId);
+
           xhr.send(formData);
       }),
 
