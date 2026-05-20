@@ -101,7 +101,7 @@ div#logostrip a:hover {
 
    the content properly. This is a work around to a known Internet Explorer bug */
 
-BODY { font-family: 'Nunito', sans-serif; font-size: 13px; color: #000; margin:0px;padding:0px;background-color:#eff4fd; text-align:center }
+BODY { font-family: 'Nunito', sans-serif; font-size: 14px; color: #000; margin:0px;padding:0px;background-color:#eff4fd; text-align:center }
 
 TABLE, TR, TD { font-family: 'Nunito', sans-serif; font-size: 13px; }
 
@@ -357,7 +357,7 @@ option.sub { font-weight:bold;color:#555 }
     margin-bottom: 4px;
 }
 
-.postcolor   { font-size: 16px;}
+.postcolor   { font-size: 15px;}
 
 .postcolor img  {border-radius:.5em; max-width:700px;}
 
@@ -868,4 +868,31 @@ i.fa-solid, i.fa-regular, i.fa-brands {
 .topic-sidebar {
     display:none;
 }
+}
+
+blockquote {
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 1.5rem 0;
+    padding: 5px 5px 5px 50px; 
+    background-color: #f8fafc; 
+    border: 1px solid #e2e8f0;
+    border-left: 5px solid #007bff;
+    border-radius: 6px;
+    color: #334155;
+    font-style: italic;
+}
+
+blockquote::before {
+    content: "“"; 
+    position: absolute;
+    left: 16px;
+    top: 12px;
+    font-family: Georgia, serif;
+    font-size: 3rem;
+    line-height: 1;
+    color: #007bff;
+    opacity: 0.3;
 }
