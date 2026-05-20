@@ -87,11 +87,35 @@ return <<<EOF
       promotion: false,
       statusbar: false,
       plugins: 'image media link lists code emoticons codesample',
-      toolbar: 'undo redo | bold italic underline | link media image emoticons | codesample',
+      toolbar: 'undo redo | bold italic underline blockquote | link media image emoticons | codesample',
       content_css: 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap',
-      content_style: "body { font-family: 'Nunito', sans-serif; font-size: 15px; }",
-      
-      contextmenu: false,
+     content_style: `body { font-family: 'Nunito', sans-serif; font-size: 15px; }
+    blockquote {
+         position: relative;
+         font-size: 0.95rem;
+         line-height: 1.6;
+         margin: 1.5rem 0;
+         padding: 5px 5px 5px 50px; 
+         background-color: #f8fafc; 
+         border: 1px solid #e2e8f0;
+         border-left: 5px solid #007bff; 
+         border-radius: 6px;
+         color: #334155;
+         font-style: italic;
+     }
+
+     blockquote::before {
+         content: "“"; 
+         position: absolute;
+         left: 16px;
+         top: 12px;
+         font-family: Georgia, serif;
+         font-size: 3rem;
+         line-height: 1;
+         color: #007bff;
+         opacity: 0.3;
+     }
+`,
       quickbars_insert_toolbar: false,
       quickbars_selection_toolbar: false,
 
@@ -353,7 +377,33 @@ tinymce.init({
     toolbar: false, // This removes the top panel entirely
     plugins: 'autolink',
     content_css: 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap',
-      content_style: "body { font-family: 'Nunito', sans-serif; font-size: 15px; }",
+      content_style: `body { font-family: 'Nunito', sans-serif; font-size: 15px; }
+    blockquote {
+         position: relative;
+         font-size: 0.95rem;
+         line-height: 1.6;
+         margin: 1.5rem 0;
+         padding: 5px 5px 5px 50px; 
+         background-color: #f8fafc; 
+         border: 1px solid #e2e8f0;
+         border-left: 5px solid #007bff; 
+         border-radius: 6px;
+         color: #334155;
+         font-style: italic;
+     }
+
+     blockquote::before {
+         content: "“"; 
+         position: absolute;
+         left: 16px;
+         top: 12px;
+         font-family: Georgia, serif;
+         font-size: 3rem;
+         line-height: 1;
+         color: #007bff;
+         opacity: 0.3;
+     }
+`,
     setup: function (editor) {
         editor.on('change', function () {
             editor.save(); 
