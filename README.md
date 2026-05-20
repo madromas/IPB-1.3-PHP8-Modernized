@@ -24,6 +24,7 @@ A modernized distribution of **Invision Power Board 1.3**, fully patched for **P
 
 *   **IBF Portal 4.0**: Fully integrated portal system with pagination to transform your forum into a community hub.
 *   **TinyMCE Integration**: Replaced the legacy posting interface with a modernized TinyMCE editor for a better rich-text experience.
+*   **Watermark and Spoiler**: Added watermark to uploaded images and a Spoiler tag(hidden text).
 *   **HTML Purifier**: Integrated a modernized standalone security engine to protect against XSS and fix broken HTML tags.
 *   **Security Patches**: Fixed legacy issues with search result insertions and anti-spam image generation.
 *   **OP (Original Poster) Identification**: Implemented a specialized "Author" badge in the topic view (postbit). 
