@@ -64,7 +64,6 @@ if ($FILE_SIZE > ($ibforums->member['g_attach_max'] * 1024)) {
     die(json_encode(['error' => 'File too large']));
 }
 
-// Determine extension
 $ext = '.ibf';
 switch($FILE_TYPE) {
     case 'image/gif':   $ext = '.gif'; break;
@@ -72,24 +71,63 @@ switch($FILE_TYPE) {
     case 'image/pjpeg': $ext = '.jpg'; break;
     case 'image/png':
     case 'image/x-png': $ext = '.png'; break;
+    case 'image/webp':  $ext = '.webp'; break;
 }
 
-// Name the file using the IPB convention: post-FORUMID-TIMESTAMP.EXT
-// Using 0 for forum_id here since it's an external upload; you can adjust if needed.
-$real_file_name = "post-0-" . time() . $ext;
+$forum_id = isset($_POST['forum_id']) ? intval($_POST['forum_id']) : 0;
 
-// 4. Move the File and Update Database
+$real_file_name = "post-" . $forum_id . "-" . time() . $ext;
+
+// Move the File and Update Database
 $target_path = $ibforums->vars['upload_dir'] . "/" . $real_file_name;
 
 if (@move_uploaded_file($_FILES['file']['tmp_name'], $target_path)) {
     @chmod($target_path, 0777);
     
-    /**
-     * CRITICAL: Tracking for Cleanup
-     * We return this filename to TinyMCE. To ensure it is deleted when the post is 
-     * deleted, you must ensure your POST SAVE logic puts this $real_file_name 
-     * into the 'attach_id' column of 'ibf_posts'.
-     */
+    // --- START WATERMARK ---
+    $watermark_file = $ibforums->vars['upload_dir'] . "/watermark.png"; // Your transparent watermark image
+    
+    if (file_exists($watermark_file) && in_array($ext, ['.jpg', '.png', '.gif', '.webp'])) {
+        $watermark = @imagecreatefrompng($watermark_file);
+        
+        if ($watermark) {
+            $watermark_width  = imagesx($watermark);
+            $watermark_height = imagesy($watermark);
+            
+            $image = null;
+            if ($ext == '.jpg')  $image = @imagecreatefromjpeg($target_path);
+            if ($ext == '.png')  $image = @imagecreatefrompng($target_path);
+            if ($ext == '.gif')  $image = @imagecreatefromgif($target_path);
+            if ($ext == '.webp') $image = @imagecreatefromwebp($target_path);
+            
+            if ($image) {
+                $image_width  = imagesx($image);
+                $image_height = imagesy($image);
+                
+                // Position calculations (Bottom Right with 10px padding)
+                $dst_x = $image_width - $watermark_width - 10;
+                $dst_y = $image_height - $watermark_height - 10;
+                
+                // Only watermark if the uploaded image is larger than the watermark
+                if ($image_width > $watermark_width && $image_height > $watermark_height) {
+                    
+                    imagealphablending($image, true);
+                    imagesavealpha($image, true);
+                    
+                    imagecopy($image, $watermark, $dst_x, $dst_y, 0, 0, $watermark_width, $watermark_height);
+                    
+                    if ($ext == '.jpg')  imagejpeg($image, $target_path, 90);
+                    if ($ext == '.png')  imagepng($image, $target_path);
+                    if ($ext == '.gif')  imagegif($image, $target_path);
+                    if ($ext == '.webp') imagewebp($image, $target_path, 85); // Added WebP saver (85% quality)
+                }
+                
+                imagedestroy($image);
+            }
+            imagedestroy($watermark);
+        }
+    }
+    // --- END WATERMARK LOGIC ---
     
     $url = rtrim($ibforums->vars['upload_url'], '/') . '/' . $real_file_name;
 echo json_encode(['location' => $url]);
