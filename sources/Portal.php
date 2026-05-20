@@ -805,7 +805,7 @@ function do_member_moment()
 
             // Handle [ex]
             $row['post'] = preg_replace_callback("#\[ex\](.+?)\[/ex\]#is", function($matches) use ($parser) {
-                return $parser->regex_ex_tag($matches[1]);
+                return $parser->regex_exclaime_tag($matches[1]);
             }, $row['post']);
 
                 // we don't need an icon in here
@@ -945,7 +945,7 @@ function do_news()
 
             // Handle [ex]
             $row['post'] = preg_replace_callback("#\[ex\](.+?)\[/ex\]#is", function($matches) use ($parser) {
-                return $parser->regex_ex_tag($matches[1]);
+                return $parser->regex_exclaime_tag($matches[1]);
             }, $row['post']);
             
             // Handle teaser/full post logic
