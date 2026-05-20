@@ -2487,36 +2487,50 @@ class display {
     // print a pure redirect screen
     //-------------------------------------------
     
-    
     function redirect_screen($text="", $url="", $override=0)
     {
-    	global $ibforums, $std, $skin_universal, $DB;
-    	
-    	if ( $ibforums->input['debug'] ) 
-    {
-        flush();
-    } 
-    else
-    {
-        // If override is NOT 1, we build the full URL
-        if ( !$override )
+        global $ibforums, $std, $skin_universal, $DB;
+        
+        if ( $ibforums->input['debug'] ) 
         {
-            // Check if base_url exists, otherwise fallback to board_url
-            if ( $ibforums->base_url )
+            flush();
+        } 
+        else
+        {
+            // If override is NOT 1, we build the full URL
+            if ( !$override )
             {
-                $url = $ibforums->base_url . $url;
+                // Check if base_url exists, otherwise fallback to board_url
+                if ( $ibforums->base_url )
+                {
+                    $url = $ibforums->base_url . $url;
+                }
+                else
+                {
+                    $url = $ibforums->vars['board_url'] . "/index." . $ibforums->vars['php_ext'] . "?" . $url;
+                }
             }
-            else
-            {
-                $url = $ibforums->vars['board_url'] . "/index." . $ibforums->vars['php_ext'] . "?" . $url;
+
+            // --- START CLEANUP FIX ---
+            if (substr_count($url, 'http') > 1) {
+                $parts = explode('?', $url, 2);
+                if (isset($parts[1])) {
+                    $clean_query = preg_replace('/https?:\/\/[^\?]+\?/i', '', $parts[1]);
+                    $url = $parts[0] . '?' . $clean_query;
+                }
             }
+            
+            if (strpos($url, 'index.html?index.html') !== false) {
+                $url = str_replace('index.html?index.html?', 'index.php?', $url);
+            }
+            // --- END CLEANUP FIX ---
+
+            // boink_it sends a Location header for an instant redirect
+            $std->boink_it($url);
         }
 
-        // boink_it sends a Location header for an instant redirect
-        $std->boink_it($url);
-    }
-
-    exit();
+        exit();
+    
 
     	
     	//---------------------------------------------------------

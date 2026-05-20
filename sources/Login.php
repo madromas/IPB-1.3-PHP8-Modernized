@@ -104,85 +104,78 @@ class Login {
  	}
  	
  	function auto_login()
- 	{
- 		global $ibforums, $DB, $std, $print, $sess;
- 		
- 		// Universal routine.
- 		// If we have cookies / session created, simply return to the index screen
- 		// If not, return to the log in form
- 		
- 		$ibforums->member = $sess->authorise();
- 		
- 		// If there isn't a member ID set, do a quick check ourselves.
- 		// It's not that important to do the full session check as it'll
- 		// occur when they next click a link.
- 		
- 		if ( ! $ibforums->member['id'] )
- 		{
-			$mid = intval($std->my_getcookie('member_id'));
-			$pid = (preg_match('/^([0-9A-Za-z]){32}$/', $std->my_getcookie('pass_hash')))?$std->my_getcookie('pass_hash'):"";
-			
-			If ($mid and $pid)
-			{
-				$DB->query("SELECT * FROM ibf_members WHERE id=$mid AND password='$pid'");
-				
-				if ( $member = $DB->fetch_row() )
-				{
-					$ibforums->member = $member;
-					$ibforums->session_id = "";
-					$std->my_setcookie('session_id', '0', -1 );
-				}
-			}
- 		}
- 		
- 		$true_words  = $ibforums->lang['logged_in'];
- 		$false_words = $ibforums->lang['not_logged_in'];
- 		$method = 'no_show';
- 		
- 		if ($ibforums->input['fromreg'] == 1)
- 		{
- 			$true_words  = $ibforums->lang['reg_log_in'];
- 			$false_words = $ibforums->lang['reg_not_log_in'];
- 			$method = 'show';
- 		}
- 		else if ($ibforums->input['fromemail'] == 1)
- 		{
- 			$true_words  = $ibforums->lang['email_log_in'];
- 			$false_words = $ibforums->lang['email_not_log_in'];
- 			$method = 'show';
- 		}
- 		else if ($ibforums->input['frompass'] == 1)
- 		{
- 			$true_words  = $ibforums->lang['pass_log_in'];
- 			$false_words = $ibforums->lang['pass_not_log_in'];
- 			$method = 'show';
- 		}
- 		
- 		if ($ibforums->member['id'])
- 		{
- 			if ($method == 'show')
- 			{
- 				$print->redirect_screen( $true_words, "" );
- 			}
- 			else
- 			{
- 				$std->boink_it($ibforums->vars['board_url'].'/index.'.$ibforums->vars['php_ext']);
- 			}
- 		}
- 		else
- 		{
- 			if ($method == 'show')
- 			{
- 				$print->redirect_screen( $false_words, 'act=Login&CODE=00' );
- 			}
- 			else
- 			{
- 				$std->boink_it($ibforums->base_url.'&act=Login&CODE=00');
- 			}
- 		}
- 		
- 		
- 	}
+{
+    global $ibforums, $DB, $std, $print, $sess;
+    
+    
+    $ibforums->member = $sess->authorise();
+    
+    if ( ! $ibforums->member['id'] )
+    {
+        $mid = intval($std->my_getcookie('member_id'));
+        $cookie_pass = $std->my_getcookie('pass_hash');
+        $pid = (preg_match('/^[0-9A-Za-z]{32}$/', $cookie_pass)) ? $cookie_pass : "";
+        
+        if ($mid > 0 && !empty($pid))
+        {
+            $DB->query("SELECT * FROM ibf_members WHERE id={$mid} AND password='{$pid}'");
+            
+            if ( $member = $DB->fetch_row() )
+            {
+                $ibforums->member = $member;
+                $ibforums->session_id = "";
+                $std->my_setcookie('session_id', '0', -1 );
+            }
+        }
+    }
+    
+    $true_words  = $ibforums->lang['logged_in'];
+    $false_words = $ibforums->lang['not_logged_in'];
+    $method = 'no_show';
+    
+    if ($ibforums->input['fromreg'] == 1)
+    {
+        $true_words  = $ibforums->lang['reg_log_in'];
+        $false_words = $ibforums->lang['reg_not_log_in'];
+        $method = 'show';
+    }
+    else if ($ibforums->input['fromemail'] == 1)
+    {
+        $true_words  = $ibforums->lang['email_log_in'];
+        $false_words = $ibforums->lang['email_not_log_in'];
+        $method = 'show';
+    }
+    else if ($ibforums->input['frompass'] == 1)
+    {
+        $true_words  = $ibforums->lang['pass_log_in'];
+        $false_words = $ibforums->lang['pass_not_log_in'];
+        $method = 'show';
+    }
+    
+    if ($ibforums->member['id'])
+    {
+        if ($method == 'show')
+        {
+            $print->redirect_screen( $true_words, 'index.'.$ibforums->vars['php_ext'] );
+        }
+        else
+        {
+            $std->boink_it($ibforums->vars['board_url'].'/index.'.$ibforums->vars['php_ext']);
+        }
+    }
+    else
+    {
+        if ($method == 'show')
+        {
+            $print->redirect_screen( $false_words, 'act=Login&CODE=00' );
+        }
+        else
+        {
+            $redirect_url = $ibforums->base_url ? $ibforums->base_url.'&act=Login&CODE=00' : $ibforums->vars['board_url'].'/index.'.$ibforums->vars['php_ext'].'?act=Login&CODE=00';
+            $std->boink_it($redirect_url);
+        }
+    }
+}
  	
  	
  	
