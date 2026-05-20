@@ -792,6 +792,22 @@ function do_member_moment()
 
                 $row['title'] = $parser->bad_words($row['title']);
 
+                // PARSE CUSTOM TAGS FOR PORTAL OUTPUT
+            // Handle [spoiler]
+            $row['post'] = preg_replace_callback("#\[spoiler\](.+?)\[/spoiler\]#is", function($matches) use ($parser) {
+                return $parser->regex_spoiler_tag($matches[1]);
+            }, $row['post']);
+
+            // Handle [mod]
+            $row['post'] = preg_replace_callback("#\[mod\](.+?)\[/mod\]#is", function($matches) use ($parser) {
+                return $parser->regex_mod_tag($matches[1]);
+            }, $row['post']);
+
+            // Handle [ex]
+            $row['post'] = preg_replace_callback("#\[ex\](.+?)\[/ex\]#is", function($matches) use ($parser) {
+                return $parser->regex_ex_tag($matches[1]);
+            }, $row['post']);
+
                 // we don't need an icon in here
                 //$row['icon'] = $std->folder_icon($row);
             
@@ -915,6 +931,22 @@ function do_news()
 
             $row['post'] = $parser->bad_words($row['post']);
             $row['title'] = $parser->bad_words($row['title']);
+
+            // PARSE CUSTOM TAGS FOR PORTAL OUTPUT
+            // Handle [spoiler]
+            $row['post'] = preg_replace_callback("#\[spoiler\](.+?)\[/spoiler\]#is", function($matches) use ($parser) {
+                return $parser->regex_spoiler_tag($matches[1]);
+            }, $row['post']);
+
+            // Handle [mod]
+            $row['post'] = preg_replace_callback("#\[mod\](.+?)\[/mod\]#is", function($matches) use ($parser) {
+                return $parser->regex_mod_tag($matches[1]);
+            }, $row['post']);
+
+            // Handle [ex]
+            $row['post'] = preg_replace_callback("#\[ex\](.+?)\[/ex\]#is", function($matches) use ($parser) {
+                return $parser->regex_ex_tag($matches[1]);
+            }, $row['post']);
             
             // Handle teaser/full post logic
             if ( ($ibforums->vars['portal_tease_news'] ?? 0) )
