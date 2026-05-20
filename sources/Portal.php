@@ -783,9 +783,14 @@ function do_member_moment()
             AND (".$forumid.") AND ( p.topic_id=t.tid AND p.new_topic=1 AND m.id=t.starter_id AND f.id=t.forum_id )".
             "ORDER BY t.tid DESC LIMIT {$max}, {$limit}");
 
+                require_once ROOT_PATH . "sources/lib/post_parser.php";
+                $parser = new post_parser(1);
+
                 while ( $row = $DB->fetch_row() )
                 {
                 $row['start_date'] = $std->get_date( $row['start_date'], 'JOINED' );
+
+                $row['title'] = $parser->bad_words($row['title']);
 
                 // we don't need an icon in here
                 //$row['icon'] = $std->folder_icon($row);
@@ -813,6 +818,9 @@ function do_news()
         global $DB, $ibforums, $std, $INFO;
         
         $to_echo = ""; 
+
+        require_once ROOT_PATH . "sources/lib/post_parser.php";
+        $parser = new post_parser(1);
         
         if ( ($ibforums->vars['portal_newsforum'] ?? "") == "" )
         {
@@ -891,6 +899,8 @@ function do_news()
             $row['replies'] = $row['posts'] ?? 0;
             $row['views']   = $row['views'] ?? 0;
 
+
+
             $row['start_date'] = $std->get_date( $row['start_date'], 'LONG' );
             
             if ( ! ($row['member_name'] ?? "") ) 
@@ -902,6 +912,9 @@ function do_news()
             
             $row['icon'] = $std->folder_icon($row);
             $row['extra'] = (isset($special) && $special) ? ($ibforums->lang['news_from'] ?? "From") . " " . ($row['forum_name'] ?? "") : "";
+
+            $row['post'] = $parser->bad_words($row['post']);
+            $row['title'] = $parser->bad_words($row['title']);
             
             // Handle teaser/full post logic
             if ( ($ibforums->vars['portal_tease_news'] ?? 0) )
