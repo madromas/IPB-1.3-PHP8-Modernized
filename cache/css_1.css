@@ -875,7 +875,7 @@ blockquote {
     font-family: 'Nunito', sans-serif;
     font-size: 0.95rem;
     line-height: 1.6;
-    margin: 1.5rem 0;
+    margin: 5px;
     padding: 5px 5px 5px 50px; 
     background-color: #f8fafc; 
     border: 1px solid #e2e8f0;
@@ -895,4 +895,35 @@ blockquote::before {
     line-height: 1;
     color: #007bff;
     opacity: 0.3;
+}
+
+.hidetop {
+    background: #E4EAF2;
+    border: 1px solid #d1d9e6;
+    border-left: 4px solid #8394B2;
+    color: #000;
+    font-weight: 500;
+    margin: 8px 5px 0 auto;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 3px 3px 0 0;
+}
+
+.spoiler-symbol {
+    font-family: monospace;
+    font-weight: bold;
+    margin-right: 6px;
+    color: #465584;
+}
+
+.hidemain {
+    background: #FAFCFE;
+    border: 1px solid #d1d9e6;
+    border-left: 4px solid #8394B2;
+    border-top: 0;
+    color: #000;
+    padding: 10px;
+    margin: 0 5px 8px auto;
+    border-radius: 0 0 3px 3px;
 }
