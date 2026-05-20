@@ -120,7 +120,7 @@ class Login {
  		if ( ! $ibforums->member['id'] )
  		{
 			$mid = intval($std->my_getcookie('member_id'));
-			$pid = $std->my_getcookie('pass_hash');
+			$pid = (preg_match('/^([0-9A-Za-z]){32}$/', $std->my_getcookie('pass_hash')))?$std->my_getcookie('pass_hash'):"";
 			
 			If ($mid and $pid)
 			{
