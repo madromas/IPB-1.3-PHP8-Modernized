@@ -685,17 +685,22 @@ $DB->query("UPDATE ibf_members SET $db_string WHERE id='".$this->class->member['
 
 		list($p_width, $p_height) = explode( "x", $ibforums->vars['avatar_dims'] );
 		
-		//-----------------------------------
-		// Check to make sure we don't just have
-		// http:// in the URL box..
-		//------------------------------------
-		
-		if ( preg_match( "/^https:\/\/$/i", $ibforums->input['url_avatar'] ) )
-		{
-			$ibforums->input['url_avatar'] = "";
-		}
-	
-		if ( empty($ibforums->input['url_avatar']) )
+		//-----------------------------------------
+// Check to make sure we don't just have
+// http:// in the URL box..
+//-----------------------------------------
+
+if ( preg_match( "/^https:\/\/$/i", $ibforums->input['url_avatar'] ) )
+{
+$ibforums->input['url_avatar'] = "";
+}
+
+if ( preg_match( "#javascript:#is", $ibforums->input['url_avatar'] ) )
+{
+$ibforums->input['url_avatar'] = "";
+}
+
+if ( empty($ibforums->input['url_avatar']) )
 		{
 			//------------------------------------
 			// Lets check for an uploaded photo..
