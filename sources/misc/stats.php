@@ -260,6 +260,7 @@ class stats {
                     ");
     	
     	$data = array();
+    	$seen_mods = array();
     	
     	while ( $i = $DB->fetch_row() )
     	{
@@ -269,7 +270,13 @@ class stats {
     		}
     		if ( $std->check_perms($i['read_perms']) == TRUE )
     		{
-    			$data[] = $i;
+    			$track_key = $i['id'] . '_' . $i['forum_id'];
+    			
+    			if ( ! in_array( $track_key, $seen_mods ) )
+    			{
+    				$data[] = $i;
+    				$seen_mods[] = $track_key;
+    			}
     		}
     	}
     	
@@ -292,7 +299,13 @@ class stats {
     		}
     		if ( $std->check_perms($i['read_perms']) == TRUE )
     		{
-    			$data[] = $i;
+    			$track_key = $i['id'] . '_' . $i['forum_id'];
+    			
+    			if ( ! in_array( $track_key, $seen_mods ) )
+    			{
+    				$data[] = $i;
+    				$seen_mods[] = $track_key;
+    			}
     		}
     	}
     	
