@@ -704,7 +704,7 @@ while ($s_row = $DB->fetch_row()) {
 			{
 				$e_time0 = $std->get_date( $row0['edit_time'] , 'LONG' );
 				
-				$row0['post'] .= "<br><br><span class='edit'>".sprintf($ibforums->lang['edited_by'], $row0['edit_name'], $e_time0)."</span>";
+				$row0['post'] .= "<span class='edit'>".sprintf($ibforums->lang['edited_by'], $row0['edit_name'], $e_time0)."</span>";
 			}
 			
 			//--------------------------------------------------------------
@@ -955,7 +955,7 @@ else
 			{
 				$e_time = $std->get_date( $row['edit_time'] , 'LONG' );
 				
-				$row['post'] .= "<br /><br /><span class='edit'>".sprintf($ibforums->lang['edited_by'], $row['edit_name'], $e_time)."</span>";
+				$row['post'] .= "<span class='edit'>".sprintf($ibforums->lang['edited_by'], $row['edit_name'], $e_time)."</span>";
 			}
 			
 			//--------------------------------------------------------------
