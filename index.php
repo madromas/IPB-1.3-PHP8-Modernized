@@ -1,29 +1,5 @@
 <?php
 
-ob_start();
-// Отключаем вывод ошибок на экран, чтобы не портить дизайн
-set_error_handler(function ($errno, $errstr, $errfile, $errline) {
-    // List of "noise" strings to ignore
-    $ignored_messages = [
-        'Undefined array key',
-        'Undefined variable',
-        'Creation of dynamic property'
-    ];
-
-    foreach ($ignored_messages as $message) {
-        if (str_contains($errstr, $message)) {
-            return true; // This "swallows" the error so it doesn't display
-        }
-    }
-
-    // If it's not an undefined key/variable, let PHP's default handler show it
-    return false;
-});
-
-// Ensure other errors are still visible
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 /*
 +--------------------------------------------------------------------------
 |   Invision Power Board v1.3 Final
@@ -49,6 +25,27 @@ error_reporting(E_ALL);
 //-----------------------------------------------
 // USER CONFIGURABLE ELEMENTS
 //-----------------------------------------------
+
+ob_start();
+
+set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+  
+    $ignored_messages = [
+        'Undefined array key',
+        'Undefined variable',
+        'Creation of dynamic property'
+    ];
+
+    foreach ($ignored_messages as $message) {
+        if (str_contains($errstr, $message)) {
+            return true; 
+        }
+    }
+    return false;
+});
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 // Root path
 
@@ -126,7 +123,20 @@ class info {
 
 $INFO = array();
 
-require ROOT_PATH."conf_global.php";
+if (file_exists(ROOT_PATH."conf_global.php")) {
+    require ROOT_PATH."conf_global.php";
+}
+
+// AUTOMATIC INSTALLER
+// Run the installer.
+if (!isset($INFO['sql_user']) || empty($INFO['sql_user'])) {
+    if (file_exists(ROOT_PATH."sm_install.php")) {
+        header("Location: sm_install.php");
+        exit();
+    } else {
+        die("<h3>Setup Required</h3><p>The configuration file is empty, but <strong>sm_install.php</strong> could not be found. Please upload the installer to configure your database.</p>");
+    }
+}
 
 //--------------------------------
 // Cookie Ban Mwahaha
@@ -150,7 +160,7 @@ require ROOT_PATH."conf_global.php";
 		}
 		
     	$ipaddress = $_COOKIE["CookieIp"]; 
-		// Ban code taken from sources/Register.php with a few minor changes
+		
 		$banned_ips = $INFO['ban_ip'];
 		if ($banned_ips)
 		{
