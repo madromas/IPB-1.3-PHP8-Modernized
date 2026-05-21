@@ -14,7 +14,7 @@ A modernized distribution of **Invision Power Board 1.3**, fully patched for **P
 
 ## 🚀 Key Features
 
-*   **PHP 8.x Ready**: Comprehensive patches for legacy code to eliminate deprecated function errors and syntax issues.
+*   **PHP 8 Ready**: Comprehensive patches for legacy code to eliminate deprecated function errors and syntax issues.
 *   **MySQLi Implementation**: Replaced the legacy `mysql` driver with `mysqli` for modern database connectivity.
 *   **MariaDB Support**: Optimized for MariaDB and MySQL 8+ environments using `utf8mb4` encoding by default.
 *   **Slim Installer**: A streamlined `sm_install.php` that handles environment checks, `mysqli` configuration, and admin setup.
