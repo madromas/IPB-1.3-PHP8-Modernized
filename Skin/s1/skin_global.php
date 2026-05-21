@@ -72,7 +72,7 @@ EOF;
 function signature_separator($sig="") {
 global $ibforums;
 return <<<EOF
-<br /><br />--------------------<br />
+<br />--------------------<br />
 <div class='signature'>$sig</div>
 EOF;
 }
