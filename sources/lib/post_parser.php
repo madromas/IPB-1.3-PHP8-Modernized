@@ -60,6 +60,10 @@ $txt = str_replace( array('&lt;p&gt;', '&lt;/p&gt;'), array('<p>', '</p>'), $txt
         $txt = preg_replace("#\[(mod|ex)\](.+?)\[/(mod|ex)\]#si", '\\2', $txt);
     }
 
+    $txt = preg_replace_callback("#\[spoiler\](.+?)\[/spoiler\]#is", function($matches) {
+    return $this->regex_spoiler_tag($matches[1]);
+}, $txt);
+
     // Syntax Highlighting
         if ( ($in['SIGNATURE'] ?? 0) != 1) {
     $txt = preg_replace_callback("#\[sql\](.+?)\[/sql\]#s", function($m) { return $this->regex_sql_tag($m[1]); }, $txt);
@@ -78,6 +82,29 @@ $txt = preg_replace('/(?<!<a href=")<img([^>]+)src=["\'](uploads\/[^"\']+)["\'](
         }
 
         return $this->bad_words($txt);
+    }
+
+     // Spoiler tag
+    function regex_spoiler_tag($txt="") {
+        $spoiler_id = 'sp_' . uniqid() . '_' . rand(100, 999);
+        
+        return "<div class='hidetop' onclick=\"
+            var main = document.getElementById('{$spoiler_id}');
+            var sym = document.getElementById('sym_{$spoiler_id}');
+            if (main.style.display == 'none') {
+                main.style.display = 'block';
+                sym.innerHTML = '-';
+            } else {
+                main.style.display = 'none';
+                sym.innerHTML = '+';
+            }
+        \" style='cursor: pointer;'>
+            <span id='sym_{$spoiler_id}' class='spoiler-symbol'>+</span> Spoiler
+        </div>
+        <div class='hidemain' id='{$spoiler_id}' style='display: none;'>
+            ".$txt."
+        </div>
+        ";
     }
 
     /**
