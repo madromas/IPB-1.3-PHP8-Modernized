@@ -138,18 +138,9 @@ class index_page {
 		
 		$row = $DB->fetch_row();
 		
-		if (is_array($row)) {
-    if (($row['TOTAL_REPLIES'] ?? 0) < 0) $row['TOTAL_REPLIES'] = 0;
-    if (($row['TOTAL_TOPICS']  ?? 0) < 0) $row['TOTAL_TOPICS']  = 0;
-    if (($row['MEM_COUNT']     ?? 0) < 0) $row['MEM_COUNT']     = 0;
-} else {
-    // Fallback if the query returned no data
-    $row = [
-        'TOTAL_REPLIES' => 0,
-        'TOTAL_TOPICS'  => 0,
-        'MEM_COUNT'     => 0
-    ];
-}
+		if ($row['TOTAL_REPLIES'] < 0) $row['TOTAL_REPLIES'] = 0;
+		if ($row['TOTAL_TOPICS']  < 0) $row['TOTAL_TOPICS']  = 0;
+		if ($row['MEM_COUNT']     < 0) $row['MEM_COUNT']     = 0;
 		
 		$DB->query("SELECT COUNT(*) as reg FROM ibf_validating WHERE lost_pass <> 1");
 		$reg = $DB->fetch_row();

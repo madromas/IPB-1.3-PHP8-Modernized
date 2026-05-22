@@ -1841,10 +1841,11 @@ class ad_groups {
 		
 		//+-------------------------------
 		
-		$prefix = preg_replace( "/'/", "&#39;", $group['prefix'] );
-		$prefix = preg_replace( "/</", "&lt;" , $prefix          );
-		$suffix = preg_replace( "/'/", "&#39;", $group['suffix'] );
-		$suffix = preg_replace( "/</", "&lt;" , $suffix          );
+		$prefix = preg_replace( "/'/", "&#39;", $group['prefix'] ?? "" );
+$prefix = preg_replace( "/</", "&lt;"  , $prefix );
+
+$suffix = preg_replace( "/'/", "&#39;", $group['suffix'] ?? "" );
+$suffix = preg_replace( "/</", "&lt;"  , $suffix );
 		
 		$ADMIN->html .= $SKIN->start_table( "Global Settings", "Basic Group Settings" );
 		
