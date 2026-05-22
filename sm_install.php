@@ -70,7 +70,7 @@ if ($step == 'form') {
             <label>Table Prefix</label><input type='text' name='pre' value='ibf_'>
             
             <h3>Board & Website Identity</h3>
-            <label>Board Name</label><input type='text' name='board_name' value='Glonks Hub'>
+            <label>Board Name</label><input type='text' name='board_name' value='My Board'>
             <label>Board URL (No trailing slash)</label><input type='text' name='url' value='$current_url'>
             <label>Website Name</label><input type='text' name='home_name' value='Site Home'>
             <label>Website Address</label><input type='text' name='home_url' value='$protocol$domain_name'>
