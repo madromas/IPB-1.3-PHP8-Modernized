@@ -317,7 +317,7 @@ class Login {
         if ($message != "")
         {
         	$message = $ibforums->lang[ $message ];
-        	$message = preg_replace( "/<#NAME#>/", "<b>{$ibforums->input[UserName]}</b>", $message );
+        	$message = preg_replace( "/<#NAME#>/", "<b>{$ibforums->input['UserName']}</b>", $message );
         
 			$this->output .= $this->login_html->errors($message);
 		}
