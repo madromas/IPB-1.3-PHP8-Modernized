@@ -2277,25 +2277,25 @@ ALTER TABLE `ibf_warn_logs`
 -- AUTO_INCREMENT for table `ibf_admin_logs`
 --
 ALTER TABLE `ibf_admin_logs`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_awards`
 --
 ALTER TABLE `ibf_awards`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_badwords`
 --
 ALTER TABLE `ibf_badwords`
-  MODIFY `wid` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `wid` int(3) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_calendar_events`
 --
 ALTER TABLE `ibf_calendar_events`
-  MODIFY `eventid` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `eventid` mediumint(8) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_contacts`
@@ -2307,7 +2307,7 @@ ALTER TABLE `ibf_contacts`
 -- AUTO_INCREMENT for table `ibf_css`
 --
 ALTER TABLE `ibf_css`
-  MODIFY `cssid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cssid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_email_logs`
@@ -2319,61 +2319,61 @@ ALTER TABLE `ibf_email_logs`
 -- AUTO_INCREMENT for table `ibf_emoticons`
 --
 ALTER TABLE `ibf_emoticons`
-  MODIFY `id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` smallint(3) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_faq`
 --
 ALTER TABLE `ibf_faq`
-  MODIFY `id` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` mediumint(8) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_forum_perms`
 --
 ALTER TABLE `ibf_forum_perms`
-  MODIFY `perm_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `perm_id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_forum_tracker`
 --
 ALTER TABLE `ibf_forum_tracker`
-  MODIFY `frid` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `frid` mediumint(8) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_groups`
 --
 ALTER TABLE `ibf_groups`
-  MODIFY `g_id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `g_id` int(3) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_languages`
 --
 ALTER TABLE `ibf_languages`
-  MODIFY `lid` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `lid` mediumint(8) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_macro`
 --
 ALTER TABLE `ibf_macro`
-  MODIFY `macro_id` smallint(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `macro_id` smallint(3) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_messages`
 --
 ALTER TABLE `ibf_messages`
-  MODIFY `msg_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `msg_id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_moderators`
 --
 ALTER TABLE `ibf_moderators`
-  MODIFY `mid` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `mid` mediumint(8) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_moderator_logs`
 --
 ALTER TABLE `ibf_moderator_logs`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_pfields_data`
@@ -2391,13 +2391,13 @@ ALTER TABLE `ibf_polls`
 -- AUTO_INCREMENT for table `ibf_posts`
 --
 ALTER TABLE `ibf_posts`
-  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `pid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_reputation`
 --
 ALTER TABLE `ibf_reputation`
-  MODIFY `msg_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `msg_id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_reput_ranks`
@@ -2409,13 +2409,13 @@ ALTER TABLE `ibf_reput_ranks`
 -- AUTO_INCREMENT for table `ibf_skins`
 --
 ALTER TABLE `ibf_skins`
-  MODIFY `uid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `uid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_skin_templates`
 --
 ALTER TABLE `ibf_skin_templates`
-  MODIFY `suid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3518;
+  MODIFY `suid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_spider_logs`
@@ -2445,7 +2445,7 @@ ALTER TABLE `ibf_subscription_logs`
 -- AUTO_INCREMENT for table `ibf_subscription_methods`
 --
 ALTER TABLE `ibf_subscription_methods`
-  MODIFY `submethod_id` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `submethod_id` smallint(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_subscription_trans`
@@ -2457,25 +2457,25 @@ ALTER TABLE `ibf_subscription_trans`
 -- AUTO_INCREMENT for table `ibf_templates`
 --
 ALTER TABLE `ibf_templates`
-  MODIFY `tmid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `tmid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_titles`
 --
 ALTER TABLE `ibf_titles`
-  MODIFY `id` smallint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` smallint(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_tmpl_names`
 --
 ALTER TABLE `ibf_tmpl_names`
-  MODIFY `skid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `skid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_topics`
 --
 ALTER TABLE `ibf_topics`
-  MODIFY `tid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `tid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_topic_mmod`
@@ -2487,7 +2487,7 @@ ALTER TABLE `ibf_topic_mmod`
 -- AUTO_INCREMENT for table `ibf_tracker`
 --
 ALTER TABLE `ibf_tracker`
-  MODIFY `trid` mediumint(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `trid` mediumint(8) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibf_voters`
@@ -2499,7 +2499,7 @@ ALTER TABLE `ibf_voters`
 -- AUTO_INCREMENT for table `ibf_warn_logs`
 --
 ALTER TABLE `ibf_warn_logs`
-  MODIFY `wlog_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `wlog_id` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
