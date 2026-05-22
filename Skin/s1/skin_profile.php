@@ -260,7 +260,7 @@ return <<<EOF
  <td width="100%" style="vertical-align: middle;">
    <div style="display: flex; flex-direction: column; justify-content: center; min-height: 100px;">
      <div id="profilename" style="font-size: 2em; font-weight: bold; margin-bottom: 8px; line-height: 1.2;">{$info['name']}</div>
-     <div style="font-size: 0.9em; color: #555;">
+     <div>
 	   <a href='{$info['base_url']}act=Search&amp;CODE=getalluser&amp;mid={$info['mid']}'>{$ibforums->lang['find_posts']}</a> &middot;
 	   <a href='{$info['base_url']}act=Msg&amp;CODE=02&amp;MID={$info['mid']}'>{$ibforums->lang['add_to_contact']}</a>
 	   <!--MEM OPTIONS-->
