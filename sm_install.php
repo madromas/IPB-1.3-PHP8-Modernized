@@ -303,7 +303,7 @@ if ($step == 'process') {
         'portal_latestposts' => '1',
         'portal_latestposts_big' => '0',
         'portal_loginbox' => '0',
-        'portal_member_moment' => '1',
+        'portal_member_moment' => '0',
         'portal_navigation' => '0',
         'portal_new_members' => '1',
         'portal_newposts' => '0',
