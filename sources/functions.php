@@ -2371,19 +2371,11 @@ class display {
         // Get the template
         //---------------------------------------
         
-        $ibforums->skin['template'] = str_replace( 
-    "<% LOFI %>", 
-    ($skin_universal->lofi_link( $this->lofi() )) ?? '', 
-    $ibforums->skin['template'] ?? ''
-);
+        $ibforums->skin['template'] = str_replace( "<% LOFI %>", $skin_universal->lofi_link( $this->lofi() ), $ibforums->skin['template']); 
 
         $ibforums->skin['template'] = str_replace( "<% CSS %>"            , $css                     , $ibforums->skin['template']);
 		$ibforums->skin['template'] = str_replace( "<% JAVASCRIPT %>"     , "$js"                       , $ibforums->skin['template']);
-        $ibforums->skin['template'] = str_replace(
-    "<% TITLE %>", 
-    $output_array['TITLE'] ?? '', 
-    $ibforums->skin['template'] ?? ''
-);
+        $ibforums->skin['template'] = str_replace( "<% TITLE %>"          , $output_array['TITLE']   , $ibforums->skin['template']);
         $ibforums->skin['template'] = str_replace( "<% BOARD %>"          , $this->to_print          , $ibforums->skin['template']);
        $ibforums->skin['template'] = str_replace( "<% STATS %>", ($stats ?? ""), $ibforums->skin['template']);
         $ibforums->skin['template'] = str_replace( "<% GENERATOR %>"      , ""                       , $ibforums->skin['template']);

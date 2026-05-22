@@ -630,74 +630,70 @@ if ($this->read_array === false && $read !== serialize(false)) {
 //+-------------------------------------------------
 function do_member_moment()
 {
+        ################
+        # Most of this code taken from IBF: Profile.php
+        ################
     global $DB, $ibforums, $std;
     
     if ( $ibforums->vars['portal_member_moment'] ) 
     {
-        $ibforums->input['filter'] = isset($ibforums->input['arg1']) ? $ibforums->input['arg1'] : '';
+        $ibforums->input['filter'] = $ibforums->input['arg1'];
     
-        // Get Number of Members
-        $DB->query( "SELECT MEM_COUNT FROM ibf_stats" );
-        $num_mems_row = $DB->fetch_row();
-        $num_mems = isset($num_mems_row['MEM_COUNT']) ? intval($num_mems_row['MEM_COUNT']) : 0;
-        
-        // --- HARDENED CHECK: If 0 members, return empty to prevent SQL crash ---
-        if ($num_mems < 1) {
-            return '';
-        }
-
-        // Get Random Member Number (ensure it is never negative)
-        $rand = rand(0, $num_mems - 1);
+            // Load the template...
+            //$template = load_template("member_moment.html");
+            //$to_echo = "";                
     
-        // Get Member Data
-        $DB->query( "SELECT m.*, g.g_id, g.g_title as group_title FROM ibf_members m, ibf_groups g WHERE (m.mgroup=g.g_id AND m.id>0) LIMIT $rand, 1" );
-        $member = $DB->fetch_row();
+            // Get Number of Members
+            $DB->query( "SELECT MEM_COUNT FROM ibf_stats" );
+            $num_mems = $DB->fetch_row();
+            $num_mems = $num_mems['MEM_COUNT'];
+            // Get Random Member Number (record position, not id!)
+            $rand = rand(0, $num_mems - 1);
+    
+            // Get Member Data
+            $DB->query( "SELECT m.*, g.g_id, g.g_title as group_title FROM ibf_members m, ibf_groups g WHERE (m.mgroup=g.g_id AND m.id>0) LIMIT ".$rand.",1" );
+            $member        = $DB->fetch_row();
+               $member['password'] = "";
         
-        // If query failed to return a member for some reason, exit
-        if (!$member || !isset($member['id'])) {
-            return '';
-        }
-        
-        $member['password'] = "";
-        
-        // Get Total Posts
-        $DB->query("SELECT posts as total_posts FROM ibf_members WHERE id='".$member['id']."'");
-        $total_posts = $DB->fetch_row();
+            // Get Total Posts
+               $DB->query("SELECT posts as total_posts FROM ibf_members WHERE id='".$member['id']."'");
+               $total_posts        = $DB->fetch_row();
 
-        // Get Favourite Forum
-        $DB->query("SELECT id, read_perms FROM ibf_forums");
-        $forum_ids = array('0');
+            // Get Favourite Forum  (from IBF: Profile.php)
+               $DB->query("SELECT id, read_perms FROM ibf_forums");
+    
+               $forum_ids = array('0');
+    
+               while ( $r = $DB->fetch_row() )
+               {
+                       if ($r['read_perms'] == '*')
+                       {
+                               $forum_ids[] = $r['id'];
+                       }
+                       else if ( preg_match( "/(^|,)".$member['mgroup']."(,|$)/", $r['read_perms']) )
+                       {
+                               $forum_ids[] = $r['id'];
+                       }
+               }
+    
+               $forum_id_str = implode( ",", $forum_ids );
+    
+               $DB->query("SELECT DISTINCT(p.forum_id), f.name, COUNT(p.author_id) as f_posts FROM ibf_posts p, ibf_forums f ".
+                                   "WHERE p.forum_id IN ($forum_id_str) AND p.author_id='".$member['id']."' AND p.forum_id=f.id GROUP BY p.forum_id ORDER BY f_posts DESC");
+               $favourite   = $DB->fetch_row();
         
-        while ( $r = $DB->fetch_row() )
-        {
-            if ($r['read_perms'] == '*')
-            {
-                $forum_ids[] = $r['id'];
-            }
-            else if ( preg_match( "/(^|,)".$member['mgroup']."(,|$)/", $r['read_perms']) )
-            {
-                $forum_ids[] = $r['id'];
-            }
-        }
-        
-        $forum_id_str = implode( ",", $forum_ids );
-        
-        $DB->query("SELECT DISTINCT(p.forum_id), f.name, COUNT(p.author_id) as f_posts FROM ibf_posts p, ibf_forums f ".
-                   "WHERE p.forum_id IN ($forum_id_str) AND p.author_id='".$member['id']."' AND p.forum_id=f.id GROUP BY p.forum_id ORDER BY f_posts DESC");
-        $favourite = $DB->fetch_row();
-        
-        // Set Values
-        $data['member_name'] = $member['name'];
-        $data['member_id']   = $member['id'];
-        $data['profile_url'] = $ibforums->base_url . "&act=Profile&CODE=03&MID=".$member['id'];
-        $data['total_posts'] = isset($total_posts['total_posts']) ? $total_posts['total_posts'] : 0;
-        $data['join_date']   = $std->get_date( $member['joined'], 'LONG' );
-        $data['avatar']      = $std->get_avatar( $member['avatar'], 1, $member['avatar_size'] );
-        $data['fav_forum']   = (isset($total_posts['total_posts']) && $total_posts['total_posts'] > 0 && isset($favourite['name']) && $favourite['name'] != '') ? $favourite['name'] : '--';
-        $data['fav_id']      = isset($favourite['forum_id']) ? $favourite['forum_id'] : 0;
-        $data['fav_posts']   = isset($favourite['f_posts']) ? $favourite['f_posts'] : 0;
-        $data['forum_url']   = (isset($total_posts['total_posts']) && $total_posts['total_posts'] > 0 && isset($favourite['name']) && $favourite['name'] != '') ? "<a href=\"".$ibforums->base_url . "&act=SF&f=".$data['fav_id']."\">".$data['fav_forum']."</a>" : '--';
-        
+            // Set Values
+            $data['member_name'] = $member['name'];
+            $data['member_id']   = $member['id'];
+            $data['profile_url'] = $ibforums->base_url . "&act=Profile&CODE=03&MID=".$member_id;
+            $data['total_posts'] = $total_posts['total_posts'] ? $total_posts['total_posts'] : 0;
+            $data['join_date']   = $std->get_date( $member['joined'], 'LONG' );
+            $data['avatar']                 = $std->get_avatar( $member['avatar'], 1, $member['avatar_size'] );
+            $data['fav_forum']         = $total_posts['total_posts'] > 0 && $favourite['name'] != '' ? $favourite['name'] : '--';
+              $data['fav_id']                 = $favourite['forum_id'];
+               $data['fav_posts']         = $favourite['f_posts'] ? $favourite['f_posts'] : 0;
+            $data['forum_url']         = $total_posts['total_posts'] > 0 && $favourite['name'] != '' ? "<a href=\"".$ibforums->base_url . "&act=SF&f=".$data['fav_id']        ."\">".$data['fav_forum']."</a>" : '--';
+    
         return $this->html->member_moment($data);
     }
     else
