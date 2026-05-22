@@ -520,7 +520,7 @@ $data['tp_num']  = $row['posts'] ?? 0;
 			$data['time']	= $std->get_date(time(), 'LONG');
 			
 			if (!$data['avatar'] = $std->get_avatar( $member['avatar'], 1, $member['avatar_size'] )) {
-				 $data['avatar'] = "<img src='{$ibforums->vars['html_url']}/avatars/noavatar.gif' />";
+				 $data['avatar'] = "<img src='{$ibforums->vars['html_url']}/avatars/default.svg' />";
 			}
 			
 			$t_html = $this->html->welcomepanel($data);
