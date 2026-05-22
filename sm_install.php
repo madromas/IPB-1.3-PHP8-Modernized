@@ -260,6 +260,7 @@ if ($step == 'process') {
         'guests_img' => '1',
         'guests_sig' => '1',
         'header_redirect' => 'location',
+        'board_offline' => '0',
         'hot_topic' => '15',
         'html_detection_regex' => '<(p|div|span|ul|ol|table|br|iframe|video|source|blockquote|pre|code)',
         'html_purifier_allowed' => '<(div[class|style],b,strong,i[class|style],em,a[href|title|target],ul,ol,li,p[style|class],br,span[style|class],img[width|height|alt|src],iframe[src|width|height|frameborder|allowfullscreen|allow|sandbox],video[src|controls|width|height|poster|preload],source[src|type],blockquote,pre[class],code[class]',
