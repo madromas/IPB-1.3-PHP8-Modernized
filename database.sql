@@ -365,7 +365,7 @@ CREATE TABLE `ibf_forums` (
 --
 
 INSERT INTO `ibf_forums` (`id`, `topics`, `posts`, `last_post`, `last_poster_id`, `last_poster_name`, `name`, `description`, `position`, `use_ibc`, `use_html`, `status`, `start_perms`, `reply_perms`, `read_perms`, `password`, `category`, `last_title`, `last_id`, `sort_key`, `sort_order`, `prune`, `show_rules`, `upload_perms`, `preview_posts`, `allow_poll`, `allow_pollbump`, `inc_postcount`, `skin_id`, `parent_id`, `subwrap`, `sub_can_post`, `quick_reply`, `redirect_url`, `redirect_on`, `redirect_hits`, `redirect_loc`, `rules_title`, `rules_text`, `has_mod_posts`, `topic_mm_id`, `notify_modq_emails`, `icon`, `rating`) VALUES
-(1, 8, 11, 1779371121, 1, 'MadRomas', 'General', 'Legacy forum platform ', 1, 1, 0, '1', '2,3,4', '2,3,4', '*', '', 1, '🚀 Going 100% Self-Hosted', 13, 'last_post', 'Z-A', 30, 2, '', 0, 1, 1, 1, NULL, -1, 0, 1, 1, '', 0, 0, '', 'Rules', 'Forum rules, be polite!', 0, '', '', '14', 1);
+(1, 1, 2, 1779371121, 1, 'MadRomas', 'General', 'Legacy forum platform ', 1, 1, 0, '1', '2,3,4', '2,3,4', '*', '', 1, '🚀 Going 100% Self-Hosted', 13, 'last_post', 'Z-A', 30, 2, '', 0, 1, 1, 1, NULL, -1, 0, 1, 1, '', 0, 0, '', 'Rules', 'Forum rules, be polite!', 0, '', '', '14', 1);
 
 -- --------------------------------------------------------
 
@@ -1733,7 +1733,7 @@ CREATE TABLE `ibf_stats` (
 --
 
 INSERT INTO ibf_stats (TOTAL_REPLIES, TOTAL_TOPICS, LAST_MEM_NAME, LAST_MEM_ID, MOST_DATE, MOST_COUNT, MEM_COUNT) 
-VALUES (0, 0, '', 0, 0, 0, 0);
+VALUES (1, 1, 'MadRomas', 1, 1779371121, 1, 1);
 
 -- --------------------------------------------------------
 
