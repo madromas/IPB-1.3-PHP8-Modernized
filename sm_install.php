@@ -147,12 +147,29 @@ if ($step == 'process') {
         
         if (mysqli_query($link2, $admin_sql)) {
             echo "<p>✅ Admin account generated with full schema mapping.</p>";
+            
+            // NOW update the stats using the same open connection
+            $stats_sql = "UPDATE {$prefix}stats SET 
+                          TOTAL_REPLIES = 0, 
+                          TOTAL_TOPICS = 0, 
+                          LAST_MEM_NAME = '" . mysqli_real_escape_string($link2, $admin_name) . "', 
+                          LAST_MEM_ID = 1, 
+                          MOST_DATE = $time, 
+                          MOST_COUNT = 1, 
+                          MEM_COUNT = 1";
+
+            if (mysqli_query($link2, $stats_sql)) {
+                echo "<p>✅ Global statistics initialized to zero.</p>";
+            } else {
+                echo "<p style='color:red;'>⚠️ Failed to sync stats: " . mysqli_error($link2) . "</p>";
+            }
         } else {
             echo "<p style='color:red;'>❌ Failed to create Admin account: " . mysqli_error($link2) . "</p>";
         }
+        
+        // Close the connection only after everything is finished
         mysqli_close($link2);
     }
-
 
     $base_path = realpath(dirname(__FILE__)) . '/';
     
