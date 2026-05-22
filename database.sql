@@ -354,7 +354,7 @@ CREATE TABLE `ibf_forums` (
 --
 
 INSERT INTO `ibf_forums` (`id`, `topics`, `posts`, `last_post`, `last_poster_id`, `last_poster_name`, `name`, `description`, `position`, `use_ibc`, `use_html`, `status`, `start_perms`, `reply_perms`, `read_perms`, `password`, `category`, `last_title`, `last_id`, `sort_key`, `sort_order`, `prune`, `show_rules`, `upload_perms`, `preview_posts`, `allow_poll`, `allow_pollbump`, `inc_postcount`, `skin_id`, `parent_id`, `subwrap`, `sub_can_post`, `quick_reply`, `redirect_url`, `redirect_on`, `redirect_hits`, `redirect_loc`, `rules_title`, `rules_text`, `has_mod_posts`, `topic_mm_id`, `notify_modq_emails`, `icon`, `rating`) VALUES
-(1, 1, 2, 1779371121, 1, 'MadRomas', 'General', 'Legacy forum platform ', 1, 1, 0, '1', '2,3,4', '2,3,4', '*', '', 1, 'Super important topic', 2, 'last_post', 'Z-A', 30, 2, '', 0, 1, 1, 1, NULL, -1, 0, 1, 1, '', 0, 0, '', 'Rules', 'Forum rules, be polite!', 0, '', '', '14', 1);
+(1, 1, 1, 1779371121, 1, 'MadRomas', 'General', 'Legacy forum platform ', 1, 1, 0, '1', '2,3,4', '2,3,4', '*', '', 1, 'Super important topic', 2, 'last_post', 'Z-A', 30, 2, '', 0, 1, 1, 1, NULL, -1, 0, 1, 1, '', 0, 0, '', 'Rules', 'Forum rules, be polite!', 0, '', '', '14', 1);
 
 -- --------------------------------------------------------
 
@@ -860,8 +860,7 @@ CREATE TABLE `ibf_posts` (
 --
 
 INSERT INTO `ibf_posts` (`pid`, `append_edit`, `edit_time`, `author_id`, `author_name`, `use_sig`, `use_emo`, `ip_address`, `post_date`, `icon_id`, `post`, `queued`, `topic_id`, `forum_id`, `attach_id`, `attach_hits`, `attach_type`, `attach_file`, `post_title`, `new_topic`, `edit_name`, `has_modcomment`) VALUES
-(10, 0, 1778172639, 1, 'MadRomas', 1, 1, '107.143.11.45', 1777735872, 13, '<p>This is a 20+ some whatever year old forum platform. Optomized almost fully. Work in progress so to speak(<em>something that is being developed or suggested but that is not yet complete)</em></p>\n<p>TinyMCE is by far the best choice of text editor for this project. Modern and fits just right.</p>\n<p>Create, reply submit errors right here in this forum. 😎</p>', 0, 2, 1, 0, 0, '', '', NULL, 1, 'MadRomas', 0),
-(11, 0, NULL, 1, 'MadRomas', 1, 1, '107.143.11.45', 1778105306, 0, '<p><strong>MadRomas</strong>,  I reply to my self, cause I\'m crazy. </p>', 0, 2, 1, 0, 0, '', '', NULL, 0, NULL, 0);
+(1, 0, 1778172639, 1, 'MadRomas', 1, 1, '', 1777735872, 1, '<p>This is a 20+ some whatever year old forum platform. Optomized almost fully. Work in progress so to speak(<em>something that is being developed or suggested but that is not yet complete)</em></p>\n<p>TinyMCE is by far the best choice of text editor for this project. Modern and fits just right.</p>\n<p>Create, reply submit errors right here in this forum. 😎</p>', 0, 2, 1, 0, 0, '', '', NULL, 1, 'MadRomas', 0);
 
 
 -- --------------------------------------------------------
@@ -1844,13 +1843,6 @@ CREATE TABLE `ibf_topics` (
   `rating_total_voters` int(11) NOT NULL DEFAULT 0,
   `rating_voters` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ibf_topics`
---
-
-INSERT INTO `ibf_topics` (`tid`, `title`, `description`, `state`, `posts`, `starter_id`, `start_date`, `last_poster_id`, `last_post`, `icon_id`, `starter_name`, `last_poster_name`, `poll_state`, `last_vote`, `views`, `forum_id`, `approved`, `author_mode`, `pinned`, `moved_to`, `rating`, `total_votes`, `firstpost`, `rating_total`, `rating_total_voters`, `rating_voters`) VALUES
-(2, 'Super important topic', 'Please read', 'open', 1, 1, 1777735872, 1, 1778105306, 13, 'MadRomas', 'MadRomas', '0', 0, 255, 1, 1, 1, 1, NULL, NULL, 0, 0, 1, 1, ',1,');
 
 -- --------------------------------------------------------
 
