@@ -18,10 +18,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
--- Database: `russian7_mad`
---
-
 -- --------------------------------------------------------
 
 --
@@ -146,13 +142,6 @@ CREATE TABLE `ibf_calendar_events` (
   `event_bgcolor` varchar(32) NOT NULL DEFAULT '',
   `event_color` varchar(32) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ibf_calendar_events`
---
-
-INSERT INTO `ibf_calendar_events` (`eventid`, `userid`, `year`, `month`, `mday`, `title`, `event_text`, `read_perms`, `unix_stamp`, `priv_event`, `show_emoticons`, `rating`, `event_ranged`, `event_repeat`, `repeat_unit`, `end_day`, `end_month`, `end_year`, `end_unix_stamp`, `event_bgcolor`, `event_color`) VALUES
-(1, 1, 2026, 5, 20, 'Get together', '&lt;p&gt;🔥, Get together event. Glonks unite&#33;&lt;/p&gt;', '*', 1779335999, 0, 1, 1, 0, 0, 'w', 0, 0, 0, 944024399, 'darkblue', 'white');
 
 -- --------------------------------------------------------
 
@@ -702,14 +691,6 @@ CREATE TABLE `ibf_member_extra` (
   `photo_dimensions` varchar(200) DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ibf_member_extra`
---
-
-INSERT INTO `ibf_member_extra` (`id`, `notes`, `links`, `bio`, `ta_size`, `photo_type`, `photo_location`, `photo_dimensions`) VALUES
-(1, 'You may store post snippets, or any other information you need to hand here', NULL, NULL, 's', 'upload', 'photo-1.jpg', '150,136'),
-(2, NULL, NULL, NULL, NULL, '', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -732,13 +713,6 @@ CREATE TABLE `ibf_messages` (
   `tracking` tinyint(1) DEFAULT 0,
   `read_date` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ibf_messages`
---
-
-INSERT INTO `ibf_messages` (`msg_id`, `msg_date`, `read_state`, `title`, `message`, `from_id`, `vid`, `member_id`, `recipient_id`, `attach_type`, `attach_file`, `cc_users`, `tracking`, `read_date`) VALUES
-(1, 1777679822, 0, 'dsf', '&lt;p&gt;😎&lt;/p&gt;', 1, 'unsent', 1, 1, NULL, NULL, '', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -774,13 +748,6 @@ CREATE TABLE `ibf_moderators` (
   `can_mm` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ibf_moderators`
---
-
-INSERT INTO `ibf_moderators` (`mid`, `forum_id`, `member_name`, `member_id`, `edit_post`, `edit_topic`, `delete_post`, `delete_topic`, `view_ip`, `open_topic`, `close_topic`, `mass_move`, `mass_prune`, `move_topic`, `pin_topic`, `unpin_topic`, `post_q`, `topic_q`, `allow_warn`, `edit_user`, `is_group`, `group_id`, `group_name`, `split_merge`, `can_mm`) VALUES
-(1, 1, 'MadRomas', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, NULL, NULL, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -801,35 +768,6 @@ CREATE TABLE `ibf_moderator_logs` (
   `action` varchar(128) DEFAULT NULL,
   `query_string` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ibf_moderator_logs`
---
-
-INSERT INTO `ibf_moderator_logs` (`id`, `forum_id`, `topic_id`, `post_id`, `member_id`, `member_name`, `ip_address`, `http_referer`, `ctime`, `topic_title`, `action`, `query_string`) VALUES
-(1, 1, 1, 4, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?act=ST&f=1&t=1&st=0', 1777673317, 'Welcome', 'Deleting a message', ''),
-(2, 1, 1, 5, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?&act=ST&f=1&t=1', 1777673926, 'Welcome', 'Deleting a message', ''),
-(3, 1, 1, 6, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?showtopic=1&st=0&', 1777674124, 'Welcome', 'Deleting a message', ''),
-(4, 1, 1, 7, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?&act=ST&f=1&t=1', 1777674638, 'Welcome', 'Deleting a message', ''),
-(5, 1, 1, 8, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?&act=ST&f=1&t=1', 1777675502, 'Welcome', 'Deleting a message', ''),
-(6, 1, 0, 0, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?act=Post&CODE=00&f=1', 1777735872, 'Pinned topic from post form', 'Super important topic', ''),
-(7, 1, 1, 0, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?', 1777769263, 'Welcome', 'Deleting a topic', ''),
-(8, 1, 5, 16, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?showtopic=5&st=0&', 1777844606, 'Mark Wahlberg Karaoke Performance', 'Deleting a message', ''),
-(9, 1, 5, 17, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?showtopic=5', 1777848328, 'Mark Wahlberg Karaoke Performance', 'Deleting a message', ''),
-(10, 1, 5, 0, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?act=ST&f=1&t=5&st=0', 1777851370, 'Mark Wahlberg Karaoke Performance', 'Pinning the first post of the topic', ''),
-(11, 1, 5, 0, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?act=ST&f=1&t=5&st=0', 1777851538, 'Mark Wahlberg Karaoke Performance', 'Pinning the first post of the topic', ''),
-(12, 1, 5, 0, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?act=ST&f=1&t=5', 1777851642, 'Mark Wahlberg Karaoke Performance', 'Unpinning the first fixed post of the topic', ''),
-(13, 1, 5, 0, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.php?act=ST&f=1&t=5', 1777851652, 'Mark Wahlberg Karaoke Performance', 'Pinning the first post of the topic', ''),
-(14, 1, 6, 28, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/topic6.html', 1778453679, 'Still amazed by the game', 'Deleting a message', ''),
-(15, 1, 6, 25, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/topic6s0.html', 1778454589, 'Still amazed by the game', 'Deleting a message', ''),
-(16, 1, 4, 29, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/index.html?&act=ST&f=1&t=4', 1778515675, 'Pictures testing', 'Deleting a message', ''),
-(17, 1, 6, 37, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/topic6s0.html?', 1778544613, 'Still amazed by the game', 'Deleting a message', ''),
-(18, 1, 6, 36, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/topic6s0.html', 1778544619, 'Still amazed by the game', 'Deleting a message', ''),
-(19, 1, 6, 35, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/topic6s0.html', 1778544624, 'Still amazed by the game', 'Deleting a message', ''),
-(20, 1, 6, 34, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/topic6s0.html', 1778544630, 'Still amazed by the game', 'Deleting a message', ''),
-(21, 1, 6, 33, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/topic6s0.html', 1778544635, 'Still amazed by the game', 'Deleting a message', ''),
-(22, 1, 6, 32, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/topic6s0.html', 1778544639, 'Still amazed by the game', 'Deleting a message', ''),
-(23, 1, 4, 38, 1, 'MadRomas', '107.143.11.45', 'https://hub.glonks.com/topic4.html', 1778621876, 'Pictures testing', 'Deleting a message', '');
 
 -- --------------------------------------------------------
 
@@ -939,22 +877,6 @@ CREATE TABLE `ibf_reg_antispam` (
   `ctime` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ibf_reg_antispam`
---
-
-INSERT INTO `ibf_reg_antispam` (`regid`, `regcode`, `ip_address`, `ctime`) VALUES
-('244f8b278ca58a6cc16a4c2f088da457', '503521', '107.172.195.77', 1779323475),
-('248576f0973c85420d6c993b4c895ad9', '966669', '154.28.229.174', 1779315200),
-('4c2f12b113c3ffe52dc765d479c3a0a8', '296236', '103.4.250.158', 1779319013),
-('52b20c4f153370782ffc69f722199f0b', '204645', '104.164.126.27', 1779321976),
-('52d5e7cace49346debf63e8c3a5c2289', '201821', '107.172.195.77', 1779323483),
-('797f3a7ae3cbd3a5fbfdc4fa3b125732', '306071', '104.164.126.27', 1779321966),
-('9bc57995b911b582cffde10a303bfd85', '846917', '154.28.229.174', 1779315205),
-('a5e54deb18d85408bfca2de1aa5bab73', '436713', '154.28.229.174', 1779315205),
-('b9b9ec34ca6ae2f6e1b49173e8f147fe', '193439', '107.172.195.77', 1779323483),
-('b9fdfcf7aca3fa4ec89b510bcfc08a69', '657385', '103.4.250.158', 1779319019);
-
 -- --------------------------------------------------------
 
 --
@@ -975,12 +897,6 @@ CREATE TABLE `ibf_reputation` (
   `comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ibf_reputation`
---
-
-INSERT INTO `ibf_reputation` (`msg_id`, `msg_date`, `message`, `from_id`, `member_id`, `forum_id`, `topic_id`, `post`, `CODE`, `vis`, `comment`) VALUES
-(1, 1778243380, 'hello', '1', '2', 1, '5', 19, '01', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -1014,18 +930,6 @@ CREATE TABLE `ibf_search_results` (
   `query_cache` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ibf_search_results`
---
-
-INSERT INTO `ibf_search_results` (`id`, `topic_id`, `search_date`, `topic_max`, `sort_key`, `sort_order`, `member_id`, `ip_address`, `post_id`, `post_max`, `query_cache`) VALUES
-('dfa6565eacd8298398e184504da329e8', '0', 1779272946, 0, 'last_post', 'desc', 0, '43.161.233.190', '19', 1, NULL),
-('7a8963254740dd826d561f23f8984109', '12,11', 1779279394, 2, 'last_post', 'desc', 1, '107.143.11.45', NULL, 0, NULL),
-('560eb4fb9dde279bcb39dc254a6f2c90', '12', 1779315205, 1, 'last_post', 'desc', 0, '154.28.229.174', NULL, 0, NULL),
-('2739d90e7ac145e27675e6c22368a77b', '0', 1779319022, 0, 'last_post', 'desc', 0, '103.4.250.158', '10,12,13,14,15,18,20,21,30,31,39,40,41,42,43,44', 16, NULL),
-('52e6b7c36754034d729ab83f8567c49b', '0', 1779321969, 0, 'last_post', 'desc', 0, '104.164.126.27', '10,12,13,14,15,18,20,21,30,31,39,40,41,42,43,44', 16, NULL),
-('0185cad953cd620615d134e99f6c4b84', '12', 1779323483, 1, 'last_post', 'desc', 0, '107.172.195.77', NULL, 0, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -1046,14 +950,6 @@ CREATE TABLE `ibf_sessions` (
   `in_topic` int(10) DEFAULT NULL,
   `last_post` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ibf_sessions`
---
-
-INSERT INTO `ibf_sessions` (`id`, `member_name`, `member_id`, `ip_address`, `browser`, `running_time`, `login_type`, `location`, `member_group`, `in_forum`, `in_topic`, `last_post`) VALUES
-('0297a5c55a9fd35e7ba6d44cd6daffe5', '', 0, '52.167.144.220', 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko;', 1779406041, 0, ',,', 2, 0, NULL, NULL),
-('e845c0b703a8bc2b84c2598ec2323731', '', 0, '35.171.217.30', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb', 1779406958, 0, ',,', 2, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2048,13 +1944,6 @@ CREATE TABLE `ibf_warn_logs` (
   `wlog_type` varchar(6) NOT NULL DEFAULT 'pos',
   `wlog_addedby` mediumint(8) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ibf_warn_logs`
---
-
-INSERT INTO `ibf_warn_logs` (`wlog_id`, `wlog_mid`, `wlog_notes`, `wlog_contact`, `wlog_contact_content`, `wlog_date`, `wlog_type`, `wlog_addedby`) VALUES
-(1, 1, '<content>Test warning</content><mod>,d,</mod><post>,d, </post><susp>,d</susp>', 'none', '', 1777769810, 'neg', 1);
 
 --
 -- Indexes for dumped tables
