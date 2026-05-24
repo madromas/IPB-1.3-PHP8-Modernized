@@ -75,7 +75,8 @@ $txt = preg_replace('/(?<!<a href=")<img([^>]+)src=["\'](uploads\/[^"\']+)["\'](
         $txt = str_replace('href="uploads/', 'href="'.$ibforums->vars['board_url'].'/uploads/', $txt);
         $txt = str_replace('src="uploads/', 'src="'.$ibforums->vars['board_url'].'/uploads/', $txt);
 
-        // If content starts with HTML tags, filter and return immediately
+        $txt = preg_replace('/<a\s+(?!.*target=)([^>]+)>/i', '<a $1 target="_blank">', $txt);
+
         $html_pattern = $ibforums->vars['html_detection_regex'] ?: '^<(p|div|span|ul|ol|table|br|iframe)';
         if ( preg_match( "/".$html_pattern."/i", trim($txt) ) ) {
             return $this->bad_words($txt); 
