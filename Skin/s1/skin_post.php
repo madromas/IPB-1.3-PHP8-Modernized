@@ -107,6 +107,7 @@ tinymce.PluginManager.add('spoiler_plugin', function(editor) {
       automatic_uploads: true,
       images_reuse_filename: true,
       promotion: false,
+      contextmenu: false,
       statusbar: false,
       plugins: 'image media link lists code emoticons codesample spoiler_plugin',
       toolbar: 'undo redo | bold italic underline blockquote spoiler | link media image emoticons | codesample',

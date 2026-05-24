@@ -533,6 +533,7 @@ tinymce.init({
       automatic_uploads: true,
       images_reuse_filename: true,
     statusbar: false,
+    contextmenu: false,
     plugins: 'autolink link image media emoticons codesample spoiler_plugin',
     toolbar: 'bold italic underline spoiler|link image media emoticons|codesample',
     content_css: 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap',
