@@ -2376,13 +2376,28 @@ class display {
         $ibforums->skin['template'] = str_replace( "<% CSS %>"            , $css                     , $ibforums->skin['template']);
 		$ibforums->skin['template'] = str_replace( "<% JAVASCRIPT %>"     , "$js"                       , $ibforums->skin['template']);
         $ibforums->skin['template'] = str_replace( "<% TITLE %>"          , $output_array['TITLE']   , $ibforums->skin['template']);
+
+
+       $board_name = $ibforums->vars['board_name'];
+$board_desc = $ibforums->vars['board_desc'];
+
+$clean_desc = preg_replace('/^' . preg_quote($board_name, '/') . '\s*->\s*/i', '', $output_array['TITLE']);
+
+if (empty($clean_desc) || $clean_desc == $board_name) {
+    $clean_desc = $board_desc;
+}
+
+$meta_tag = '<meta name="description" content="' . htmlspecialchars($clean_desc, ENT_QUOTES, 'UTF-8') . '">';
+
+$ibforums->skin['template'] = str_replace("<% DESCRIPTION %>", $meta_tag, $ibforums->skin['template']);
+
         $ibforums->skin['template'] = str_replace( "<% BOARD %>"          , $this->to_print          , $ibforums->skin['template']);
        $ibforums->skin['template'] = str_replace( "<% STATS %>", ($stats ?? ""), $ibforums->skin['template']);
         $ibforums->skin['template'] = str_replace( "<% GENERATOR %>"      , ""                       , $ibforums->skin['template']);
 		$ibforums->skin['template'] = str_replace( "<% COPYRIGHT %>"      , $copyright               , $ibforums->skin['template']);
 		$ibforums->skin['template'] = str_replace( "<% BOARD HEADER %>"   , $this_header             , $ibforums->skin['template']);
 		$ibforums->skin['template'] = str_replace( "<% NAVIGATION %>"     , $nav                     , $ibforums->skin['template']);
-		
+
 		if ( empty($output_array['OVERRIDE']) )
 		{
       	    $ibforums->skin['template'] = str_replace( "<% MEMBER BAR %>"     , $output_array['MEMBER_BAR'], $ibforums->skin['template']);
